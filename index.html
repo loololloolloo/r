@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ryan Games</title>
+  <meta name="description" content="Ryan Games - free unblocked browser games.">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ================= Header ================= -->
+  <header class="rg-header position-sticky top-0 d-flex align-items-center gap-2 px-3">
+    <button class="rg-icon-btn d-lg-none" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#sidebarLeft"
+            aria-controls="sidebarLeft" aria-label="Open menu">
+      <svg class="rg-svg"><use href="assets/svg/svg-map.svg#menu" xlink:href="assets/svg/svg-map.svg#menu"></use></svg>
+    </button>
+
+    <a class="rg-brand d-flex align-items-center gap-2 me-auto" href="index.html">
+      <span class="rg-brand-mark">R</span>
+      <span>Ryan Games</span>
+    </a>
+
+    <form class="rg-search d-none d-md-block" role="search" onsubmit="return false;">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text bg-transparent border-end-0">
+          <svg class="rg-svg"><use href="assets/svg/svg-map.svg#search" xlink:href="assets/svg/svg-map.svg#search"></use></svg>
+        </span>
+        <input class="form-control border-start-0" type="search" placeholder="Search games" aria-label="Search games">
+      </div>
+    </form>
+
+    <button class="rg-icon-btn d-lg-none" type="button"
+            data-bs-toggle="offcanvas" data-bs-target="#sidebarRight"
+            aria-controls="sidebarRight" aria-label="Open info panel">
+      <svg class="rg-svg"><use href="assets/svg/svg-map.svg#menu-mobile" xlink:href="assets/svg/svg-map.svg#menu-mobile"></use></svg>
+    </button>
+  </header>
+
+  <!-- ================= Shell ================= -->
+  <div class="rg-shell d-lg-flex">
+
+    <!-- ---------- Left sidebar (primary nav) ---------- -->
+    <aside class="rg-sidebar rg-sidebar-start offcanvas-lg offcanvas-start" tabindex="-1"
+           id="sidebarLeft" aria-label="Primary">
+      <div class="offcanvas-header d-lg-none">
+        <h2 class="offcanvas-title fs-6">Menu</h2>
+        <button class="rg-icon-btn border-0" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarLeft" aria-label="Close">
+          <svg class="rg-svg"><use href="assets/svg/svg-map.svg#close" xlink:href="assets/svg/svg-map.svg#close"></use></svg>
+        </button>
+      </div>
+
+      <div class="rg-sidebar-title">Browse</div>
+      <nav class="rg-nav">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house rg-nav-icon"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-clock-history rg-nav-icon"></i>Recently Played</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-stars rg-nav-icon"></i>New</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-shuffle rg-nav-icon"></i>Random</a></li>
+        </ul>
+      </nav>
+
+      <div class="rg-sidebar-title">Categories</div>
+      <nav class="rg-nav">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-people rg-nav-icon"></i>2 Player</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-bounding-box rg-nav-icon"></i>2D</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-box rg-nav-icon"></i>3D</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-lightning-charge rg-nav-icon"></i>Action</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-compass rg-nav-icon"></i>Adventure</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-joystick rg-nav-icon"></i>Arcade</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-car-front rg-nav-icon"></i>Car</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-hand-index rg-nav-icon"></i>Clicker</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-wind rg-nav-icon"></i>Drift</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-truck-front rg-nav-icon"></i>Driving</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-gender-female rg-nav-icon"></i>Girl</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-globe2 rg-nav-icon"></i>.io Games</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-balloon rg-nav-icon"></i>Kids</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-boxes rg-nav-icon"></i>Minecraft</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-phone rg-nav-icon"></i>Mobile</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-people-fill rg-nav-icon"></i>Multiplayer</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-grid-3x3 rg-nav-icon"></i>Pixel</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-puzzle rg-nav-icon"></i>Puzzle</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-flag-checkered rg-nav-icon"></i>Racing</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-crosshair rg-nav-icon"></i>Shooting</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-sliders rg-nav-icon"></i>Simulator</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-bullseye rg-nav-icon"></i>Sniper</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-trophy rg-nav-icon"></i>Sports</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-diagram-3 rg-nav-icon"></i>Strategy</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-tags rg-nav-icon"></i>All Tags</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ---------- Main content ---------- -->
+    <main class="rg-main flex-grow-1">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h1 class="h4 mb-0">Ryan Games</h1>
+        <span class="badge text-bg-secondary">Phase 1 &middot; shell</span>
+      </div>
+
+      <div class="p-4 rounded-3 border" style="background-color: var(--rg-surface);">
+        <h2 class="h5">Site shell is up.</h2>
+        <p class="text-body-secondary mb-0">
+          Two sidebars are in place: primary navigation on the left, info panel on the right.
+          Game cards and playable games come next.
+        </p>
+      </div>
+    </main>
+
+    <!-- ---------- Right sidebar (info panel) ---------- -->
+    <aside class="rg-sidebar rg-sidebar-end offcanvas-lg offcanvas-end" tabindex="-1"
+           id="sidebarRight" aria-label="Secondary">
+      <div class="offcanvas-header d-lg-none">
+        <h2 class="offcanvas-title fs-6">Info</h2>
+        <button class="rg-icon-btn border-0" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarRight" aria-label="Close">
+          <svg class="rg-svg"><use href="assets/svg/svg-map.svg#close" xlink:href="assets/svg/svg-map.svg#close"></use></svg>
+        </button>
+      </div>
+
+      <div class="rg-sidebar-title">Search</div>
+      <div class="px-3 pb-3">
+        <form role="search" onsubmit="return false;">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-transparent border-end-0">
+              <svg class="rg-svg"><use href="assets/svg/svg-map.svg#search" xlink:href="assets/svg/svg-map.svg#search"></use></svg>
+            </span>
+            <input class="form-control border-start-0" type="search" placeholder="Find a game" aria-label="Find a game">
+          </div>
+        </form>
+      </div>
+
+      <div class="rg-sidebar-title">Quick Links</div>
+      <div class="rg-widget">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link px-0 py-1" href="#"><i class="bi bi-fire me-2"></i>Top Games</a></li>
+          <li class="nav-item"><a class="nav-link px-0 py-1" href="#"><i class="bi bi-stars me-2"></i>New Games</a></li>
+          <li class="nav-item"><a class="nav-link px-0 py-1" href="#"><i class="bi bi-shuffle me-2"></i>Random Game</a></li>
+        </ul>
+      </div>
+
+      <div class="rg-sidebar-title">Follow Us</div>
+      <div class="rg-widget">
+        <div class="rg-social">
+          <a href="#" aria-label="Facebook"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#facebook" xlink:href="assets/svg/svg-map.svg#facebook"></use></svg></a>
+          <a href="#" aria-label="Twitter"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#twitter" xlink:href="assets/svg/svg-map.svg#twitter"></use></svg></a>
+          <a href="#" aria-label="Instagram"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#instagram" xlink:href="assets/svg/svg-map.svg#instagram"></use></svg></a>
+          <a href="#" aria-label="YouTube"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#youtube" xlink:href="assets/svg/svg-map.svg#youtube"></use></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#whatsapp" xlink:href="assets/svg/svg-map.svg#whatsapp"></use></svg></a>
+          <a href="#" aria-label="Pinterest"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#pinterest" xlink:href="assets/svg/svg-map.svg#pinterest"></use></svg></a>
+        </div>
+      </div>
+
+      <div class="rg-sidebar-title">About</div>
+      <div class="rg-widget">
+        <p class="text-body-secondary small mb-2">
+          Free unblocked browser games. No downloads, no sign-up.
+        </p>
+        <a class="link-primary small" href="#" data-rg-top>
+          <svg class="rg-svg me-1"><use href="assets/svg/svg-map.svg#toparrow" xlink:href="assets/svg/svg-map.svg#toparrow"></use></svg>Back to top
+        </a>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

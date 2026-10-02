@@ -1,0 +1,29 @@
+# Ryan Games
+
+Static games website ("Ryan Games"). No build step, no framework, no npm.
+Hosted on GitHub Pages, so every asset must be relative-path and static.
+
+- Repo: `loololloolloo/r` (default branch `main`). Also has an empty `games` branch.
+- Work happens in `/workspace/r` (the clone). `/workspace/project` is a scratch dir.
+
+## Conventions
+- Styling: Bootstrap 5.3.3 via CDN, dark theme (`<html data-bs-theme="dark">`).
+- No accent color — stick to Bootstrap dark palette + its default blue `#0d6efd`.
+- Layout: two vertical sidebars flanking the content — left = primary nav, right = secondary panel.
+- Icons: local SVG sprite at `assets/svg/svg-map.svg`, sourced from onlinegames.io
+  (`assets/svg/svg-map.svg` + inline page SVGs: menu, menu-mobile, close, youtube-round).
+  Category nav icons use Bootstrap Icons (onlinegames.io itself has no per-category icons;
+  its own arrow icons are Bootstrap Icons too).
+- All paths relative (GitHub Pages serves from a subpath).
+
+## Dev
+- Local serve: `python3 -m http.server 12000 --bind 0.0.0.0` from repo root.
+- Forwarded preview: https://work-1-rddqiwdridmxqtos.prod-runtime.all-hands.dev/ (port 12000)
+- Layout: `<header class="rg-header">` (sticky) + `.rg-shell.d-lg-flex` holding
+  `<aside id="sidebarLeft">` (start), `<main class="rg-main">`, `<aside id="sidebarRight">` (end).
+  On <lg they become Bootstrap offcanvas panels toggled from the header buttons.
+
+## Roadmap
+- Phase 1 (done): dark shell, left + right sidebars, icons, port-forward preview.
+- Phase 2: hub page with game cards (replace placeholder card in `index.html`).
+- Phase 3: games (one self-registering JS module each) + shared game shell.

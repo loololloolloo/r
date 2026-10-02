@@ -1,0 +1,226 @@
+:root {
+  --rg-header-h: 56px;
+  --rg-sidebar-left-w: 232px;
+  --rg-sidebar-right-w: 264px;
+  --rg-surface: #181b1f;
+  --rg-surface-2: #1d2126;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--bs-body-bg);
+}
+
+/* ---------- Header ---------- */
+.rg-header {
+  height: var(--rg-header-h);
+  background-color: var(--rg-surface);
+  border-bottom: 1px solid var(--bs-border-color);
+  z-index: 1030;
+}
+
+.rg-brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--bs-body-color);
+  text-decoration: none;
+}
+
+.rg-brand:hover {
+  color: var(--bs-body-color);
+}
+
+.rg-brand .rg-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: var(--bs-primary);
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.rg-header .rg-search .form-control {
+  background-color: var(--rg-surface-2);
+}
+
+.rg-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--bs-secondary-color);
+}
+
+.rg-icon-btn:hover,
+.rg-icon-btn:focus-visible {
+  color: var(--bs-body-color);
+  border-color: var(--bs-secondary-color);
+}
+
+/* ---------- Shell ---------- */
+.rg-shell {
+  align-items: stretch;
+}
+
+.rg-main {
+  min-width: 0;
+  padding: 1.5rem;
+}
+
+/* ---------- Sidebars ---------- */
+.rg-sidebar {
+  background-color: var(--rg-surface);
+  border-right: 1px solid var(--bs-border-color);
+  color: var(--bs-secondary-color);
+}
+
+.rg-sidebar-end {
+  border-right: 0;
+  border-left: 1px solid var(--bs-border-color);
+}
+
+.rg-sidebar .offcanvas-header {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.rg-sidebar-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bs-tertiary-color);
+  padding: 1rem 1rem 0.5rem;
+}
+
+.rg-nav {
+  padding: 0 0.5rem 1rem;
+}
+
+.rg-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  color: var(--bs-secondary-color);
+  font-size: 0.925rem;
+}
+
+.rg-nav .nav-link:hover {
+  color: var(--bs-body-color);
+  background-color: var(--rg-surface-2);
+}
+
+.rg-nav .nav-link.active {
+  color: var(--bs-body-color);
+  background-color: rgba(var(--bs-primary-rgb), 0.12);
+  border-left-color: var(--bs-primary);
+}
+
+.rg-nav .nav-link .rg-nav-icon {
+  flex: 0 0 auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+}
+
+/* ---------- Icon sizing for <use> sprite icons ---------- */
+.rg-svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+.rg-svg-lg {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+/* ---------- Right sidebar widgets ---------- */
+.rg-widget {
+  margin: 0 0.75rem 0.75rem;
+  padding: 0.85rem 0.9rem;
+  background-color: var(--rg-surface-2);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 10px;
+}
+
+.rg-widget-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--bs-body-color);
+  margin-bottom: 0.5rem;
+}
+
+.rg-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.rg-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: var(--rg-surface);
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-secondary-color);
+}
+
+.rg-social a:hover {
+  color: var(--bs-body-color);
+  border-color: var(--bs-secondary-color);
+}
+
+/* ---------- Desktop: pin sidebars, keep them sticky ---------- */
+@media (min-width: 992px) {
+  .rg-sidebar {
+    position: sticky;
+    top: var(--rg-header-h);
+    height: calc(100vh - var(--rg-header-h));
+    overflow-y: auto;
+    flex: 0 0 auto;
+  }
+
+  .rg-sidebar-start {
+    width: var(--rg-sidebar-left-w);
+  }
+
+  .rg-sidebar-end {
+    width: var(--rg-sidebar-right-w);
+  }
+}
+
+/* ---------- Mobile: offcanvas sidebars ---------- */
+@media (max-width: 991.98px) {
+  .rg-sidebar {
+    width: min(84vw, 300px);
+  }
+}
+
+/* ---------- Scrollbars ---------- */
+.rg-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.rg-sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+}
