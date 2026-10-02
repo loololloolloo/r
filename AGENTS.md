@@ -1,10 +1,12 @@
-# Ryan Games
+# Games
 
-Static games website ("Ryan Games"). No build step, no framework, no npm.
+Static games website ("Games"). No build step, no framework, no npm.
 Hosted on GitHub Pages, so every asset must be relative-path and static.
 
 - Repo: `loololloolloo/r` (default branch `main`). Also has an empty `games` branch.
 - Work happens in `/workspace/r` (the clone). `/workspace/project` is a scratch dir.
+- Brand: name is "Games"; navbar uses `assets/img/logo.png` (Amazon Games logo,
+  transparent PNG, pre-cropped) instead of text. Note it is a third-party trademark.
 
 ## Conventions
 - Styling: Bootstrap 5.3.3 via CDN, dark theme (`<html data-bs-theme="dark">`).

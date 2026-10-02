@@ -28,14 +28,13 @@ body {
 }
 
 .rg-brand {
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  color: var(--bs-body-color);
-  text-decoration: none;
+  padding: 0;
 }
 
-.rg-brand:hover {
-  color: var(--bs-body-color);
+.rg-logo {
+  display: block;
+  height: 34px;
+  width: auto;
 }
 
 .rg-header .navbar-nav .nav-link {
