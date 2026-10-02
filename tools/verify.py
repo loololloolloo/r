@@ -115,7 +115,13 @@ LOADER = r"""(()=>{
             Math.abs((lb.top+lb.height/2)-(sb.top+sb.height/2))<2,
    infoBg:getComputedStyle(document.getElementById('gameInfoContainer')).backgroundColor,
    infoRows:document.querySelectorAll('.cg-info-row').length,
-   infoTitle:(document.getElementById('cgStageTitle')||{}).textContent};})()"""
+   infoTitle:(document.getElementById('cgStageTitle')||{}).textContent,
+   moreCards:document.querySelectorAll('#cgMoreGrid .cg-card').length,
+   moreInInfo:!!document.querySelector('#gameInfoContainer .cg-info-grid'),
+   moreCols:(()=>{const g=document.getElementById('cgMoreGrid');
+     return g?getComputedStyle(g).gridTemplateColumns.split(' ').length:0;})(),
+   moreTitles:[...document.querySelectorAll('#cgMoreGrid .cg-card-title')]
+     .slice(0,3).map(t=>t.textContent)};})()"""
 
 
 def main():
@@ -206,6 +212,13 @@ def main():
           load.get("infoBg") == "rgb(26, 27, 40)" and load.get("infoRows") >= 4
           and load.get("infoTitle") == "2048",
           json.dumps({k: load.get(k) for k in ("infoBg", "infoRows", "infoTitle")}))
+    # The archive puts a related-games grid inside the info area, under the
+    # description, using the same card component as the rest of the site.
+    check("related cards in the info area",
+          load.get("moreInInfo") is True and load.get("moreCards") >= 12
+          and load.get("moreCols") >= 2 and len(load.get("moreTitles") or []) == 3,
+          json.dumps({k: load.get(k) for k in
+                      ("moreInInfo", "moreCards", "moreCols", "moreTitles")}))
 
     # Every local asset the page asks for must resolve. Relative URLs inside
     # assets/cg/archive.css resolve from that directory, not the site root, so a

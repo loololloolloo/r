@@ -391,12 +391,28 @@ def build_play(games):
       'Play ' + g.title + ' for free in your browser. No download, no install.';
 
     document.getElementById('cgFrame').src = g.embed;
-    var related = games.filter(function (x) { return x.slug !== g.slug; }).slice(0, 20);
-    document.getElementById('cgSideList').innerHTML = related.map(function (x) {
-      return '<li><a class="cg-card" href="/play?g=' + x.slug + '">' +
-        '<div class="cg-card-title">' + x.title + '</div>' +
-        '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt=""></a></li>';
-    }).join('');
+
+    // Related first (shared category), then the rest, so the section shows
+    // genre-mates instead of the catalogue's first alphabetical entries.
+    var cats = g.categories || [];
+    var others = games.filter(function (x) { return x.slug !== g.slug; });
+    var sameCat = others.filter(function (x) {
+      return (x.categories || []).some(function (c) { return cats.indexOf(c) >= 0; });
+    });
+    var related = sameCat.concat(others.filter(function (x) {
+      return sameCat.indexOf(x) < 0;
+    }));
+
+    function cards(list) {
+      return list.map(function (x) {
+        return '<li><a class="cg-card" href="/play?g=' + x.slug + '">' +
+          '<div class="cg-card-title">' + x.title + '</div>' +
+          '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt=""></a></li>';
+      }).join('');
+    }
+
+    document.getElementById('cgSideList').innerHTML = cards(related.slice(0, 20));
+    document.getElementById('cgMoreGrid').innerHTML = cards(related.slice(0, 24));
   })();
   </script>"""
 
@@ -433,6 +449,11 @@ def build_play(games):
             </div>
             <hr class="cg-info-divider">
             <div class="cg-info-desc"><p id="cgMetaDesc"></p></div>
+            <hr class="cg-info-divider">
+            <div class="cg-info-more">
+              <h2 class="cg-info-more-title">More games</h2>
+              <ul class="cg-grid cg-info-grid" id="cgMoreGrid"></ul>
+            </div>
           </div>
         </div>
         <aside class="cg-play-side">

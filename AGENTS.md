@@ -213,5 +213,8 @@ theme layer sits on top:
   is shipped (`assets/cg/archive.css`), the shell is rebuilt in
   `tools/build-archive.py`, and `tools/verify.py` proves the geometry matches the
   archive (header 60px, rail 60px, cards 218×124, play 922px player + 364px
-  sidebar at x=102). Awaiting user sign-off on the UI **before** any further game work.
+  sidebar at x=102). The game page now carries the archive's loading screen
+  (MUI ring, rotate-only) and info bar, plus a related-games card grid inside the
+  info area under the description. Awaiting user sign-off on the UI **before**
+  any further game work.
 - Next: more games/categories, and revisit anything that refuses to be framed.

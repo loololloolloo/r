@@ -533,6 +533,17 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-info-desc p { margin: 0 0 1em; }
 
+/* Related cards inside the info area (archive renders these under the
+   description). Same card component as the sidebar, just a wider grid. */
+.cg-info-more-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--cg-fg);
+}
+
+.cg-info-grid { margin-bottom: 4px; }
+
 .cg-chip {
   display: inline-flex;
   align-items: center;
