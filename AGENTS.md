@@ -197,6 +197,12 @@ theme layer sits on top:
 - Custom domain: `games.gazeee.xyz` (CNAME file at repo root, content `games.gazeee.xyz`).
   Needs a DNS record: `CNAME games -> loololloolloo.github.io`.
 - Both `main` and `games` are kept in sync at the same commit.
+- **Cache busting:** the pages link `cg.css`/`cg-site.js` with a `?v=<hash>` token
+  that `tools/build-archive.py` derives from the asset contents. Never replace it
+  with a hand-kept number: Pages serves `cg.css` with `max-age=14400` but the HTML
+  with `max-age=600`, so a rebuilt stylesheet under an unchanged URL leaves
+  returning visitors on the old CSS for hours (the new markup looks unstyled).
+  Editing any asset now changes the token automatically.
 
 ## Roadmap
 - Phase 1 (done): dark shell, left sidebar + top navbar, icons, port-forward preview.
