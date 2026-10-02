@@ -102,11 +102,20 @@ LOADER = r"""(()=>{
  const sp=l.querySelector('.cg-spinner');
  const c=sp.querySelector('circle');
  const sc=getComputedStyle(sp);
+ const lb=l.getBoundingClientRect();
+ const sb=sp.getBoundingClientRect();
  return {hiddenAfterLoad:l.hidden, box:parseInt(sc.width,10),
    strokeWidth:getComputedStyle(c).strokeWidth,
    dash:getComputedStyle(c).strokeDasharray,
    anim:getComputedStyle(sp).animationName,
-   dashAnim:getComputedStyle(c).animationName};})()"""
+   dashAnim:getComputedStyle(c).animationName,
+   bg:getComputedStyle(l).backgroundColor,
+   playerBg:getComputedStyle(document.querySelector('.cg-player')).backgroundColor,
+   centered:Math.abs((lb.left+lb.width/2)-(sb.left+sb.width/2))<2 &&
+            Math.abs((lb.top+lb.height/2)-(sb.top+sb.height/2))<2,
+   infoBg:getComputedStyle(document.getElementById('gameInfoContainer')).backgroundColor,
+   infoRows:document.querySelectorAll('.cg-info-row').length,
+   infoTitle:(document.getElementById('cgStageTitle')||{}).textContent};})()"""
 
 
 def main():
@@ -182,10 +191,21 @@ def main():
           json.dumps(sbox))
     check("player loader hides after load", load.get("hiddenAfterLoad") is True,
           json.dumps(load))
+    # Archive GameContainer: MUI CircularProgress with disableShrink on #13141E.
+    # The ring only rotates; the dash must stay at the disableShrink 80px/200px.
     check("player loader matches archive spinner",
           load.get("box") == 40 and load.get("strokeWidth") == "3.6px"
-          and load.get("anim") == "cg-spin" and load.get("dashAnim") == "cg-dash",
+          and load.get("dash") == "80px, 200px" and load.get("anim") == "cg-spin"
+          and load.get("dashAnim") == "none"
+          and load.get("bg") == "rgb(19, 20, 30)"
+          and load.get("playerBg") == "rgb(19, 20, 30)"
+          and load.get("centered") is True,
           json.dumps(load))
+    # The CrazyGames game-page GUI around the player: details rows on #1A1B28.
+    check("game info bar matches archive",
+          load.get("infoBg") == "rgb(26, 27, 40)" and load.get("infoRows") >= 4
+          and load.get("infoTitle") == "2048",
+          json.dumps({k: load.get(k) for k in ("infoBg", "infoRows", "infoTitle")}))
 
     # Every local asset the page asks for must resolve. Relative URLs inside
     # assets/cg/archive.css resolve from that directory, not the site root, so a

@@ -396,7 +396,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background-color: #000;
+  background-color: #13141e;
 }
 
 .cg-frame {
@@ -406,10 +406,11 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: block;
 }
 
-/* Player loader. The archive shows a MUI CircularProgress while the game
-   boots: a 40px spinning ring, stroke 3.6, r 20.2 in a 44x44 viewBox. The
-   ring's dash/rotate keyframes live in an external chunk we do not ship, so
-   the standard MUI values are inlined here. */
+/* Player loader. The archive's GameContainer renders a MUI CircularProgress
+   with disableShrink while the game boots, on a #13141E surface: a 40px ring
+   (stroke 3.6, r 20.2 in a 44x44 viewBox) that only rotates - the dash stays
+   at the MUI disableShrink value of 80px/200px. The rotate keyframes live in
+   an external chunk we do not ship, so they are inlined here. */
 .cg-loader {
   position: absolute;
   inset: 0;
@@ -417,7 +418,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
+  background-color: #13141e;
 }
 
 .cg-loader[hidden] { display: none; }
@@ -435,62 +436,102 @@ ul { list-style: none; margin: 0; padding: 0; }
   stroke: currentColor;
   stroke-dasharray: 80px, 200px;
   stroke-dashoffset: 0;
-  animation: cg-dash 1.4s ease-in-out infinite;
 }
 
 @keyframes cg-spin {
   to { transform: rotate(360deg); }
 }
 
-@keyframes cg-dash {
-  0% { stroke-dasharray: 1px, 200px; stroke-dashoffset: 0; }
-  50% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -15px; }
-  100% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -125px; }
+/* Game-page info bar below the player (archive .css-53v9w1): our panel with
+   the details rows, divider and description, on #1A1B28. */
+.cg-info {
+  margin-top: 8px;
+  padding: 16px 8px 16px 24px;
+  border-radius: 8px;
+  background-color: #1a1b28;
+  color: #fff;
+  line-height: 1.5;
 }
 
-.cg-stage {
+.cg-info-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 16px;
+  padding-bottom: 8px;
 }
 
-.cg-stage-title {
+.cg-info-title {
   margin: 0;
   font-size: 20px;
   font-weight: 900;
-  color: var(--cg-fg);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.167;
+  color: #fff;
 }
 
-.cg-stage-actions {
+.cg-info-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex: 0 0 auto;
-}
-
-.cg-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin-top: 12px;
 }
 
-.cg-rating {
+/* Archive .css-z5cqsz / .css-8biokx rounded button */
+.cg-pill {
   display: inline-flex;
   align-items: center;
-  height: 32px;
-  padding: 0 12px;
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
   border-radius: 30px;
-  background-color: var(--cg-card);
-  font-size: 13px;
-  font-weight: 700;
+  background: #373952;
+  color: #f9faff;
+  font-family: Nunito, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 250ms ease;
 }
+
+.cg-pill:hover { background: #454770; color: #fff; }
+.cg-pill svg { width: 24px; height: 24px; margin-right: 8px; fill: currentColor; flex: 0 0 auto; }
+
+.cg-info-rows { padding: 8px 0; }
+
+.cg-info-row { display: flex; min-height: 29px; }
+
+/* Archive .css-n8optg label column */
+.cg-info-label {
+  width: 110px;
+  flex-shrink: 0;
+  color: #767a8e;
+}
+
+/* Archive .css-16rvtsf value cell */
+.cg-info-value {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cg-info-value b { font-weight: 900; }
+
+.cg-votes { font-size: 12px; font-weight: 400; }
+
+/* Archive .css-krtp4i divider */
+.cg-info-divider {
+  margin: 4px 0 20px;
+  border: 0;
+  border-top: thin solid rgba(255, 255, 255, 0.12);
+  width: calc(100% - 16px);
+}
+
+.cg-info-desc p { margin: 0 0 1em; }
 
 .cg-chip {
   display: inline-flex;
@@ -505,10 +546,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .cg-chip:hover { background-color: var(--cg-card-hover); }
-
-.cg-about-game { margin-top: 24px; }
-.cg-about-game h2 { margin: 0 0 8px; font-size: 16px; font-weight: 900; }
-.cg-about-game p { margin: 0; color: var(--cg-dim); line-height: 1.6; }
 
 /* Right sidebar of the play page (archive: 364px) */
 .cg-side-title {
@@ -599,7 +636,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 
   .cg-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 
-  .cg-stage { flex-direction: column; align-items: flex-start; }
+  .cg-info-head { flex-direction: column; align-items: flex-start; }
+  .cg-info-label { width: 96px; }
 
   .cg-side-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

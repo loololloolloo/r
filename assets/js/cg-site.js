@@ -189,18 +189,25 @@
     var h1 = document.getElementById("cgStageTitle");
     if (h1) h1.textContent = game.title;
 
-    var meta = document.getElementById("cgMeta");
+    var meta = document.getElementById("cgMetaRating");
     if (meta) {
-      var bits = [];
-      if (game.rating) {
-        bits.push('<span class="cg-rating">' + Number(game.rating).toFixed(1) +
-                  "</span>");
-      }
-      (game.categories || []).forEach(function (c) {
-        bits.push('<a class="cg-chip" href="/?category=' +
-                  encodeURIComponent(c) + '">' + esc(c) + "</a>");
-      });
-      meta.innerHTML = bits.join("");
+      meta.innerHTML = game.rating
+        ? '<b>' + Number(game.rating).toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
+        : "Not rated yet";
+    }
+
+    var cats = document.getElementById("cgMetaCats");
+    if (cats) {
+      cats.innerHTML = (game.categories || []).map(function (c) {
+        return '<a class="cg-chip" href="/?category=' +
+          encodeURIComponent(c) + '">' + esc(c) + "</a>";
+      }).join("") || "<span>Casual</span>";
+    }
+
+    var desc = document.getElementById("cgMetaDesc");
+    if (desc) {
+      desc.textContent = "Play " + game.title +
+        " for free in your browser. No download, no install.";
     }
 
     var side = document.getElementById("cgSideList");
