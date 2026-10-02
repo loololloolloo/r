@@ -7,6 +7,9 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 - Work happens in `/workspace/r` (the clone). `/workspace/project` is a scratch dir.
 - Brand: name is "Games"; navbar uses `assets/img/logo.png` (Amazon Games logo,
   transparent PNG, pre-cropped) instead of text. Note it is a third-party trademark.
+  Always keep explicit `width`/`height` on the `<img>`: the source is 384x184, so
+  without them a stale or missing stylesheet makes it render at natural size and
+  blows the navbar up. Favicon is `assets/img/favicon.png`, generated from the logo.
 
 ## Conventions
 - Styling: Bootstrap 5.3.3 via CDN, dark theme (`<html data-bs-theme="dark">`).
