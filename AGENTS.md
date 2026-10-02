@@ -28,6 +28,13 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
   feedback loop (border adds 1px per frame and the navbar grows forever). Header
   `min-height` must stay a literal.
 
+## Deploy
+- GitHub Pages serves from the **`games`** branch, path `/` — NOT `main`.
+  Pushing to `main` alone will not update the live site.
+- Custom domain: `games.gazeee.xyz` (CNAME file at repo root, content `games.gazeee.xyz`).
+  Needs a DNS record: `CNAME games -> loololloolloo.github.io`.
+- Both `main` and `games` are kept in sync at the same commit.
+
 ## Roadmap
 - Phase 1 (done): dark shell, left sidebar + top navbar, icons, port-forward preview.
 - Phase 2: hub page with game cards (replace placeholder card in `index.html`).
