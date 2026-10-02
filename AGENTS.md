@@ -33,14 +33,10 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
   top navbar holding brand, quick links, search and back-to-top. The right sidebar and
   the social row were removed by request. On <lg the sidebar becomes a Bootstrap
   offcanvas panel toggled from the navbar.
-- Below xl the top navbar is a dropdown panel, NOT Bootstrap's Collapse. The panel
-  is `position: absolute; top: 100%` and animates open/closed via the `.rg-open`
-  class (opacity + translateY, 0.22s). Bootstrap's Collapse animates height, which
-  cannot combine with an absolutely-positioned overlay and left the panel stuck
-  open; an inline collapse also grows the header to ~316px and shoves the page
-  down. `main.js` toggles `.rg-open` and closes on link choice, outside click, or
-  Escape, all guarded to `max-width: 1199.98px`. Motion respects
-  `prefers-reduced-motion`.
+- The top navbar has no collapsed/dropdown state. Below xl it simply shows the brand
+  (the hamburger on the left opens the sidebar offcanvas); from xl up it also shows the
+  quick links, About, search and back-to-top. Earlier attempts at a dropdown panel were
+  removed — do not reintroduce one without a clear reason.
 - `--rg-header-h` is written by `main.js` (ResizeObserver on the header) and read by the
   sidebar's sticky offset. Never size the header itself from that variable — it creates a
   feedback loop (border adds 1px per frame and the navbar grows forever). Header
