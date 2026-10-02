@@ -19,11 +19,12 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 ## Dev
 - Local serve: `python3 -m http.server 12000 --bind 0.0.0.0` from repo root.
 - Forwarded preview: https://work-1-rddqiwdridmxqtos.prod-runtime.all-hands.dev/ (port 12000)
-- Layout: `<header class="rg-header">` (sticky) + `.rg-shell.d-lg-flex` holding
-  `<aside id="sidebarLeft">` (start), `<main class="rg-main">`, `<aside id="sidebarRight">` (end).
-  On <lg they become Bootstrap offcanvas panels toggled from the header buttons.
+- Layout: one left sidebar for primary nav (`<aside id="sidebarLeft">`), flanked by a
+  top navbar holding brand, quick links, search, social icons and back-to-top.
+  The right sidebar was removed by request. On <lg the sidebar becomes a Bootstrap
+  offcanvas panel toggled from the navbar.
 
 ## Roadmap
-- Phase 1 (done): dark shell, left + right sidebars, icons, port-forward preview.
+- Phase 1 (done): dark shell, left sidebar + top navbar, icons, port-forward preview.
 - Phase 2: hub page with game cards (replace placeholder card in `index.html`).
 - Phase 3: games (one self-registering JS module each) + shared game shell.

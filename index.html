@@ -13,33 +13,57 @@
 </head>
 <body>
 
-  <!-- ================= Header ================= -->
-  <header class="rg-header position-sticky top-0 d-flex align-items-center gap-2 px-3">
-    <button class="rg-icon-btn d-lg-none" type="button"
-            data-bs-toggle="offcanvas" data-bs-target="#sidebarLeft"
-            aria-controls="sidebarLeft" aria-label="Open menu">
-      <svg class="rg-svg"><use href="assets/svg/svg-map.svg#menu" xlink:href="assets/svg/svg-map.svg#menu"></use></svg>
-    </button>
+  <!-- ================= Top navbar ================= -->
+  <header class="rg-header sticky-top">
+    <nav class="navbar navbar-expand-xl">
+      <div class="container-fluid px-3 h-100">
 
-    <a class="rg-brand d-flex align-items-center gap-2 me-auto" href="index.html">
-      <span class="rg-brand-mark">R</span>
-      <span>Ryan Games</span>
-    </a>
+        <button class="rg-icon-btn d-lg-none me-2" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#sidebarLeft"
+                aria-controls="sidebarLeft" aria-label="Open menu">
+          <svg class="rg-svg"><use href="assets/svg/svg-map.svg#menu" xlink:href="assets/svg/svg-map.svg#menu"></use></svg>
+        </button>
 
-    <form class="rg-search d-none d-md-block" role="search" onsubmit="return false;">
-      <div class="input-group input-group-sm">
-        <span class="input-group-text bg-transparent border-end-0">
-          <svg class="rg-svg"><use href="assets/svg/svg-map.svg#search" xlink:href="assets/svg/svg-map.svg#search"></use></svg>
-        </span>
-        <input class="form-control border-start-0" type="search" placeholder="Search games" aria-label="Search games">
+        <a class="navbar-brand rg-brand me-xl-3" href="index.html">Ryan Games</a>
+
+        <button class="navbar-toggler rg-icon-btn border-0 ms-auto" type="button"
+                data-bs-toggle="collapse" data-bs-target="#rgTopNav"
+                aria-controls="rgTopNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="rgTopNav">
+          <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+            <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-fire me-1"></i>Top Games</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-stars me-1"></i>New Games</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-shuffle me-1"></i>Random Game</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-info-circle me-1"></i>About</a></li>
+          </ul>
+
+          <form class="rg-search my-2 my-xl-0 me-xl-3" role="search" onsubmit="return false;">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text bg-transparent border-end-0">
+                <svg class="rg-svg"><use href="assets/svg/svg-map.svg#search" xlink:href="assets/svg/svg-map.svg#search"></use></svg>
+              </span>
+              <input class="form-control border-start-0" type="search" placeholder="Search games" aria-label="Search games">
+            </div>
+          </form>
+
+          <div class="rg-social my-2 my-xl-0 me-xl-2">
+            <a href="#" aria-label="Facebook"><svg class="rg-svg"><use href="assets/svg/svg-map.svg#facebook" xlink:href="assets/svg/svg-map.svg#facebook"></use></svg></a>
+            <a href="#" aria-label="Twitter"><svg class="rg-svg"><use href="assets/svg/svg-map.svg#twitter" xlink:href="assets/svg/svg-map.svg#twitter"></use></svg></a>
+            <a href="#" aria-label="Instagram"><svg class="rg-svg"><use href="assets/svg/svg-map.svg#instagram" xlink:href="assets/svg/svg-map.svg#instagram"></use></svg></a>
+            <a href="#" aria-label="YouTube"><svg class="rg-svg"><use href="assets/svg/svg-map.svg#youtube" xlink:href="assets/svg/svg-map.svg#youtube"></use></svg></a>
+            <a href="#" aria-label="WhatsApp"><svg class="rg-svg"><use href="assets/svg/svg-map.svg#whatsapp" xlink:href="assets/svg/svg-map.svg#whatsapp"></use></svg></a>
+            <a href="#" aria-label="Pinterest"><svg class="rg-svg"><use href="assets/svg/svg-map.svg#pinterest" xlink:href="assets/svg/svg-map.svg#pinterest"></use></svg></a>
+          </div>
+
+          <button class="rg-icon-btn my-2 my-xl-0" type="button" data-rg-top aria-label="Back to top">
+            <svg class="rg-svg"><use href="assets/svg/svg-map.svg#toparrow" xlink:href="assets/svg/svg-map.svg#toparrow"></use></svg>
+          </button>
+        </div>
       </div>
-    </form>
-
-    <button class="rg-icon-btn d-lg-none" type="button"
-            data-bs-toggle="offcanvas" data-bs-target="#sidebarRight"
-            aria-controls="sidebarRight" aria-label="Open info panel">
-      <svg class="rg-svg"><use href="assets/svg/svg-map.svg#menu-mobile" xlink:href="assets/svg/svg-map.svg#menu-mobile"></use></svg>
-    </button>
+    </nav>
   </header>
 
   <!-- ================= Shell ================= -->
@@ -107,65 +131,11 @@
       <div class="p-4 rounded-3 border" style="background-color: var(--rg-surface);">
         <h2 class="h5">Site shell is up.</h2>
         <p class="text-body-secondary mb-0">
-          Two sidebars are in place: primary navigation on the left, info panel on the right.
-          Game cards and playable games come next.
+          Primary navigation lives in the left sidebar. Quick links, search, social, and
+          back-to-top now sit in the top navbar. Game cards and playable games come next.
         </p>
       </div>
     </main>
-
-    <!-- ---------- Right sidebar (info panel) ---------- -->
-    <aside class="rg-sidebar rg-sidebar-end offcanvas-lg offcanvas-end" tabindex="-1"
-           id="sidebarRight" aria-label="Secondary">
-      <div class="offcanvas-header d-lg-none">
-        <h2 class="offcanvas-title fs-6">Info</h2>
-        <button class="rg-icon-btn border-0" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarRight" aria-label="Close">
-          <svg class="rg-svg"><use href="assets/svg/svg-map.svg#close" xlink:href="assets/svg/svg-map.svg#close"></use></svg>
-        </button>
-      </div>
-
-      <div class="rg-sidebar-title">Search</div>
-      <div class="px-3 pb-3">
-        <form role="search" onsubmit="return false;">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text bg-transparent border-end-0">
-              <svg class="rg-svg"><use href="assets/svg/svg-map.svg#search" xlink:href="assets/svg/svg-map.svg#search"></use></svg>
-            </span>
-            <input class="form-control border-start-0" type="search" placeholder="Find a game" aria-label="Find a game">
-          </div>
-        </form>
-      </div>
-
-      <div class="rg-sidebar-title">Quick Links</div>
-      <div class="rg-widget">
-        <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link px-0 py-1" href="#"><i class="bi bi-fire me-2"></i>Top Games</a></li>
-          <li class="nav-item"><a class="nav-link px-0 py-1" href="#"><i class="bi bi-stars me-2"></i>New Games</a></li>
-          <li class="nav-item"><a class="nav-link px-0 py-1" href="#"><i class="bi bi-shuffle me-2"></i>Random Game</a></li>
-        </ul>
-      </div>
-
-      <div class="rg-sidebar-title">Follow Us</div>
-      <div class="rg-widget">
-        <div class="rg-social">
-          <a href="#" aria-label="Facebook"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#facebook" xlink:href="assets/svg/svg-map.svg#facebook"></use></svg></a>
-          <a href="#" aria-label="Twitter"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#twitter" xlink:href="assets/svg/svg-map.svg#twitter"></use></svg></a>
-          <a href="#" aria-label="Instagram"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#instagram" xlink:href="assets/svg/svg-map.svg#instagram"></use></svg></a>
-          <a href="#" aria-label="YouTube"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#youtube" xlink:href="assets/svg/svg-map.svg#youtube"></use></svg></a>
-          <a href="#" aria-label="WhatsApp"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#whatsapp" xlink:href="assets/svg/svg-map.svg#whatsapp"></use></svg></a>
-          <a href="#" aria-label="Pinterest"><svg class="rg-svg-lg"><use href="assets/svg/svg-map.svg#pinterest" xlink:href="assets/svg/svg-map.svg#pinterest"></use></svg></a>
-        </div>
-      </div>
-
-      <div class="rg-sidebar-title">About</div>
-      <div class="rg-widget">
-        <p class="text-body-secondary small mb-2">
-          Free unblocked browser games. No downloads, no sign-up.
-        </p>
-        <a class="link-primary small" href="#" data-rg-top>
-          <svg class="rg-svg me-1"><use href="assets/svg/svg-map.svg#toparrow" xlink:href="assets/svg/svg-map.svg#toparrow"></use></svg>Back to top
-        </a>
-      </div>
-    </aside>
 
   </div>
 
