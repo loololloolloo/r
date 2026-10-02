@@ -14,7 +14,12 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 ## Conventions
 - Styling: Bootstrap 5.3.3 via CDN, dark theme (`<html data-bs-theme="dark">`).
 - No accent color — stick to Bootstrap dark palette + its default blue `#0d6efd`.
-- Layout: two vertical sidebars flanking the content — left = primary nav, right = secondary panel.
+- CSS/JS are referenced with a `?v=N` query string. The site sits behind Cloudflare,
+  which caches assets for 4h, so bump `N` in `index.html` whenever `style.css` or
+  `main.js` changes or returning visitors keep the old file. HTML itself is not
+  cached, so the new query string is picked up immediately.
+- Layout: left sidebar = primary nav, top navbar = quick links + search + back-to-top.
+  The right sidebar and the social row were removed by request.
 - Icons: local SVG sprite at `assets/svg/svg-map.svg`, sourced from onlinegames.io
   (`assets/svg/svg-map.svg` + inline page SVGs: menu, menu-mobile, close, youtube-round).
   Category nav icons use Bootstrap Icons (onlinegames.io itself has no per-category icons;
