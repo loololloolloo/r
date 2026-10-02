@@ -1,2 +1,9 @@
 # Local scratch/test harnesses
 _*.html
+__pycache__/
+*.pyc
+
+# archive download cache
+.cache/
+# ad-hoc screenshots
+_shots/

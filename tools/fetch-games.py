@@ -42,13 +42,50 @@ EXT_BY_TYPE = {"image/png": ".png", "image/jpeg": ".jpg", "image/webp": ".webp",
 # source art.
 THUMB_WIDTH = 480
 
-# Thumbnails are network-bound; a handful of workers keeps a ~500 game run
-# down to a couple of minutes without hammering anyone.
-WORKERS = 8
+# Thumbnails are network-bound; a handful of workers keeps a large run down to
+# a few minutes without hammering anyone.
+WORKERS = 16
 
-# Extra Retro Bowl releases are near-identical re-skins, so only the original
-# is kept (see is_retrobowl_variant).
-RETROBOWL_VARIANT = re.compile(r"retro[\s-]?bowl", re.I)
+# Upper bound on the catalogue. Every game costs a thumbnail download, so the
+# cap keeps a full rebuild bounded; the highest-priority sources are first in
+# the raw list, so trimming the tail drops the least wanted games.
+MAX_GAMES = 1200
+
+# iogames.fun's genre slugs and the display names we use for them. Games get
+# these as categories so the sidebar describes the whole catalogue, not just
+# the iogames.space subset.
+IOGAMES_FUN_GENRES = {
+    "2d-shooter", "3d", "agario", "chat", "cooperative", "fantasy", "fighting",
+    "football", "fps", "logic", "pixels", "platform", "racing", "rpg", "ships",
+    "slitherio", "space", "spectate", "splix", "strategy", "tanks", "weird",
+    "zombies",
+}
+IOGAMES_FUN_GENRE_NAMES = {
+    "2d-shooter": "2D Shooter",
+    "agario": "Agario Style",
+    "slitherio": "Snake Games",
+    "splix": "Splix Style",
+    "fps": "FPS",
+    "rpg": "RPG",
+    "tanks": "Tank",
+    "weird": "Weird",
+}
+
+# retrobowlfree.io groups its games under /games/<name>-games pages.
+RETROBOWLFREE_SKIP = {
+    "about-us", "contact-us", "privacy-policy", "term-of-use", "terms-of-use",
+    "blog", "new-games", "hot-games", "random",
+    "copyright-infringement-notice-procedure",
+}
+
+
+# retrobowl26.com: /<game> pages, embed is /<game>.embed. Pages that are not
+# games (listings, tags, blog, legal) must be skipped.
+RETROBOWL26_SKIP_PREFIX = ("games/", "tag/", "blog")
+RETROBOWL26_SKIP = {
+    "new-games", "hot-games", "about-us", "contact-us", "privacy-policy",
+    "term-of-use", "copyright-infringement-notice-procedure",
+}
 
 
 def fetch(url, timeout=30):
@@ -88,14 +125,8 @@ def embed_key(url):
     return f"{host}{path}"
 
 
-def is_retrobowl_variant(slug, title):
-    """True for Retro Bowl 25/26/college/NFL re-releases, but not the original."""
-    if not RETROBOWL_VARIANT.search(slug or "") and not RETROBOWL_VARIANT.search(title or ""):
-        return False
-    return slugify(slug) != "retro-bowl"
-
-
 # ---------------------------------------------------------------- sources
+
 
 def source_iogames_space():
     """iogames.space embeds a __NEXT_DATA__ JSON payload per listing page."""
@@ -154,7 +185,8 @@ def source_iogames_fun():
 
     The icon path is not predictable - it is sometimes /images/games/og/x.jpg
     and sometimes /images/games/x.jpg - so the game page is read for the real
-    URL (and a properly formatted title) rather than guessing.
+    URL (and a properly formatted title) rather than guessing. Genres come from
+    the /genres/<genre> pages, which list the games in each one.
     """
     index = fetch_text("https://iogames.fun/sitemap.xml")
     paths = []
@@ -167,7 +199,26 @@ def source_iogames_fun():
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
         pages = list(pool.map(_iogames_fun_page, paths))
-    return [game for game in pages if game]
+    games = [game for game in pages if game]
+
+    known = {game["slug"] for game in games}
+    by_slug = {game["slug"]: game for game in games}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        genre_maps = pool.map(_iogames_fun_genre, sorted(IOGAMES_FUN_GENRES))
+    for genre, slugs in genre_maps:
+        name = IOGAMES_FUN_GENRE_NAMES.get(genre, genre.replace("-", " ").title())
+        for slug in slugs & known:
+            by_slug[slug]["categories"].append(name)
+    return games
+
+
+def _iogames_fun_genre(genre):
+    try:
+        html = fetch_text(f"https://iogames.fun/genres/{genre}")
+    except (urllib.error.URLError, OSError) as exc:
+        print(f"  ! iogames.fun genre {genre}: {exc}", file=sys.stderr)
+        return genre, set()
+    return genre, {slugify(m) for m in re.findall(r'href="/([a-z0-9][a-z0-9.-]*)"', html)}
 
 
 def _iogames_fun_page(path):
@@ -202,19 +253,46 @@ def source_retrobowlfree():
     """
     xml = fetch_text("https://retrobowlfree.io/sitemap.xml")
     paths = []
+    category_paths = []
     for url in re.findall(r"<loc>([^<]+)</loc>", xml):
         path = urllib.parse.urlsplit(url).path.strip("/")
-        if not path or "/" in path:
+        if not path:
             continue
-        if path in ("about-us", "contact-us", "privacy-policy", "term-of-use",
-                    "terms-of-use", "blog", "new-games", "hot-games",
-                    "copyright-infringement-notice-procedure", "random"):
-            continue
-        paths.append(path)
+        if path.startswith("games/"):
+            category_paths.append(path.split("/", 1)[1])
+        elif "/" not in path and path not in RETROBOWLFREE_SKIP:
+            paths.append(path)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
         pages = list(pool.map(_retrobowl_page, paths))
-    return [game for game in pages if game]
+        category_maps = list(pool.map(_retrobowl_category, category_paths))
+
+    games = [game for game in pages if game]
+    by_slug = {game["slug"]: game for game in games}
+    for category, slugs in category_maps:
+        name = _category_name(category)
+        for slug in slugs & by_slug.keys():
+            by_slug[slug]["categories"].append(name)
+    return games
+
+
+def _category_name(path):
+    """"racing-games" -> "Racing", "retro-games" -> "Retro"."""
+    name = path[:-len("-games")] if path.endswith("-games") else path
+    return name.replace("-", " ").title()
+
+
+def _retrobowl_category(path):
+    try:
+        html = fetch_text(f"https://retrobowlfree.io/games/{path}")
+    except (urllib.error.URLError, OSError) as exc:
+        print(f"  ! retrobowlfree category {path}: {exc}", file=sys.stderr)
+        return path, set()
+    # Only the game tiles count. The page also links featured games, other
+    # categories and site pages, which would tag everything with everything.
+    slugs = {slugify(m) for m in re.findall(
+        r'<a[^>]*href="/([a-z0-9][a-z0-9-]*)"[^>]*class="grid-gamelist-1-item', html)}
+    return path, slugs
 
 
 def _retrobowl_page(path):
@@ -274,11 +352,97 @@ def source_3kh0():
     return games
 
 
+def source_retrobowl26():
+    """retrobowl26.com lists /<game> pages; the embed is /<game>.embed.
+
+    Its whole Retro Bowl family is kept - 25/26/27/college/NFL/unblocked are
+    each a distinct playable build here, and the user asked for all of them -
+    so nothing is filtered out the way retrobowlfree.io's re-skins are.
+    """
+    xml = fetch_text("https://retrobowl26.com/sitemap.xml")
+    paths = []
+    for url in re.findall(r"<loc>([^<]+)</loc>", xml):
+        path = urllib.parse.urlsplit(url).path.strip("/")
+        if not path or path in RETROBOWL26_SKIP:
+            continue
+        if path.startswith(RETROBOWL26_SKIP_PREFIX) or "/" in path:
+            continue
+        paths.append(path)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        pages = list(pool.map(_retrobowl26_page, paths))
+    return [game for game in pages if game]
+
+
+def _retrobowl26_page(path):
+    try:
+        html = fetch_text(f"https://retrobowl26.com/{path}")
+    except (urllib.error.URLError, OSError) as exc:
+        print(f"  ! retrobowl26 {path}: {exc}", file=sys.stderr)
+        return None
+    if "iframehtml5" not in html:
+        return None  # a page without the player is not a game
+    match = re.search(r"<title>(.*?)</title>", html, re.S)
+    title = match.group(1).strip() if match else ""
+    # "Retro Bowl 26 - Play Retro Bowl 26 On Retro Bowl 26" -> "Retro Bowl 26"
+    title = re.split(r"\s+[-|]\s+", title)[0].strip()
+    title = re.sub(r"^play\s+", "", title, flags=re.I).strip()
+    icon = re.search(r'property="og:image"[^>]*content="([^"]+)"', html)
+    if not icon:
+        icon = re.search(r'content="([^"]+)"[^>]*property="og:image"', html)
+    src = icon.group(1) if icon else ""
+    if src.startswith("/"):
+        src = "https://retrobowl26.com" + src
+    return {
+        "slug": slugify(path),
+        "title": title or path,
+        "embed": f"https://retrobowl26.com/{path}.embed",
+        "thumbSource": src,
+        "categories": [],
+        "rating": None,
+    }
+
+
+def source_gamemonetize():
+    """GameMonetize's public feed is a JSON catalogue of html5 games.
+
+    The feed serves at most MAX_FEED entries; asking for more simply truncates,
+    so this pulls a large slice and lets the global cap do the trimming.
+    """
+    url = "https://gamemonetize.com/feed.php?format=0&num=5000"
+    try:
+        entries = json.loads(fetch_text(url, timeout=120))
+    except (urllib.error.URLError, OSError, ValueError) as exc:
+        print(f"  ! gamemonetize feed: {exc}", file=sys.stderr)
+        return []
+
+    games = []
+    for entry in entries:
+        title = (entry.get("title") or "").strip()
+        embed = (entry.get("url") or "").strip()
+        if not title or not embed:
+            continue
+        categories = []
+        if entry.get("category"):
+            categories.append(str(entry["category"]).strip())
+        games.append({
+            "slug": slugify(title),
+            "title": title,
+            "embed": embed,
+            "thumbSource": entry.get("thumb") or "",
+            "categories": categories,
+            "rating": None,
+        })
+    return games
+
+
 SOURCES = [
+    ("retrobowl26.com", source_retrobowl26),
     ("iogames.space", source_iogames_space),
     ("iogames.fun", source_iogames_fun),
     ("retrobowlfree.io", source_retrobowlfree),
     ("3kh0-lite", source_3kh0),
+    ("gamemonetize", source_gamemonetize),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added
@@ -394,15 +558,15 @@ def main():
 
     print(f"collected {len(raw)} raw entries")
 
-    # Drop the extra Retro Bowl releases before de-duplication so the original
-    # (wherever it appears) is the one that survives.
-    before = len(raw)
-    raw = [g for g in raw if not is_retrobowl_variant(g["slug"], g["title"])]
-    if before != len(raw):
-        print(f"dropped {before - len(raw)} Retro Bowl variants")
-
+    # Every Retro Bowl release is kept: the user asked for all of them, and on
+    # retrobowl26.com each one is a distinct playable build rather than a
+    # re-skin of the same embed, so de-duplication will not collapse them.
     games = dedupe(raw)
     print(f"{len(games)} games after de-duplication")
+
+    if len(games) > MAX_GAMES:
+        print(f"capping at {MAX_GAMES} (dropping {len(games) - MAX_GAMES} from the tail)")
+        games = games[:MAX_GAMES]
 
     print("upgrading http embeds to https where possible")
     playable = []
