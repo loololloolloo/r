@@ -1,6 +1,7 @@
 :root {
   --rg-header-h: 56px;
   --rg-sidebar-left-w: 232px;
+  --rg-sidebar-rail-w: 64px;
   --rg-surface: #181b1f;
   --rg-surface-2: #1d2126;
 }
@@ -150,8 +151,32 @@ body {
     top: var(--rg-header-h);
     height: calc(100vh - var(--rg-header-h));
     overflow-y: auto;
+    overflow-x: hidden;
     flex: 0 0 auto;
     width: var(--rg-sidebar-left-w);
+    transition: width 0.22s ease;
+  }
+
+  /* Collapsed to an icon rail, like CrazyGames' game-page sidebar. The logo in
+     the navbar toggles this. Width animates; labels fade rather than wrap. */
+  .rg-shell-collapsed .rg-sidebar {
+    width: var(--rg-sidebar-rail-w);
+  }
+
+  .rg-shell-collapsed .rg-nav .nav-link {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    border-left-width: 0;
+  }
+
+  /* Labels and the category list are hidden in rail mode: the categories all
+     share one tag icon, so a column of identical icons would tell you nothing. */
+  .rg-shell-collapsed .rg-nav .nav-link .rg-nav-label,
+  .rg-shell-collapsed .rg-nav .nav-link .rg-count,
+  .rg-shell-collapsed .rg-sidebar-title,
+  .rg-shell-collapsed .rg-categories {
+    display: none;
   }
 }
 
@@ -246,12 +271,20 @@ body {
 }
 
 /* ---------- Player ---------- */
+.rg-main-play {
+  padding: 1rem 1.5rem 2rem;
+}
+
+.rg-stage {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* Flush 16:9 frame, no radius - same as CrazyGames' game container. */
 .rg-player {
   position: relative;
   aspect-ratio: 16 / 9;
   width: 100%;
-  border: 1px solid var(--bs-border-color);
-  border-radius: 12px;
   overflow: hidden;
   background-color: #000;
 }
@@ -278,9 +311,145 @@ body {
   color: var(--bs-body-color);
 }
 
+.rg-stage-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.rg-stage-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rg-stage-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+}
+
+/* ---------- Sections under the player ---------- */
+.rg-section {
+  max-width: 1024px;
+  margin: 2rem auto 0;
+}
+
+.rg-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rg-section-count {
+  font-weight: 400;
+  color: var(--bs-secondary-color);
+}
+
+.rg-grid-wide {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+/* ---------- Comments ---------- */
+.rg-comment-form {
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 10px;
+  background-color: var(--rg-surface);
+}
+
+.rg-comment-form-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.rg-comment-hint {
+  font-size: 0.78rem;
+  color: var(--bs-secondary-color);
+}
+
+.rg-comments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rg-comment {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 10px;
+  background-color: var(--rg-surface);
+}
+
+.rg-comment-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.rg-comment-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.rg-comment-time {
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+  flex: 0 0 auto;
+}
+
+.rg-comment-body {
+  margin: 0;
+  font-size: 0.925rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.rg-comment-empty {
+  padding: 1rem;
+  border: 1px dashed var(--bs-border-color);
+  border-radius: 10px;
+  color: var(--bs-secondary-color);
+  text-align: center;
+}
+
 @media (max-width: 575.98px) {
   .rg-grid {
     grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
     gap: 0.75rem;
+  }
+
+  .rg-grid-wide {
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  }
+
+  .rg-stage-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rg-comment-form-foot {
+    flex-direction: column;
+    align-items: stretch;
   }
 }
