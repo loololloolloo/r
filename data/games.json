@@ -1,0 +1,1229 @@
+[
+  {
+    "slug": "anguisio",
+    "title": "Anguis.io",
+    "thumb": "assets/img/games/anguisio.jpg",
+    "embed": "https://anguis.io",
+    "categories": [
+      "Mobile Games",
+      "Free For All",
+      "Classic",
+      "Snake Games"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "arraw-io",
+    "title": "Arraw.io",
+    "thumb": "assets/img/games/arraw-io.jpg",
+    "embed": "https://arraw.io",
+    "categories": [
+      "Team",
+      "Diep Style",
+      "Classic"
+    ],
+    "rating": 3
+  },
+  {
+    "slug": "astroe-io",
+    "title": "Astroe.io",
+    "thumb": "assets/img/games/astroe-io.jpg",
+    "embed": "https://astroe.io",
+    "categories": [
+      "Team",
+      "Free For All",
+      "Space",
+      "Shooter"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "baseball-bros",
+    "title": "Baseball Bros",
+    "thumb": "assets/img/games/baseball-bros.jpg",
+    "embed": "https://baseballbros.io",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Upgrades",
+      "Sports"
+    ],
+    "rating": 4.2
+  },
+  {
+    "slug": "basketbros-io",
+    "title": "BasketBros",
+    "thumb": "assets/img/games/basketbros-io.jpg",
+    "embed": "https://basketbros.io",
+    "categories": [
+      "Mobile Games",
+      "Sports"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "battle-islands",
+    "title": "Battle for the islands",
+    "thumb": "assets/img/games/battle-islands.jpg",
+    "embed": "https://dragonmesh.ru/games/vk/IslandsBattle",
+    "categories": [
+      "Upgrades",
+      "Free For All",
+      "Strategy",
+      "Ocean"
+    ],
+    "rating": 2
+  },
+  {
+    "slug": "battletabs",
+    "title": "BattleTabs!",
+    "thumb": "assets/img/games/battletabs.jpg",
+    "embed": "https://battletabs.io",
+    "categories": [
+      "Strategy"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "bighole",
+    "title": "BigHole",
+    "thumb": "assets/img/games/bighole.jpg",
+    "embed": "https://bighole.io",
+    "categories": [
+      "Battle Royale",
+      "Mobile Games",
+      "Team",
+      "Free For All",
+      "Agario Style",
+      "Survival"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "bist-io",
+    "title": "Bist.io",
+    "thumb": "assets/img/games/bist-io.jpg",
+    "embed": "https://bist.io/",
+    "categories": [
+      "Free For All",
+      "Classic"
+    ],
+    "rating": 2.9
+  },
+  {
+    "slug": "bombz-royale",
+    "title": "Bombz Royale",
+    "thumb": "assets/img/games/bombz-royale.jpg",
+    "embed": "https://bombzroyale.pages.dev",
+    "categories": [
+      "Battle Royale",
+      "Survival",
+      "Upgrades",
+      "Free For All",
+      "Classic"
+    ],
+    "rating": 3.6
+  },
+  {
+    "slug": "bopzio",
+    "title": "BOPZ.io",
+    "thumb": "assets/img/games/bopzio.jpg",
+    "embed": "https://bopz.io/",
+    "categories": [
+      "Battle Royale",
+      "Survival",
+      "Power-ups",
+      "Upgrades",
+      "Shooter"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "boxz-io",
+    "title": "Boxz.io",
+    "thumb": "assets/img/games/boxz-io.jpg",
+    "embed": "https://boxz.io",
+    "categories": [
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "bruh-io",
+    "title": "Bruh.io",
+    "thumb": "assets/img/games/bruh-io.jpg",
+    "embed": "https://bruh.io/",
+    "categories": [
+      "Battle Royale",
+      "Upgrades",
+      "Team",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "brutal-io",
+    "title": "Brutal.io",
+    "thumb": "assets/img/games/brutal-io.jpg",
+    "embed": "https://brutal.io",
+    "categories": [
+      "Free For All",
+      "Agario Style"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "brutalmania-io",
+    "title": "BrutalMania.io",
+    "thumb": "assets/img/games/brutalmania-io.jpg",
+    "embed": "https://brutalmania.io",
+    "categories": [
+      "Upgrades",
+      "Classic",
+      "RPG"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "bubble-shoot-merge-box-2048",
+    "title": "Bubble Shoot Merge Box 2048",
+    "thumb": "assets/img/games/bubble-shoot-merge-box-2048.jpg",
+    "embed": "https://bubble-shoot-merge-box-2048.netlify.app/",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Classic"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "build-royal-io",
+    "title": "BUILDROYALE.IO",
+    "thumb": "assets/img/games/build-royal-io.jpg",
+    "embed": "https://buildroyale.io/",
+    "categories": [
+      "Battle Royale",
+      "Power-ups",
+      "Classic",
+      "Shooter"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "castle-wars-legacy",
+    "title": "Castle Wars: Legacy",
+    "thumb": "assets/img/games/castle-wars-legacy.jpg",
+    "embed": "https://cwl.proclive.io",
+    "categories": [
+      "Strategy"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "categor-daily-word-guessing",
+    "title": "Categor - Daily Word Guessing",
+    "thumb": "assets/img/games/categor-daily-word-guessing.jpg",
+    "embed": "https://categor.net/",
+    "categories": [
+      "Strategy"
+    ],
+    "rating": 3.68
+  },
+  {
+    "slug": "clashballio",
+    "title": "ClashBall.io",
+    "thumb": "assets/img/games/clashballio.jpg",
+    "embed": "https://clashball.io",
+    "categories": [
+      "Battle Royale",
+      "Power-ups",
+      "Upgrades",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 4.3
+  },
+  {
+    "slug": "clicker-heroes",
+    "title": "Clicker Heroes",
+    "thumb": "assets/img/games/clicker-heroes.jpg",
+    "embed": "https://clickerheroes.com/play.html",
+    "categories": [
+      "Upgrades",
+      "Strategy"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "cocky-io",
+    "title": "Cocky.io",
+    "thumb": "assets/img/games/cocky-io.jpg",
+    "embed": "https://cocky.io",
+    "categories": [
+      "Mobile Games",
+      "Moomoo.io Style",
+      "Agario Style",
+      "Survival",
+      "Snake Games"
+    ],
+    "rating": 3.1
+  },
+  {
+    "slug": "counterstrokeio",
+    "title": "CounterStroke.io",
+    "thumb": "assets/img/games/counterstrokeio.jpg",
+    "embed": "https://www.counterstroke.wf",
+    "categories": [
+      "Power-ups",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 3.1
+  },
+  {
+    "slug": "cowzio",
+    "title": "cowz.io",
+    "thumb": "assets/img/games/cowzio.jpg",
+    "embed": "https://cowz.io/",
+    "categories": [
+      "Power-ups",
+      "Upgrades",
+      "RPG"
+    ],
+    "rating": 4.2
+  },
+  {
+    "slug": "crazysteve-io",
+    "title": "CrazySteve.io",
+    "thumb": "assets/img/games/crazysteve-io.jpg",
+    "embed": "https://crazysteve.io/",
+    "categories": [
+      "Crazy Games",
+      "Team",
+      "Moomoo.io Style",
+      "Agario Style",
+      "Survival"
+    ],
+    "rating": 3.4
+  },
+  {
+    "slug": "creatur-io",
+    "title": "Creatur.io",
+    "thumb": "assets/img/games/creatur-io.jpg",
+    "embed": "https://creatur.io",
+    "categories": [
+      "Upgrades",
+      "Free For All"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "crossbird",
+    "title": "CrossBird",
+    "thumb": "assets/img/games/crossbird.jpg",
+    "embed": "https://playcrossbird.com/",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Classic"
+    ],
+    "rating": 3
+  },
+  {
+    "slug": "deadshot-io",
+    "title": "DEADSHOT.io",
+    "thumb": "assets/img/games/deadshot-io.jpg",
+    "embed": "https://deadshot.io",
+    "categories": [
+      "Crazy Games",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "defly-io",
+    "title": "defly.io",
+    "thumb": "assets/img/games/defly-io.jpg",
+    "embed": "https://defly.io",
+    "categories": [
+      "Team",
+      "Splix Style",
+      "Shooter"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "devast-io",
+    "title": "Devast.io",
+    "thumb": "assets/img/games/devast-io.jpg",
+    "embed": "https://devast.io",
+    "categories": [
+      "Free For All",
+      "Moomoo.io Style",
+      "Strategy",
+      "Survival"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "dicepals",
+    "title": "DicePals",
+    "thumb": "assets/img/games/dicepals.jpg",
+    "embed": "https://dicepals.io",
+    "categories": [
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "RPG"
+    ],
+    "rating": 2.8
+  },
+  {
+    "slug": "dojo-dodge",
+    "title": "Dojo Dodge",
+    "thumb": "assets/img/games/dojo-dodge.jpg",
+    "embed": "https://www.modd.io/play/DojoDodge",
+    "categories": [
+      "Battle Royale",
+      "Power-ups",
+      "Upgrades",
+      "Free For All",
+      "Strategy",
+      "Survival"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "doomed-io",
+    "title": "Doomed.io",
+    "thumb": "assets/img/games/doomed-io.jpg",
+    "embed": "https://doomed.io/",
+    "categories": [
+      "Upgrades",
+      "Tower Defense"
+    ],
+    "rating": 3.4
+  },
+  {
+    "slug": "escap-io",
+    "title": "Escap.io",
+    "thumb": "assets/img/games/escap-io.jpg",
+    "embed": "https://www.modd.io/play/escapio",
+    "categories": [
+      "Team",
+      "Strategy",
+      "Maze"
+    ],
+    "rating": 3.3
+  },
+  {
+    "slug": "ev-io",
+    "title": "ev.io",
+    "thumb": "assets/img/games/ev-io.jpg",
+    "embed": "https://ev.io",
+    "categories": [
+      "Power-ups",
+      "Upgrades",
+      "Team",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 4.3
+  },
+  {
+    "slug": "evowars-io",
+    "title": "EvoWars.io",
+    "thumb": "assets/img/games/evowars-io.jpg",
+    "embed": "https://evowars.io",
+    "categories": [
+      "Free For All",
+      "Strategy",
+      "Classic"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "evoworldio",
+    "title": "EvoWorld.io",
+    "thumb": "assets/img/games/evoworldio.jpg",
+    "embed": "https://evoworld.io",
+    "categories": [
+      "Survival",
+      "Free For All",
+      "RPG"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "factionriftio",
+    "title": "FactionRift.io",
+    "thumb": "assets/img/games/factionriftio.jpg",
+    "embed": "https://factionrift.io/",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Free For All",
+      "Strategy"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "feudal-wars",
+    "title": "Feudal Wars",
+    "thumb": "assets/img/games/feudal-wars.jpg",
+    "embed": "https://feudalwars.net",
+    "categories": [
+      "Free For All",
+      "Strategy",
+      "Classic"
+    ],
+    "rating": 3.4
+  },
+  {
+    "slug": "football-bros",
+    "title": "Football Bros",
+    "thumb": "assets/img/games/football-bros.jpg",
+    "embed": "https://footballbros.io",
+    "categories": [
+      "Mobile Games",
+      "Sports"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "gats-io",
+    "title": "Gats.io",
+    "thumb": "assets/img/games/gats-io.jpg",
+    "embed": "https://gats.io/",
+    "categories": [
+      "Upgrades",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 3.3
+  },
+  {
+    "slug": "generalsio",
+    "title": "Generals.io",
+    "thumb": "assets/img/games/generalsio.jpg",
+    "embed": "https://generals.io/",
+    "categories": [
+      "Team",
+      "Free For All",
+      "Maze"
+    ],
+    "rating": 3.3
+  },
+  {
+    "slug": "germs-io",
+    "title": "Germs.io",
+    "thumb": "assets/img/games/germs-io.jpg",
+    "embed": "https://germs.io",
+    "categories": [
+      "Crazy Games",
+      "Free For All",
+      "Agario Style"
+    ],
+    "rating": 3.4
+  },
+  {
+    "slug": "golf-mania",
+    "title": "Golf Mania",
+    "thumb": "assets/img/games/golf-mania.jpg",
+    "embed": "https://www.obumogames.com/game/golf-mania",
+    "categories": [
+      "Mobile Games",
+      "Upgrades",
+      "Free For All",
+      "Classic",
+      "Sports"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "hexanautio",
+    "title": "Hexanaut.io",
+    "thumb": "assets/img/games/hexanautio.jpg",
+    "embed": "https://hexanaut.io",
+    "categories": [
+      "Battle Royale",
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "Free For All",
+      "Splix Style",
+      "Survival",
+      "Snake Games"
+    ],
+    "rating": 4.2
+  },
+  {
+    "slug": "kaiju-defense-club",
+    "title": "Kaiju Defense Club",
+    "thumb": "assets/img/games/kaiju-defense-club.jpg",
+    "embed": "https://kaiju-defense-club.2weeks.games/",
+    "categories": [
+      "Power-ups",
+      "Upgrades",
+      "Free For All",
+      "Space",
+      "Asteroids"
+    ],
+    "rating": 4.16
+  },
+  {
+    "slug": "karatebrosio",
+    "title": "KarateBros.io",
+    "thumb": "assets/img/games/karatebrosio.jpg",
+    "embed": "https://karatebros.io",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Classic",
+      "Sports"
+    ],
+    "rating": 3.6
+  },
+  {
+    "slug": "kart-bros",
+    "title": "Kart Bros",
+    "thumb": "assets/img/games/kart-bros.jpg",
+    "embed": "https://kartbros.io",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Power-ups",
+      "Racing",
+      "Sports"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "kirka-io",
+    "title": "Kirka.io",
+    "thumb": "assets/img/games/kirka-io.jpg",
+    "embed": "https://kirka.io",
+    "categories": [
+      "Crazy Games",
+      "Upgrades",
+      "Team",
+      "Free For All",
+      "Strategy",
+      "Shooter"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "kugeln-io",
+    "title": "Kugeln.io",
+    "thumb": "assets/img/games/kugeln-io.jpg",
+    "embed": "https://kugeln.io/",
+    "categories": [
+      "Power-ups",
+      "Shooter"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "littlebigsnake-io",
+    "title": "LittleBigSnake.io",
+    "thumb": "assets/img/games/littlebigsnake-io.jpg",
+    "embed": "https://littlebigsnake.com",
+    "categories": [
+      "Snake Games"
+    ],
+    "rating": 4.3
+  },
+  {
+    "slug": "lordz-io",
+    "title": "Lordz.io",
+    "thumb": "assets/img/games/lordz-io.jpg",
+    "embed": "https://lordz.io",
+    "categories": [
+      "Crazy Games",
+      "Free For All",
+      "Moomoo.io Style",
+      "Agario Style",
+      "Survival"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "ludosun",
+    "title": "LudoSun",
+    "thumb": "assets/img/games/ludosun.jpg",
+    "embed": "https://ludosun.com/play",
+    "categories": [
+      "Strategy",
+      "Classic"
+    ],
+    "rating": 3.5
+  },
+  {
+    "slug": "mana-blade",
+    "title": "Mana Blade",
+    "thumb": "assets/img/games/mana-blade.jpg",
+    "embed": "https://manablade.com",
+    "categories": [
+      "RPG"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "mech-bros",
+    "title": "Mech Bros",
+    "thumb": "assets/img/games/mech-bros.jpg",
+    "embed": "https://mechbros.io",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "Team",
+      "Free For All",
+      "Classic",
+      "Survival"
+    ],
+    "rating": 3.5
+  },
+  {
+    "slug": "moomoo-io",
+    "title": "Moomoo.io",
+    "thumb": "assets/img/games/moomoo-io.jpg",
+    "embed": "https://moomoo.io/",
+    "categories": [
+      "Mobile Games",
+      "Moomoo.io Style",
+      "Classic",
+      "Survival",
+      "Tower Defense"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "mope-io",
+    "title": "Mope.io",
+    "thumb": "assets/img/games/mope-io.jpg",
+    "embed": "https://mope.io/?y8BannerModify=1",
+    "categories": [
+      "Power-ups",
+      "Free For All",
+      "Agario Style"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "mr-mine",
+    "title": "Mr. Mine",
+    "thumb": "assets/img/games/mr-mine.jpg",
+    "embed": "https://www.mrmine.com/game/",
+    "categories": [
+      "Upgrades",
+      "Strategy"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "naaturio",
+    "title": "Naatur.io",
+    "thumb": "assets/img/games/naaturio.jpg",
+    "embed": "https://naatur.io",
+    "categories": [
+      "Survival",
+      "Moomoo.io Style"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "nightwalkers",
+    "title": "Nightwalkers.io",
+    "thumb": "assets/img/games/nightwalkers.jpg",
+    "embed": "https://jefawk.com/game-files/nightwalkers/",
+    "categories": [
+      "Upgrades",
+      "Zombies",
+      "Tower Defense"
+    ],
+    "rating": 3.5
+  },
+  {
+    "slug": "openguessr-free-unlimited-geoguessr-alternative",
+    "title": "OpenGuessr - Free, unlimited GeoGuessr Alternative",
+    "thumb": "assets/img/games/openguessr-free-unlimited-geoguessr-alternative.jpg",
+    "embed": "https://openguessr.com",
+    "categories": [
+      "Strategy"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "paper-racer-io",
+    "title": "Paper Racer",
+    "thumb": "assets/img/games/paper-racer-io.jpg",
+    "embed": "https://paperracer.com/?lang=EN",
+    "categories": [
+      "Mobile Games",
+      "Free For All",
+      "Racing",
+      "Sports"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "pong-royale",
+    "title": "Pong Royale",
+    "thumb": "assets/img/games/pong-royale.jpg",
+    "embed": "https://kwik.games/PongRoyale/",
+    "categories": [
+      "Battle Royale",
+      "Survival",
+      "Free For All",
+      "Classic"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "pop-safari",
+    "title": "Pop Safari",
+    "thumb": "assets/img/games/pop-safari.jpg",
+    "embed": "https://popsafari.net",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "Classic",
+      "Shooter"
+    ],
+    "rating": 3.5
+  },
+  {
+    "slug": "powerline-io",
+    "title": "Powerline.io",
+    "thumb": "assets/img/games/powerline-io.jpg",
+    "embed": "https://powerline.io",
+    "categories": [
+      "Splix Style",
+      "Snake Games"
+    ],
+    "rating": 3.6
+  },
+  {
+    "slug": "push-go",
+    "title": "Push To Go",
+    "thumb": "assets/img/games/push-go.jpg",
+    "embed": "https://push-to-go.netlify.app/",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Free For All",
+      "Strategy"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "qbrix-brain-twister",
+    "title": "Qbrix - Brain Twister",
+    "thumb": "assets/img/games/qbrix-brain-twister.jpg",
+    "embed": "https://www.vrinternal.com/qubrix/docs/qbrixfs.html",
+    "categories": [
+      "Crazy Games",
+      "Free For All",
+      "Classic"
+    ],
+    "rating": 2.5
+  },
+  {
+    "slug": "rekill-0",
+    "title": "reKILL",
+    "thumb": "assets/img/games/rekill-0.jpg",
+    "embed": "https://rekill.io",
+    "categories": [
+      "Battle Royale",
+      "Crazy Games",
+      "Power-ups",
+      "Upgrades",
+      "Zombies",
+      "Free For All",
+      "Survival",
+      "Shooter"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "salmonz-io",
+    "title": "Salmonz.io",
+    "thumb": "assets/img/games/salmonz-io.jpg",
+    "embed": "https://www.modd.io/play/salmonz/",
+    "categories": [
+      "Power-ups",
+      "Upgrades",
+      "Ocean"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "sandstrikeio",
+    "title": "SandStrike.io",
+    "thumb": "assets/img/games/sandstrikeio.jpg",
+    "embed": "https://sandstrike.io",
+    "categories": [
+      "Battle Royale",
+      "Power-ups",
+      "Upgrades",
+      "Team",
+      "Free For All",
+      "RPG",
+      "Shooter"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "smash-karts-io-game",
+    "title": "Smash Karts",
+    "thumb": "assets/img/games/smash-karts-io-game.jpg",
+    "embed": "https://smashkarts.io/?iogs",
+    "categories": [
+      "Battle Royale",
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "Team",
+      "Racing"
+    ],
+    "rating": 4.2
+  },
+  {
+    "slug": "snake-world-io",
+    "title": "Snake World io",
+    "thumb": "assets/img/games/snake-world-io.jpg",
+    "embed": "https://snakeworld.io/",
+    "categories": [
+      "Power-ups",
+      "Team",
+      "Snake Games"
+    ],
+    "rating": 3.5
+  },
+  {
+    "slug": "soccer-bros",
+    "title": "Soccer Bros",
+    "thumb": "assets/img/games/soccer-bros.jpg",
+    "embed": "https://soccerbros.gg",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Sports"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "splix-io",
+    "title": "Splix.io",
+    "thumb": "assets/img/games/splix-io.jpg",
+    "embed": "https://splix.io/",
+    "categories": [
+      "Crazy Games",
+      "Free For All",
+      "Maze",
+      "Snake Games"
+    ],
+    "rating": 3.4
+  },
+  {
+    "slug": "starblast-io",
+    "title": "Starblast.io",
+    "thumb": "assets/img/games/starblast-io.jpg",
+    "embed": "https://starblast.io",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Free For All",
+      "Space"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "strike-tactics",
+    "title": "Strike Tactics",
+    "thumb": "assets/img/games/strike-tactics.jpg",
+    "embed": "https://striketactics.net/play",
+    "categories": [
+      "Free For All",
+      "Strategy"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "subsnake",
+    "title": "Subsnake",
+    "thumb": "assets/img/games/subsnake.jpg",
+    "embed": "https://subsnake.xyz/",
+    "categories": [
+      "Free For All",
+      "Space",
+      "Snake Games",
+      "Classic"
+    ],
+    "rating": 3.5
+  },
+  {
+    "slug": "superhex-io",
+    "title": "Superhex.io",
+    "thumb": "assets/img/games/superhex-io.jpg",
+    "embed": "https://superhex.io/embed.html",
+    "categories": [
+      "Free For All",
+      "Space"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "supertanks-io",
+    "title": "SuperTanks.io",
+    "thumb": "assets/img/games/supertanks-io.jpg",
+    "embed": "https://www.supertanks.io/",
+    "categories": [
+      "Tank",
+      "Maze"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "survevio",
+    "title": "Survev.io",
+    "thumb": "assets/img/games/survevio.jpg",
+    "embed": "https://survev.io",
+    "categories": [
+      "Battle Royale",
+      "Crazy Games",
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "Team",
+      "Zombies",
+      "Tank",
+      "Free For All",
+      "Moomoo.io Style",
+      "Strategy",
+      "Classic",
+      "Survival",
+      "RPG",
+      "Shooter"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "surviv-io",
+    "title": "Surviv.io",
+    "thumb": "assets/img/games/surviv-io.jpg",
+    "embed": "https://surviv.io",
+    "categories": [
+      "Battle Royale",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "teamball-io",
+    "title": "Teamball.io",
+    "thumb": "assets/img/games/teamball-io.jpg",
+    "embed": "https://teamball.io",
+    "categories": [
+      "Team",
+      "Free For All",
+      "Sports"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "tinywario",
+    "title": "Tinywar.io",
+    "thumb": "assets/img/games/tinywario.jpg",
+    "embed": "https://www.tinywar.io/",
+    "categories": [
+      "Survival",
+      "Upgrades",
+      "Free For All",
+      "Classic"
+    ],
+    "rating": 3.7
+  },
+  {
+    "slug": "tochkionline",
+    "title": "TOCHKI.ONLINE",
+    "thumb": "assets/img/games/tochkionline.jpg",
+    "embed": "https://tochki.online",
+    "categories": [
+      "Battle Royale",
+      "Mobile Games",
+      "Power-ups",
+      "Upgrades",
+      "Free For All",
+      "Agario Style",
+      "Classic",
+      "Survival",
+      "Sports"
+    ],
+    "rating": 3.8
+  },
+  {
+    "slug": "turret-tumblers",
+    "title": "Turret Tumblers!",
+    "thumb": "assets/img/games/turret-tumblers.jpg",
+    "embed": "https://turrets.easel.games",
+    "categories": [
+      "Power-ups",
+      "Upgrades",
+      "Tank",
+      "Free For All",
+      "Diep Style",
+      "Survival",
+      "Shooter"
+    ],
+    "rating": 3.9
+  },
+  {
+    "slug": "vapor-solitaire",
+    "title": "Vapor Solitaire",
+    "thumb": "assets/img/games/vapor-solitaire.jpg",
+    "embed": "https://vapor-solitaire.2weeks.games/",
+    "categories": [
+      "Mobile Games",
+      "Classic",
+      "Ocean"
+    ],
+    "rating": 4.24
+  },
+  {
+    "slug": "venge-io",
+    "title": "Venge.io",
+    "thumb": "assets/img/games/venge-io.jpg",
+    "embed": "https://www.venge.io/",
+    "categories": [
+      "Power-ups",
+      "Upgrades",
+      "Free For All",
+      "Strategy",
+      "Shooter"
+    ],
+    "rating": 4.3
+  },
+  {
+    "slug": "vikings-village-party-hard",
+    "title": "Vikings Village - Party Hard!",
+    "thumb": "assets/img/games/vikings-village-party-hard.jpg",
+    "embed": "https://www.vikingsvillage.io/game/",
+    "categories": [
+      "Battle Royale",
+      "Survival",
+      "Free For All",
+      "Classic"
+    ],
+    "rating": 2.7
+  },
+  {
+    "slug": "war-brokers-io",
+    "title": "War Brokers",
+    "thumb": "assets/img/games/war-brokers-io.jpg",
+    "embed": "https://warbrokers.io/iogames.php",
+    "categories": [
+      "Battle Royale",
+      "Team",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 4.2
+  },
+  {
+    "slug": "wasted-lands",
+    "title": "Wasted Lands",
+    "thumb": "assets/img/games/wasted-lands.jpg",
+    "embed": "https://wlands.net/play",
+    "categories": [
+      "Upgrades",
+      "Team",
+      "Strategy",
+      "RPG"
+    ],
+    "rating": 3.6
+  },
+  {
+    "slug": "wrestle-bros",
+    "title": "Wrestle Bros",
+    "thumb": "assets/img/games/wrestle-bros.jpg",
+    "embed": "https://wrestlebros.io",
+    "categories": [
+      "Crazy Games",
+      "Mobile Games",
+      "Upgrades",
+      "Classic",
+      "Sports"
+    ],
+    "rating": 4.1
+  },
+  {
+    "slug": "xess-io",
+    "title": "Xess.io",
+    "thumb": "assets/img/games/xess-io.jpg",
+    "embed": "https://xess.io",
+    "categories": [
+      "Upgrades",
+      "Free For All",
+      "Maze"
+    ],
+    "rating": 3
+  },
+  {
+    "slug": "yorg-io",
+    "title": "YORG.io",
+    "thumb": "assets/img/games/yorg-io.jpg",
+    "embed": "https://yorg.io?iogames.space",
+    "categories": [
+      "Upgrades",
+      "Zombies",
+      "Tower Defense"
+    ],
+    "rating": 4
+  },
+  {
+    "slug": "yumy-io",
+    "title": "yumy.io",
+    "thumb": "assets/img/games/yumy-io.jpg",
+    "embed": "https://yumy.io/",
+    "categories": [
+      "Team",
+      "Agario Style",
+      "Strategy"
+    ],
+    "rating": 3.3
+  },
+  {
+    "slug": "zlap-io",
+    "title": "Zlap.io",
+    "thumb": "assets/img/games/zlap-io.jpg",
+    "embed": "https://zlap.io",
+    "categories": [
+      "Team",
+      "Free For All"
+    ],
+    "rating": 3.2
+  },
+  {
+    "slug": "zombsroyale-io",
+    "title": "ZombsRoyale.io",
+    "thumb": "assets/img/games/zombsroyale-io.jpg",
+    "embed": "https://zombsroyale.io",
+    "categories": [
+      "Battle Royale",
+      "Team",
+      "Free For All",
+      "Shooter"
+    ],
+    "rating": 4.2
+  }
+]

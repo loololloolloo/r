@@ -175,3 +175,112 @@ body {
   background-color: rgba(255, 255, 255, 0.14);
   border-radius: 4px;
 }
+
+/* ---------- Game grid ---------- */
+.rg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  gap: 0.9rem;
+}
+
+.rg-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 10px;
+  background-color: var(--rg-surface);
+  color: var(--bs-body-color);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.rg-card:hover,
+.rg-card:focus-visible {
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  color: var(--bs-body-color);
+}
+
+.rg-card-thumb {
+  display: block;
+  aspect-ratio: 16 / 10;
+  border-radius: 7px;
+  overflow: hidden;
+  background-color: var(--rg-surface-2);
+}
+
+.rg-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rg-card-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.rg-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px dashed var(--bs-border-color);
+  border-radius: 10px;
+  color: var(--bs-secondary-color);
+  text-align: center;
+}
+
+/* Category counts in the sidebar */
+.rg-nav .nav-link .rg-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+}
+
+/* ---------- Player ---------- */
+.rg-player {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.rg-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.rg-player-note {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--bs-secondary-color);
+}
+
+.rg-player-error .rg-player-note {
+  color: var(--bs-body-color);
+}
+
+@media (max-width: 575.98px) {
+  .rg-grid {
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 0.75rem;
+  }
+}
