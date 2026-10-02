@@ -33,8 +33,10 @@ body {
 
 .rg-logo {
   display: block;
-  height: 34px;
-  width: auto;
+  height: 28px !important;
+  width: auto !important;
+  max-height: 28px;
+  max-width: 58px;
 }
 
 .rg-header .navbar-nav .nav-link {
