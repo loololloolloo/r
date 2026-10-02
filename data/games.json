@@ -23,7 +23,9 @@
     "slug": "1",
     "title": "1",
     "embed": "https://lite.3kh0.net/projects/1/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/1.jpg"
   },
@@ -31,7 +33,9 @@
     "slug": "1v1space",
     "title": "1v1.space",
     "embed": "https://lite.3kh0.net/projects/1v1space/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/1v1space.jpg"
   },
@@ -39,7 +43,9 @@
     "slug": "2048",
     "title": "2048",
     "embed": "https://lite.3kh0.net/projects/2048/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/2048.jpg"
   },
@@ -47,7 +53,10 @@
     "slug": "3d-free-kick",
     "title": "3D Free Kick",
     "embed": "https://retrobowlfree.io/3d-free-kick.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/3d-free-kick.jpg"
   },
@@ -55,7 +64,11 @@
     "slug": "4th-and-goal",
     "title": "4th And Goal",
     "embed": "https://retrobowl26.com/4th-and-goal.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Strategy"
+    ],
     "rating": null,
     "thumb": "assets/img/games/4th-and-goal.jpg"
   },
@@ -63,7 +76,9 @@
     "slug": "67-clicker",
     "title": "67 Clicker",
     "embed": "https://retrobowl26.com/67-clicker.embed",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/67-clicker.jpg"
   },
@@ -71,7 +86,9 @@
     "slug": "8-ball-pool",
     "title": "8 Ball Pool",
     "embed": "https://retrobowl26.com/8-ball-pool.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/8-ball-pool.jpg"
   },
@@ -89,7 +106,9 @@
     "slug": "8-pool-master",
     "title": "8 Pool Master",
     "embed": "https://retrobowl26.com/8-pool-master.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/8-pool-master.jpg"
   },
@@ -107,7 +126,9 @@
     "slug": "9007199254740992",
     "title": "9007199254740992",
     "embed": "https://lite.3kh0.net/projects/9007199254740992/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/9007199254740992.jpg"
   },
@@ -136,7 +157,9 @@
     "slug": "a-small-world-cup-2",
     "title": "A Small World Cup 2",
     "embed": "https://retrobowl26.com/a-small-world-cup-2.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/a-small-world-cup-2.jpg"
   },
@@ -144,7 +167,9 @@
     "slug": "acceleration-city",
     "title": "Acceleration City",
     "embed": "https://retrobowl26.com/acceleration-city.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/acceleration-city.jpg"
   },
@@ -152,7 +177,10 @@
     "slug": "achievementunlocked",
     "title": "Achievement Unlocked",
     "embed": "https://lite.3kh0.net/projects/achievementunlocked/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/achievementunlocked.jpg"
   },
@@ -172,7 +200,9 @@
     "slug": "adrenalinechallenge",
     "title": "Adrenaline Challenge",
     "embed": "https://lite.3kh0.net/projects/adrenalinechallenge/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/adrenalinechallenge.jpg"
   },
@@ -276,7 +306,10 @@
     "slug": "among-us",
     "title": "Among Us",
     "embed": "https://lite.3kh0.net/projects/among-us/",
-    "categories": [],
+    "categories": [
+      "Strategy",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/among-us.jpg"
   },
@@ -493,7 +526,9 @@
     "slug": "avalanche",
     "title": "Avalanche",
     "embed": "https://lite.3kh0.net/projects/avalanche/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/avalanche.jpg"
   },
@@ -501,7 +536,10 @@
     "slug": "backrooms",
     "title": "Backrooms",
     "embed": "https://lite.3kh0.net/projects/backrooms/",
-    "categories": [],
+    "categories": [
+      "Horror",
+      "Adventure"
+    ],
     "rating": null,
     "thumb": "assets/img/games/backrooms.jpg"
   },
@@ -509,7 +547,10 @@
     "slug": "backyard-football",
     "title": "Backyard Football",
     "embed": "https://retrobowl26.com/backyard-football.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/backyard-football.jpg"
   },
@@ -547,7 +588,10 @@
     "slug": "ball-park",
     "title": "Ball Park",
     "embed": "https://retrobowl26.com/ball-park.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Baseball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ball-park.jpg"
   },
@@ -612,7 +656,10 @@
     "slug": "basket-and-ball",
     "title": "Basket And Ball",
     "embed": "https://retrobowl26.com/basket-and-ball.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basket-and-ball.jpg"
   },
@@ -620,7 +667,10 @@
     "slug": "basket-bros",
     "title": "Basket Bros",
     "embed": "https://retrobowl26.com/basket-bros.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basket-bros.jpg"
   },
@@ -628,7 +678,10 @@
     "slug": "basket-cats",
     "title": "Basket Cats",
     "embed": "https://retrobowlfree.io/basket-cats.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basket-cats.jpg"
   },
@@ -659,7 +712,10 @@
     "slug": "basketball-hit",
     "title": "Basketball Hit",
     "embed": "https://retrobowl26.com/basketball-hit.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basketball-hit.jpg"
   },
@@ -667,7 +723,10 @@
     "slug": "basketball-legends",
     "title": "Basketball Legends",
     "embed": "https://retrobowlfree.io/basketball-legends.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basketball-legends.jpg"
   },
@@ -685,7 +744,10 @@
     "slug": "basketball-stars",
     "title": "Basketball Stars",
     "embed": "https://retrobowl26.com/basketball-stars.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basketball-stars.jpg"
   },
@@ -693,7 +755,10 @@
     "slug": "basketball-stars-2026",
     "title": "Basketball Stars 2026",
     "embed": "https://retrobowlfree.io/basketball-stars-2026.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/basketball-stars-2026.jpg"
   },
@@ -711,7 +776,9 @@
     "slug": "bat-smash",
     "title": "Bat Smash",
     "embed": "https://retrobowl26.com/bat-smash.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bat-smash.jpg"
   },
@@ -719,7 +786,9 @@
     "slug": "bat-smash-2",
     "title": "Bat Smash 2",
     "embed": "https://retrobowl26.com/bat-smash-2.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bat-smash-2.jpg"
   },
@@ -727,7 +796,9 @@
     "slug": "battle-arena",
     "title": "Battle Arena",
     "embed": "https://retrobowl26.com/battle-arena.embed",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/battle-arena.jpg"
   },
@@ -735,7 +806,10 @@
     "slug": "battleforgondor",
     "title": "Battle for Gondor",
     "embed": "https://lite.3kh0.net/projects/battleforgondor/",
-    "categories": [],
+    "categories": [
+      "Strategy",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/battleforgondor.jpg"
   },
@@ -827,7 +901,9 @@
     "slug": "beast-clash",
     "title": "Beast Clash",
     "embed": "https://retrobowlfree.io/beast-clash.embed",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/beast-clash.jpg"
   },
@@ -886,7 +962,10 @@
     "slug": "bigredbutton",
     "title": "Big Red Button",
     "embed": "https://lite.3kh0.net/projects/bigredbutton/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bigredbutton.jpg"
   },
@@ -904,7 +983,10 @@
     "slug": "btts",
     "title": "Big Tower Tiny Square",
     "embed": "https://lite.3kh0.net/projects/btts/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/btts.jpg"
   },
@@ -989,7 +1071,9 @@
     "slug": "birdie-bop",
     "title": "Birdie Bop",
     "embed": "https://retrobowlfree.io/birdie-bop.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/birdie-bop.jpg"
   },
@@ -1018,7 +1102,10 @@
     "slug": "blackknight",
     "title": "Black Knight",
     "embed": "https://lite.3kh0.net/projects/blackknight/",
-    "categories": [],
+    "categories": [
+      "Action",
+      "Platform"
+    ],
     "rating": null,
     "thumb": "assets/img/games/blackknight.jpg"
   },
@@ -1149,7 +1236,9 @@
     "slug": "blockader",
     "title": "Blockader",
     "embed": "https://retrobowl26.com/blockader.embed",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/blockader.jpg"
   },
@@ -1220,7 +1309,10 @@
     "slug": "bloonstd",
     "title": "Bloons TD",
     "embed": "https://lite.3kh0.net/projects/bloonstd/",
-    "categories": [],
+    "categories": [
+      "Strategy",
+      "Tower Defense"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bloonstd.jpg"
   },
@@ -1228,7 +1320,10 @@
     "slug": "bloonstd2",
     "title": "Bloons TD 2",
     "embed": "https://lite.3kh0.net/projects/bloonstd2/",
-    "categories": [],
+    "categories": [
+      "Strategy",
+      "Tower Defense"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bloonstd2.jpg"
   },
@@ -1247,7 +1342,9 @@
     "slug": "bloxors",
     "title": "Bloxors",
     "embed": "https://lite.3kh0.net/projects/bloxors/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bloxors.jpg"
   },
@@ -1343,7 +1440,9 @@
     "slug": "bottle-shot",
     "title": "Bottle Shot",
     "embed": "https://retrobowl26.com/bottle-shot.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bottle-shot.jpg"
   },
@@ -1351,7 +1450,10 @@
     "slug": "bouncy-basketball",
     "title": "Bouncy Basketball",
     "embed": "https://retrobowl26.com/bouncy-basketball.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bouncy-basketball.jpg"
   },
@@ -1359,7 +1461,9 @@
     "slug": "bowling-master",
     "title": "Bowling Master",
     "embed": "https://retrobowlfree.io/bowling-master.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/bowling-master.jpg"
   },
@@ -1367,7 +1471,10 @@
     "slug": "boxhead2play",
     "title": "Box Head",
     "embed": "https://lite.3kh0.net/projects/boxhead2play/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Zombies"
+    ],
     "rating": null,
     "thumb": "assets/img/games/boxhead2play.jpg"
   },
@@ -1446,7 +1553,10 @@
     "slug": "breakingthebank",
     "title": "Breaking the Bank",
     "embed": "https://lite.3kh0.net/projects/breakingthebank/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/breakingthebank.jpg"
   },
@@ -1610,7 +1720,10 @@
     "slug": "button-soccer-2026",
     "title": "Button Soccer 2026",
     "embed": "https://retrobowl26.com/button-soccer-2026.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/button-soccer-2026.jpg"
   },
@@ -1678,7 +1791,10 @@
     "slug": "cannon-basketball-4",
     "title": "Cannon Basketball 4",
     "embed": "https://lite.3kh0.net/projects/cannon-basketball-4/",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/cannon-basketball-4.jpg"
   },
@@ -1686,7 +1802,9 @@
     "slug": "canyondefense",
     "title": "Canyon Defense",
     "embed": "https://lite.3kh0.net/projects/canyondefense/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/canyondefense.jpg"
   },
@@ -1845,7 +1963,10 @@
     "slug": "cell-machine",
     "title": "Cell Machine",
     "embed": "https://lite.3kh0.net/projects/cell-machine/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/cell-machine.jpg"
   },
@@ -1864,7 +1985,9 @@
     "slug": "championarcher",
     "title": "Champion Archer",
     "embed": "https://lite.3kh0.net/projects/championarcher/",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/championarcher.jpg"
   },
@@ -1913,7 +2036,10 @@
     "slug": "chrome-dino",
     "title": "Chrome Dino",
     "embed": "https://lite.3kh0.net/projects/chrome-dino/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Running"
+    ],
     "rating": null,
     "thumb": "assets/img/games/chrome-dino.jpg"
   },
@@ -1951,7 +2077,9 @@
     "slug": "circlo",
     "title": "circlO",
     "embed": "https://lite.3kh0.net/projects/circlo/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/circlo.jpg"
   },
@@ -2009,7 +2137,9 @@
     "slug": "city-hero",
     "title": "City Hero",
     "embed": "https://retrobowl26.com/city-hero.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/city-hero.jpg"
   },
@@ -2148,7 +2278,10 @@
     "slug": "color-surfer",
     "title": "Color Surfer",
     "embed": "https://retrobowl26.com/color-surfer.embed",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Running"
+    ],
     "rating": null,
     "thumb": "assets/img/games/color-surfer.jpg"
   },
@@ -2187,7 +2320,9 @@
     "slug": "connect3",
     "title": "Connect 3",
     "embed": "https://lite.3kh0.net/projects/connect3/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/connect3.jpg"
   },
@@ -2205,7 +2340,9 @@
     "slug": "cookie-clicker",
     "title": "Cookie Clicker",
     "embed": "https://lite.3kh0.net/projects/cookie-clicker/",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/cookie-clicker.jpg"
   },
@@ -2278,7 +2415,10 @@
     "slug": "craftmine",
     "title": "CraftMine",
     "embed": "https://lite.3kh0.net/projects/craftmine/",
-    "categories": [],
+    "categories": [
+      "Adventure",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/craftmine.jpg"
   },
@@ -2373,7 +2513,10 @@
     "slug": "creativekillchamber",
     "title": "Creative Kill Chamber",
     "embed": "https://lite.3kh0.net/projects/creativekillchamber/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/creativekillchamber.jpg"
   },
@@ -2402,7 +2545,9 @@
     "slug": "cricket-world-cup",
     "title": "Cricket World Cup",
     "embed": "https://retrobowlfree.io/cricket-world-cup.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/cricket-world-cup.jpg"
   },
@@ -2453,7 +2598,9 @@
     "slug": "csgo-clicker",
     "title": "CS:GO Clicker",
     "embed": "https://lite.3kh0.net/projects/csgo-clicker/",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/csgo-clicker.jpg"
   },
@@ -2472,7 +2619,10 @@
     "slug": "cubefield",
     "title": "Cubefield",
     "embed": "https://lite.3kh0.net/projects/cubefield/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Running"
+    ],
     "rating": null,
     "thumb": "assets/img/games/cubefield.jpg"
   },
@@ -2480,7 +2630,9 @@
     "slug": "cupcake2048",
     "title": "Cupcake 2048",
     "embed": "https://lite.3kh0.net/projects/cupcake2048/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/cupcake2048.jpg"
   },
@@ -2510,7 +2662,10 @@
     "slug": "ctr",
     "title": "Cut the Rope",
     "embed": "https://lite.3kh0.net/projects/ctr/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ctr.jpg"
   },
@@ -2518,7 +2673,10 @@
     "slug": "ctr-holiday",
     "title": "Cut the Rope Holiday",
     "embed": "https://lite.3kh0.net/projects/ctr-holiday/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ctr-holiday.jpg"
   },
@@ -2526,7 +2684,10 @@
     "slug": "ctr-tr",
     "title": "Cut the Rope Time Travel",
     "embed": "https://lite.3kh0.net/projects/ctr-tr/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ctr-tr.jpg"
   },
@@ -2628,7 +2789,9 @@
     "slug": "deal-or-no-deal",
     "title": "Deal or No Deal",
     "embed": "https://lite.3kh0.net/projects/deal-or-no-deal/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/deal-or-no-deal.jpg"
   },
@@ -2636,7 +2799,10 @@
     "slug": "death-run-3d",
     "title": "Death Run 3D",
     "embed": "https://lite.3kh0.net/projects/death-run-3d/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/death-run-3d.jpg"
   },
@@ -2674,7 +2840,10 @@
     "slug": "defend-the-tank",
     "title": "Defend the Tank",
     "embed": "https://lite.3kh0.net/projects/defend-the-tank/",
-    "categories": [],
+    "categories": [
+      "Tank",
+      "Strategy"
+    ],
     "rating": null,
     "thumb": "assets/img/games/defend-the-tank.jpg"
   },
@@ -2913,7 +3082,9 @@
     "slug": "doge2048",
     "title": "Doge 2048",
     "embed": "https://lite.3kh0.net/projects/doge2048/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/doge2048.jpg"
   },
@@ -2921,7 +3092,9 @@
     "slug": "dogeminer",
     "title": "Doge Miner",
     "embed": "https://lite.3kh0.net/projects/DogeMiner/",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/dogeminer.jpg"
   },
@@ -2954,7 +3127,10 @@
     "slug": "doodle-jump",
     "title": "Doodle Jump",
     "embed": "https://lite.3kh0.net/projects/doodle-jump/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/doodle-jump.jpg"
   },
@@ -3025,7 +3201,10 @@
     "slug": "doublewires",
     "title": "Double Wires",
     "embed": "https://lite.3kh0.net/projects/doublewires/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/doublewires.jpg"
   },
@@ -3064,7 +3243,9 @@
     "slug": "draw-the-hill",
     "title": "Draw the Hill",
     "embed": "https://lite.3kh0.net/projects/draw-the-hill/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/draw-the-hill.jpg"
   },
@@ -3194,7 +3375,10 @@
     "slug": "ducklife1",
     "title": "Duck Life",
     "embed": "https://lite.3kh0.net/projects/ducklife1/",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ducklife1.jpg"
   },
@@ -3202,7 +3386,10 @@
     "slug": "ducklife2",
     "title": "Duck Life 2",
     "embed": "https://lite.3kh0.net/projects/ducklife2/",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ducklife2.jpg"
   },
@@ -3210,7 +3397,10 @@
     "slug": "ducklife3",
     "title": "Duck Life 3",
     "embed": "https://lite.3kh0.net/projects/ducklife3/",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ducklife3.jpg"
   },
@@ -3238,7 +3428,10 @@
     "slug": "dunk-clash",
     "title": "Dunk Clash",
     "embed": "https://retrobowlfree.io/dunk-clash.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/dunk-clash.jpg"
   },
@@ -3246,7 +3439,10 @@
     "slug": "dunk-dash",
     "title": "Dunk Dash",
     "embed": "https://retrobowl26.com/dunk-dash.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/dunk-dash.jpg"
   },
@@ -3264,7 +3460,10 @@
     "slug": "minecraft",
     "title": "Eaglercraft",
     "embed": "https://lite.3kh0.net/projects/minecraft/",
-    "categories": [],
+    "categories": [
+      "Adventure",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/minecraft.jpg"
   },
@@ -3292,7 +3491,9 @@
     "slug": "edgenotfound",
     "title": "Edge Not Found",
     "embed": "https://lite.3kh0.net/projects/edgenotfound/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/edgenotfound.jpg"
   },
@@ -3300,7 +3501,9 @@
     "slug": "elasticman",
     "title": "Elastic Man",
     "embed": "https://lite.3kh0.net/projects/elasticman/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/elasticman.jpg"
   },
@@ -3338,7 +3541,10 @@
     "slug": "endlesswar3",
     "title": "Endless War 3",
     "embed": "https://lite.3kh0.net/projects/endlesswar3/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Strategy"
+    ],
     "rating": null,
     "thumb": "assets/img/games/endlesswar3.jpg"
   },
@@ -3379,7 +3585,10 @@
     "slug": "escape-road-2",
     "title": "Escape Road 2",
     "embed": "https://retrobowl26.com/escape-road-2.embed",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/escape-road-2.jpg"
   },
@@ -3431,7 +3640,9 @@
     "slug": "evil-glitch",
     "title": "Evil Glitch",
     "embed": "https://lite.3kh0.net/projects/evil-glitch/",
-    "categories": [],
+    "categories": [
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/evil-glitch.jpg"
   },
@@ -3463,7 +3674,9 @@
     "slug": "exo",
     "title": "Exo",
     "embed": "https://lite.3kh0.net/projects/exo/",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/exo.jpg"
   },
@@ -3546,7 +3759,9 @@
     "slug": "factoryballs",
     "title": "Factory Balls Forever",
     "embed": "https://lite.3kh0.net/projects/factoryballs/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/factoryballs.jpg"
   },
@@ -3554,7 +3769,9 @@
     "slug": "fake-virus",
     "title": "Fake Virus",
     "embed": "https://lite.3kh0.net/projects/fake-virus/",
-    "categories": [],
+    "categories": [
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/fake-virus.jpg"
   },
@@ -3626,7 +3843,11 @@
     "slug": "fifa-2000-major-league-soccer",
     "title": "FIFA 2000: Major League Soccer",
     "embed": "https://retrobowl26.com/fifa-2000-major-league-soccer.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro"
+    ],
     "rating": null,
     "thumb": "assets/img/games/fifa-2000-major-league-soccer.jpg"
   },
@@ -3634,7 +3855,11 @@
     "slug": "fifa-soccer-95-sega",
     "title": "FIFA Soccer 95 (Sega)",
     "embed": "https://retrobowl26.com/fifa-soccer-95-sega.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro"
+    ],
     "rating": null,
     "thumb": "assets/img/games/fifa-soccer-95-sega.jpg"
   },
@@ -3672,7 +3897,10 @@
     "slug": "flappy-2048",
     "title": "Flappy 2048",
     "embed": "https://lite.3kh0.net/projects/flappy-2048/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/flappy-2048.jpg"
   },
@@ -3680,7 +3908,10 @@
     "slug": "flappy-bird",
     "title": "Flappy Bird",
     "embed": "https://lite.3kh0.net/projects/flappy-bird/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/flappy-bird.jpg"
   },
@@ -3688,7 +3919,9 @@
     "slug": "flashtetris",
     "title": "Flash Tetris",
     "embed": "https://lite.3kh0.net/projects/flashtetris/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/flashtetris.jpg"
   },
@@ -3696,7 +3929,10 @@
     "slug": "flick-shot-soccer",
     "title": "Flick Shot Soccer",
     "embed": "https://retrobowlfree.io/flick-shot-soccer.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/flick-shot-soccer.jpg"
   },
@@ -3724,7 +3960,9 @@
     "slug": "flip-rush",
     "title": "Flip Rush",
     "embed": "https://retrobowl26.com/flip-rush.embed",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/flip-rush.jpg"
   },
@@ -3732,7 +3970,9 @@
     "slug": "flip-spot",
     "title": "Flip Spot",
     "embed": "https://retrobowl26.com/flip-spot.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/flip-spot.jpg"
   },
@@ -3771,7 +4011,11 @@
     "slug": "football-bros",
     "title": "Football Bros",
     "embed": "https://retrobowl26.com/football-bros.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Team"
+    ],
     "rating": null,
     "thumb": "assets/img/games/football-bros.jpg"
   },
@@ -3789,7 +4033,10 @@
     "slug": "football-legends-2026",
     "title": "Football Legends 2026",
     "embed": "https://retrobowl26.com/football-legends-2026.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/football-legends-2026.jpg"
   },
@@ -3829,7 +4076,9 @@
     "slug": "forza-horizon",
     "title": "Forza Horizon",
     "embed": "https://retrobowl26.com/forza-horizon.embed",
-    "categories": [],
+    "categories": [
+      "Racing"
+    ],
     "rating": null,
     "thumb": "assets/img/games/forza-horizon.jpg"
   },
@@ -3978,7 +4227,10 @@
     "slug": "game-inside",
     "title": "Game Inside a Game Inside a Game...",
     "embed": "https://lite.3kh0.net/projects/game-inside/",
-    "categories": [],
+    "categories": [
+      "Weird",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/game-inside.jpg"
   },
@@ -4006,7 +4258,10 @@
     "slug": "gartic-phone",
     "title": "Gartic Phone",
     "embed": "https://retrobowl26.com/gartic-phone.embed",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Multiplayer"
+    ],
     "rating": null,
     "thumb": "assets/img/games/gartic-phone.jpg"
   },
@@ -4088,7 +4343,10 @@
     "slug": "geodash",
     "title": "Geometry Dash (Scratch)",
     "embed": "https://lite.3kh0.net/projects/geodash/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Platform"
+    ],
     "rating": null,
     "thumb": "assets/img/games/geodash.jpg"
   },
@@ -4158,7 +4416,10 @@
     "slug": "get-yoked",
     "title": "Get Yoked",
     "embed": "https://retrobowl26.com/get-yoked.embed",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/get-yoked.jpg"
   },
@@ -4166,7 +4427,9 @@
     "slug": "getaway-shootout",
     "title": "Getaway Shootout",
     "embed": "https://lite.3kh0.net/projects/getaway-shootout/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/getaway-shootout.jpg"
   },
@@ -4174,7 +4437,10 @@
     "slug": "getting-over-it",
     "title": "Getting Over It",
     "embed": "https://retrobowl26.com/getting-over-it.embed",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/getting-over-it.jpg"
   },
@@ -4192,7 +4458,10 @@
     "slug": "gimme-the-airpod",
     "title": "Gimme the Airpod",
     "embed": "https://lite.3kh0.net/projects/gimme-the-airpod/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Running"
+    ],
     "rating": null,
     "thumb": "assets/img/games/gimme-the-airpod.jpg"
   },
@@ -4200,7 +4469,10 @@
     "slug": "glass-city",
     "title": "Glass City",
     "embed": "https://lite.3kh0.net/projects/glass-city/",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/glass-city.jpg"
   },
@@ -4228,7 +4500,10 @@
     "slug": "goal-gang",
     "title": "Goal Gang",
     "embed": "https://retrobowlfree.io/goal-gang.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/goal-gang.jpg"
   },
@@ -4236,7 +4511,10 @@
     "slug": "goalheadsio",
     "title": "GoalHeads.io",
     "embed": "https://retrobowlfree.io/goalheadsio.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/goalheadsio.jpg"
   },
@@ -4244,7 +4522,10 @@
     "slug": "goat-rampage",
     "title": "Goat Rampage",
     "embed": "https://retrobowl26.com/goat-rampage.embed",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/goat-rampage.jpg"
   },
@@ -4307,7 +4588,9 @@
     "slug": "golf-orbit",
     "title": "Golf Orbit",
     "embed": "https://retrobowlfree.io/golf-orbit.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/golf-orbit.jpg"
   },
@@ -4325,7 +4608,10 @@
     "slug": "google-football",
     "title": "Google Football",
     "embed": "https://retrobowl26.com/google-football.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/google-football.jpg"
   },
@@ -4333,7 +4619,9 @@
     "slug": "google-snake",
     "title": "Google Snake",
     "embed": "https://lite.3kh0.net/projects/google-snake/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/google-snake.jpg"
   },
@@ -4435,7 +4723,10 @@
     "slug": "grindcraft",
     "title": "Grind Craft",
     "embed": "https://lite.3kh0.net/projects/grindcraft/",
-    "categories": [],
+    "categories": [
+      "Clicker",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/grindcraft.jpg"
   },
@@ -4547,7 +4838,9 @@
     "slug": "hackertype",
     "title": "Hacker Typer",
     "embed": "https://lite.3kh0.net/projects/hackertype/",
-    "categories": [],
+    "categories": [
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hackertype.jpg"
   },
@@ -4645,7 +4938,10 @@
     "slug": "head-basketball",
     "title": "Head Basketball",
     "embed": "https://retrobowlfree.io/head-basketball.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/head-basketball.jpg"
   },
@@ -4653,7 +4949,10 @@
     "slug": "head-basketball-arena",
     "title": "Head Basketball Arena",
     "embed": "https://retrobowl26.com/head-basketball-arena.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/head-basketball-arena.jpg"
   },
@@ -4702,7 +5001,10 @@
     "slug": "helicopter",
     "title": "Helicopter",
     "embed": "https://lite.3kh0.net/projects/helicopter/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/helicopter.jpg"
   },
@@ -4730,7 +5032,9 @@
     "slug": "hexempire",
     "title": "Hex Empire",
     "embed": "https://lite.3kh0.net/projects/hexempire/",
-    "categories": [],
+    "categories": [
+      "Strategy"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hexempire.jpg"
   },
@@ -4755,7 +5059,10 @@
     "slug": "hexbound",
     "title": "Hexbound",
     "embed": "https://retrobowl26.com/hexbound.embed",
-    "categories": [],
+    "categories": [
+      "Action",
+      "Adventure"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hexbound.jpg"
   },
@@ -4763,7 +5070,10 @@
     "slug": "hexgl",
     "title": "HexGL",
     "embed": "https://lite.3kh0.net/projects/HexGL/",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Sci-Fi"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hexgl.jpg"
   },
@@ -4771,7 +5081,10 @@
     "slug": "hextris",
     "title": "Hextris",
     "embed": "https://lite.3kh0.net/projects/hextris/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hextris.jpg"
   },
@@ -4819,7 +5132,9 @@
     "slug": "hockey-bros",
     "title": "Hockey Bros",
     "embed": "https://retrobowl26.com/hockey-bros.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hockey-bros.jpg"
   },
@@ -4847,7 +5162,11 @@
     "slug": "hoop-grids",
     "title": "Hoop Grids",
     "embed": "https://retrobowl26.com/hoop-grids.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hoop-grids.jpg"
   },
@@ -4908,7 +5227,10 @@
     "slug": "hotfoot-baseball",
     "title": "Hotfoot Baseball",
     "embed": "https://retrobowl26.com/hotfoot-baseball.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Baseball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hotfoot-baseball.jpg"
   },
@@ -4916,7 +5238,9 @@
     "slug": "hba",
     "title": "Hover Bot Arena",
     "embed": "https://lite.3kh0.net/projects/hba/",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/hba.jpg"
   },
@@ -4994,7 +5318,9 @@
     "slug": "idle-breakout",
     "title": "Idle Breakout",
     "embed": "https://lite.3kh0.net/projects/idle-breakout/",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/idle-breakout.jpg"
   },
@@ -5002,7 +5328,9 @@
     "slug": "idle-miner",
     "title": "Idle Miner",
     "embed": "https://retrobowl26.com/idle-miner.embed",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/idle-miner.jpg"
   },
@@ -5010,7 +5338,9 @@
     "slug": "idle-shark",
     "title": "Idle Shark",
     "embed": "https://lite.3kh0.net/projects/idle-shark/",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/idle-shark.jpg"
   },
@@ -5018,7 +5348,10 @@
     "slug": "idols-of-ash",
     "title": "Idols Of Ash",
     "embed": "https://retrobowl26.com/idols-of-ash.embed",
-    "categories": [],
+    "categories": [
+      "RPG",
+      "Adventure"
+    ],
     "rating": null,
     "thumb": "assets/img/games/idols-of-ash.jpg"
   },
@@ -5026,7 +5359,10 @@
     "slug": "immaculate-grid-basketball",
     "title": "Immaculate Grid Basketball",
     "embed": "https://retrobowl26.com/immaculate-grid-basketball.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/immaculate-grid-basketball.jpg"
   },
@@ -5064,7 +5400,9 @@
     "slug": "impossiblequiz",
     "title": "Impossible Quiz",
     "embed": "https://lite.3kh0.net/projects/impossiblequiz/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/impossiblequiz.jpg"
   },
@@ -5072,7 +5410,10 @@
     "slug": "indoor-soccer",
     "title": "Indoor Soccer",
     "embed": "https://retrobowl26.com/indoor-soccer.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/indoor-soccer.jpg"
   },
@@ -5130,7 +5471,10 @@
     "slug": "interactivebuddy",
     "title": "Interactive Buddy",
     "embed": "https://lite.3kh0.net/projects/interactivebuddy/",
-    "categories": [],
+    "categories": [
+      "Simulation",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/interactivebuddy.jpg"
   },
@@ -5138,7 +5482,10 @@
     "slug": "iron-snout",
     "title": "Iron Snout",
     "embed": "https://retrobowl26.com/iron-snout.embed",
-    "categories": [],
+    "categories": [
+      "Action",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/iron-snout.jpg"
   },
@@ -5236,7 +5583,9 @@
     "slug": "just-one-boss",
     "title": "Just One Boss",
     "embed": "https://lite.3kh0.net/projects/just-one-boss/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/just-one-boss.jpg"
   },
@@ -5353,7 +5702,10 @@
     "slug": "kittencannon",
     "title": "Kitten Cannon",
     "embed": "https://lite.3kh0.net/projects/kittencannon/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/kittencannon.jpg"
   },
@@ -5469,7 +5821,10 @@
     "slug": "learntofly",
     "title": "Learn To Fly",
     "embed": "https://lite.3kh0.net/projects/learntofly/",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/learntofly.jpg"
   },
@@ -5673,7 +6028,10 @@
     "slug": "mario",
     "title": "Mario",
     "embed": "https://lite.3kh0.net/projects/mario/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Retro"
+    ],
     "rating": null,
     "thumb": "assets/img/games/mario.gif"
   },
@@ -5755,7 +6113,10 @@
     "slug": "matrixrampage",
     "title": "Matrix Rampage",
     "embed": "https://lite.3kh0.net/projects/matrixrampage/",
-    "categories": [],
+    "categories": [
+      "Action",
+      "Shooter"
+    ],
     "rating": null,
     "thumb": "assets/img/games/matrixrampage.jpg"
   },
@@ -5783,7 +6144,9 @@
     "slug": "meccha-chameleon",
     "title": "Meccha Chameleon",
     "embed": "https://retrobowl26.com/meccha-chameleon.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/meccha-chameleon.jpg"
   },
@@ -5838,7 +6201,10 @@
     "slug": "melon-sandbox",
     "title": "Melon Sandbox",
     "embed": "https://retrobowl26.com/melon-sandbox.embed",
-    "categories": [],
+    "categories": [
+      "Simulation",
+      "Sandbox"
+    ],
     "rating": null,
     "thumb": "assets/img/games/melon-sandbox.jpg"
   },
@@ -5846,7 +6212,9 @@
     "slug": "meme2048",
     "title": "Meme 2048",
     "embed": "https://lite.3kh0.net/projects/meme2048/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/meme2048.gif"
   },
@@ -5976,7 +6344,10 @@
     "slug": "minecraft-classic",
     "title": "Minecraft Classic",
     "embed": "https://lite.3kh0.net/projects/minecraft-classic/",
-    "categories": [],
+    "categories": [
+      "Adventure",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/minecraft-classic.jpg"
   },
@@ -5995,7 +6366,9 @@
     "slug": "minesweeper",
     "title": "Minesweeper",
     "embed": "https://lite.3kh0.net/projects/minesweeper/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/minesweeper.jpg"
   },
@@ -6013,7 +6386,9 @@
     "slug": "mini-golf-club",
     "title": "Mini Golf Club",
     "embed": "https://retrobowl26.com/mini-golf-club.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/mini-golf-club.jpg"
   },
@@ -6021,7 +6396,9 @@
     "slug": "miniputt",
     "title": "Mini-putt",
     "embed": "https://lite.3kh0.net/projects/miniputt/",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/miniputt.jpg"
   },
@@ -6071,7 +6448,10 @@
     "slug": "missiles",
     "title": "Missiles",
     "embed": "https://lite.3kh0.net/projects/missiles/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/missiles.jpg"
   },
@@ -6079,7 +6459,10 @@
     "slug": "mma-super-fight",
     "title": "Mma Super Fight",
     "embed": "https://retrobowl26.com/mma-super-fight.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Fighting"
+    ],
     "rating": null,
     "thumb": "assets/img/games/mma-super-fight.jpg"
   },
@@ -6236,7 +6619,9 @@
     "slug": "motox3m-pool",
     "title": "MotoX3M Pool",
     "embed": "https://lite.3kh0.net/projects/motox3m-pool/",
-    "categories": [],
+    "categories": [
+      "Racing"
+    ],
     "rating": null,
     "thumb": "assets/img/games/motox3m-pool.jpg"
   },
@@ -6244,7 +6629,9 @@
     "slug": "motox3m-spooky",
     "title": "MotoX3M Spooky",
     "embed": "https://lite.3kh0.net/projects/motox3m-spooky/",
-    "categories": [],
+    "categories": [
+      "Racing"
+    ],
     "rating": null,
     "thumb": "assets/img/games/motox3m-spooky.jpg"
   },
@@ -6252,7 +6639,9 @@
     "slug": "motox3m-winter",
     "title": "MotoX3M Winter",
     "embed": "https://lite.3kh0.net/projects/motox3m-winter/",
-    "categories": [],
+    "categories": [
+      "Racing"
+    ],
     "rating": null,
     "thumb": "assets/img/games/motox3m-winter.jpg"
   },
@@ -6321,7 +6710,10 @@
     "slug": "n-gon",
     "title": "n-gon",
     "embed": "https://lite.3kh0.net/projects/n-gon/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Racing"
+    ],
     "rating": null,
     "thumb": "assets/img/games/n-gon.jpg"
   },
@@ -6340,7 +6732,11 @@
     "slug": "nba-live-2000",
     "title": "NBA Live 2000",
     "embed": "https://retrobowl26.com/nba-live-2000.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball",
+      "Retro"
+    ],
     "rating": null,
     "thumb": "assets/img/games/nba-live-2000.jpg"
   },
@@ -6412,7 +6808,11 @@
     "slug": "new-star-soccer",
     "title": "New Star Soccer",
     "embed": "https://retrobowl26.com/new-star-soccer.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/new-star-soccer.jpg"
   },
@@ -6430,7 +6830,11 @@
     "slug": "nfl-grid",
     "title": "NFL Grid",
     "embed": "https://retrobowl26.com/nfl-grid.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/nfl-grid.jpg"
   },
@@ -6438,7 +6842,12 @@
     "slug": "nfl-retro-bowl-25",
     "title": "NFL Retro Bowl 25",
     "embed": "https://retrobowl26.com/nfl-retro-bowl-25.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/nfl-retro-bowl-25.jpg"
   },
@@ -6581,7 +6990,10 @@
     "slug": "ns-shaft",
     "title": "NS-Shaft",
     "embed": "https://lite.3kh0.net/projects/ns-shaft/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ns-shaft.jpg"
   },
@@ -6792,7 +7204,9 @@
     "slug": "om-bounce",
     "title": "Om Nom Bounce",
     "embed": "https://lite.3kh0.net/projects/om-bounce/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/om-bounce.jpg"
   },
@@ -6800,7 +7214,11 @@
     "slug": "one-tap-fps",
     "title": "One Tap FPS",
     "embed": "https://bloxity.io/g/one-tap",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action",
+      "FPS"
+    ],
     "rating": null,
     "thumb": "assets/img/games/one-tap-fps.jpg"
   },
@@ -6838,7 +7256,11 @@
     "slug": "orbit-kick",
     "title": "Orbit Kick",
     "embed": "https://retrobowl26.com/orbit-kick.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/orbit-kick.jpg"
   },
@@ -6866,7 +7288,9 @@
     "slug": "pandemic2",
     "title": "Pandemic 2",
     "embed": "https://lite.3kh0.net/projects/pandemic2/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/pandemic2.jpg"
   },
@@ -6874,7 +7298,10 @@
     "slug": "papaspizzaria",
     "title": "Papa's Pizzaria",
     "embed": "https://lite.3kh0.net/projects/papaspizzaria/",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/papaspizzaria.jpg"
   },
@@ -6905,7 +7332,9 @@
     "slug": "paperio2",
     "title": "Paper.io 2",
     "embed": "https://lite.3kh0.net/projects/paperio2/",
-    "categories": [],
+    "categories": [
+      "Agario Style"
+    ],
     "rating": null,
     "thumb": "assets/img/games/paperio2.jpg"
   },
@@ -6913,7 +7342,9 @@
     "slug": "papery-planes",
     "title": "Papery Planes",
     "embed": "https://lite.3kh0.net/projects/papery-planes/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/papery-planes.jpg"
   },
@@ -6921,7 +7352,9 @@
     "slug": "park-empire",
     "title": "Park Empire",
     "embed": "https://retrobowl26.com/park-empire.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/park-empire.jpg"
   },
@@ -6950,7 +7383,9 @@
     "slug": "particle-clicker",
     "title": "Particle Clicker",
     "embed": "https://lite.3kh0.net/projects/particle-clicker/",
-    "categories": [],
+    "categories": [
+      "Clicker"
+    ],
     "rating": null,
     "thumb": "assets/img/games/particle-clicker.jpg"
   },
@@ -6968,7 +7403,10 @@
     "slug": "penalty-kick-wiz",
     "title": "Penalty Kick Wiz",
     "embed": "https://retrobowl26.com/penalty-kick-wiz.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/penalty-kick-wiz.jpg"
   },
@@ -7110,7 +7548,9 @@
     "slug": "pocket-hockey",
     "title": "Pocket Hockey",
     "embed": "https://retrobowlfree.io/pocket-hockey.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/pocket-hockey.jpg"
   },
@@ -7148,7 +7588,9 @@
     "slug": "polybranch",
     "title": "PolyBranch",
     "embed": "https://lite.3kh0.net/projects/polybranch/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/polybranch.jpg"
   },
@@ -7169,7 +7611,9 @@
     "slug": "pool-club",
     "title": "Pool Club",
     "embed": "https://retrobowlfree.io/pool-club.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/pool-club.jpg"
   },
@@ -7202,7 +7646,10 @@
     "slug": "portalflash",
     "title": "Portal (Flash)",
     "embed": "https://lite.3kh0.net/projects/portalflash/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/portalflash.jpg"
   },
@@ -7231,7 +7678,10 @@
     "slug": "precision-client",
     "title": "Precision Client (Eaglercraft)",
     "embed": "https://lite.3kh0.net/projects/precision-client/",
-    "categories": [],
+    "categories": [
+      "Adventure",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/precision-client.jpg"
   },
@@ -7259,7 +7709,10 @@
     "slug": "push-the-square",
     "title": "Push The Square",
     "embed": "https://lite.3kh0.net/projects/push-the-square/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/push-the-square.jpg"
   },
@@ -7280,7 +7733,9 @@
     "slug": "push-your-luck",
     "title": "Push Your Luck",
     "embed": "https://lite.3kh0.net/projects/push-your-luck/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/push-your-luck.jpg"
   },
@@ -7332,7 +7787,10 @@
     "slug": "qwop",
     "title": "QWOP",
     "embed": "https://retrobowl26.com/qwop.embed",
-    "categories": [],
+    "categories": [
+      "Casual",
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/qwop.jpg"
   },
@@ -7380,7 +7838,11 @@
     "slug": "ragdoll-football",
     "title": "Ragdoll Football",
     "embed": "https://retrobowl26.com/ragdoll-football.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ragdoll-football.jpg"
   },
@@ -7409,7 +7871,10 @@
     "slug": "ragdoll-sandbox",
     "title": "Ragdoll Sandbox",
     "embed": "https://retrobowl26.com/ragdoll-sandbox.embed",
-    "categories": [],
+    "categories": [
+      "Simulation",
+      "Sandbox"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ragdoll-sandbox.jpg"
   },
@@ -7467,7 +7932,10 @@
     "slug": "real-football-3d",
     "title": "Real Football 3D",
     "embed": "https://retrobowl26.com/real-football-3d.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/real-football-3d.jpg"
   },
@@ -7532,7 +8000,10 @@
     "slug": "retro-blaster",
     "title": "Retro Blaster",
     "embed": "https://retrobowl26.com/retro-blaster.embed",
-    "categories": [],
+    "categories": [
+      "Retro",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-blaster.jpg"
   },
@@ -7540,7 +8011,12 @@
     "slug": "retro-bowl",
     "title": "Retro Bowl",
     "embed": "https://retrobowl26.com/retro-bowl.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl.jpg"
   },
@@ -7548,7 +8024,12 @@
     "slug": "retro-bowl-2",
     "title": "Retro Bowl 2",
     "embed": "https://retrobowl26.com/retro-bowl-2.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-2.jpg"
   },
@@ -7556,7 +8037,12 @@
     "slug": "retro-bowl-25",
     "title": "Retro Bowl 25",
     "embed": "https://retrobowl26.com/retro-bowl-25.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-25.jpg"
   },
@@ -7564,7 +8050,12 @@
     "slug": "retro-bowl-26",
     "title": "Retro Bowl 26",
     "embed": "https://retrobowl26.com/retro-bowl-26.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-26.jpg"
   },
@@ -7572,7 +8063,12 @@
     "slug": "retro-bowl-26-unblocked",
     "title": "Retro Bowl 26 Unblocked",
     "embed": "https://retrobowl26.com/retro-bowl-26-unblocked.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-26-unblocked.jpg"
   },
@@ -7580,7 +8076,12 @@
     "slug": "retro-bowl-27",
     "title": "Retro Bowl 27",
     "embed": "https://retrobowl26.com/retro-bowl-27.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-27.jpg"
   },
@@ -7588,7 +8089,12 @@
     "slug": "retro-bowl-3",
     "title": "Retro Bowl 3",
     "embed": "https://retrobowl26.com/retro-bowl-3.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-3.jpg"
   },
@@ -7596,7 +8102,12 @@
     "slug": "retro-bowl-college",
     "title": "Retro Bowl College",
     "embed": "https://retrobowl26.com/retro-bowl-college.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-college.jpg"
   },
@@ -7604,7 +8115,12 @@
     "slug": "retro-bowl-unblocked-76",
     "title": "Retro Bowl Unblocked 76",
     "embed": "https://retrobowl26.com/retro-bowl-unblocked-76.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-bowl-unblocked-76.jpg"
   },
@@ -7612,7 +8128,11 @@
     "slug": "retro-goal",
     "title": "Retro Goal",
     "embed": "https://retrobowl26.com/retro-goal.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-goal.jpg"
   },
@@ -7634,7 +8154,12 @@
     "slug": "retro-sports-champion",
     "title": "Retro Sports Champion",
     "embed": "https://retrobowl26.com/retro-sports-champion.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/retro-sports-champion.jpg"
   },
@@ -7717,7 +8242,9 @@
     "slug": "robot-league",
     "title": "Robot League",
     "embed": "https://retrobowl26.com/robot-league.embed",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/robot-league.jpg"
   },
@@ -7745,7 +8272,9 @@
     "slug": "rocket-ball",
     "title": "Rocket Ball",
     "embed": "https://retrobowlfree.io/rocket-ball.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rocket-ball.jpg"
   },
@@ -7753,7 +8282,10 @@
     "slug": "rocket-goal",
     "title": "Rocket Goal",
     "embed": "https://retrobowl26.com/rocket-goal.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rocket-goal.jpg"
   },
@@ -7776,7 +8308,11 @@
     "slug": "rocket-soccer-derby",
     "title": "Rocket Soccer Derby",
     "embed": "https://retrobowlfree.io/rocket-soccer-derby.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rocket-soccer-derby.jpg"
   },
@@ -7824,7 +8360,9 @@
     "slug": "rolly-vortex",
     "title": "Rolly Vortex",
     "embed": "https://lite.3kh0.net/projects/rolly-vortex/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rolly-vortex.jpg"
   },
@@ -7832,7 +8370,10 @@
     "slug": "rooftop-snipers",
     "title": "Rooftop Snipers",
     "embed": "https://lite.3kh0.net/projects/rooftop-snipers/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rooftop-snipers.jpg"
   },
@@ -7872,7 +8413,9 @@
     "slug": "roper",
     "title": "Roper",
     "embed": "https://retrobowl26.com/roper.embed",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/roper.jpg"
   },
@@ -7880,7 +8423,10 @@
     "slug": "rotate-rush",
     "title": "Rotate Rush",
     "embed": "https://retrobowlfree.io/rotate-rush.embed",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rotate-rush.jpg"
   },
@@ -7918,7 +8464,9 @@
     "slug": "rugby-rush",
     "title": "Rugby Rush",
     "embed": "https://retrobowl26.com/rugby-rush.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rugby-rush.jpg"
   },
@@ -7926,7 +8474,9 @@
     "slug": "rugbyio-ball-mayhem",
     "title": "Rugby.io Ball Mayhem",
     "embed": "https://retrobowl26.com/rugbyio-ball-mayhem.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rugbyio-ball-mayhem.jpg"
   },
@@ -7944,7 +8494,9 @@
     "slug": "rush-line",
     "title": "Rush Line",
     "embed": "https://retrobowl26.com/rush-line.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/rush-line.jpg"
   },
@@ -7974,7 +8526,9 @@
     "slug": "sand-game",
     "title": "Sand Game",
     "embed": "https://lite.3kh0.net/projects/sand-game/",
-    "categories": [],
+    "categories": [
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/sand-game.jpg"
   },
@@ -8028,7 +8582,9 @@
     "slug": "school-fury",
     "title": "School Fury",
     "embed": "https://retrobowlfree.io/school-fury.embed",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/school-fury.jpg"
   },
@@ -8119,7 +8675,9 @@
     "slug": "ship-smasher",
     "title": "Ship Smasher",
     "embed": "https://retrobowlfree.io/ship-smasher.embed",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/ship-smasher.jpg"
   },
@@ -8241,7 +8799,10 @@
     "slug": "slope",
     "title": "Slope",
     "embed": "https://lite.3kh0.net/projects/slope/",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Running"
+    ],
     "rating": null,
     "thumb": "assets/img/games/slope.jpg"
   },
@@ -8249,7 +8810,10 @@
     "slug": "slope-rider",
     "title": "Slope Rider",
     "embed": "https://retrobowl26.com/slope-rider.embed",
-    "categories": [],
+    "categories": [
+      "Arcade",
+      "Running"
+    ],
     "rating": null,
     "thumb": "assets/img/games/slope-rider.jpg"
   },
@@ -8267,7 +8831,10 @@
     "slug": "smashkarts",
     "title": "Smash Carts",
     "embed": "https://lite.3kh0.net/projects/smashkarts/",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/smashkarts.jpg"
   },
@@ -8300,7 +8867,10 @@
     "slug": "smokingbarrels",
     "title": "Smoking Barrels",
     "embed": "https://lite.3kh0.net/projects/smokingbarrels/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/smokingbarrels.jpg"
   },
@@ -8430,7 +9000,9 @@
     "slug": "snowbattle",
     "title": "Snowbattle",
     "embed": "https://lite.3kh0.net/projects/snowbattle/",
-    "categories": [],
+    "categories": [
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/snowbattle.jpg"
   },
@@ -8450,7 +9022,11 @@
     "slug": "soccer-bros-2",
     "title": "Soccer Bros 2",
     "embed": "https://retrobowlfree.io/soccer-bros-2.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Team"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-bros-2.jpg"
   },
@@ -8458,7 +9034,11 @@
     "slug": "soccer-grid",
     "title": "Soccer Grid",
     "embed": "https://retrobowl26.com/soccer-grid.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-grid.jpg"
   },
@@ -8487,7 +9067,10 @@
     "slug": "soccer-physics-world-cup",
     "title": "Soccer Physics World Cup",
     "embed": "https://retrobowlfree.io/soccer-physics-world-cup.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-physics-world-cup.jpg"
   },
@@ -8495,7 +9078,11 @@
     "slug": "soccer-random",
     "title": "Soccer Random",
     "embed": "https://retrobowl26.com/soccer-random.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-random.jpg"
   },
@@ -8503,7 +9090,10 @@
     "slug": "soccer-real",
     "title": "Soccer Real",
     "embed": "https://retrobowl26.com/soccer-real.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-real.jpg"
   },
@@ -8511,7 +9101,10 @@
     "slug": "soccer-skills-2-world-cup",
     "title": "Soccer Skills 2 World Cup",
     "embed": "https://retrobowl26.com/soccer-skills-2-world-cup.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-skills-2-world-cup.jpg"
   },
@@ -8519,7 +9112,10 @@
     "slug": "soccer-strike",
     "title": "Soccer Strike",
     "embed": "https://retrobowl26.com/soccer-strike.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soccer-strike.jpg"
   },
@@ -8537,7 +9133,10 @@
     "slug": "soldier-legend",
     "title": "Soilder Legend",
     "embed": "https://lite.3kh0.net/projects/soldier-legend/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soldier-legend.jpg"
   },
@@ -8575,7 +9174,10 @@
     "slug": "solitaire",
     "title": "Solitare",
     "embed": "https://lite.3kh0.net/projects/solitaire/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Card"
+    ],
     "rating": null,
     "thumb": "assets/img/games/solitaire.jpg"
   },
@@ -8583,7 +9185,10 @@
     "slug": "sort-the-court",
     "title": "Sort The Court",
     "embed": "https://lite.3kh0.net/projects/sort-the-court/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/sort-the-court.jpg"
   },
@@ -8611,7 +9216,9 @@
     "slug": "soundboard",
     "title": "Soundboard",
     "embed": "https://lite.3kh0.net/projects/soundboard/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/soundboard.jpg"
   },
@@ -8671,7 +9278,9 @@
     "slug": "speed-stars",
     "title": "Speed Stars",
     "embed": "https://retrobowl26.com/speed-stars.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/speed-stars.jpg"
   },
@@ -8762,7 +9371,9 @@
     "slug": "stack",
     "title": "Stack",
     "embed": "https://lite.3kh0.net/projects/stack/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/stack.jpg"
   },
@@ -8770,7 +9381,9 @@
     "slug": "stack-bump-3d",
     "title": "Stack Bump 3D",
     "embed": "https://lite.3kh0.net/projects/stack-bump-3d/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/stack-bump-3d.jpg"
   },
@@ -8854,7 +9467,10 @@
     "slug": "stealingthediamond",
     "title": "Stealing The Diamond",
     "embed": "https://lite.3kh0.net/projects/stealingthediamond/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/stealingthediamond.jpg"
   },
@@ -8893,7 +9509,10 @@
     "slug": "stickwar",
     "title": "Stick War",
     "embed": "https://lite.3kh0.net/projects/stickwar/",
-    "categories": [],
+    "categories": [
+      "Strategy",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/stickwar.jpg"
   },
@@ -8911,7 +9530,9 @@
     "slug": "stickman-hook",
     "title": "Stickman Hook",
     "embed": "https://retrobowl26.com/stickman-hook.embed",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/stickman-hook.jpg"
   },
@@ -8940,7 +9561,10 @@
     "slug": "stormthehouse2",
     "title": "Storm The House 2",
     "embed": "https://lite.3kh0.net/projects/stormthehouse2/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Strategy"
+    ],
     "rating": null,
     "thumb": "assets/img/games/stormthehouse2.jpg"
   },
@@ -9042,7 +9666,11 @@
     "slug": "super-liquid-soccer",
     "title": "Super Liquid Soccer",
     "embed": "https://retrobowl26.com/super-liquid-soccer.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/super-liquid-soccer.jpg"
   },
@@ -9050,7 +9678,10 @@
     "slug": "sm64",
     "title": "Super Mario 64",
     "embed": "https://lite.3kh0.net/projects/sm64/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Retro"
+    ],
     "rating": null,
     "thumb": "assets/img/games/sm64.jpg"
   },
@@ -9099,7 +9730,11 @@
     "slug": "superhot",
     "title": "Superhot",
     "embed": "https://lite.3kh0.net/projects/superhot/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/superhot.jpg"
   },
@@ -9184,7 +9819,10 @@
     "slug": "swerve",
     "title": "Swerve",
     "embed": "https://lite.3kh0.net/projects/swerve/",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/swerve.jpg"
   },
@@ -9214,7 +9852,10 @@
     "slug": "tacticalassasin2",
     "title": "Tactical Assassin 2",
     "embed": "https://lite.3kh0.net/projects/tacticalassasin2/",
-    "categories": [],
+    "categories": [
+      "Action",
+      "Shooter"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tacticalassasin2.jpg"
   },
@@ -9243,7 +9884,10 @@
     "slug": "tank-trouble-2",
     "title": "Tank Trouble 2",
     "embed": "https://lite.3kh0.net/projects/tank-trouble-2/",
-    "categories": [],
+    "categories": [
+      "Tank",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tank-trouble-2.jpg"
   },
@@ -9294,7 +9938,9 @@
     "slug": "tanuki-sunset",
     "title": "Tanuki Sunset",
     "embed": "https://lite.3kh0.net/projects/tanuki-sunset/",
-    "categories": [],
+    "categories": [
+      "Racing"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tanuki-sunset.jpg"
   },
@@ -9312,7 +9958,10 @@
     "slug": "tap-road-2",
     "title": "Tap Road 2",
     "embed": "https://retrobowl26.com/tap-road-2.embed",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tap-road-2.jpg"
   },
@@ -9352,7 +10001,11 @@
     "slug": "tecmo-bowl",
     "title": "Tecmo Bowl",
     "embed": "https://retrobowl26.com/tecmo-bowl.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Football",
+      "Retro"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tecmo-bowl.jpg"
   },
@@ -9360,7 +10013,10 @@
     "slug": "temple-run-2",
     "title": "Temple Run 2",
     "embed": "https://lite.3kh0.net/projects/temple-run-2/",
-    "categories": [],
+    "categories": [
+      "Running",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/temple-run-2.jpg"
   },
@@ -9368,7 +10024,10 @@
     "slug": "temple-runner",
     "title": "Temple Runner",
     "embed": "https://retrobowl26.com/temple-runner.embed",
-    "categories": [],
+    "categories": [
+      "Running",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/temple-runner.jpg"
   },
@@ -9408,7 +10067,9 @@
     "slug": "thebattle",
     "title": "The Battle",
     "embed": "https://lite.3kh0.net/projects/thebattle/",
-    "categories": [],
+    "categories": [
+      "Strategy"
+    ],
     "rating": null,
     "thumb": "assets/img/games/thebattle.jpg"
   },
@@ -9416,7 +10077,10 @@
     "slug": "the-final-earth",
     "title": "The Final Earth",
     "embed": "https://lite.3kh0.net/projects/the-final-earth/",
-    "categories": [],
+    "categories": [
+      "Strategy",
+      "Simulation"
+    ],
     "rating": null,
     "thumb": "assets/img/games/the-final-earth.jpg"
   },
@@ -9424,7 +10088,10 @@
     "slug": "theheist",
     "title": "The Heist",
     "embed": "https://lite.3kh0.net/projects/theheist/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/theheist.jpg"
   },
@@ -9452,7 +10119,10 @@
     "slug": "there-is-no-game",
     "title": "There Is No Game",
     "embed": "https://lite.3kh0.net/projects/there-is-no-game/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/there-is-no-game.jpg"
   },
@@ -9460,7 +10130,10 @@
     "slug": "thisistheonlylevel",
     "title": "This Is The Only Level",
     "embed": "https://lite.3kh0.net/projects/thisistheonlylevel/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/thisistheonlylevel.jpg"
   },
@@ -9579,7 +10252,9 @@
     "slug": "tosstheturtle",
     "title": "Toss The Turtle",
     "embed": "https://lite.3kh0.net/projects/tosstheturtle/",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tosstheturtle.jpg"
   },
@@ -9688,7 +10363,9 @@
     "slug": "tube-jumpers",
     "title": "Tube Jumpers",
     "embed": "https://lite.3kh0.net/projects/tube-jumpers/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tube-jumpers.jpg"
   },
@@ -9706,7 +10383,10 @@
     "slug": "tunnel-rush",
     "title": "Tunnel Rush",
     "embed": "https://lite.3kh0.net/projects/tunnel-rush/",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tunnel-rush.jpg"
   },
@@ -9740,7 +10420,9 @@
     "slug": "tv-static",
     "title": "TV Static",
     "embed": "https://lite.3kh0.net/projects/tv-static/",
-    "categories": [],
+    "categories": [
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/tv-static.jpg"
   },
@@ -9748,7 +10430,10 @@
     "slug": "twerk-race-3d",
     "title": "Twerk Race 3D",
     "embed": "https://retrobowl26.com/twerk-race-3d.embed",
-    "categories": [],
+    "categories": [
+      "Racing",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/twerk-race-3d.jpg"
   },
@@ -9776,7 +10461,10 @@
     "slug": "unbox-the-room",
     "title": "Unbox The Room",
     "embed": "https://retrobowl26.com/unbox-the-room.embed",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/unbox-the-room.jpg"
   },
@@ -9784,7 +10472,9 @@
     "slug": "uncanny-cat-golf",
     "title": "Uncanny Cat Golf",
     "embed": "https://retrobowl26.com/uncanny-cat-golf.embed",
-    "categories": [],
+    "categories": [
+      "Sports"
+    ],
     "rating": null,
     "thumb": "assets/img/games/uncanny-cat-golf.jpg"
   },
@@ -9843,7 +10533,10 @@
     "slug": "urban-basketball",
     "title": "Urban Basketball",
     "embed": "https://retrobowl26.com/urban-basketball.embed",
-    "categories": [],
+    "categories": [
+      "Sports",
+      "Basketball"
+    ],
     "rating": null,
     "thumb": "assets/img/games/urban-basketball.jpg"
   },
@@ -9947,7 +10640,10 @@
     "slug": "vex3",
     "title": "Vex 3",
     "embed": "https://lite.3kh0.net/projects/vex3/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/vex3.jpg"
   },
@@ -9955,7 +10651,10 @@
     "slug": "vex4",
     "title": "Vex 4",
     "embed": "https://lite.3kh0.net/projects/vex4/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/vex4.jpg"
   },
@@ -9963,7 +10662,10 @@
     "slug": "vex5",
     "title": "Vex 5",
     "embed": "https://lite.3kh0.net/projects/vex5/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/vex5.jpg"
   },
@@ -9971,7 +10673,10 @@
     "slug": "vex6",
     "title": "Vex 6",
     "embed": "https://lite.3kh0.net/projects/vex6/",
-    "categories": [],
+    "categories": [
+      "Platform",
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/vex6.jpg"
   },
@@ -10150,7 +10855,9 @@
     "slug": "wave-rider",
     "title": "Wave Rider",
     "embed": "https://retrobowlfree.io/wave-rider.embed",
-    "categories": [],
+    "categories": [
+      "Arcade"
+    ],
     "rating": null,
     "thumb": "assets/img/games/wave-rider.jpg"
   },
@@ -10168,7 +10875,10 @@
     "slug": "webretro-local",
     "title": "Web Retro Local",
     "embed": "https://lite.3kh0.net/projects/webretro-local/",
-    "categories": [],
+    "categories": [
+      "Retro",
+      "Emulator"
+    ],
     "rating": null,
     "thumb": "assets/img/games/webretro-local.jpg"
   },
@@ -10246,7 +10956,10 @@
     "slug": "wolf3d",
     "title": "Wolfenstein 3D",
     "embed": "https://lite.3kh0.net/projects/wolf3d/",
-    "categories": [],
+    "categories": [
+      "Shooter",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/wolf3d.jpg"
   },
@@ -10314,7 +11027,9 @@
     "slug": "wordle",
     "title": "Wordle",
     "embed": "https://lite.3kh0.net/projects/wordle/",
-    "categories": [],
+    "categories": [
+      "Puzzle"
+    ],
     "rating": null,
     "thumb": "assets/img/games/wordle.jpg"
   },
@@ -10333,7 +11048,10 @@
     "slug": "worlds-hardest-game",
     "title": "World's Hardest Game",
     "embed": "https://lite.3kh0.net/projects/worlds-hardest-game/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Platform"
+    ],
     "rating": null,
     "thumb": "assets/img/games/worlds-hardest-game.jpg"
   },
@@ -10341,7 +11059,10 @@
     "slug": "worlds-hardest-game-2",
     "title": "World's Hardest Game 2",
     "embed": "https://lite.3kh0.net/projects/worlds-hardest-game-2/",
-    "categories": [],
+    "categories": [
+      "Puzzle",
+      "Platform"
+    ],
     "rating": null,
     "thumb": "assets/img/games/worlds-hardest-game-2.jpg"
   },
@@ -10468,7 +11189,9 @@
     "slug": "you-are-bezos",
     "title": "You Are Jeff Bezos",
     "embed": "https://lite.3kh0.net/projects/you-are-bezos/",
-    "categories": [],
+    "categories": [
+      "Casual"
+    ],
     "rating": null,
     "thumb": "assets/img/games/you-are-bezos.jpg"
   },
@@ -10476,7 +11199,9 @@
     "slug": "your-ai-slop-bores-me",
     "title": "Your Ai Slop Bores Me",
     "embed": "https://retrobowl26.com/your-ai-slop-bores-me.embed",
-    "categories": [],
+    "categories": [
+      "Weird"
+    ],
     "rating": null,
     "thumb": "assets/img/games/your-ai-slop-bores-me.jpg"
   },
@@ -10507,7 +11232,10 @@
     "slug": "zombie-dash",
     "title": "Zombie Dash",
     "embed": "https://retrobowl26.com/zombie-dash.embed",
-    "categories": [],
+    "categories": [
+      "Zombies",
+      "Action"
+    ],
     "rating": null,
     "thumb": "assets/img/games/zombie-dash.jpg"
   },

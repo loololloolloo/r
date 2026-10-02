@@ -14,6 +14,7 @@ authoritative catalogues should come first. De-duplication is by slug, by
 normalised title, and by embed host+path, so the same game listed on two sites
 only appears once.
 """
+import collections
 import concurrent.futures
 import json
 import os
@@ -123,6 +124,250 @@ def embed_key(url):
     host = parts.netloc.lower().removeprefix("www.")
     path = parts.path.rstrip("/").lower()
     return f"{host}{path}"
+
+
+# -------------------------------------------------------------- categories
+# The rail filters on exact category names ("Sports", "Action", ...). Sources
+# that publish no genre metadata (retrobowl26.com, 3kh0) therefore produced
+# games with no categories, and those games could not be found from the rail at
+# all - which is how the whole Retro Bowl family ended up invisible under
+# Sports. There is no genre field to read, so classify by title.
+#
+# Matched as substrings of the alnum-lowered title ("8 Ball Pool" -> "8ballpool").
+# First match wins, so more specific needles come first: "cannonbasketball"
+# before "cannon", "moto" before "pool".
+CATEGORY_RULES = [
+    # Retro Bowl and friends. Each release is a distinct build, and the family
+    # is what the user came for, so it gets a stable, explicit mapping.
+    ("nflretrobowl", ["Sports", "Football", "Retro", "Casual"]),
+    ("retrobowl", ["Sports", "Football", "Retro", "Casual"]),
+    # These three must sit above the broad "ball" / "pool" / "retro" needles,
+    # which would otherwise swallow them (Factory Balls is a puzzle, not a
+    # sport; MotoX3M Pool is a bike game; Web Retro Local is the emulator).
+    ("webretrolocal", ["Retro", "Emulator"]),
+    ("factoryballs", ["Puzzle"]),
+    ("motox3m", ["Racing"]),
+    ("retrosportschampion", ["Sports", "Football", "Retro", "Arcade"]),
+    ("retrogoal", ["Sports", "Football", "Arcade"]),
+    ("retro", ["Retro", "Arcade"]),
+    ("backyardfootball", ["Sports", "Football"]),
+    ("footballbros", ["Sports", "Football", "Team"]),
+    ("footballlegends", ["Sports", "Football"]),
+    ("ragdollfootball", ["Sports", "Football", "Arcade"]),
+    ("realfootball", ["Sports", "Football"]),
+    ("googlefootball", ["Sports", "Football"]),
+    ("soccerbros", ["Sports", "Football", "Team"]),
+    ("soccerphysics", ["Sports", "Football"]),
+    ("soccerskills", ["Sports", "Football"]),
+    ("soccerstrike", ["Sports", "Football"]),
+    ("soccerrandom", ["Sports", "Football", "Casual"]),
+    ("soccerreal", ["Sports", "Football"]),
+    ("soccergrid", ["Sports", "Football", "Puzzle"]),
+    ("superliquidsoccer", ["Sports", "Football", "Arcade"]),
+    ("buttonsoccer", ["Sports", "Football"]),
+    ("indoorsoccer", ["Sports", "Football"]),
+    ("newstarsoccer", ["Sports", "Football", "Simulation"]),
+    ("orbitkick", ["Sports", "Football", "Arcade"]),
+    ("penaltykick", ["Sports", "Football"]),
+    ("flickshotsoccer", ["Sports", "Football"]),
+    ("fifa", ["Sports", "Football", "Retro"]),
+    ("rocketgoal", ["Sports", "Football"]),
+    ("rocketsoccer", ["Sports", "Football", "Arcade"]),
+    ("goalgang", ["Sports", "Football"]),
+    ("goalheads", ["Sports", "Football"]),
+    ("4thandgoal", ["Sports", "Football", "Strategy"]),
+    ("nflgrid", ["Sports", "Football", "Puzzle"]),
+    ("3dfreekick", ["Sports", "Football"]),
+    ("tecmo", ["Sports", "Football", "Retro"]),
+    ("ballpark", ["Sports", "Baseball"]),
+    ("hotfoot", ["Sports", "Baseball"]),
+    ("baseball", ["Sports", "Baseball"]),
+    ("cannonbasketball", ["Sports", "Basketball"]),
+    ("basketball", ["Sports", "Basketball"]),
+    ("hoopgrids", ["Sports", "Basketball", "Puzzle"]),
+    ("dunk", ["Sports", "Basketball"]),
+    ("basket", ["Sports", "Basketball"]),
+    ("rugby", ["Sports"]),
+    ("bowling", ["Sports"]),
+    ("hockey", ["Sports"]),
+    ("cricket", ["Sports"]),
+    ("golf", ["Sports"]),
+    ("miniputt", ["Sports"]),
+    ("minigolf", ["Sports"]),
+    ("ball", ["Sports"]),
+    ("speedstars", ["Sports"]),
+    ("nba", ["Sports", "Basketball", "Retro"]),
+    ("premierleague", ["Sports", "Football"]),
+    ("superbowl", ["Sports", "Football"]),
+    ("8ballpool", ["Sports"]),
+    ("8poolmaster", ["Sports"]),
+    ("9ballpool", ["Sports"]),
+    ("poolclub", ["Sports"]),
+    ("pool", ["Sports"]),
+    ("mma", ["Sports", "Fighting"]),
+    ("freekick", ["Sports", "Football"]),
+    # Shooters and action.
+    ("onetapfps", ["Shooter", "Action", "FPS"]),
+    ("fps", ["Shooter", "Action", "FPS"]),
+    ("wolfenstein", ["Shooter", "Action"]),
+    ("smokingbarrels", ["Shooter", "Action"]),
+    ("defendthetank", ["Tank", "Strategy"]),
+    ("tank", ["Tank", "Action"]),
+    ("missiles", ["Shooter", "Action"]),
+    ("cannon", ["Shooter", "Casual"]),
+    ("sniper", ["Shooter", "Action"]),
+    ("boxhead", ["Shooter", "Zombies"]),
+    ("stormthehouse", ["Shooter", "Strategy"]),
+    ("endlesswar", ["Shooter", "Strategy"]),
+    ("zombie", ["Zombies", "Action"]),
+    ("backrooms", ["Horror", "Adventure"]),
+    ("superhot", ["Shooter", "Action", "Puzzle"]),
+    ("amongus", ["Strategy", "Casual"]),
+    ("soldierlegend", ["Shooter", "Action"]),
+    ("soilderlegend", ["Shooter", "Action"]),
+    ("tacticalassassin", ["Action", "Shooter"]),
+    ("matrixrampage", ["Action", "Shooter"]),
+    ("rooftopsnipers", ["Shooter", "Action"]),
+    ("battlearena", ["Action"]),
+    ("beastclash", ["Action"]),
+    ("robotleague", ["Action"]),
+    ("hoverbot", ["Action"]),
+    ("hexbound", ["Action", "Adventure"]),
+    ("blockader", ["Action"]),
+    ("schoolfury", ["Action"]),
+    ("shipsmasher", ["Action"]),
+    ("snowbattle", ["Action"]),
+    ("championarcher", ["Action"]),
+    ("blackknight", ["Action", "Platform"]),
+    ("ironsnout", ["Action", "Casual"]),
+    ("goatrampage", ["Casual", "Action"]),
+    ("getyoked", ["Casual", "Action"]),
+    # Racing, running and arcade reflexes.
+    ("motocross", ["Racing"]),
+    ("moto", ["Racing"]),
+    ("hexgl", ["Racing", "Sci-Fi"]),
+    ("forzahorizon", ["Racing"]),
+    ("tanukisunset", ["Racing"]),
+    ("tunnelrush", ["Racing", "Arcade"]),
+    ("templerun", ["Running", "Arcade"]),
+    ("twerkrace", ["Racing", "Casual"]),
+    ("escaperoad", ["Racing", "Arcade"]),
+    ("taproad", ["Racing", "Arcade"]),
+    ("smashcarts", ["Racing", "Arcade"]),
+    ("swerve", ["Racing", "Arcade"]),
+    ("ngon", ["Arcade", "Racing"]),
+    ("cubefield", ["Arcade", "Running"]),
+    ("slope", ["Arcade", "Running"]),
+    ("colorsurfer", ["Arcade", "Running"]),
+    ("gimmetheairpod", ["Arcade", "Running"]),
+    ("chromedino", ["Arcade", "Running"]),
+    ("flappy", ["Arcade", "Casual"]),
+    ("helicopter", ["Arcade", "Casual"]),
+    ("avalanche", ["Arcade"]),
+    ("kittencannon", ["Arcade"]),
+    ("tosstheturtle", ["Arcade"]),
+    ("rollyvortex", ["Arcade"]),
+    ("fliprush", ["Arcade"]),
+    ("rotaterush", ["Arcade", "Puzzle"]),
+    ("waverider", ["Arcade"]),
+    ("paperyplanes", ["Arcade"]),
+    ("polybranch", ["Arcade"]),
+    ("circlo", ["Arcade"]),
+    ("stack", ["Arcade"]),
+    # Platforms.
+    ("vex", ["Platform", "Puzzle"]),
+    ("doodlejump", ["Platform", "Casual"]),
+    ("doublewires", ["Platform", "Casual"]),
+    ("nsshaft", ["Platform", "Casual"]),
+    ("geometrydash", ["Arcade", "Platform"]),
+    ("supermario", ["Platform", "Retro"]),
+    ("mario", ["Platform", "Retro"]),
+    ("bigtower", ["Platform", "Puzzle"]),
+    ("thisistheonlylevel", ["Platform", "Puzzle"]),
+    ("worldshardestgame", ["Puzzle", "Platform"]),
+    ("deathrun", ["Platform", "Action"]),
+    ("achievementunlocked", ["Platform", "Puzzle"]),
+    ("creativekillchamber", ["Platform", "Action"]),
+    ("gettingoverit", ["Platform", "Casual"]),
+    # Puzzle and strategy.
+    ("2048", ["Puzzle"]),
+    ("solitaire", ["Puzzle", "Card"]),
+    ("solitare", ["Puzzle", "Card"]),
+    ("tetris", ["Puzzle"]),
+    ("minesweeper", ["Puzzle"]),
+    ("connect3", ["Puzzle"]),
+    ("bloxors", ["Puzzle"]),
+    ("cuttherope", ["Puzzle", "Casual"]),
+    ("wordle", ["Puzzle"]),
+    ("cellmachine", ["Puzzle", "Simulation"]),
+    ("hextris", ["Puzzle", "Arcade"]),
+    ("pushthesquare", ["Puzzle", "Arcade"]),
+    ("unboxtheroom", ["Puzzle", "Casual"]),
+    ("stealingthediamond", ["Puzzle", "Action"]),
+    ("breakingthebank", ["Puzzle", "Action"]),
+    ("theheist", ["Puzzle", "Action"]),
+    ("impossiblequiz", ["Puzzle"]),
+    ("thereisnogame", ["Puzzle", "Weird"]),
+    ("bigredbutton", ["Puzzle", "Weird"]),
+    ("portal", ["Puzzle", "Action"]),
+    ("bloonstd", ["Strategy", "Tower Defense"]),
+    ("canyonedefense", ["Strategy", "Tower Defense"]),
+    ("thefinalearth", ["Strategy", "Simulation"]),
+    ("hexempire", ["Strategy"]),
+    ("stickwar", ["Strategy", "Action"]),
+    ("battleforgondor", ["Strategy", "Action"]),
+    ("thebattle", ["Strategy"]),
+    ("sortthecourt", ["Puzzle", "Simulation"]),
+    # Idle, sandbox and odds and ends.
+    ("cookieclicker", ["Clicker"]),
+    ("particleclicker", ["Clicker"]),
+    ("clicker", ["Clicker"]),
+    ("idle", ["Clicker"]),
+    ("dogeminer", ["Clicker"]),
+    ("grindcraft", ["Clicker", "Simulation"]),
+    ("craftmine", ["Adventure", "Simulation"]),
+    ("minecraft", ["Adventure", "Simulation"]),
+    ("eaglercraft", ["Adventure", "Simulation"]),
+    ("precisionclient", ["Adventure", "Simulation"]),
+    ("melonsandbox", ["Simulation", "Sandbox"]),
+    ("ragdollsandbox", ["Simulation", "Sandbox"]),
+    ("sandgame", ["Simulation"]),
+    ("interactivebuddy", ["Simulation", "Casual"]),
+    ("papaspizzaria", ["Casual", "Simulation"]),
+    ("ducklife", ["Casual", "Simulation"]),
+    ("learntofly", ["Casual", "Simulation"]),
+    ("idolsofash", ["RPG", "Adventure"]),
+    ("garticphone", ["Casual", "Multiplayer"]),
+    ("soundboard", ["Casual"]),
+    ("meccha", ["Casual"]),
+    ("paperio", ["Agario Style"]),
+    ("qwop", ["Casual", "Weird"]),
+    ("tvstatic", ["Weird"]),
+    ("fakevirus", ["Weird"]),
+    ("hackertyper", ["Weird"]),
+    ("evilglitch", ["Weird"]),
+    ("youraislopboresme", ["Weird"]),
+    ("gameinsideagame", ["Weird", "Puzzle"]),
+    ("dealornodeal", ["Casual"]),
+    ("glasscity", ["Casual", "Action"]),
+    ("exo", ["Action"]),
+    ("roper", ["Arcade"]),
+]
+
+
+def classify(title, existing):
+    """Categories for a game whose source published none.
+
+    Existing source categories always win; this only fills the gaps so every
+    game is reachable from at least one rail entry.
+    """
+    if existing:
+        return existing
+    key = norm_title(title)
+    for needle, cats in CATEGORY_RULES:
+        if needle in key:
+            return list(cats)
+    return ["Casual"]
 
 
 # ---------------------------------------------------------------- sources
@@ -578,6 +823,16 @@ def main():
             continue
         playable.append(game)
     games = playable
+
+    # Games whose source published no genre would otherwise be unreachable from
+    # the rail, so fill those in from the title.
+    filled = [g for g in games if not g["categories"]]
+    for game in filled:
+        game["categories"] = classify(game["title"], game["categories"])
+    print(f"classified {len(filled)} games that had no categories")
+    print("categories:", ", ".join(
+        f"{c}={n}" for c, n in collections.Counter(
+            c for g in games for c in g["categories"]).most_common()))
 
     games.sort(key=lambda g: g["title"].lower())
 

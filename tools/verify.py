@@ -6,9 +6,10 @@ and exits non-zero if anything fails.
     python3 tools/verify.py [base_url]
 """
 import json
+import os
 import sys
 
-sys.path.insert(0, "/tmp")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cdp  # noqa: E402  (local harness)
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:12000"
@@ -77,6 +78,12 @@ FILTER = r"""(()=>{
    title:document.getElementById('cgAllTitle').textContent,
    rowsHidden:[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden)};})()"""
 
+CATEGORY = r"""(()=>{
+ const g=document.getElementById('cgAllGrid');
+ const titles=[...g.querySelectorAll('.cg-card')].map(c=>c.querySelector('.cg-card-title').textContent);
+ return {n:titles.length, retro:titles.filter(t=>/retro bowl/i.test(t)).length,
+   sports:titles.filter(t=>/football|soccer|basket|baseball|pool|rugby|hockey|golf/i.test(t)).length};})()"""
+
 SEARCHBOX = r"""(()=>{
  const i=document.querySelector('.cg-search input');
  const box=document.getElementById('cgSearchResults');
@@ -108,7 +115,9 @@ def main():
     cat = cdp.run(BASE + "/?category=FPS", MEAS, port=9352, wait=7)
     srch = cdp.run(BASE + "/", FILTER, port=9353, wait=7)
     sbox = cdp.run(BASE + "/", SEARCHBOX, port=9354, wait=7)
+    sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
     load = cdp.run(BASE + "/play?g=2048", LOADER, port=9355, wait=8)
+    failed = cdp.failed_requests(BASE + "/", port=9357, wait=7)
     total_cards = home["cards"]
 
     check("header geometry", home["header"] == ARCHIVE["header"],
@@ -152,12 +161,20 @@ def main():
           (play["frame"] or "")[:40])
     check("related games 20", play["sideCards"] == 20, str(play["sideCards"]))
 
-    check("category filter FPS -> 9", cat["filtered"] == 9, str(cat["filtered"]))
+    # FPS games are few and grow as sources are added, so assert it narrows
+    # rather than pinning a count that every catalogue change invalidates.
+    check("category filter FPS narrows", 0 < cat["filtered"] < total_cards,
+          str(cat["filtered"]))
     # The catalogue grows, so assert the search actually narrows rather than a
     # fixed count (a stale count failed every time games were added).
     check("search 'basket' narrows", 0 < srch["n"] < total_cards,
           f"{srch['n']} of {total_cards}")
     check("search hides carousels", srch["rowsHidden"], str(srch["rowsHidden"]))
+
+    # Every Retro Bowl release must be reachable from the Sports rail entry; it
+    # was the whole point of adding them, and they used to be invisible here.
+    check("sports filter has retro bowl", sport.get("retro", 0) >= 10, json.dumps(sport))
+    check("sports filter is sporty", sport.get("sports", 0) >= 40, json.dumps(sport))
 
     check("search box dropdown under bar", sbox.get("visible") and sbox.get("underBar"),
           json.dumps(sbox))
@@ -169,6 +186,13 @@ def main():
           load.get("box") == 40 and load.get("strokeWidth") == "3.6px"
           and load.get("anim") == "cg-spin" and load.get("dashAnim") == "cg-dash",
           json.dumps(load))
+
+    # Every local asset the page asks for must resolve. Relative URLs inside
+    # assets/cg/archive.css resolve from that directory, not the site root, so a
+    # wrong prefix silently 404s the fonts and background.
+    local_failed = [(s, u) for s, u in failed if "127.0.0.1" in u or u.startswith("/")]
+    check("no failed local asset requests", not local_failed,
+          json.dumps(local_failed[:8]))
 
     bad = [r for r in results if not r[1]]
     print("\nFAILURES: %d" % len(bad))

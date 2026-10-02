@@ -73,7 +73,9 @@ def main():
             except Exception as e:
                 print("  font fail", url[-40:], e)
                 continue
-        css = css.replace(url, "assets/cg/fonts/" + fname)
+        # archive.css is served from assets/cg/, so its own URLs must be
+        # relative to that directory, not to the site root.
+        css = css.replace(url, "fonts/" + fname)
     print("fonts:", len(fonts))
 
     # --- background image -----------------------------------------------------
@@ -84,7 +86,7 @@ def main():
                                      "https://www.crazygames.com/images/background2.jpg"))
         except Exception as e:
             print("  bg fail:", e)
-    css = css.replace("url(/images/background2.jpg)", "url(assets/cg/bg.jpg)")
+    css = css.replace("url(/images/background2.jpg)", "url(bg.jpg)")
 
     # --- sprite: every <svg><use href="#id"> referenced by markup -------------
     sprite_ids = sorted(set(re.findall(r'<use href="#([a-zA-Z0-9_-]+)"', home + play)))

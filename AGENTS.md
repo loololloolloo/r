@@ -73,7 +73,11 @@ theme layer sits on top:
   content on hover — no permanent caption, no hover `scale()`. Reproduced from the
   archive; `tools/verify.py` asserts the collapsed 0×0.
 - Font is Nunito, self-hosted under `assets/cg/fonts/` (several gstatic files, not
-  one variable file).
+  one variable file). URL references inside `archive.css` are relative to
+  `assets/cg/` (that is where the stylesheet lives), so they read `url(fonts/…)`
+  and `url(bg.jpg)` — writing the site-root path there double-prefixes to
+  `/assets/cg/assets/cg/…` and 404s every font. `tools/verify.py` loads the page
+  over CDP and fails on any local asset request >= 400, so this stays fixed.
 - 35 category icons live in `assets/cg/icons/<Name>.svg` with their original
   gradient fills. `tools/build-archive.py` maps our categories onto them via
   `CATEGORY_ICON`, falling back to `Tags.svg`.
@@ -129,6 +133,18 @@ theme layer sits on top:
   de-duplication. Its icon is fetched like any other.
 - Games with no downloadable icon are dropped — a card with a broken image looks worse
   than a smaller catalogue.
+- The rail filters on exact category names, and sources like retrobowl26.com and 3kh0
+  publish no genre at all. Those games used to end up with `categories: []`, which made
+  them unreachable from every rail entry — that is why the whole Retro Bowl family was
+  invisible under Sports. `classify()` in the collector now fills empty categories from
+  the title via `CATEGORY_RULES` (first substring match wins, so specific needles sit
+  above broad ones). Source categories are never overwritten, and anything unmatched
+  falls back to `Casual` so nothing is orphaned. Retro Bowl gets an explicit mapping to
+  `Sports`/`Football`/`Retro`. Because the rules are deterministic and thumbnails are
+  already on disk, an existing `data/games.json` can be backfilled in place instead of
+  re-running the whole network fetch.
+- `CATEGORY_ICON` in the builder maps categories onto the archived icon SVGs. Football
+  and Soccer both point at the sports icon (a football is a sport, not soccer only).
 - Thumbnails are downloaded to `assets/img/games/<slug>.jpg` and resized to 480px wide
   (Pillow) — source art is up to 1280px and the grid renders ~320px, so shipping the
   originals costs ~3x the bytes for no visible gain. Downloads run through a small thread
@@ -169,6 +185,9 @@ theme layer sits on top:
 - Rebuild the pages: `python3 tools/build-archive.py`.
 - Check the layout against the archive: `python3 tools/verify.py` (needs Chromium and
   the local server; it measures the live pages and compares to the archived values).
+  The harness lives in `tools/cdp.py` (needs `websocket-client` and a chromium binary),
+  so verification no longer depends on anything in `/tmp`. It also asserts the Sports
+  view contains the whole Retro Bowl family.
 - Below lg the rail becomes a horizontal icon strip under the header (labels hidden);
   the header search stays.
 
