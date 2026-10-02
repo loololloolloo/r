@@ -16,7 +16,15 @@ if (header) {
   };
 
   syncHeaderHeight();
-  new ResizeObserver(syncHeaderHeight).observe(header);
+  // Guarded: on a browser without ResizeObserver an uncaught throw here would
+  // abort the rest of this script, taking the navbar toggle down with it.
+  if (window.ResizeObserver) {
+    try {
+      new ResizeObserver(syncHeaderHeight).observe(header);
+    } catch (error) {
+      /* height simply stays at the CSS default */
+    }
+  }
 }
 
 // Below xl the top navbar is a dropdown panel, hidden off the top of the header
@@ -24,10 +32,17 @@ if (header) {
 // Bootstrap's Collapse: that class animates height, which cannot combine with an
 // absolutely-positioned overlay and left the panel stuck open.
 const topNav = document.getElementById('rgTopNav');
-const topNavToggle = document.getElementById('rgTopNavToggle');
+const topNavToggle = document.querySelector('.navbar-toggler');
 const navOverlayQuery = window.matchMedia('(max-width: 1199.98px)');
 
 if (topNav && topNavToggle) {
+  // Strip Bootstrap's collapse hooks if the markup still carries them (e.g. a
+  // cached older index.html). Left in place, Bootstrap's collapse JS and this
+  // script both drive the panel and fight, leaving it stuck invisible.
+  topNav.classList.remove('collapse', 'show');
+  topNavToggle.removeAttribute('data-bs-toggle');
+  topNavToggle.removeAttribute('data-bs-target');
+
   const setTopNavOpen = (open) => {
     topNav.classList.toggle('rg-open', open);
     topNavToggle.setAttribute('aria-expanded', String(open));
