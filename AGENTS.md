@@ -24,6 +24,15 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
   Python's `http.server` does NOT do this, so extensionless paths 404 locally — test
   them on the live site or use `/play.html`.
 
+## Caching (read this before debugging "the deploy didn't work")
+- **GitHub Pages serves the HTML with `cache-control: max-age=600`** (10 minutes). So
+  after a deploy the browser can keep showing the *old* page for up to 10 minutes. This
+  is not a broken build; it is the cache. Hard-refresh (Ctrl/Cmd+Shift+R) to confirm.
+- Static assets are cached for 4h, which is why `style.css`/`main.js` carry a `?v=`
+  query. Bump `VERSION` in `tools/build-home.py` on every CSS/JS change.
+- Every generated page carries a `<!-- build <UTC timestamp> -->` comment. View-source
+  and compare it to the deploy time to tell instantly whether you are seeing a cached copy.
+
 ## Sidebar collapse (the logo is a button)
 - The navbar brand logo (`#rgSidebarToggle`) toggles the sidebar.
 - From lg up: collapses the wide sidebar (232px) to a 64px icon rail, animating
@@ -37,11 +46,10 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 - Rail width is `--rg-sidebar-rail-w`; the wide width is `--rg-sidebar-left-w`.
 
 ## Comments
-- `comments.js` stores comments in localStorage keyed per game slug
-  (`rg-comments:<slug>`). There is no backend, so they are per-browser and NOT
-  shared between visitors. The form says so; keep that honest rather than implying
-  a real comment system.
-- Text is rendered through an escape helper, never injected as raw HTML.
+- None. Comments were removed: making them visible to everyone needs a shared backend
+  (a static GitHub Pages site has nowhere to store them), and every option was either
+  signup-gated or unreliable. If comments come back, they need a real service — a
+  localStorage-only version is worse than nothing because it looks global but is not.
 
 ## Games data
 - `data/games.json` is the catalogue: `{slug, title, thumb, embed, categories, rating}`.
@@ -98,8 +106,6 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 - Phase 1 (done): dark shell, left sidebar + top navbar, icons, port-forward preview.
 - Phase 2 (done): catalogue grid, search, category filtering, generated pages.
 - Phase 3 (done): play page embedding each game's own site in an iframe.
-- Phase 4 (done): CrazyGames-style play page (flush player, title bar, Play next,
-  comments) + collapsible icon-rail sidebar.
+- Phase 4 (done): CrazyGames-style play page (flush player, title bar, Play next)
+  + collapsible icon-rail sidebar.
 - Next: more games/categories, and revisit anything that refuses to be framed.
-- Known limitation: comments are localStorage-only (per browser). A real shared
-  comment system needs a backend, which this static site does not have.
