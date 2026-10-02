@@ -21,8 +21,10 @@ body {
   z-index: 1030;
 }
 
+/* Literal, not var(--rg-header-h): the JS height sync writes that variable, so
+   sizing the header from it would feed the observer back into itself. */
 .rg-header .navbar {
-  min-height: var(--rg-header-h);
+  min-height: 56px;
 }
 
 .rg-brand {
@@ -141,30 +143,6 @@ body {
   height: 1.05rem;
   fill: currentColor;
   flex: 0 0 auto;
-}
-
-/* ---------- Social row (navbar) ---------- */
-.rg-social {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.rg-social a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background-color: var(--rg-surface-2);
-  border: 1px solid var(--bs-border-color);
-  color: var(--bs-secondary-color);
-}
-
-.rg-social a:hover {
-  color: var(--bs-body-color);
-  border-color: var(--bs-secondary-color);
 }
 
 /* ---------- Desktop: pin sidebar, keep it sticky ---------- */

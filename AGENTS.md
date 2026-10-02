@@ -20,9 +20,13 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 - Local serve: `python3 -m http.server 12000 --bind 0.0.0.0` from repo root.
 - Forwarded preview: https://work-1-rddqiwdridmxqtos.prod-runtime.all-hands.dev/ (port 12000)
 - Layout: one left sidebar for primary nav (`<aside id="sidebarLeft">`), flanked by a
-  top navbar holding brand, quick links, search, social icons and back-to-top.
-  The right sidebar was removed by request. On <lg the sidebar becomes a Bootstrap
+  top navbar holding brand, quick links, search and back-to-top. The right sidebar and
+  the social row were removed by request. On <lg the sidebar becomes a Bootstrap
   offcanvas panel toggled from the navbar.
+- `--rg-header-h` is written by `main.js` (ResizeObserver on the header) and read by the
+  sidebar's sticky offset. Never size the header itself from that variable — it creates a
+  feedback loop (border adds 1px per frame and the navbar grows forever). Header
+  `min-height` must stay a literal.
 
 ## Roadmap
 - Phase 1 (done): dark shell, left sidebar + top navbar, icons, port-forward preview.
