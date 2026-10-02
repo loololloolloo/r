@@ -53,16 +53,36 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 
 ## Games data
 - `data/games.json` is the catalogue: `{slug, title, thumb, embed, categories, rating}`.
-- Regenerate with `python3 tools/fetch-games.py`. It reads the public listing pages on
-  iogames.space (`/popular`, `/new`, `/featured`), which embed a `__NEXT_DATA__` JSON
-  payload with `title`/`thumbnailUrl`/`embedUrl`/`categories` per game.
+- Regenerate with `python3 tools/fetch-games.py`. It merges several public catalogues,
+  in priority order, and de-duplicates across them (by slug, normalised title, and embed
+  host+path) so the same game listed twice appears once:
+  1. **iogames.space** (`/popular`, `/new`, `/featured`) — `__NEXT_DATA__` JSON with
+     `title`/`thumbnailUrl`/`embedUrl`/`categories`.
+  2. **iogames.fun** — `sitemap-games.xml` for the game list; each `/<game>` page is read
+     for its `og:image` icon and title. The embed is the game's own site (`https://<game>`).
+     The icon path is *not* predictable (`/images/games/og/x.jpg` vs `/images/games/x.jpg`),
+     so it is read from the page rather than guessed.
+  3. **retrobowlfree.io** — `sitemap.xml` for `/<game>` pages; embed is `/<game>.embed`.
+     The icon URL is read from `og:image` (retro-bowl uses `retro-bowl-game.jpg`, not
+     `retro-bowl.jpg`). Extra Retro Bowl re-skins (25/26/college/NFL) are dropped;
+     only the original `retro-bowl` is kept.
+  4. **3kh0-lite** (`lite.3kh0.net`) — self-hosted games listed in `config/games.json`;
+     embed is `/projects/<folder>/`. jsDelivr serves the same files as `text/plain`, which
+     browsers refuse to render in an iframe, so the site URL is used.
+- `SPECIAL_GAMES` in the collector holds hand-picked games that are not in any catalogue
+  (currently **One Tap FPS**, embedded from bloxity.io). They are added first so they win
+  de-duplication. Its icon is fetched like any other.
+- Games with no downloadable icon are dropped — a card with a broken image looks worse
+  than a smaller catalogue.
 - Thumbnails are downloaded to `assets/img/games/<slug>.jpg` and resized to 480px wide
   (Pillow) — source art is up to 1280px and the grid renders ~320px, so shipping the
-  originals costs ~3x the bytes for no visible gain.
+  originals costs ~3x the bytes for no visible gain. Downloads run through a small thread
+  pool (8 workers) so a ~500 game run finishes in a couple of minutes.
 - Embeds are rewritten http -> https where the host supports it; games with no https
   embed are dropped, because an http iframe is blocked as mixed content on our https site.
 - These games are third-party sites embedded directly. They are not ours, and some may
   refuse framing later; the player shows a plain message rather than a broken frame.
+- The homepage deliberately shows no game count — just the heading and the grid.
 
 ## Conventions
 - Styling: Bootstrap 5.3.3 via CDN, dark theme (`<html data-bs-theme="dark">`).

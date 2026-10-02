@@ -156,12 +156,8 @@ def page(title, description, body_main, scripts):
 
 
 def build_index(games):
-    count = len(games)
-    body = f"""    <main class="rg-main flex-grow-1">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h1 class="h4 mb-0" id="rgGridHeading">All games</h1>
-        <span class="text-body-secondary small" id="rgGameCount">{count} games</span>
-      </div>
+    body = """    <main class="rg-main flex-grow-1">
+      <h1 class="h4 mb-3" id="rgGridHeading">All games</h1>
 
       <div class="rg-grid" id="rgGrid">
         <p class="rg-empty">Loading games…</p>
