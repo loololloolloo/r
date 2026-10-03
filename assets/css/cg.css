@@ -647,6 +647,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-btn:hover { background-color: var(--cg-card-hover); }
 
+/* ---------- Load more ---------- */
+
+.cg-loadmore-wrap { display: flex; justify-content: center; margin: 28px 0 8px; }
+.cg-loadmore-wrap .cg-btn { min-width: 220px; }
+
 /* ---------- About ---------- */
 
 .cg-about { max-width: 720px; }

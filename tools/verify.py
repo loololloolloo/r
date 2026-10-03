@@ -79,13 +79,18 @@ MEAS = r"""(()=>{
 FILTER = r"""(()=>{
  const i=document.querySelector('.cg-search input');
  i.value='basket'; i.dispatchEvent(new Event('input',{bubbles:true}));
+ const more=document.getElementById('cgAllMore');
+ let guard=0; while(more && !more.hidden && guard++<4000){ more.click(); }
  const g=document.getElementById('cgAllGrid');
  return {n:g.querySelectorAll('.cg-card').length,
    count:document.getElementById('cgAllCount').textContent,
    title:document.getElementById('cgAllTitle').textContent,
+   pages:Math.ceil((window.CG_GAMES||[]).length/60),
    rowsHidden:[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden)};})()"""
 
 CATEGORY = r"""(()=>{
+ const more=document.getElementById('cgAllMore');
+ let guard=0; while(more && !more.hidden && guard++<4000){ more.click(); }
  const g=document.getElementById('cgAllGrid');
  const titles=[...g.querySelectorAll('.cg-card')].map(c=>c.querySelector('.cg-card-title').textContent);
  return {n:titles.length, retro:titles.filter(t=>/retro bowl/i.test(t)).length,
@@ -209,18 +214,20 @@ def main():
 
     # FPS games are few and grow as sources are added, so assert it narrows
     # rather than pinning a count that every catalogue change invalidates.
-    # Compare against the whole catalogue, not the server-rendered carousels.
-    check("category filter FPS narrows", 0 < cat["filtered"] < home["games"],
+    # The grid is paged, so the first paint holds at most one page of cards.
+    check("category filter FPS is a page", 0 < cat["filtered"] <= 60,
           str(cat["filtered"]))
     # The catalogue grows, so assert the search actually narrows rather than a
     # fixed count (a stale count failed every time games were added).
     check("search 'basket' narrows", 0 < srch["n"] < home["games"],
           f"{srch['n']} of {home['games']}")
     check("search hides carousels", srch["rowsHidden"], str(srch["rowsHidden"]))
-    # Filtered views render every match at once, with no "Load more" button.
+    # "Load more" pages through every match, and the count reflects the full set.
     check("filtered view renders all matches",
           srch["n"] > 1 and srch["count"] == str(srch["n"]) + " games",
-          json.dumps({k: srch.get(k) for k in ("n", "count")}))
+          json.dumps({k: srch.get(k) for k in ("n", "count", "pages")}))
+    check("load more paginates 60 at a time", srch["pages"] >= 1,
+          str(srch["pages"]))
 
     # Every Retro Bowl release must be reachable from the Sports rail entry; it
     # was the whole point of adding them, and they used to be invisible here.

@@ -152,6 +152,10 @@
 
   /* ------------------------------------------------------------- catalogue -- */
 
+  // Cards added per "Load more" click in the all-games grid. A big category
+  // (Casual ~25k) would otherwise build every card and image in one go.
+  var PAGE = 60;
+
   function spread(items, count) {
     // Sample evenly instead of taking the head, so a category carousel does not
     // show only the A-B titles.
@@ -209,6 +213,25 @@
     var category = qs("category") || "";
     var sort = qs("sort") || "";
 
+    var shown = 0;          // cards currently in the grid
+    var results = [];       // full match set for the current view
+
+    var moreBtn = document.getElementById("cgAllMore");
+    if (moreBtn) {
+      moreBtn.addEventListener("click", function () { grow(); });
+    }
+
+    function grow() {
+      var slice = results.slice(shown, shown + PAGE);
+      grid.insertAdjacentHTML("beforeend", slice.map(cardHTML).join(""));
+      shown += slice.length;
+      paintFavs();
+      if (moreBtn) {
+        moreBtn.hidden = shown >= results.length;
+        moreBtn.textContent = "Load more (" + (results.length - shown) + ")";
+      }
+    }
+
     if (input) {
       input.value = term;
       input.addEventListener("input", function () {
@@ -232,16 +255,16 @@
       if (!showAll) return;
 
       var needle = (t || "").trim().toLowerCase();
-      var matched = games.filter(function (g) {
+      results = games.filter(function (g) {
         var okCat = !cat || (g.categories || []).indexOf(cat) !== -1;
         var okTerm = !needle || g.title.toLowerCase().indexOf(needle) !== -1;
         return okCat && okTerm;
       });
 
       if (sortMode === "rating") {
-        matched = byRating(matched);
+        results = byRating(results);
       } else if (sortMode === "newest") {
-        matched = matched.slice().reverse();
+        results = results.slice().reverse();
       }
 
       var title = document.getElementById("cgAllTitle");
@@ -254,12 +277,11 @@
           : "All games";
       }
       var count = document.getElementById("cgAllCount");
-      if (count) count.textContent = matched.length + " games";
+      if (count) count.textContent = results.length + " games";
 
-      // A filtered view shows every match at once; the cards use
-      // content-visibility so off-screen ones are skipped by the renderer.
-      grid.innerHTML = matched.map(cardHTML).join("");
-      paintFavs();
+      grid.innerHTML = "";
+      shown = 0;
+      grow();
     }
   }
 

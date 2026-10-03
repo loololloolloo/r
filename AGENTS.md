@@ -14,8 +14,8 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 ## Pages
 - `index.html` — catalogue: CrazyGames-style carousels (New, Top, per-category)
   rendered client-side from `cg-games.js`, plus a full grid that
-  search/category/sort filters in place. A filtered view renders every match at
-  once (no paging button).
+  search/category/sort filters in place. A filtered view pages 60 cards at a
+  time behind a "Load more" button.
 - `play.html` — player, 1:1 with the archived CrazyGames game page: a 922px 16:9
   iframe beside a 364px right sidebar ("More games"). This **does** have a right
   sidebar — the earlier "no right sidebar" rule was dropped when we moved to the
@@ -188,15 +188,17 @@ theme layer sits on top:
   refuse framing later; the player shows a plain message rather than a broken frame.
 - The homepage shows carousels with no game count; the filtered "All games" view
   (search / category / sort) does show a count, because there it is useful.
-- **The home page renders client-side.** 58k server-rendered cards would make
+- **The home page renders client-side.** 70k server-rendered cards would make
   `index.html` tens of megabytes of markup, so `build_home()` emits empty carousel
-  tracks and `cg-games.js` (the catalogue, ~15MB raw / ~2.5MB gzipped) fills them in
+  tracks and `cg-games.js` (the catalogue, ~18MB raw / ~2.5MB gzipped) fills them in
   `initHome()`. `cardHTML()` returns
   the whole `<li>`, so callers must not wrap it in another `<li>` — doing that makes the
   HTML parser close the outer `<li>` immediately and emit an empty one, which shows up as
-  a huge gap between cards. The "All games" grid renders every match at once (no paging
-  button); `#cgAllGrid > li { content-visibility: auto }` keeps a multi-thousand-card
-  category cheap to paint.
+  a huge gap between cards. The "All games" grid pages 60 cards at a time behind a
+  "Load more" button: rendering every match at once built 25k cards and 25k images for
+  a single category (Casual), which froze the tab, so paging is not optional at this
+  catalogue size. `#cgAllGrid > li { content-visibility: auto }` still helps as the
+  user pages deeper.
 
 ## Conventions
 - Styling: no framework. `assets/cg/archive.css` (the archived CrazyGames 2024
@@ -280,8 +282,7 @@ theme layer sits on top:
   render every match at once.
 - Phase 7 (done): **catalogue expanded to 58,118 unique games.** GameMonetize feed
   raised to 100k (actual ~38k), and GamePix (~18.8k) plus Playgama (~8.9k) sitemap
-  sources added. The 15MB `cg-games.js` parses in ~200ms and a full
-  58k-card render is ~0.5s, so no client-side paging cap is needed.
+  sources added. The 15MB `cg-games.js` parses in ~200ms.
 - Phase 8 (done): **catalogue expanded to 69,997 unique games.** CrazyGames raised from
   ~100 to 4,423 (sitemap covers + category listing pages), and GameDistribution added
   (20,911 frames with metadata) after the earlier "iframe-only thumbnails" rejection was
