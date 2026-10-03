@@ -18,11 +18,13 @@ only appears once.
 """
 import collections
 import concurrent.futures
+import gzip
 import html
 import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -51,8 +53,10 @@ THUMB_WIDTH = 480
 WORKERS = 16
 
 # Upper bound on the catalogue. Sources are ordered by quality and trimmed from
-# the tail, so the cap drops the least wanted games first.
-MAX_GAMES = 12000
+# the tail, so the cap drops the least wanted games first. The bulk sources
+# (playgama ~90k, gamepix ~18k, gamemonetize ~38k) sit at the tail, so the cap
+# mainly bounds how many of those secondary games are kept.
+MAX_GAMES = 120000
 
 # Thumbnails are hotlinked from the source CDN rather than mirrored. A full
 # catalogue is ~12k games; downloading and re-encoding each icon would make a
@@ -657,47 +661,118 @@ def _retrobowl26_page(path):
     }
 
 
-def source_crazygames():
-    """CrazyGames publishes its whole catalogue through a public JSON API.
+def _crazygames_cover(slug, sitemap_covers):
+    """Cover URL for a slug.
 
-    The portal we replicate is CrazyGames, so this is the closest source: same
-    titles, same covers. The embed lives at /embed/<slug> and the cover at
-    imgs.crazygames.com/<cover>?format=webp (the bare cover path 404s without
-    the format query).
+    The listing JSON carries a cover path for most games; a few only appear in
+    the sitemap, which is the authoritative source for the canonical cover. The
+    bare cover path 404s without the format query, so one is always appended.
     """
-    page_size, page, out = 100, 1, []
+    cover = sitemap_covers.get(slug)
+    if cover:
+        return cover + "?format=webp&quality=80&width=480"
+    return ""
+
+
+def source_crazygames():
+    """CrazyGames' whole catalogue, via its paginated listing pages.
+
+    The JSON API (v3/en_US/games) ignores paging and always returns the same
+    100 items, so it cannot enumerate the catalogue. The category listing pages
+    (`/c/<slug>`, 60 items each) and the all-games listing (`/sitemap/games`,
+    100 each) do paginate, and their __NEXT_DATA__ carries name, slug, cover and
+    categoryName. The category pages give every game a genre; the all-games
+    listing catches anything not filed under a category. The `en` sitemap is
+    parsed once for the canonical cover of each slug, which fills in the
+    listings that omit it.
+    """
+    covers = {}
+    try:
+        sitemap = fetch_text("https://www.crazygames.com/en/sitemap", timeout=120)
+        for block in re.findall(r"<url>(.*?)</url>", sitemap, re.S):
+            loc = re.search(r"<loc>https://www\.crazygames\.com/game/([^<]+)</loc>",
+                            block)
+            img = re.search(r"<image:loc>([^<]+)</image:loc>", block)
+            if loc and img:
+                covers[loc.group(1)] = html.unescape(img.group(1)).split("?")[0]
+        print(f"  crazygames sitemap covers: {len(covers)}")
+    except (urllib.error.URLError, OSError, ValueError) as exc:
+        print(f"  ! crazygames sitemap: {exc}", file=sys.stderr)
+
+    def next_items(url):
+        # CrazyGames answers 429 when the listing pages are walked quickly, so
+        # back off and retry rather than dropping the rest of the catalogue.
+        for attempt in range(5):
+            try:
+                payload = json.loads(re.search(
+                    r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>',
+                    fetch_text(url, timeout=60), re.S).group(1))
+                time.sleep(0.7)
+                return payload["props"]["pageProps"]["games"]["items"]
+            except urllib.error.HTTPError as exc:
+                if exc.code != 429 or attempt == 4:
+                    print(f"  ! crazygames {url}: {exc}", file=sys.stderr)
+                    return []
+                time.sleep(2 ** attempt)
+            except (urllib.error.URLError, OSError, ValueError, KeyError,
+                    AttributeError) as exc:
+                print(f"  ! crazygames {url}: {exc}", file=sys.stderr)
+                return []
+        return []
+
+    # Category listings, walked until a page comes back short. The sitemap only
+    # lists a handful of pages per category, but the paging is contiguous.
+    out, seen = [], set()
+
+    def add(item, fallback_cat=""):
+        slug = (item.get("slug") or "").strip()
+        title = (item.get("name") or "").strip()
+        if not slug or not title or slug in seen:
+            return
+        thumb = _crazygames_cover(slug, covers)
+        if not thumb and item.get("cover"):
+            thumb = ("https://imgs.crazygames.com/" + item["cover"] +
+                     "?format=webp&quality=80&width=480")
+        if not thumb:
+            return
+        seen.add(slug)
+        cat = (item.get("categoryName") or fallback_cat).strip()
+        out.append({
+            "slug": slug,
+            "title": title,
+            "embed": f"https://www.crazygames.com/embed/{slug}",
+            "thumbSource": thumb,
+            "categories": [cat] if cat else [],
+            "rating": None,
+        })
+
+    categories = ["action", "adventure", "arcade", "beauty", "clicker",
+                  "driving", "io", "puzzle", "shooting", "sim", "sports",
+                  "strategy"]
+    for cat in categories:
+        page = 1
+        while True:
+            items = next_items(f"https://www.crazygames.com/c/{cat}/{page}")
+            if not items:
+                break
+            for item in items:
+                add(item, cat.title())
+            if len(items) < 60:
+                break
+            page += 1
+
+    page = 1
     while True:
-        url = ("https://api.crazygames.com/v3/en_US/games"
-               f"?page={page}&limit={page_size}")
-        try:
-            payload = json.loads(fetch_text(url, timeout=60))
-            block = payload["games"]["data"]
-            items = block["items"]
-        except (urllib.error.URLError, OSError, ValueError, KeyError) as exc:
-            print(f"  ! crazygames page {page}: {exc}", file=sys.stderr)
-            break
+        items = next_items(f"https://www.crazygames.com/sitemap/games/{page}"
+                           if page > 1 else "https://www.crazygames.com/sitemap/games")
         if not items:
             break
         for item in items:
-            title = (item.get("name") or "").strip()
-            slug = (item.get("slug") or "").strip()
-            cover = (item.get("cover") or "").strip()
-            if not title or not slug or not cover:
-                continue
-            cat = (item.get("categoryName") or "").strip()
-            out.append({
-                "slug": slug,
-                "title": title,
-                "embed": f"https://www.crazygames.com/embed/{slug}",
-                "thumbSource": ("https://imgs.crazygames.com/" + cover +
-                                "?format=webp&quality=80&width=480"),
-                "categories": [cat] if cat else [],
-                "rating": None,
-            })
-        total = block.get("total") or 0
-        if len(out) >= total or len(items) < page_size:
+            add(item)
+        if len(items) < 100:
             break
         page += 1
+
     return out
 
 
@@ -707,7 +782,7 @@ def source_gamemonetize():
     The feed serves at most MAX_FEED entries; asking for more simply truncates,
     so this pulls a large slice and lets the global cap do the trimming.
     """
-    url = "https://gamemonetize.com/feed.php?format=0&num=20000"
+    url = "https://gamemonetize.com/feed.php?format=0&num=100000"
     try:
         entries = json.loads(fetch_text(url, timeout=120))
     except (urllib.error.URLError, OSError, ValueError) as exc:
@@ -734,6 +809,136 @@ def source_gamemonetize():
     return games
 
 
+def source_gamepix():
+    """GamePix publishes its catalogue as eight plain sitemaps.
+
+    The public site sits behind Cloudflare (the listing and API 403), but the
+    sitemaps are served from the same host with an image extension that carries
+    the cover, so a single fetch per sitemap yields slug, title and icon. The
+    play page is /play/<slug>; the embeddable frame is /play/<slug>/embed, which
+    answers without X-Frame-Options or a frame-ancestors policy.
+    """
+    out = []
+    for page in range(1, 9):
+        url = f"https://www.gamepix.com/sitemaps/games-{page}.xml"
+        try:
+            xml = fetch_text(url, timeout=60)
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            print(f"  ! gamepix sitemap {page}: {exc}", file=sys.stderr)
+            continue
+        for loc, slug, img in re.findall(
+                r"<loc>(https://www\.gamepix\.com/play/([^<]+))</loc>"
+                r"(?:<image:image><image:loc>([^<]+)</image:loc></image:image>)?",
+                xml):
+            slug = slug.strip()
+            if not slug:
+                continue
+            title = re.sub(r"[-_]+", " ", slug).strip().title()
+            out.append({
+                "slug": slug,
+                "title": title,
+                "embed": f"https://play.gamepix.com/{slug}/embed",
+                "thumbSource": img,
+                "categories": [],
+                "rating": None,
+            })
+    return out
+
+
+def source_playgama():
+    """Playgama (playhop catalogue) publishes ~90k games as four sitemaps.
+
+    Each entry carries the slug, the English title via the og image path and an
+    <image:loc> cover. The portal allows framing (frame-ancestors *), and its
+    /game/<slug> page renders the game directly, so that URL is the embed.
+    """
+    index = fetch_text("https://playgama.com/sitemap.xml", timeout=30)
+    sitemaps = re.findall(
+        r"<loc>(https://playgama\.com/sitemaps/[^<]*sitemap-games-\d+\.xml)</loc>",
+        index)
+    out = []
+    for url in sitemaps:
+        try:
+            xml = fetch_text(url, timeout=120)
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            print(f"  ! playgama sitemap {url.rsplit('/', 1)[-1]}: {exc}",
+                  file=sys.stderr)
+            continue
+        for block in re.findall(r"<url>(.*?)</url>", xml, re.S):
+            slug = re.search(r"<loc>https://playgama\.com/game/([^<]+)</loc>",
+                             block)
+            img = re.search(r"<image:loc>([^<]+)</image:loc>", block)
+            if not slug:
+                continue
+            name = slug.group(1).strip()
+            out.append({
+                "slug": name,
+                "title": re.sub(r"[-_]+", " ", name).strip().title(),
+                "embed": f"https://playgama.com/game/{name}",
+                "thumbSource": img.group(1) if img else "",
+                "categories": [],
+                "rating": None,
+            })
+    return out
+
+
+def source_gamedistribution():
+    """GameDistribution's html5 catalogue (~20.9k games).
+
+    The sitemap at html5.gamedistribution.com lists every game frame
+    (`/<md5>/`) and its cover (`img.gamedistribution.com/<md5>.jpg`). The frame
+    carries no X-Frame-Options and answers with `Access-Control-Allow-Origin: *`,
+    so it embeds directly, and the cover hotlinks. The sitemap has no titles and
+    the publisher's slug pages 404 without a referer, so the title is read from
+    each frame's `<title>`. That is one small request per game; a thread pool
+    keeps the whole set to a few minutes. Frames that do not answer are skipped.
+
+    Categories are left empty so `classify()` derives a genre from the title,
+    the same as every other source that publishes none. The frame's keywords are
+    platform flags ("No Blood", "Kids Friendly"), not genres.
+    """
+    try:
+        body = fetch("https://html5.gamedistribution.com/sitemap.xml",
+                     timeout=120)
+        if body[:2] == b"\x1f\x8b":
+            body = gzip.decompress(body)
+        sitemap = body.decode("utf-8", "ignore")
+    except (urllib.error.URLError, OSError, ValueError) as exc:
+        print(f"  ! gamedistribution sitemap: {exc}", file=sys.stderr)
+        return []
+    ids = re.findall(
+        r"<loc>https://html5\.gamedistribution\.com/([0-9a-f]{16,})/</loc>",
+        sitemap)
+    print(f"  gamedistribution ids: {len(ids)}")
+
+    def one(md5):
+        url = f"https://html5.gamedistribution.com/{md5}/"
+        try:
+            page = fetch_text(url, timeout=30)
+        except (urllib.error.URLError, OSError, ValueError):
+            return None
+        match = re.search(r"<title>([^<]*)</title>", page)
+        title = html.unescape(match.group(1)).strip() if match else ""
+        if not title:
+            return None
+        return {
+            "slug": md5,
+            "title": title,
+            "embed": url,
+            "thumbSource": f"https://img.gamedistribution.com/{md5}.jpg",
+            "categories": [],
+            "rating": None,
+        }
+
+    out = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=32) as pool:
+        for game in pool.map(one, ids):
+            if game:
+                out.append(game)
+    print(f"  gamedistribution with metadata: {len(out)}")
+    return out
+
+
 SOURCES = [
     ("crazygames", source_crazygames),
     ("retrobowl26.com", source_retrobowl26),
@@ -742,6 +947,9 @@ SOURCES = [
     ("retrobowlfree.io", source_retrobowlfree),
     ("3kh0-lite", source_3kh0),
     ("gamemonetize", source_gamemonetize),
+    ("gamepix", source_gamepix),
+    ("playgama", source_playgama),
+    ("gamedistribution", source_gamedistribution),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added
