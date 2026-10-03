@@ -1011,6 +1011,57 @@ def source_retrogames():
     return out
 
 
+def source_sportsgamesaz():
+    """SportsGamesAZ: ~420 sports games, each wrapping a provider embed.
+
+    The sitemap lists every game as a top-level /<slug> URL. Each game's
+    `/<slug>.embed` page is a thin wrapper holding the real provider iframe
+    (GameDistribution, azgames, footballbros, ...), which is what we embed, and
+    `/data/image/game/<slug>.png` is the card art. The wrapper page is
+    frameable but the inner provider is the game, so the inner src is used.
+
+    GameDistribution-backed entries are skipped: the site has no GD integration
+    and those frames are the ones that rendered blank.
+    """
+    sitemap = fetch_text("https://sportsgamesaz.io/sitemap.xml", timeout=30)
+    non_game = re.compile(r"/(games|tag)/|/(popular-games|hot|new|recent|trending|random)$")
+    slugs = []
+    for loc in re.findall(r"<loc>([^<]+)</loc>", sitemap):
+        if non_game.search(loc):
+            continue
+        slug = loc.rstrip("/").rsplit("/", 1)[-1]
+        if slug and slug not in slugs:
+            slugs.append(slug)
+
+    out = []
+    for slug in slugs:
+        try:
+            page = fetch_text(f"https://sportsgamesaz.io/{slug}.embed", timeout=20)
+        except (urllib.error.URLError, OSError, ValueError):
+            continue
+        inner = re.search(r'<iframe[^>]*\ssrc="(https?://[^"]+)"', page)
+        if not inner:
+            continue
+        embed = html.unescape(inner.group(1))
+        if "gamedistribution.com" in urllib.parse.urlsplit(embed).netloc:
+            continue
+        thumb = ""
+        for ext in (".png", ".webp"):
+            url = f"https://sportsgamesaz.io/data/image/game/{slug}{ext}"
+            if head_ok(url):
+                thumb = url
+                break
+        out.append({
+            "slug": slug,
+            "title": re.sub(r"[-_]+", " ", slug).strip().title(),
+            "embed": embed,
+            "thumbSource": thumb,
+            "categories": ["Sports"],
+            "rating": None,
+        })
+    return out
+
+
 SOURCES = [
     ("crazygames", source_crazygames),
     ("retrobowl26.com", source_retrobowl26),
@@ -1022,6 +1073,7 @@ SOURCES = [
     ("gamepix", source_gamepix),
     ("playgama", source_playgama),
     ("retrogames.cc", source_retrogames),
+    ("sportsgamesaz.io", source_sportsgamesaz),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added

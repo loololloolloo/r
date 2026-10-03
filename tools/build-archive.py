@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Generate the site from the archived CrazyGames 2024 shell.
+"""Generate the site from the archived CrazyGames 2026 shell.
 
-Rather than approximating the 2024 look, the pages here reuse the archived
-markup and the archived stylesheet (assets/cg/archive.css, fetched by
-tools/fetch-archive.py). Only two things differ from the archive:
+Rather than approximating the 2026 look, the pages here reuse the archived
+markup and the archived stylesheet (assets/cg2026/theme.css, fetched by
+tools/fetch-2026.py). Only two things differ from the archive:
 
   * branding  - our logo, our name, our favicon (no CrazyGames marks)
   * content   - our catalogue from data/games.json, and our own player
 
-Everything else (header height, rail width, card geometry, type scale, the
-player's main+sidebar split) is the archive's own CSS doing the work, so it
+Everything else (header height, rail width, card geometry, the game page's
+main+sidebar split, type scale) is the archive's own CSS doing the work, so it
 matches 1:1 instead of being eyeballed.
 
-    python3 tools/fetch-archive.py     # once: pull css/fonts/bg/sprite
+    python3 tools/fetch-2026.py        # once: pull css/fonts/icons
     python3 tools/build-archive.py     # then: emit the pages
 """
 import datetime
@@ -23,7 +23,7 @@ import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FILE = os.path.join(ROOT, "data", "games.json")
-CG = "assets/cg"
+CG26 = "assets/cg2026"
 
 # Cache-busting token for the local stylesheet/scripts. It is derived from the
 # asset contents in main(), not hand-maintained: the old fixed "v=28" let a
@@ -39,7 +39,7 @@ def asset_version(games_js):
     """sha1 of everything the pages link, so any change busts the cache."""
     h = hashlib.sha1()
     h.update(games_js.encode("utf-8"))
-    for rel in ("assets/css/cg.css", "assets/js/cg-site.js", "assets/cg/archive.css"):
+    for rel in ("assets/css/cg.css", "assets/js/cg-site.js", "assets/cg2026/theme.css"):
         try:
             with open(os.path.join(ROOT, rel), "rb") as fh:
                 h.update(fh.read())
@@ -47,57 +47,26 @@ def asset_version(games_js):
             pass
     return h.hexdigest()[:10]
 
-# --- rail (same entries and order as the archive, minus the account block) ----
+# --- rail (2026 sidebar entries; category hrefs map to our catalogue) ---------
 RAIL = [
     ("Home", "./", "Home", True),
     ("Recently Played", "./?recent=1", "Recent", True),
     ("New", "./?sort=newest", "New", False),
-    ("Trending", "./?sort=rating", "Trending", False),
+    ("Hot Games", "./?sort=rating", "Trending", False),
     ("__hr__",),
-    ("2 Player", "./?category=Team", "2players", False),
     ("Action", "./?category=Action", "Action", False),
     ("Adventure", "./?category=Adventure", "Adventure", False),
-    ("Casual", "./?category=Casual", "Casual", False),
+    ("2 Player", "./?category=Team", "Multiplayer", False),
+    ("Arcade", "./?category=Casual", "Casual", False),
+    ("Board", "./?category=Board", "Board", False),
+    ("Card", "./?category=Card", "Card", False),
     ("Puzzle", "./?category=Puzzle", "Puzzle", False),
     ("Shooting", "./?category=Shooter", "Shooting", False),
     ("Sports", "./?category=Sports", "Sports", False),
     ("Racing", "./?category=Racing", "Driving", False),
-    ("Strategy", "./?category=Strategy", "TowerDefense", False),
-    ("FPS", "./?category=FPS", "FPS", False),
-    ("Horror", "./?category=Zombies", "Horror", False),
+    ("Strategy", "./?category=Strategy", "Strategy", False),
     (".io", "./?category=Agario%20Style", "io", False),
 ]
-
-# --- our categories -> the archive's own category artwork ---------------------
-CATEGORY_ICON = {
-    "Action": "Action", "Adventure": "Adventure", "Arcade": "Flash",
-    "Casual": "Casual", "Puzzle": "Puzzle", "Shooter": "Shooting",
-    "2D Shooter": "Shooting", "FPS": "FPS", "Sports": "Sports",
-    "Sport": "Sports", "Football": "Sports", "Soccer": "Soccer",
-    "Baseball": "Sports", "Simulation": "Casual", "Sandbox": "Casual",
-    "Emulator": "Controller", "Sci-Fi": "Space",
-    "Basketball": "Basketball", "Racing": "Driving", "Car": "Car",
-    "Bike": "Bike", "Tank": "Shooting", "Ships": "Pool",
-    "Strategy": "TowerDefense", "Tower Defense": "TowerDefense",
-    "Card": "Card", "Clicker": "Clicker", "Casual Games": "Casual",
-    "Zombies": "Horror", "Horror": "Horror", "Space": "Action",
-    "Survival": "Action", "RPG": "Adventure", "Fantasy": "Adventure",
-    "Maze": "Escape", "Escape": "Escape", "Logic": "Puzzle",
-    "Platform": "Stickman", "Running": "Stickman", "Retro": "Flash",
-    "Classic": "Flash", "Mobile Games": "Controller",
-    "Multiplayer": "Multiplayer", "Team": "Multiplayer",
-    "Cooperative": "Multiplayer", "Battle Royale": "Shooting",
-    "Fighting": "Action", "Agario Style": "io", "Moomoo.io Style": "io",
-    "Splix Style": "io", "Diep Style": "io", "Crazy Games": "Originals",
-    "Free For All": "Multiplayer", "Power-ups": "Action",
-    "Upgrades": "Clicker", "Weird": "Flash", "Pixels": "Minecraft",
-    "Minecraft": "Minecraft", "Chat": "Multiplayer", "Spectate": "Tags",
-    "Simulation": "Controller", "Snake Games": "io", "3D": "Action",
-    "Asteroids": "Flash", "Mahjong": "Mahjong", "Pool": "Pool",
-    "Ocean": "Pool", "Beauty": "Beauty", "DressUp": "DressUp",
-}
-DEFAULT_ICON = "Tags"
-
 
 def esc(s):
     return html.escape(str(s), quote=True)
@@ -117,10 +86,6 @@ def play_url(g):
     return "./play?g=" + g["slug"]
 
 
-def icon(name):
-    return f"{CG}/icons/{CATEGORY_ICON.get(name, DEFAULT_ICON)}.svg"
-
-
 # ---------------------------------------------------------------- page pieces --
 
 def head(title, description, extra_css=""):
@@ -130,56 +95,58 @@ def head(title, description, extra_css=""):
   <meta name="description" content="{esc(description)}">
   <meta name="theme-color" content="#0c0d14">
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
-  <link href="{CG}/archive.css?v={VERSION}" rel="stylesheet">
+  <link href="{CG26}/theme.css?v={VERSION}" rel="stylesheet">
   <link href="assets/css/cg.css?v={VERSION}" rel="stylesheet">{extra_css}"""
 
 
-def sprite():
-    """Inline the archive's <symbol> defs so <use href="#id"> resolves.
-
-    Our own heart symbol is appended so the favourite buttons on the cards can
-    share one definition instead of repeating the path on every card.
-    """
-    path = os.path.join(ROOT, CG, "sprite.svg")
-    try:
-        with open(path, encoding="utf-8") as f:
-            data = f.read()
-    except OSError:
-        data = '<svg xmlns="http://www.w3.org/2000/svg" style="display:none">'
-    heart = ('<symbol id="cg-heart" viewBox="0 0 24 24">'
-             '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 '
-             '7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 '
-             '5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></symbol>')
-    return data.replace("</svg>", heart + "</svg>")
-
-
 def header():
-    """Archive header geometry: 60px tall, logo left, actions right."""
-    return f"""  <header id="czyHeader" class="cg-header">
-    <div class="cg-header-bar">
-      <a class="cg-header-logo" href="./" aria-label="Games home">
-        <img src="assets/img/logo.png" width="58" height="28" alt="Games">
+    """2026 shell header (Header_root): 60px, logo left, centred search,
+    icon buttons right. Class names come from the archived 2026 portal so the
+    archived stylesheet drives the look; branding and actions are ours."""
+    return f"""  <header id="czyHeader" class="Header_root__uPVep cg-header">
+    <div class="Header_leftSection__iw1d6">
+      <a href="./" aria-label="Games home">
+        <img class="LogoImage_logoImage__QD3zH" src="assets/img/logo.png"
+             width="58" height="28" alt="Games" id="logo">
       </a>
-      <form class="cg-search" role="search" onsubmit="return false;">
-        <input type="search" placeholder="Search games" aria-label="Search games"
-               autocomplete="off" aria-controls="cgSearchResults">
+    </div>
+    <form class="TopSearch_topSearchForm__b9Z8c TopSearch_isDesktop__2eSKm cg-search"
+          role="search" autocomplete="off" onsubmit="return false;">
+      <div class="TopSearch_inputWrapper__QI6kt">
+        <input class="TopSearch_searchInput__Nbapa TopSearch_topSearchInput__mCCPQ
+               TopSearch_isDesktop__2eSKm" id="search-input" type="text"
+               placeholder="Search games and categories" aria-label="Search games"
+               autocomplete="off" spellcheck="false" aria-autocomplete="none"
+               aria-controls="cgSearchResults">
+        <div class="QuickSearchIcon_iconButton__t8cVX TopSearch_quickSearchIconDesktop__hbiT5">
+          <span role="img" aria-hidden="true"
+                class="Icon_icon__OracF Icon_icon-search___meL2 Icon_size20__yF8AY"></span>
+        </div>
         <div class="cg-search-results" id="cgSearchResults" role="listbox" hidden></div>
-      </form>
-      <div class="cg-header-actions">
-        <button class="cg-iconbtn cg-admin-link" type="button" aria-label="Admin panel" title="Admin panel">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94a7.5 7.5 0 0 0 .06-.94 7.5 7.5 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.58.24-1.12.55-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.74 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.5 7.5 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.6.22l2.39-.96c.5.39 1.04.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.58-.24 1.12-.55 1.62-.94l2.39.96c.22.08.48 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
-        </button>
-        <button class="cg-iconbtn cg-fav-btn" type="button" aria-label="Favorites" title="Favorites"
-                aria-haspopup="dialog" aria-controls="cgFavPanel">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><use href="#cg-heart"></use></svg>
-        </button>
-        <a class="cg-iconbtn" href="./?random=1" aria-label="Random game" title="Random game">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17 3h4v4h-2V6.4l-3.3 3.3-1.4-1.4L17.6 5H17zM3 5h4.2l3.3 3.3-1.4 1.4L6.4 7H3zm14 10.6 1.4-1.4 1.6 1.6V14h2v4h-4v-2h.6zM3 19h3.4l4.1-4.1 1.4 1.4L7.2 21H3z"/></svg>
-        </a>
-        <a class="cg-iconbtn" href="./about" aria-label="About" title="About">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
-        </a>
       </div>
+    </form>
+    <div class="Header_rightSection__fcQ4k">
+      <button class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--headerIcon__aK8wL Button_czyButton--headerIcon--desktop___7kXV cg-admin-link"
+              type="button" aria-label="Admin panel" title="Admin panel">
+        <span role="img" aria-hidden="true"
+              class="Icon_icon__OracF Icon_icon-settings__4qq6P Icon_size20__yF8AY"></span>
+      </button>
+      <button class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--headerIcon__aK8wL Button_czyButton--headerIcon--desktop___7kXV cg-fav-btn"
+              type="button" aria-label="Favorites" title="Favorites"
+              aria-haspopup="dialog" aria-controls="cgFavPanel">
+        <span role="img" aria-hidden="true"
+              class="Icon_icon__OracF Icon_icon-heart__qO3Kr Icon_size20__yF8AY"></span>
+      </button>
+      <a class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--headerIcon__aK8wL Button_czyButton--headerIcon--desktop___7kXV"
+         href="./?random=1" aria-label="Random game" title="Random game">
+        <span role="img" aria-hidden="true"
+              class="Icon_icon__OracF Icon_icon-surprise-random__QyKgX Icon_size20__yF8AY"></span>
+      </a>
+      <a class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--headerIcon__aK8wL Button_czyButton--headerIcon--desktop___7kXV"
+         href="./about" aria-label="About" title="About">
+        <span role="img" aria-hidden="true"
+              class="Icon_icon__OracF Icon_icon-question-circle__4qTFO Icon_size20__yF8AY"></span>
+      </a>
     </div>
   </header>"""
 
@@ -188,48 +155,78 @@ def rail(active=""):
     rows = []
     for item in RAIL:
         if item[0] == "__hr__":
-            rows.append('      <hr class="cg-rail-hr">')
+            rows.append('      <div class="Sidebar_divider__imtDG" role="separator"></div>')
             continue
         label, href, icon_name, _ = item
-        on = " cg-active" if label.lower() == active.lower() else ""
+        on = " Sidebar_active__bltDp cg-active" if label.lower() == active.lower() else ""
         rows.append(
-            f'      <a class="cg-rail-item{on}" href="{href}" aria-label="{esc(label)}">'
-            f'<img src="{CG}/icons/{icon_name}.svg" loading="lazy" alt="" width="28" height="28">'
-            f'<div class="cg-rail-label">{esc(label)}</div></a>')
-    return f"""  <nav id="mainNav" class="cg-rail" aria-label="Main">
-    <div class="cg-rail-inner">
+            f'      <a class="Sidebar_link__Tbdup cg-rail-item{on}" href="{href}"'
+            f' aria-label="{esc(label)}">'
+            f'<img src="{CG26}/icons/{icon_name}.svg" loading="lazy" alt="{esc(label)} icon">'
+            f'<div class="Sidebar_labelContainer__qHPDa">{esc(label)}</div></a>')
+    return f"""  <nav id="mainNav" class="Sidebar_main___ex0V Sidebar_isDesktop__aieVO cg-rail" aria-label="Main">
+    <div class="Sidebar_container__CqXNx" id="sidebarContainer">
 {chr(10).join(rows)}
     </div>
   </nav>"""
 
 
 def card(g):
-    cats = "|".join(g["categories"])
-    return (f'<a class="cg-card" href="{play_url(g)}" '
-            f'data-title="{esc(g["title"].lower())}" data-cats="{esc(cats)}" '
-            f'data-rating="{g["rating"] or 0}" data-i="{g["_i"]}">'
-            f'<div class="cg-card-title">{esc(g["title"])}</div>'
-            f'<img class="cg-card-img" loading="lazy" src="{esc(g["thumb"])}" '
-            f'alt="{esc(g["title"])}">'
-            f'<button class="cg-fav" type="button" data-fav="{esc(g["slug"])}" '
-            f'aria-label="Add {esc(g["title"])} to favourites" aria-pressed="false">'
-            f'<svg viewBox="0 0 24 24" aria-hidden="true">'
-            f'<use href="#cg-heart"></use></svg></button></a>')
+    """A CrazyGames-2026 game thumb: an image-only link with the title in the
+    aria-label, an optional new/hot badge and a hover-zoom overlay."""
+    title = esc(g["title"])
+    href = play_url(g)
+    idx = g.get("_i", 0)
+    label = ""
+    if idx % 5 == 1:
+        label = ('<div aria-label="New" class="GameThumbLabel_label__dz3yR '
+                 'GameThumbLabel_new__8GnG6"><span role="img" aria-hidden="true" '
+                 'class="Icon_icon__OracF Icon_icon-new__vmtCf Icon_size20__yF8AY">'
+                 '</span></div>')
+    elif idx % 5 == 3:
+        label = ('<div aria-label="Hot" class="GameThumbLabel_label__dz3yR '
+                 'GameThumbLabel_hot__CWhxn"><span role="img" aria-hidden="true" '
+                 'class="Icon_icon__OracF Icon_icon-hot__Tir31 Icon_size20__yF8AY">'
+                 '</span></div>')
+    return (
+        f'<a class="GameThumbDesktop_gameThumbLinkDesktop__LS_Bs '
+        f'GameThumbDesktop_hasHoverOverlay__qNdmo game-thumb-test-class" '
+        f'aria-label="{title}" href="{href}">{label}'
+        f'<div class="GameThumbDesktop_gameThumbMedia__L7si1">'
+        f'<img class="GameThumbShared_gameThumbImage__7EHHi '
+        f'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" '
+        f'alt="{title}" width="273" src="{esc(g["thumb"])}"></div></a>')
 
 
-def carousel(title, games, more_href=""):
+def carousel(title, games, more_href="", highlighted=False, row="", track_id="",
+             title_html="", data_cat="", testid="", hidden=False, title_cls=""):
+    """A 2026 carousel section. `title_html` overrides the plain title when the
+    heading carries markup (e.g. a link or the country flag)."""
+    cls = "CrazyCarousel_gamesCarouselSection__cDN02"
+    if highlighted:
+        cls += " CrazyCarousel_isHighlightedMode__R_Xpi"
+    attrs = f' data-row="{row}"' if row else ""
+    if testid:
+        attrs += f' data-testid="{testid}"'
+    if hidden:
+        attrs += " hidden"
+    tid = f' id="{track_id}"' if track_id else ""
+    cat = f' data-cat="{esc(data_cat)}"' if data_cat else ""
+    head = title_html or esc(title)
+    tcls = "CarouselSectionTitle_carouselTitle__tDEqL"
+    if title_cls:
+        tcls += " " + title_cls
     more = (f'<a class="cg-more" href="{more_href}">View more</a>'
             if more_href else "")
     items = "\n".join(f"          <li>{card(g)}</li>" for g in games)
-    return f"""      <section class="cg-section">
-        <div class="cg-section-head">
-          <h2 class="cg-section-title">{esc(title)}</h2>{more}
-        </div>
-        <div class="cg-carousel">
-          <ul class="cg-carousel-track">
+    return f"""      <section class="{cls}"{attrs}>
+        <div class="{tcls}">{head}</div>
+        <div class="CrazyCarousel_crazyCarouselRoot__l3JCg">
+          <ul class="CrazyCarousel_crazyCarouselContainer__63ph_ crazy-carousel"{tid}{cat}>
 {items}
           </ul>
         </div>
+        {more}
       </section>"""
 
 
@@ -307,23 +304,23 @@ def favorites_modal():
 
 
 def page(title, description, main, scripts, rail_active="Home", main_class="",
-         admin_overlay=True):
+         admin_overlay=True, head_extra="", body_class="", body_attr=""):
     cls = ("cg-main " + main_class).strip()
     modal = admin_modal() if admin_overlay else ""
+    body_attrs = (' class="' + body_class + '"' if body_class else "") + body_attr
     return f"""<!doctype html>
 <html lang="en">
 <head>
 {MARKER}
 {head(title, description)}
-</head>
-<body>
-{sprite()}
+{head_extra}</head>
+<body{body_attrs}>
+  <div class="Layout_root__ggW6Q cg-shell">
 {header()}
 
-  <div class="cg-shell">
 {rail(rail_active)}
 
-    <main class="{cls}">
+    <main class="Layout_styledMain__YQszE Layout_isDesktop__1G5Sd Layout_hasCollapsedSidebar__AK3eb {cls}">
 {main}
     </main>
   </div>
@@ -332,9 +329,9 @@ def page(title, description, main, scripts, rail_active="Home", main_class="",
 {modal}
 {favorites_modal()}
 
-  <script src="assets/js/cg-games.js?v={VERSION}"></script>
-  <script src="assets/js/cg-site.js?v={VERSION}"></script>
-  <script src="assets/js/cg-admin.js?v={VERSION}"></script>{scripts}
+  <script defer src="assets/js/cg-games.js?v={VERSION}"></script>
+  <script defer src="assets/js/cg-site.js?v={VERSION}"></script>
+  <script defer src="assets/js/cg-admin.js?v={VERSION}"></script>{scripts}
 </body>
 </html>
 """
@@ -343,26 +340,36 @@ def page(title, description, main, scripts, rail_active="Home", main_class="",
 # ------------------------------------------------------------------- builders --
 
 def build_home(games):
-    # The catalogue is ~12k games, so the page ships the data (cg-games.js) and
-    # lets cg-site.js render the cards. Server-rendering every card would make
-    # index.html megabytes of markup for a grid the client filters anyway; the
-    # carousels below are filled from the same bundle on load.
+    # The catalogue is ~84k games, so the page ships the data (cg-games.js) and
+    # lets cg-site.js render the cards into the exact CrazyGames-2026 home
+    # skeleton: a stack of carousels whose markup/classes come from the archived
+    # 2026 portal (see tools/fetch-2026.py). Server-rendering every card would
+    # make index.html megabytes of markup for a grid the client filters anyway.
     parts = []
-    parts.append("""      <section class="cg-section" data-row="new">
-        <div class="cg-section-head">
-          <h2 class="cg-section-title">New games</h2>
-          <a class="cg-more" href="./?sort=newest">View more</a>
+
+    # "Continue playing" — filled from localStorage, hidden until it has history.
+    parts.append("""      <section class="CrazyCarousel_gamesCarouselSection__cDN02"
+        data-row="recent" id="cgRecentSection" data-testid="carousel-recent" hidden>
+        <div class="CarouselSectionTitle_carouselTitle__tDEqL">Continue playing</div>
+        <div class="CrazyCarousel_crazyCarouselRoot__l3JCg">
+          <ul class="CrazyCarousel_crazyCarouselContainer__63ph_ crazy-carousel"
+            id="cgRecentTrack"></ul>
         </div>
-        <div class="cg-carousel"><ul class="cg-carousel-track" id="cgNewTrack"></ul></div>
       </section>""")
 
-    parts.append("""      <section class="cg-section" data-row="top">
-        <div class="cg-section-head">
-          <h2 class="cg-section-title">Top games</h2>
-          <a class="cg-more" href="./?sort=rating">View more</a>
-        </div>
-        <div class="cg-carousel"><ul class="cg-carousel-track" id="cgTopTrack"></ul></div>
-      </section>""")
+    # Spotlight — the archive's highlighted "Top games in <flag> today" carousel.
+    parts.append(carousel(
+        "", [], highlighted=True, row="hero", track_id="cgHeroCards",
+        testid="carousel-recommended",
+        title_cls="RecommendedCarouselTitle_recommendedTitle__M_lew",
+        title_html='<span>Top games today</span>'))
+
+    parts.append(carousel("New games", [], row="new", track_id="cgNewTrack",
+                          testid="carousel-new-games", more_href="./?sort=newest"))
+    parts.append(carousel("Trending now", [], row="trending", track_id="cgTrendTrack",
+                          testid="carousel-trending", more_href="./?sort=rating"))
+    parts.append(carousel("Top games", [], row="top", track_id="cgTopTrack",
+                          testid="carousel-top", more_href="./?sort=rating"))
 
     rows = [
         (".io Games", "Agario Style"),
@@ -374,14 +381,9 @@ def build_home(games):
         ("Casual Games", "Casual"),
     ]
     for label, cat in rows:
-        parts.append(f"""      <section class="cg-section" data-row="cat">
-        <div class="cg-section-head">
-          <h2 class="cg-section-title">{esc(label)}</h2>
-          <a class="cg-more" href="./?category={cat.replace(' ', '%20')}">View more</a>
-        </div>
-        <div class="cg-carousel"><ul class="cg-carousel-track"
-          data-cat="{esc(cat)}"></ul></div>
-      </section>""")
+        parts.append(carousel(
+            label, [], row="cat", data_cat=cat, testid="carousel-lazy-category",
+            more_href="./?category=" + cat.replace(" ", "%20")))
 
     parts.append("""      <section class="cg-section" data-row="best">
         <div class="cg-section-head">
@@ -403,15 +405,28 @@ def build_home(games):
         </p>
       </section>""")
 
+    parts.append("""      <section class="cg-seo" id="cgSeo">
+        <h1>Free Online Games</h1>
+        <p>Games features thousands of free online games you can play instantly in
+          your browser. No downloads, no installs, no pop-ups.</p>
+        <p>Play action, puzzle, shooting, sports, racing and casual games on desktop
+          and mobile, with new titles added all the time.</p>
+        <button class="cg-seo-toggle" type="button" aria-expanded="false"
+          aria-controls="cgSeo">Show more</button>
+      </section>""")
+
+    body = "      <div class=\"HomePage_root__6VHY8 HomePage_desktop__CDZV_\">\n" \
+           + "\n".join(parts) + "\n      </div>"
     return page("Games - Free Online Games",
                 "Play free browser games: action, puzzle, shooting, sports and more.",
-                "\n".join(parts), "", "Home")
+                body, "", "Home", "cg-main-home",
+                body_class="cg-2026")
 
 
 def build_play(games):
     params_js = """
   <script>
-  (function () {
+  window.addEventListener('DOMContentLoaded', function () {
     var p = new URLSearchParams(location.search).get('g');
     var games = window.CG_GAMES || [];
     var g = games.filter(function (x) { return x.slug === p; })[0] || games[0];
@@ -428,10 +443,26 @@ def build_play(games):
         ? '<b>' + g.rating.toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
         : 'Not rated yet';
     document.getElementById('cgMetaSource').textContent = g.source || 'Unknown';
+    var cats = g.categories || [];
     document.getElementById('cgMetaCats').innerHTML =
-      (g.categories || []).map(function (c) {
-        return '<a class="cg-chip" href="./?category=' + encodeURIComponent(c) + '">' + c + '</a>';
-      }).join('') || '<span>Casual</span>';
+      cats.map(function (c) {
+        return '<a href="./?category=' + encodeURIComponent(c) + '">' +
+          '<div class="TagGrid_tagPillContainer__rY0CY tagPill"><p>' + c +
+          '</p><span>›</span></div></a>';
+      }).join('');
+    var primary = cats[0] || 'Casual';
+    var crumbTag = document.getElementById('cgCrumbTag');
+    if (crumbTag) {
+      crumbTag.textContent = g.title;
+      crumbTag.href = './?q=' + encodeURIComponent(g.title);
+    }
+    var crumbGame = document.getElementById('cgCrumbGame');
+    if (crumbGame) crumbGame.textContent = g.title;
+    var crumbCat = document.getElementById('cgCrumbCat');
+    if (crumbCat) {
+      crumbCat.textContent = primary;
+      crumbCat.href = './?category=' + encodeURIComponent(primary);
+    }
     document.getElementById('cgMetaDesc').textContent =
       'Play ' + g.title + ' for free in your browser. No download, no install.';
 
@@ -439,7 +470,6 @@ def build_play(games):
 
     // Related first (shared category), then the rest, so the section shows
     // genre-mates instead of the catalogue's first alphabetical entries.
-    var cats = g.categories || [];
     var others = games.filter(function (x) { return x.slug !== g.slug; });
     var sameCat = others.filter(function (x) {
       return (x.categories || []).some(function (c) { return cats.indexOf(c) >= 0; });
@@ -450,69 +480,97 @@ def build_play(games):
 
     function cards(list) {
       return list.map(function (x) {
-        return '<li><a class="cg-card" href="./play?g=' + x.slug + '">' +
-          '<div class="cg-card-title">' + x.title + '</div>' +
-          '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt="">' +
-          '<button class="cg-fav" type="button" data-fav="' + x.slug +
-          '" aria-label="Add to favourites" aria-pressed="false">' +
-          '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-          '<use href="#cg-heart"></use></svg></button></a></li>';
+        return '<a class="GameThumbDesktop_legacy_gameThumbLinkDesktop__C_c82 ' +
+          'GameThumbDesktop_legacy_isResponsiveGrid__L_ymd game-thumb-test-class" ' +
+          'aria-label="' + x.title + '" href="./play?g=' + x.slug + '">' +
+          '<div class="GameThumbDesktop_legacy_gameThumbTitleContainer__HAib2 ' +
+          'gameThumbTitleContainer">' + x.title + '</div>' +
+          '<img class="GameThumbShared_gameThumbImage__7EHHi ' +
+          'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" width="273" ' +
+          'alt="" src="' + x.thumb + '"></a>';
       }).join('');
     }
 
     document.getElementById('cgSideList').innerHTML = cards(related.slice(0, 20));
     document.getElementById('cgMoreGrid').innerHTML = cards(related.slice(0, 24));
-  })();
+  });
   </script>"""
 
-    main = """      <div class="cg-play">
-        <div class="cg-play-main">
-          <div class="cg-player">
-            <div class="cg-loader" id="cgLoader" role="progressbar" aria-label="Loading game">
-              <span class="cg-spinner">
-                <svg viewBox="22 22 44 44"><circle cx="44" cy="44" r="20.2"
-                  fill="none" stroke-width="3.6"></circle></svg>
-              </span>
-            </div>
-            <iframe id="cgFrame" class="cg-frame" title="Game" allowfullscreen
-                    allow="autoplay; fullscreen; gamepad; clipboard-write"></iframe>
-          </div>
-          <div class="cg-info" id="gameInfoContainer">
-            <div class="cg-info-head">
-              <h1 class="cg-info-title" id="cgStageTitle">Loading...</h1>
-              <div class="cg-info-actions">
-                <button class="cg-pill cg-pill-fav" type="button" id="cgFavToggle" hidden
-                        aria-pressed="false">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#cg-heart"></use></svg><span>Favorite</span>
-                </button>
-                <button class="cg-pill" type="button" id="cgFullscreen">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg><span>Fullscreen</span>
-                </button>
-                <a class="cg-pill" href="./?random=1">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5zm-3 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm2-9H5V5h9l2 2v2z"/></svg><span>Random game</span>
-                </a>
+    main = """      <div class="GamePageDesktop_main__fSalE">
+        <div class="GamePageDesktop_mainContainer__QMRhB" id="gamePageMainContainer">
+          <div class="GamePageDesktop_gfContainer__ywzsh cg-gf">
+            <div class="GamePageDesktop_gfAspectRatioContainer__f_hUp cg-gf-ratio">
+              <div class="GameContainerDesktop_gameContainerDesktopRoot__qvoxU cg-player">
+                <div class="GameContainer GameContainerDesktop_gameContainer__TT_xK">
+                  <div class="cg-loader" id="cgLoader" role="status" aria-label="Loading">
+                    <div class="Spinner_spinner__LzRWH Spinner_size40__BUkhC Spinner_colorWhite__9a9nd"></div>
+                  </div>
+                  <iframe id="cgFrame" class="cg-frame" title="Game" allowfullscreen
+                          allow="autoplay; fullscreen; gamepad; clipboard-write"></iframe>
+                </div>
               </div>
             </div>
-            <div class="cg-info-rows">
-              <div class="cg-info-row"><div class="cg-info-label">Rating:</div><div class="cg-info-value" id="cgMetaRating"></div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Released:</div><div class="cg-info-value">Free to play</div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Technology:</div><div class="cg-info-value">HTML5</div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Source:</div><div class="cg-info-value" id="cgMetaSource"></div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Categories:</div><div class="cg-info-value" id="cgMetaCats"></div></div>
-            </div>
-            <hr class="cg-info-divider">
-            <div class="cg-info-desc"><p id="cgMetaDesc"></p></div>
-            <hr class="cg-info-divider">
-            <div class="cg-info-more">
-              <h2 class="cg-info-more-title">More games</h2>
-              <ul class="cg-grid cg-info-grid" id="cgMoreGrid"></ul>
+          </div>
+          <div class="GamePageDesktop_gameInfoContainer__SwKQu" id="gameInfoContainer">
+            <div class="GameInfo_gameInfo__2UItk GameInfo_isDesktop__KqJ3d">
+              <div class="GameInfo_top__7H_Pq">
+                <div class="GameInfo_leftColumn__vMTeN">
+                  <div class="GameInfo_gameInfoTopSection__xKLGy">
+                    <div class="Breadcrumbs_breadcrumbs__L3mrb">
+                      <div><a href="./" >Games</a><div class="Breadcrumbs_separator__yCVN1">»</div></div>
+                      <div><a href="./?category=Puzzle" id="cgCrumbCat">Puzzle</a><div class="Breadcrumbs_separator__yCVN1">»</div></div>
+                      <div><a href="#" id="cgCrumbTag">2048</a></div><div class="Breadcrumbs_separator__yCVN1">»</div>
+                      <div><a href="#" id="cgCrumbGame">2048</a></div>
+                    </div>
+                    <div class="GameInfo_containerWithPadding__z9aMp"><h1 id="cgStageTitle">2048</h1></div>
+                    <div class="GameInfo_gameUnderTitle__EyUXF">
+                      <button class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--height34__0zFYJ cg-pill cg-pill-fav" type="button" id="cgFavToggle" aria-pressed="false">
+                        <span role="img" aria-hidden="true" class="Icon_icon__OracF Icon_icon-heart__qO3Kr Icon_size20__yF8AY"></span><span>Favorite</span>
+                      </button>
+                      <button class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--height34__0zFYJ cg-pill" type="button" id="cgFullscreen">
+                        <span role="img" aria-hidden="true" class="Icon_icon__OracF Icon_icon-double-arrow__ibHgA Icon_size20__yF8AY"></span><span>Fullscreen</span>
+                      </button>
+                      <a class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--height34__0zFYJ cg-pill" href="./?random=1">
+                        <span role="img" aria-hidden="true" class="Icon_icon__OracF Icon_icon-random__S6lNl Icon_size20__yF8AY"></span><span>Random game</span>
+                      </a>
+                    </div>
+                    <dl class="GameSummary_gameSummaryTable__KxE9A">
+                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Rating</dt>
+                      <dd class="GameSummary_gameTableRowContent__RW5fE cg-info-value" id="cgMetaRating"></dd>
+                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Released</dt>
+                      <dd class="GameSummary_gameTableRowContent__RW5fE">Free to play</dd>
+                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Game engine</dt>
+                      <dd class="GameSummary_gameTableRowContent__RW5fE">HTML5</dd>
+                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Platforms</dt>
+                      <dd class="GameSummary_gameTableRowContent__RW5fE">Browser (desktop, mobile, tablet)</dd>
+                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Orientation</dt>
+                      <dd class="GameSummary_gameTableRowContent__RW5fE">Landscape</dd>
+                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Source</dt>
+                      <dd class="GameSummary_gameTableRowContent__RW5fE cg-info-value" id="cgMetaSource"></dd>
+                    </dl>
+                    <div class="GameTags_gameTagChipContainer__F5xPO" id="cgMetaCats"></div>
+                  </div>
+                </div>
+                <div class="GameInfo_rightColumn__hExHC"></div>
+              </div>
+              <div class="GameInfo_roundedCornersContainer__D5D_p">
+                <div class="GameInfo_styledHtmlDiv__Zg2EY GameInfo_marginBlockEnd1__CZiMD gameDesc">
+                  <p id="cgMetaDesc"></p>
+                </div>
+                <div class="GameInfo_styledHtmlDiv__Zg2EY">
+                  <h2 class="GameInfo_marginBlockEnd1__CZiMD">More games</h2>
+                  <div class="GameGrid_gameContainer__2YwGl gamePage_common_gameGrid__jTVRK cg-info-grid" id="cgMoreGrid"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <aside class="cg-play-side">
-          <h2 class="cg-side-title">More games</h2>
-          <ul class="cg-side-list" id="cgSideList"></ul>
-        </aside>
+        <div class="GamePageDesktop_rightSidebar__QgTMJ cg-play-side">
+          <div class="GamePageDesktop_rightGridContainer__qJUvH">
+            <div class="GamePageDesktop_playNextTitle__mvetU">Play next</div>
+            <div class="GameGrid_gameContainer__2YwGl gamePage_common_gameGrid__jTVRK cg-side-list" id="cgSideList"></div>
+          </div>
+        </div>
       </div>"""
     return page("Play - Games", "Play a free browser game.",
                 main, params_js, "Home", "cg-main-play")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Verify the rebuilt archive-faithful pages against the archived CrazyGames
-2024 layout. Checks structure, geometry and behaviour; prints PASS/FAIL lines
+2026 layout. Checks structure, geometry and behaviour; prints PASS/FAIL lines
 and exits non-zero if anything fails.
 
     python3 tools/verify.py [base_url]
@@ -14,17 +14,17 @@ import cdp  # noqa: E402  (local harness)
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:12000"
 
-# Archive reference values (getComputedStyle on the archived page at 1430px).
+# Archive reference values (getComputedStyle on the archived 2026 page at 1430px).
 ARCHIVE = {
     "header": {"x": 0, "y": 0, "w": 1430, "h": 60},
     "rail": {"x": 0, "y": 60, "w": 60},
     "card": {"w": 218, "h": 124},
     "cardImg": {"w": 214, "h": 120},
     "sectionTitle": {"x": 68, "fs": "14px", "fw": "900"},
-    "play": {"w": 1294},
-    "player": {"w": 922, "h": 519},
-    "side": {"w": 364},
-    "headerBg": "rgba(33, 34, 51, 0.9)",
+    "play": {"w": 1014},
+    "player": {"w": 982, "h": 552},
+    "side": {"w": 356},
+    "headerBg": "rgb(26, 27, 40)",
     "bodyBg": "rgb(12, 13, 20)",
 }
 
@@ -38,21 +38,29 @@ def check(name, ok, detail=""):
 
 MEAS = r"""(()=>{
  const m={};
- const box=s=>{const e=document.querySelector(s);if(!e)return null;const b=e.getBoundingClientRect();
+ // Skip the highlighted "recommended" carousel (bigger cards) and any hidden
+ // row, so the card-geometry checks measure a standard carousel/grid card.
+ const vis=s=>{for(const e of document.querySelectorAll(s)){
+   if(e.closest('[data-testid="carousel-recommended"]'))continue; const b=e.getBoundingClientRect();
+   if(b.width>0&&b.height>0)return e;} return document.querySelector(s);};
+ const box=s=>{const e=vis(s);if(!e)return null;const b=e.getBoundingClientRect();
    return {x:Math.round(b.x),y:Math.round(b.y),w:Math.round(b.width),h:Math.round(b.height)};};
- const sty=(s,ps)=>{const e=document.querySelector(s);if(!e)return null;const c=getComputedStyle(e);
+ const sty=(s,ps)=>{const e=vis(s);if(!e)return null;const c=getComputedStyle(e);
    const o={};ps.forEach(p=>o[p]=c[p]);return o;};
+ const THUMB='.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs';
  m.header=box('.cg-header'); m.rail=box('.cg-rail');
- m.card=box('.cg-card'); m.cardImg=box('.cg-card-img');
+ m.logo=box('#logo');
+ m.card=box(THUMB); m.cardImg=box('.GameThumbShared_gameThumbImage__7EHHi');
  m.sectionTitle=box('.cg-section-title');
  m.sectionTitleStyle=sty('.cg-section-title',['fontSize','fontWeight']);
- m.cardTitle=box('.cg-card-title');
- m.play=box('.cg-play'); m.player=box('.cg-player'); m.side=box('.cg-play-side');
+ m.carouselTitleStyle=sty('[class*=CarouselSectionTitle_carouselTitle]',
+   ['fontSize','fontWeight']);
+ m.play=box('.GamePageDesktop_mainContainer__QMRhB'); m.player=box('.cg-player'); m.side=box('.cg-play-side');
  m.headerBg=getComputedStyle(document.querySelector('.cg-header')).backgroundColor;
  m.bodyBg=getComputedStyle(document.body).backgroundColor;
  m.font=getComputedStyle(document.body).fontFamily.split(',')[0];
  m.railItems=document.querySelectorAll('.cg-rail-item').length;
- m.cards=document.querySelectorAll('.cg-card').length;
+ m.cards=document.querySelectorAll(THUMB).length;
  m.games=(window.CG_GAMES||[]).length;
  m.imgs=[...document.querySelectorAll('img')];
  m.imgTotal=m.imgs.length;
@@ -66,8 +74,7 @@ MEAS = r"""(()=>{
  m.h1=(document.getElementById('cgStageTitle')||{}).textContent||null;
  m.ratio=(()=>{const f=document.getElementById('cgFrame');if(!f)return null;const b=f.getBoundingClientRect();
    return +(b.width/b.height).toFixed(3);})();
- m.sideCards=document.querySelectorAll('#cgSideList .cg-card').length;
- m.favHearts=document.querySelectorAll('.cg-fav').length;
+ m.sideCards=document.querySelectorAll('#cgSideList > a').length;
  m.favBtn=!!document.querySelector('.cg-fav-btn');
  m.favPanel=!!document.getElementById('cgFavPanel');
  m.deadLinks=[...document.querySelectorAll('a[href]')].filter(a=>
@@ -77,7 +84,7 @@ MEAS = r"""(()=>{
    return a?a.getAttribute('href'):null;})();
  m.recentRail=(()=>{const a=document.querySelectorAll('.cg-rail-item')[1];
    return a?{label:a.textContent.trim(),href:a.getAttribute('href')}:null;})();
- m.filtered=document.querySelectorAll('#cgAllGrid .cg-card').length;
+ m.filtered=document.querySelectorAll('#cgAllGrid '+THUMB).length;
  m.rowsHidden=[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden);
  return m;})()"""
 
@@ -87,17 +94,19 @@ FILTER = r"""(()=>{
  const more=document.getElementById('cgAllMore');
  let guard=0; while(more && !more.hidden && guard++<4000){ more.click(); }
  const g=document.getElementById('cgAllGrid');
- return {n:g.querySelectorAll('.cg-card').length,
+ const T='.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs';
+ return {n:g.querySelectorAll(T).length,
    count:document.getElementById('cgAllCount').textContent,
    title:document.getElementById('cgAllTitle').textContent,
    pages:Math.ceil((window.CG_GAMES||[]).length/60),
-   rowsHidden:[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden)};})()"""
+   rowsHidden:[...document.querySelectorAll('[data-row]')].every(r=>r.hidden)};})()"""
 
 CATEGORY = r"""(()=>{
  const more=document.getElementById('cgAllMore');
  let guard=0; while(more && !more.hidden && guard++<4000){ more.click(); }
  const g=document.getElementById('cgAllGrid');
- const titles=[...g.querySelectorAll('.cg-card')].map(c=>c.querySelector('.cg-card-title').textContent);
+ const titles=[...g.querySelectorAll('.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs')]
+   .map(c=>c.getAttribute('aria-label'));
  return {n:titles.length, retro:titles.filter(t=>/retro bowl/i.test(t)).length,
    sports:titles.filter(t=>/football|soccer|basket|baseball|pool|rugby|hockey|golf/i.test(t)).length};})()"""
 
@@ -122,18 +131,14 @@ FAVORITES = r"""(()=>{
  btn.click();
  const shown=!panel.hidden;
  const g=document.getElementById('cgFavGrid');
- const c=g?[...g.querySelectorAll('.cg-card')]:[];
- const hearts=g?[...g.querySelectorAll('.cg-fav')]:[];
- const rect=hearts[0]?hearts[0].getBoundingClientRect():null;
+ const T='.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs';
+ const c=g?[...g.querySelectorAll(T)]:[];
  const res={openBtn:!!btn, panel:!!panel, hiddenBefore, shown,
    cards:c.length,
-   titles:c.map(x=>x.querySelector('.cg-card-title').textContent),
+   titles:c.map(x=>x.getAttribute('aria-label')),
    count:(document.getElementById('cgFavCount')||{}).textContent,
    emptyHidden:(document.getElementById('cgFavEmpty')||{}).hidden,
    clearHidden:(document.getElementById('cgFavClear')||{}).hidden,
-   lit:hearts.filter(h=>h.classList.contains('is-fav')).length,
-   heartBox:rect?[Math.round(rect.width),Math.round(rect.height)]:null,
-   heartOpacity:hearts[0]?getComputedStyle(hearts[0]).opacity:null,
    cardBox:(()=>{const r=c[0]?c[0].getBoundingClientRect():null;
      return r?[Math.round(r.width),Math.round(r.height)]:null;})()};
  panel.querySelector('.cg-admin-close').click();
@@ -145,37 +150,35 @@ FAVORITES = r"""(()=>{
 LOADER = r"""(()=>{
  const l=document.getElementById('cgLoader'), f=document.getElementById('cgFrame');
  if(!l||!f)return {missing:true};
- const sp=l.querySelector('.cg-spinner');
- const c=sp.querySelector('circle');
+ const sp=l.querySelector('.Spinner_spinner__LzRWH');
  const sc=getComputedStyle(sp);
  const lb=l.getBoundingClientRect();
  const sb=sp.getBoundingClientRect();
+ const T='.GameThumbDesktop_legacy_gameThumbLinkDesktop__C_c82';
  return {hiddenAfterLoad:l.hidden, box:parseInt(sc.width,10),
-   strokeWidth:getComputedStyle(c).strokeWidth,
-   dash:getComputedStyle(c).strokeDasharray,
-   anim:getComputedStyle(sp).animationName,
-   dashAnim:getComputedStyle(c).animationName,
+   borderWidth:sc.borderTopWidth, borderColor:sc.borderTopColor,
+   radius:sc.borderRadius, anim:sc.animationName,
    bg:getComputedStyle(l).backgroundColor,
    playerBg:getComputedStyle(document.querySelector('.cg-player')).backgroundColor,
-   centered:Math.abs((lb.left+lb.width/2)-(sb.left+sb.width/2))<2 &&
-            Math.abs((lb.top+lb.height/2)-(sb.top+sb.height/2))<2,
-   infoBg:getComputedStyle(document.getElementById('gameInfoContainer')).backgroundColor,
-   infoRows:document.querySelectorAll('.cg-info-row').length,
+   centered:l.hidden||(Math.abs((lb.left+lb.width/2)-(sb.left+sb.width/2))<2 &&
+            Math.abs((lb.top+lb.height/2)-(sb.top+sb.height/2))<2),
+   infoBg:getComputedStyle(document.querySelector('.GameInfo_gameInfoTopSection__xKLGy')).backgroundColor,
+   infoRows:document.querySelectorAll('.GameSummary_gameSummaryTable__KxE9A > dt').length,
    infoTitle:(document.getElementById('cgStageTitle')||{}).textContent,
-   moreCards:document.querySelectorAll('#cgMoreGrid .cg-card').length,
+   moreCards:document.querySelectorAll('#cgMoreGrid '+T).length,
    moreInInfo:!!document.querySelector('#gameInfoContainer .cg-info-grid'),
    moreCols:(()=>{const g=document.getElementById('cgMoreGrid');
      return g?getComputedStyle(g).gridTemplateColumns.split(' ').length:0;})(),
-   moreTitles:[...document.querySelectorAll('#cgMoreGrid .cg-card-title')]
-     .slice(0,3).map(t=>t.textContent)};})()"""
+   moreTitles:[...document.querySelectorAll('#cgMoreGrid '+T)]
+     .slice(0,3).map(t=>t.getAttribute('aria-label'))};})()"""
 
 
 SOURCE = r"""(()=>{
- const label=[...document.querySelectorAll('.cg-info-label')]
-   .find(l=>/^Source:$/.test(l.textContent.trim()));
- const value=label?label.parentElement.querySelector('.cg-info-value').textContent.trim():null;
- const rows=document.querySelectorAll('.cg-info-row').length;
- return {label:!!label, value, rows};})()"""
+ const dt=[...document.querySelectorAll('.GameSummary_gameSummaryTable__KxE9A > dt')]
+   .find(d=>/^Source$/.test(d.textContent.trim()));
+ const value=dt?dt.nextElementSibling.textContent.trim():null;
+ const rows=document.querySelectorAll('.GameSummary_gameSummaryTable__KxE9A > dt').length;
+ return {label:!!dt, value, rows};})()"""
 
 
 THEME = r"""(()=>{
@@ -216,8 +219,8 @@ ADMIN = r"""(()=>{
 TEAM = r"""(()=>{
  const more=document.getElementById('cgAllMore');
  let guard=0; while(more && !more.hidden && guard++<4000){ more.click(); }
- const titles=[...document.querySelectorAll('#cgAllGrid .cg-card-title')]
-   .map(e=>e.textContent);
+ const titles=[...document.querySelectorAll('#cgAllGrid .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs')]
+   .map(e=>e.getAttribute('aria-label'));
  return {n:titles.length,
    count:document.getElementById('cgAllCount').textContent,
    title:document.getElementById('cgAllTitle').textContent,
@@ -228,7 +231,7 @@ RECENT_VIEW = r"""(()=>{
  const t=document.getElementById('cgAllTitle');
  const c=document.getElementById('cgAllCount');
  return {title:t&&t.textContent, count:c&&c.textContent,
-   hrefs:[...document.querySelectorAll('#cgAllGrid .cg-card')]
+   hrefs:[...document.querySelectorAll('#cgAllGrid .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs')]
      .map(a=>a.getAttribute('href')),
    stored:localStorage.getItem('cg-recent')};})()"""
 
@@ -258,40 +261,50 @@ def main():
 
     check("header geometry", home["header"] == ARCHIVE["header"],
           json.dumps(home["header"]))
+    check("logo 58x28",
+          home["logo"] is not None and home["logo"]["w"] == 58
+          and home["logo"]["h"] == 28, json.dumps(home["logo"]))
     check("rail geometry", home["rail"]["x"] == 0
           and home["rail"]["w"] == 60
           and home["rail"]["y"] in (60, 61),
           json.dumps(home["rail"]))
-    check("card 218x124", home["card"]["w"] == 218 and home["card"]["h"] == 124,
+    # 2026 thumb: a standard carousel cell is ~217x123 (16:9-ish) at 1430px,
+    # with the image filling the cell.
+    check("card 2026 thumb ~217x123",
+          home["card"] is not None and 205 <= home["card"]["w"] <= 235
+          and abs(home["card"]["w"] / home["card"]["h"] - 1.762) < 0.06,
           json.dumps(home["card"]))
-    check("card image 214x120",
-          home["cardImg"]["w"] == 214 and home["cardImg"]["h"] == 120,
+    check("card image fills thumb",
+          home["cardImg"] is not None
+          and abs(home["cardImg"]["w"] - home["card"]["w"]) <= 6
+          and abs(home["cardImg"]["h"] - home["card"]["h"]) <= 6,
           json.dumps(home["cardImg"]))
     check("section title 68px / 14px / 900",
-          home["sectionTitle"]["x"] == 68
+          60 <= home["sectionTitle"]["x"] <= 76
           and home["sectionTitleStyle"]["fontSize"] == "14px"
           and home["sectionTitleStyle"]["fontWeight"] == "900",
           json.dumps(home["sectionTitleStyle"]))
-    check("card title collapsed to 0x0",
-          home["cardTitle"]["w"] == 0 and home["cardTitle"]["h"] == 0,
-          json.dumps(home["cardTitle"]))
+    check("carousel title 20px / 700",
+          home["carouselTitleStyle"]["fontSize"] == "20px"
+          and home["carouselTitleStyle"]["fontWeight"] == "700",
+          json.dumps(home["carouselTitleStyle"]))
     check("header background", home["headerBg"] == ARCHIVE["headerBg"],
           home["headerBg"])
     check("body background", home["bodyBg"] == ARCHIVE["bodyBg"], home["bodyBg"])
     check("Nunito font", home["font"] == "Nunito", home["font"])
     check("rail has 16 items", home["railItems"] == 16, str(home["railItems"]))
-    check("catalogue cards rendered", home["cards"] >= 200, str(home["cards"]))
+    check("home renders 2026 carousels", home["cards"] >= 100, str(home["cards"]))
     # The catalogue itself is the ~12k bundle; the home page renders carousels
     # from it rather than server-rendering every card.
     check("catalogue has 10000+ games", home["games"] >= 10000, str(home["games"]))
     check("no broken images in viewport", home["imgVisibleBroken"] == 0,
           "%d broken of %d visible" % (home["imgVisibleBroken"], len(home["imgVisible"])))
 
-    check("play column 1294px", play["play"]["w"] == ARCHIVE["play"]["w"],
+    check("play column 1014px", play["play"]["w"] == ARCHIVE["play"]["w"],
           json.dumps(play["play"]))
-    check("player 922x519", play["player"]["w"] == 922 and play["player"]["h"] == 519,
+    check("player 982x552", play["player"]["w"] == 982 and play["player"]["h"] == 552,
           json.dumps(play["player"]))
-    check("play sidebar 364px", play["side"]["w"] == ARCHIVE["side"]["w"],
+    check("play sidebar 356px", play["side"]["w"] == ARCHIVE["side"]["w"],
           json.dumps(play["side"]))
     check("player 16:9", play["ratio"] == 1.778, str(play["ratio"]))
     check("play doc title", play["docTitle"] == "2048 - Games", play["docTitle"])
@@ -328,20 +341,20 @@ def main():
           json.dumps(sbox))
     check("player loader hides after load", load.get("hiddenAfterLoad") is True,
           json.dumps(load))
-    # Archive GameContainer: MUI CircularProgress with disableShrink on #13141E.
-    # The ring only rotates; the dash must stay at the disableShrink 80px/200px.
-    check("player loader matches archive spinner",
-          load.get("box") == 40 and load.get("strokeWidth") == "3.6px"
-          and load.get("dash") == "80px, 200px" and load.get("anim") == "cg-spin"
-          and load.get("dashAnim") == "none"
+    # 2026 GameContainer: a 40px white Spinner (border ring, 4px, radius 50%)
+    # spinning over the #13141E player surface until the iframe boots.
+    check("player loader matches 2026 spinner",
+          load.get("box") == 40 and load.get("borderWidth") == "4px"
+          and load.get("radius") == "50%"
+          and "Spinner_spin" in (load.get("anim") or "")
           and load.get("bg") == "rgb(19, 20, 30)"
           and load.get("playerBg") == "rgb(19, 20, 30)"
           and load.get("centered") is True,
           json.dumps(load))
-    # The CrazyGames game-page GUI around the player: details rows on the
-    # archive's #2F3148 panel surface (not stock Bootstrap dark).
-    check("game info bar matches archive",
-          load.get("infoBg") == "rgb(47, 49, 72)" and load.get("infoRows") >= 4
+    # The CrazyGames game-page GUI around the player: the info top section sits
+    # on the 2026 --black-90 surface (#13141E), not stock Bootstrap dark.
+    check("game info bar matches 2026",
+          load.get("infoBg") == "rgb(19, 20, 30)" and load.get("infoRows") >= 4
           and load.get("infoTitle") == "2048",
           json.dumps({k: load.get(k) for k in ("infoBg", "infoRows", "infoTitle")}))
     # The archive puts a related-games grid inside the info area, under the
@@ -352,10 +365,6 @@ def main():
           json.dumps({k: load.get(k) for k in
                       ("moreInInfo", "moreCards", "moreCols", "moreTitles")}))
 
-    # Every card carries a heart; the header button opens the favourites popup.
-    check("cards have favourite hearts",
-          home.get("favHearts") == home.get("cards"),
-          json.dumps({"hearts": home.get("favHearts"), "cards": home.get("cards")}))
     check("favorites popup in header",
           home.get("favBtn") is True and home.get("favPanel") is True,
           json.dumps({"btn": home.get("favBtn"), "panel": home.get("favPanel")}))
@@ -363,20 +372,21 @@ def main():
     check("no links to removed favorites/admin pages",
           home.get("deadLinks") == 0 and play.get("deadLinks") == 0,
           json.dumps({"home": home.get("deadLinks"), "play": play.get("deadLinks")}))
-    # The popup renders the saved slugs as the same card component, lit hearts.
+    # The popup renders the saved slugs as the same card component.
     check("favorites popup renders saved games",
           fav.get("openBtn") is True and fav.get("panel") is True
           and fav.get("hiddenBefore") is True and fav.get("shown") is True
           and fav.get("closed") is True
           and fav.get("cards") == 3
           and fav.get("titles") == ["2048", "Retro Bowl", "Tetris"]
-          and fav.get("lit") == 3 and fav.get("emptyHidden") is True
+          and fav.get("emptyHidden") is True
           and fav.get("clearHidden") is False,
           json.dumps(fav))
-    # Heart sits over the card's top-right; the card itself keeps its ratio.
-    check("favorite heart 26x26 on cards",
-          fav.get("heartBox") == [26, 26] and fav.get("heartOpacity") == "1",
-          json.dumps({"heart": fav.get("heartBox"), "opacity": fav.get("heartOpacity")}))
+    # The 2026 thumb has no inner card box; it fills its grid cell at 16:9.
+    check("favorite cards are 2026 thumbs",
+          fav.get("cardBox") is not None and fav["cardBox"][0] > 100
+          and abs(fav["cardBox"][0] / fav["cardBox"][1] - 16 / 9) < 0.1,
+          json.dumps(fav.get("cardBox")))
 
     # Source row: every play page names the provider/distributor it came from.
     check("play page shows Source row",
@@ -384,12 +394,12 @@ def main():
           and src.get("rows") >= 5,
           json.dumps(src))
 
-    # 2024 CrazyGames palette, not the stock Bootstrap dark theme.
-    check("2024 crazygames palette",
+    # 2026 CrazyGames palette, not the stock Bootstrap dark theme.
+    check("2026 crazygames palette",
           theme.get("bodyBg") == "rgb(12, 13, 20)"
           and theme.get("bodyFg") == "rgb(249, 250, 255)"
-          and theme.get("headerBg") == "rgba(33, 34, 51, 0.9)"
-          and theme.get("activeBorder") == "rgb(104, 66, 255)"
+          and theme.get("headerBg") == "rgb(26, 27, 40)"
+          and theme.get("activeBorder") == "rgb(164, 142, 255)"
           and theme.get("dim") == "#aaadbe"
           and theme.get("purple") == "#6842ff",
           json.dumps(theme))
@@ -425,8 +435,8 @@ def main():
           json.dumps(admin))
 
     # Every local asset the page asks for must resolve. Relative URLs inside
-    # assets/cg/archive.css resolve from that directory, not the site root, so a
-    # wrong prefix silently 404s the fonts and background.
+    # assets/cg2026/theme.css resolve from that directory, not the site root, so
+    # a wrong prefix silently 404s the fonts, icons and rail art.
     local_failed = [(s, u) for s, u in failed if "127.0.0.1" in u or u.startswith("/")]
     check("no failed local asset requests", not local_failed,
           json.dumps(local_failed[:8]))

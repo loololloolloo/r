@@ -61,18 +61,31 @@
 
   /* --------------------------------------------------------- image fallback -- */
 
+  var BADGE_NEW = '<div aria-label="New" class="GameThumbLabel_label__dz3yR ' +
+    'GameThumbLabel_new__8GnG6"><span role="img" aria-hidden="true" ' +
+    'class="Icon_icon__OracF Icon_icon-new__vmtCf Icon_size20__yF8AY"></span></div>';
+  var BADGE_HOT = '<div aria-label="Hot" class="GameThumbLabel_label__dz3yR ' +
+    'GameThumbLabel_hot__CWhxn"><span role="img" aria-hidden="true" ' +
+    'class="Icon_icon__OracF Icon_icon-hot__Tir31 Icon_size20__yF8AY"></span></div>';
+
   /* Card markup, kept in one place so the catalogue, the play sidebar and the
-     favourites page all render the same thing. */
-  function cardHTML(g) {
-    return '<li><a class="cg-card" href="./play?g=' + g.slug + '">' +
-      '<div class="cg-card-title">' + esc(g.title) + "</div>" +
-      '<img class="cg-card-img" loading="lazy" src="' + esc(g.thumb) +
-      '" alt="' + esc(g.title) + '">' +
-      '<button class="cg-fav" type="button" data-fav="' + esc(g.slug) +
-      '" aria-label="Add to favourites" aria-pressed="false">' +
-      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-      '<use href="#cg-heart"></use></svg></button></a></li>';
+     favourites page all render the same thing. Matches the archived CrazyGames
+     2026 thumb: an image-only link whose title lives in the aria-label.
+     `withBadge` adds the 2026 new/hot corner labels (home carousels only). */
+  function cardHTML(g, i, withBadge) {
+    var t = esc(g.title);
+    var badge = "";
+    if (withBadge) badge = (i % 5 === 1) ? BADGE_NEW : (i % 5 === 3) ? BADGE_HOT : "";
+    return '<li><a class="GameThumbDesktop_gameThumbLinkDesktop__LS_Bs ' +
+      'GameThumbDesktop_hasHoverOverlay__qNdmo game-thumb-test-class" ' +
+      'aria-label="' + t + '" href="./play?g=' + g.slug + '">' + badge +
+      '<div class="GameThumbDesktop_gameThumbMedia__L7si1">' +
+      '<img class="GameThumbShared_gameThumbImage__7EHHi ' +
+      'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" width="273" ' +
+      'alt="' + t + '" src="' + esc(g.thumb) + '"></div></a></li>';
   }
+
+  function homeCardHTML(g, i) { return cardHTML(g, i, true); }
 
   /* Reflect the stored list onto every heart currently in the DOM. */
   function paintFavs() {
@@ -211,27 +224,55 @@
     });
   }
 
-  /* Fill the home-page carousels and the "best games" grid from the bundle. */
+  function rankedHTML(g, i) {
+    return homeCardHTML(g, i);
+  }
+
+  /* Fill the home-page hero, carousels and "best games" grid from the bundle. */
   function initHome() {
+    var hero = document.getElementById("cgHeroCards");
     var newest = document.getElementById("cgNewTrack");
     var top = document.getElementById("cgTopTrack");
+    var trending = document.getElementById("cgTrendTrack");
     var best = document.getElementById("cgBestGrid");
-    if (!newest && !top && !best) return;
+    if (!hero && !newest && !top && !best) return;
 
     var rated = byRating(games);
+    var pool = rated.length ? rated : games;
+
+    if (hero) {
+      hero.innerHTML = pool.slice(0, 12).map(homeCardHTML).join("");
+    }
+    if (trending) {
+      trending.innerHTML = pool.slice(0, 12).map(rankedHTML).join("");
+    }
     if (newest) {
-      newest.innerHTML = games.slice().reverse().slice(0, 24).map(cardHTML).join("");
+      newest.innerHTML = games.slice().reverse().slice(0, 24).map(homeCardHTML).join("");
     }
     if (top) {
-      top.innerHTML = rated.slice(0, 24).map(cardHTML).join("");
+      top.innerHTML = rated.slice(0, 24).map(homeCardHTML).join("");
     }
-    var tracks = document.querySelectorAll(".cg-carousel-track[data-cat]");
+
+    var recentSection = document.getElementById("cgRecentSection");
+    var recentTrack = document.getElementById("cgRecentTrack");
+    if (recentSection && recentTrack) {
+      var bySlug = {};
+      for (var r = 0; r < games.length; r++) bySlug[games[r].slug] = games[r];
+      var played = recentSlugs().map(function (s) { return bySlug[s]; })
+        .filter(Boolean);
+      if (played.length) {
+        recentTrack.innerHTML = played.slice(0, 12).map(homeCardHTML).join("");
+        recentSection.hidden = false;
+      }
+    }
+
+    var tracks = document.querySelectorAll(".crazy-carousel[data-cat]");
     for (var i = 0; i < tracks.length; i++) {
       var cat = tracks[i].getAttribute("data-cat");
       var got = games.filter(function (g) {
         return (g.categories || []).indexOf(cat) !== -1;
       });
-      tracks[i].innerHTML = spread(got, 24).map(cardHTML).join("");
+      tracks[i].innerHTML = spread(got, 24).map(homeCardHTML).join("");
     }
     if (best) {
       best.innerHTML = (rated.length ? rated : games).slice(0, 48)
@@ -241,7 +282,7 @@
   }
 
   function initCatalogue() {
-    var rows = document.querySelectorAll(".cg-section[data-row]");
+    var rows = document.querySelectorAll("[data-row]");
     var all = document.getElementById("cgAllGames");
     var grid = document.getElementById("cgAllGrid");
     if (!grid || !all) return;
@@ -290,7 +331,11 @@
 
     function render(t, cat, sortMode) {
       var showAll = Boolean(t || cat || sortMode);
-      rows.forEach(function (r) { r.hidden = showAll; });
+      rows.forEach(function (r) {
+        // "Continue playing" is only shown when it actually has history.
+        r.hidden = showAll ||
+          (r.id === "cgRecentSection" && !r.querySelector("li"));
+      });
       all.hidden = !showAll;
       if (!showAll) return;
 
@@ -502,6 +547,19 @@
     window.location.replace("./play?g=" + encodeURIComponent(g.slug));
   }
 
+  /* The 2026 home ends with a collapsed SEO block; "Show more" expands it. */
+  function initSeo() {
+    var seo = document.getElementById("cgSeo");
+    if (!seo) return;
+    var btn = seo.querySelector(".cg-seo-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var open = seo.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "Show less" : "Show more";
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initImageFallback();
     initRandom();
@@ -510,6 +568,7 @@
     initCatalogue();
     initSearchBox();
     initPlay();
+    initSeo();
     paintFavs();
   });
 })();

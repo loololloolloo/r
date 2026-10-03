@@ -1,15 +1,16 @@
 /* Games theme.
 
-Geometry, colour and type here are copied from the archived CrazyGames 2024
-stylesheet (assets/cg/archive.css) rather than estimated. Values marked
+Geometry, colour and type here are copied from the archived CrazyGames 2026
+stylesheet (assets/cg2026/theme.css) rather than estimated. Values marked
 (archive) were read off the live page with getComputedStyle; keep them in sync
 if you touch this file.
 
 Layout skeleton (archive):
-  header  60px, fixed, z 11, blur(8px)
-  rail    60px wide, fixed, top 60px, bg #0c0d14
+  header  60px, fixed, bg --black-80
+  rail    60px collapsed, fixed, top 60px, border-right --black-60
   main    padding-left 60px
-  card    218x124, radius 10, 2px transparent border, img radius 8
+  play    main column + 356px right sidebar
+  card    fills its 16:9-ish grid cell, radius 10
 */
 
 :root {
@@ -21,8 +22,6 @@ Layout skeleton (archive):
   --cg-card-hover: rgba(255, 255, 255, 0.12);
   --cg-purple: #6842ff;
   --cg-surface: #2f3148;
-  --cg-header-h: 60px;
-  --cg-rail-w: 60px;
   --cg-radius: 10px;
   /* Archive home: rail 60 + 8 = 68 for headings, +8 more for carousel cards. */
   --cg-gutter: 8px;
@@ -45,69 +44,21 @@ body {
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; margin: 0; padding: 0; }
 
-/* ---------- Header (archive: 60px, blur, z 11) ---------- */
+/* ---------- Header (2026 Header_root; theme.css drives the look) ---------- */
 
-.cg-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 11;
-  height: var(--cg-header-h);
-  background-color: rgba(33, 34, 51, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
+/* theme.css already fixes the header at z 12; the rail sits at z 5, so no
+   stacking override is needed. Kept as a hook for tests. */
 
-.cg-header-bar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  height: 100%;
-  padding: 0 16px 0 8px;
-}
+/* theme.css sizes the logo 36px tall; the spec pins it to 58x28. */
+.LogoImage_logoImage__QD3zH { height: 28px; width: 58px; object-fit: contain; }
 
-.cg-header-logo {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-}
+.cg-search input { width: 100%; }
 
-.cg-header-logo img { display: block; width: auto; height: 28px; }
-
-.cg-search {
-  flex: 1 1 auto;
-  max-width: 460px;
-  margin: 0 auto;
-}
-
-.cg-search input {
-  width: 100%;
-  height: 40px;
-  padding: 0 16px;
-  border: 0;
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--cg-fg);
-  font: inherit;
-  font-size: 14px;
-}
-
-.cg-search input::placeholder { color: var(--cg-dim); }
-.cg-search input:focus {
-  outline: none;
-  background-color: rgba(255, 255, 255, 0.16);
-}
-
-.cg-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-  flex: 0 0 auto;
-}
+/* theme.css centres the search form absolutely; give it a sane width so it
+   does not stretch across the whole bar. */
+.cg-search { width: min(560px, 40vw); }
 
 /* Search results dropdown (small rows under the bar) */
-
-.cg-search { position: relative; }
 
 .cg-search-results {
   position: absolute;
@@ -164,108 +115,18 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-search-more:hover { color: var(--cg-fg); }
 
-.cg-iconbtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: none;
-  color: var(--cg-fg);
-  cursor: pointer;
-}
+/* ---------- Shell (2026 Layout_root; theme.css drives the look) ---------- */
 
-.cg-iconbtn:hover { background-color: var(--cg-card-hover); }
+.cg-shell { min-height: 100vh; }
 
-/* ---------- Shell ---------- */
-
-.cg-shell { display: block; }
-
-/* ---------- Left rail (archive: 60px, fixed, icon over label) ---------- */
-
-.cg-rail {
-  position: fixed;
-  top: var(--cg-header-h);
-  left: 0;
-  width: var(--cg-rail-w);
-  height: calc(100vh - var(--cg-header-h));
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: var(--cg-bg);
-  scrollbar-width: none;
-}
-
+/* theme.css positions the rail fixed at top 60px / left 0 and 60px wide. Its
+   labels stay hidden at the collapsed width and fade in on hover. Only the
+   scrollbar needs suppressing; the rest is the archived stylesheet. */
 .cg-rail::-webkit-scrollbar { width: 0; }
 
-.cg-rail-inner { padding: 6px 0 24px; }
+/* ---------- Main (2026 Layout_styledMain: margin-top 60, padding-left 60) -- */
 
-/* 34px tall, 60px wide, 6px transparent left border (archive) */
-.cg-rail-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 34px;
-  margin-bottom: 10px;
-  border-left: 6px solid transparent;
-  color: var(--cg-fg);
-}
-
-.cg-rail-item img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-}
-
-.cg-rail-item:hover { background-color: var(--cg-card); }
-
-.cg-rail-item.cg-active { border-left-color: var(--cg-purple); }
-
-/* Label is off-canvas at 60px; it slides out when the rail is hovered. */
-.cg-rail-label {
-  position: absolute;
-  left: 60px;
-  top: 0;
-  display: flex;
-  align-items: center;
-  height: 34px;
-  padding: 0 14px;
-  border-radius: 0 8px 8px 0;
-  background-color: #2f3148;
-  color: var(--cg-fg);
-  font-size: 15px;
-  font-weight: 600;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.12s ease;
-}
-
-.cg-rail-item:hover .cg-rail-label {
-  opacity: 1;
-  visibility: visible;
-}
-
-.cg-rail-hr {
-  height: 1px;
-  margin: 8px 10px 14px;
-  border: 0;
-  background-color: var(--cg-line);
-}
-
-/* ---------- Main (archive: padding-left 60px) ---------- */
-
-.cg-main {
-  padding: calc(var(--cg-header-h) + 16px) var(--cg-gutter) 48px
-           calc(var(--cg-rail-w) + var(--cg-gutter));
-  min-width: 0;
-}
+.cg-main { min-width: 0; }
 
 /* ---------- Section ---------- */
 
@@ -295,30 +156,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-more:hover { color: var(--cg-fg); }
 
-/* ---------- Carousel (horizontal, archive-style) ---------- */
-
-.cg-carousel {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  margin: 0 calc(-1 * var(--cg-gutter));
-  padding: 0 calc(var(--cg-gutter) * 2);
-}
-
-.cg-carousel::-webkit-scrollbar { height: 0; }
-
-.cg-carousel-track {
-  display: flex;
-  gap: 12px;
-  padding-bottom: 4px;
-}
-
-/* 218x124 (archive). The track must not shrink the cards. */
-.cg-carousel-track > li {
-  flex: 0 0 auto;
-  width: 218px;
-}
-
 /* ---------- Grid ---------- */
 
 .cg-grid {
@@ -334,100 +171,6 @@ ul { list-style: none; margin: 0; padding: 0; }
   contain-intrinsic-size: 218px 124px;
 }
 
-/* ---------- Card (archive: 218x124, radius 10, 2px border) ---------- */
-
-.cg-card {
-  position: relative;
-  display: block;
-  aspect-ratio: 218 / 124;
-  border: 2px solid transparent;
-  border-radius: var(--cg-radius);
-  background-color: var(--cg-card);
-  overflow: hidden;
-}
-
-/* Fills the card's content box, which the 2px border already insets to 214x120. */
-.cg-card-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-  display: block;
-}
-
-/* Broken source icons are hidden so the card background shows through. */
-.cg-card-img.cg-img-fail { display: none; }
-
-/* Archive keeps the title in a 0x0 box and grows it to its content on hover,
-   which is why the card never reflows. */
-.cg-card-title {
-  position: absolute;
-  bottom: 5px;
-  left: 8px;
-  z-index: 4;
-  margin-bottom: 8px;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  color: var(--cg-fg);
-  font-size: 11.2px;
-  font-weight: 700;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-.cg-card:hover { background-color: var(--cg-card-hover); }
-
-/* Favourite toggle. Sits above the card's own link so clicking it never
-   navigates to the game. Outline by default, filled once saved. */
-.cg-fav {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background-color: rgba(12, 13, 20, 0.6);
-  color: #fff;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.12s ease, transform 0.12s ease;
-}
-
-.cg-card:hover .cg-fav,
-.cg-fav:focus-visible,
-.cg-fav.is-fav { opacity: 1; }
-
-.cg-fav:hover { transform: scale(1.1); }
-
-.cg-fav svg {
-  width: 15px;
-  height: 15px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.9;
-  stroke-linejoin: round;
-}
-
-.cg-fav.is-fav { color: #ff5c8a; }
-
-.cg-fav.is-fav svg { fill: currentColor; stroke: currentColor; }
-
-.cg-card:hover .cg-card-title,
-.cg-card:focus-visible .cg-card-title {
-  width: auto;
-  height: auto;
-  max-width: calc(100% - 16px);
-  text-overflow: ellipsis;
-}
 
 /* ---------- Player ---------- */
 
@@ -435,38 +178,37 @@ ul { list-style: none; margin: 0; padding: 0; }
    of the rail (so it lands at x=102 on a 1430 viewport), player and sidebar 8px
    apart. Right padding is 0 so the centring does that work. */
 .cg-main-play {
-  padding: calc(var(--cg-header-h) + 8px) 0 48px calc(var(--cg-rail-w) + 8px);
+  padding: 0;
 }
 
-.cg-play {
-  max-width: 1294px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 364px;
-  gap: 8px;
-  align-items: start;
-}
+/* The 2026 GamePageDesktop_main is a flex row: the main column (player, info)
+   plus a fixed 356px right sidebar. theme.css gives mainContainer its width,
+   padding and the info/summary styling; cg.css only handles the custom bits:
+   the player box, the loader surface and the info grids. */
+.cg-gf { margin: 0 auto; }
+
+.cg-gf-ratio { width: 100%; }
 
 .cg-player {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   overflow: hidden;
   background-color: #13141e;
 }
 
 .cg-frame {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
 }
 
-/* Player loader. The archive's GameContainer renders a MUI CircularProgress
-   with disableShrink while the game boots, on a #13141e surface: a 40px ring
-   (stroke 3.6, r 20.2 in a 44x44 viewBox) that only rotates - the dash stays
-   at the MUI disableShrink value of 80px/200px. The rotate keyframes live in
-   an external chunk we do not ship, so they are inlined here. */
+/* Player loader: the 2026 GameContainer shows a 40px white Spinner over the
+   #13141e surface until the iframe boots. Spinner_spinner__LzRWH draws and
+   rotates it (border ring), so cg.css only pins the surface. */
 .cg-loader {
   position: absolute;
   inset: 0;
@@ -479,100 +221,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-loader[hidden] { display: none; }
 
-.cg-spinner {
-  width: 40px;
-  height: 40px;
-  color: #fff;
-  animation: cg-spin 1.4s linear infinite;
-}
-
-.cg-spinner svg { display: block; width: 100%; height: 100%; }
-
-.cg-spinner circle {
-  stroke: currentColor;
-  stroke-dasharray: 80px, 200px;
-  stroke-dashoffset: 0;
-}
-
-@keyframes cg-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Game-page info bar below the player (archive .css-53v9w1): our panel with
-   the details rows, divider and description, on #2f3148. */
-.cg-info {
-  margin-top: 8px;
-  padding: 16px 8px 16px 24px;
-  border-radius: 8px;
-  background-color: #2f3148;
-  color: var(--cg-fg);
-  line-height: 1.5;
-}
-
-.cg-info-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 16px;
-  padding-bottom: 8px;
-}
-
-.cg-info-title {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 1.167;
-  color: var(--cg-fg);
-}
-
-.cg-info-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-/* Archive .css-z5cqsz / .css-8biokx rounded button */
-.cg-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 0 16px;
-  border: 0;
-  border-radius: 30px;
-  background: #373952;
-  color: #f9faff;
-  font-family: Nunito, sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 250ms ease;
-}
-
-.cg-pill:hover { background: #373952; color: #fff; }
-.cg-pill svg { width: 24px; height: 24px; margin-right: 8px; fill: currentColor; flex: 0 0 auto; }
-
-/* Heart in the info bar, matching the card hearts. */
-.cg-pill-fav svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linejoin: round; }
-.cg-pill-fav.is-fav { color: #ff5c8a; }
-.cg-pill-fav.is-fav svg { fill: currentColor; stroke: currentColor; }
-
-.cg-info-rows { padding: 8px 0; }
-
-.cg-info-row { display: flex; min-height: 29px; }
-
-/* Archive .css-n8optg label column */
-.cg-info-label {
-  width: 110px;
-  flex-shrink: 0;
-  color: #878a9e;
-}
-
-/* Archive .css-16rvtsf value cell */
+/* The summary table and tag chips come from theme.css. These two helpers only
+   keep the admin rating value and the source cell aligned with their labels. */
 .cg-info-value {
   display: flex;
   align-items: baseline;
@@ -584,53 +234,27 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-votes { font-size: 12px; font-weight: 400; }
 
-/* Archive .css-krtp4i divider */
-.cg-info-divider {
-  margin: 4px 0 20px;
-  border: 0;
-  border-top: thin solid rgba(255, 255, 255, 0.12);
-  width: calc(100% - 16px);
-}
-
-.cg-info-desc p { margin: 0 0 1em; }
-
-/* Related cards inside the info area (archive renders these under the
-   description). Same card component as the sidebar, just a wider grid. */
-.cg-info-more-title {
-  margin: 0 0 12px;
-  font-size: 14px;
-  font-weight: 900;
-  color: var(--cg-fg);
-}
-
-.cg-info-grid { margin-bottom: 4px; }
-
-.cg-chip {
-  display: inline-flex;
-  align-items: center;
-  height: 32px;
-  padding: 0 12px;
-  border-radius: 30px;
-  background-color: var(--cg-card);
-  color: var(--cg-fg);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.cg-chip:hover { background-color: var(--cg-card-hover); }
-
-/* Right sidebar of the play page (archive: 364px) */
-.cg-side-title {
-  margin: 0 0 10px;
-  font-size: 14px;
-  font-weight: 900;
-}
-
-.cg-side-list {
+/* Related cards inside the info area: the 2026 grid is a plain div grid, so
+   give it the archive's underGameContainer columns and a 16:9 cell per card. */
+.cg-info-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px 16px;
+  margin-bottom: 4px;
 }
+
+.cg-info-grid > a,
+.cg-side-list > a {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+/* Right sidebar of the play page (2026: 356px). theme.css paints it and lays
+   the grid out; the card aspect-ratio is set just above. */
+
+/* Heart state on the game-page Favorite button (a 2026 Icon mask, so colour
+   is enough - no fill/stroke to flip). */
+.cg-pill-fav.is-fav { color: #ff5c8a; }
 
 /* ---------- Buttons ---------- */
 
@@ -706,7 +330,8 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* ---------- Footer ---------- */
 
 .cg-footer {
-  padding: 24px var(--cg-gutter) 40px calc(var(--cg-rail-w) + var(--cg-gutter));
+  padding: 24px var(--cg-gutter) 40px
+           calc(var(--sidebar-collapsed-width, 60px) + var(--cg-gutter));
   border-top: 1px solid var(--cg-line);
   color: var(--cg-dim);
 }
@@ -717,46 +342,23 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 991.98px) {
-  /* Rail becomes a horizontal icon strip under the header. */
-  .cg-rail {
-    top: var(--cg-header-h);
-    width: 100%;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-    border-bottom: 1px solid var(--cg-line);
-  }
-
-  .cg-rail-inner { display: flex; padding: 0 8px; }
-
-  .cg-rail-item { margin: 0 4px 0 0; border-left: 0; }
-
-  .cg-rail-label { display: none; }
-
-  .cg-rail-hr { display: none; }
-
-  .cg-main {
-    padding: calc(var(--cg-header-h) + 56px + 16px) 16px 48px;
-  }
+  /* The rail stays the 2026 collapsed column; just tighten the page gutters. */
+  .cg-main { padding-left: calc(var(--sidebar-collapsed-width, 60px) + 8px); }
 
   .cg-footer { padding-left: 16px; }
 
-  .cg-play { grid-template-columns: minmax(0, 1fr); }
+  /* The 2026 game layout drops its right sidebar below 1200px; let the main
+     column take the full width instead. */
+  .cg-play-side { display: none; }
+  .GamePageDesktop_mainContainer__QMRhB { width: 100%; }
 }
 
 @media (max-width: 767.98px) {
   .cg-search { max-width: none; }
 
-  .cg-carousel-track > li { width: 160px; }
-
   .cg-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 
-  .cg-info-head { flex-direction: column; align-items: flex-start; }
-  .cg-info-label { width: 96px; }
-
-  .cg-side-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cg-info-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 }
 
 /* ---------- Admin (Ctrl+Alt+A) ---------- */
@@ -866,3 +468,37 @@ html.cg-admin-on .cg-admin-link { display: inline-flex; }
 .cg-admin-star.is-on { color: var(--cg-fg); }
 .cg-admin-star:hover { color: var(--cg-dim); }
 .cg-admin-empty { padding: 12px 8px; color: var(--cg-dim); }
+
+/* ---------- 2026 home cards -------------------------------------------------
+   The archived 2026 thumb is an image-only anchor sized by its carousel/grid
+   cell, not by an aspect-ratio on the card. Carousels set the cell height via
+   --carousel-slide-width; grids and lists need one, so give every thumb a
+   16:9 box wherever it is not inside a carousel. */
+.cg-grid > li,
+.cg-info-grid > li,
+.cg-side-list > li,
+.cg-fav-grid > li {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+.cg-main-home .cg-grid > li { aspect-ratio: 100 / 56; }
+/* A 404'd thumb must not show a torn-image glyph; the thumb's own translucent
+   background stands in, as on the 2026 portal. */
+.GameThumbShared_gameThumbImage__7EHHi.cg-img-fail { display: none; }
+
+/* The archived HomePage_desktop adds an 8px left pad meant for the portal's own
+   layout; our shell already pads past the rail, so drop it to keep the home
+   content aligned with the rest of the site. */
+.cg-main-home .HomePage_desktop__CDZV_ { padding-left: 0; }
+.cg-main-home .CrazyCarousel_gamesCarouselSection__cDN02 { margin-bottom: 12px; }
+
+/* The 2026 home ends with a collapsed SEO text block. */
+.cg-seo { margin-top: 24px; }
+.cg-seo h1 { margin: 0 0 8px; font-size: 20px; font-weight: 800; color: var(--cg-fg); }
+.cg-seo p { margin: 0 0 8px; max-width: 900px; color: var(--cg-dim); font-size: 13px; line-height: 1.5; }
+.cg-seo-toggle {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: var(--cg-dim); font: inherit; font-weight: 700; text-decoration: underline;
+}
+.cg-seo-toggle:hover { color: var(--cg-fg); }
+.cg-seo:not(.is-open) p { display: none; }
