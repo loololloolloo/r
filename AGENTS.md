@@ -323,3 +323,20 @@ theme layer sits on top:
     (`#0c0d14` body, `#1a1b28` header, `#6842ff` accent) plus our `:root` overrides.
 - Next: revisit anything that refuses to be framed, and consider a service for
   comments. GameMonetize pre-roll ads remain (provider-controlled, inside the iframe).
+
+- Phase 11 (done): **game page rebuilt 1:1 on the sportsgamesaz.io 2v2io layout.**
+  - `build_play()` emits the reference DOM: `GamePageDesktop_gfAspectRatioContainer`
+    (16:9 player) + `GamePageDesktop_underGameContainerGrid` (related cards) +
+    `GamePageDesktop_gameInfoContainer` (`GameInfo`/`GameSummary`) on the left, with
+    `GamePageDesktop_rightSidebar` a sibling of `mainContainer` holding "Play next".
+  - `assets/css/cg-play.css` carries the reference page's own rules (lifted from the
+    archived bundle) for the classes we reuse. Our theme only shipped them inside
+    media queries, so without the base rules the info column collapsed and the sidebar
+    showed one column; the lifted CSS is what makes the layout match at desktop widths.
+    The archive sets `main__fSalE` to flex only at >=1910px, so cg-play.css also forces
+    it at every width, and grows the info column to fill the space left of the sidebar.
+  - Game pages are flat: `/<slug>` (e.g. `/2048`), served by GitHub Pages through
+    `404.html`, which `build-archive.py` writes as a copy of `play.html`. `tools/serve.py`
+    mirrors that fallback locally.
+  - Measured parity vs `sportsgamesaz.io/2v2io` at 1024/1280/1430px: frame 982x552,
+    sidebar 356px, `mainContainer` 1014px, info column 982px, side grid 154px columns.
