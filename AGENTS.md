@@ -234,8 +234,11 @@ theme layer sits on top:
 ## Deploy
 - GitHub Pages serves from the **`games`** branch, path `/` — NOT `main`.
   Pushing to `main` alone will not update the live site.
-- Custom domain: `bum.wolimons.lol` (CNAME file at repo root, content `bum.wolimons.lol`).
-  Needs a DNS record: `CNAME bum -> loololloolloo.github.io`.
+- No custom domain: the site is served from the default Pages URL
+  `https://loololloolloo.github.io/r/`. There is no `CNAME` file. The previous
+  custom domains (games.gazeee.xyz, then bum.wolimons.lol) were dropped after the
+  latter was blocked, so the project sits at the `/r` subpath. All paths are
+  relative for exactly this reason.
 - Both `main` and `games` are kept in sync at the same commit.
 - **Cache busting:** the pages link `cg.css`/`cg-site.js` with a `?v=<hash>` token
   that `tools/build-archive.py` derives from the asset contents. Never replace it
