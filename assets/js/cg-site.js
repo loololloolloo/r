@@ -36,6 +36,24 @@
     try { localStorage.setItem(FAV_KEY, JSON.stringify(list)); } catch (e) {}
   }
 
+  /* --------------------------------------------------------- image fallback -- */
+
+  /* GameDistribution covers are not uniform: the same md5 serves as .jpg,
+     -512x512.jpeg or -512x384.jpeg depending on the game, and the wrong form
+     403s. Try the remaining forms once before giving up on the tile. */
+  var GD_IMG = /^(https:\/\/img\.gamedistribution\.com\/[0-9a-f]+)(-512x512\.jpeg|-512x384\.jpeg|\.jpg)$/;
+  var GD_FORMS = ["-512x512.jpeg", "-512x384.jpeg", ".jpg"];
+
+  document.addEventListener("error", function (ev) {
+    var img = ev.target;
+    if (!img || img.tagName !== "IMG") return;
+    var m = GD_IMG.exec(img.src);
+    if (!m) return;
+    var next = GD_FORMS.indexOf(m[2]) + 1;
+    if (next >= GD_FORMS.length) return;
+    img.src = m[1] + GD_FORMS[next];
+  }, true);
+
   /* Card markup, kept in one place so the catalogue, the play sidebar and the
      favourites page all render the same thing. */
   function cardHTML(g) {

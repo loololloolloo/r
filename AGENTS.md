@@ -106,18 +106,19 @@ theme layer sits on top:
 
 ## Games data
 - `data/games.json` is the catalogue: `{slug, title, thumb, embed, categories, rating}`.
-  Currently **58,118 games** (well past the 10k+ target), capped by `MAX_GAMES`
+  Currently **69,997 games** (well past the 10k+ target), capped by `MAX_GAMES`
   (120000). Regenerate with `python3 tools/fetch-games.py`. It merges several public
   catalogues, in priority order, and de-duplicates across them (by slug, normalised
   title, and embed host+path) so the same game listed twice appears once. The cap
   trims the tail (lowest-priority source last), so priority order decides what
   survives:
-  1. **CrazyGames** — `api.crazygames.com/v3/en_US/games` public JSON. The portal we
-     replicate, so same titles and covers. **The API ignores every paging param and
-     always returns the same 100 items**, so this source can only contribute ~100
-     games; it is first only so those 100 win de-duplication. Embed is
-     `/embed/<slug>`; cover is `imgs.crazygames.com/<cover>?format=webp&width=480`
-     (the bare cover path 404s without the `format` query).
+  1. **CrazyGames** — the portal we replicate, so same titles and covers. The
+     `api.crazygames.com/v3/en_US/games` JSON ignores every paging param and always
+     returns the same 100 items, so the full catalogue comes from the sitemap covers
+     (`sitemap/sitemap-covers-<n>.xml`, ~4.4k games) plus the twelve category listing
+     pages. Embed is `/embed/<slug>`; cover is
+     `imgs.crazygames.com/<cover>?format=webp&width=480` (the bare cover path 404s
+     without the `format` query). ~4.4k games, listed first so they win de-duplication.
   2. **retrobowl26.com** — `sitemap.xml` for `/<game>` pages; embed is `/<game>.embed`.
      Its whole Retro Bowl family is kept (25/26/27/college/NFL/unblocked); each is a
      distinct build, and the user asked for all of them. Pages without the
@@ -145,14 +146,22 @@ theme layer sits on top:
   9. **Playgama** — four sitemaps listed from `/sitemap.xml`, each entry carrying the
      slug, an `<image:loc>` cover and the title in the og path. The portal allows framing
      (`frame-ancestors *`) and `/game/<slug>` renders the game directly. ~8.9k games.
-- **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 58k-game catalogue
+ 10. **GameDistribution** — `html5.gamedistribution.com/sitemap.xml` lists ~20.9k game
+     frames (`/<md5>/`). The frame embeds directly (no X-Frame-Options,
+     `Access-Control-Allow-Origin: *`), so the title is read from each frame's `<title>`
+     (the sitemap carries none, and publisher slug pages 404 without a referer). The
+     cover is hotlinked from the frame's `og:image`. ~20.9k games.
+- **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 70k-game catalogue
   cannot be downloaded icon-by-icon in a reasonable time or committed to the repo
-  (~36MB for 1k games, so ~2GB at 58k). The source CDNs serve their icons with
+  (~36MB for 1k games, so ~2GB at 70k). The source CDNs serve their icons with
   permissive CORS and no referer check, so cards use the source URL directly. The
   builder drops the local-path assumption; set `CG_MIRROR_THUMBS=1` to go back to
   downloading/optimising into `assets/img/games/<slug>.jpg` (Pillow, 480px wide,
   8-worker pool). A handful of source icons 404; `initImageFallback()` in `cg-site.js`
-  hides the broken image so the card background shows through.
+  hides the broken image so the card background shows through. GameDistribution covers
+  are the exception to the "URL is stable" rule: the same md5 serves as `.jpg`,
+  `-512x512.jpeg` or `-512x384.jpeg` and the wrong form 403s, so `cg-site.js` has a
+  capture-phase `error` handler that walks the remaining forms (~0.5% of GD covers).
 - Feed titles carry HTML entities and zero-width marks (`&amp;`, `&zwnj;`), which also
   polluted the derived slugs. The collector unescapes/strips them once after
   collection and re-derives any slug that still contains entity residue.
@@ -271,12 +280,14 @@ theme layer sits on top:
   render every match at once.
 - Phase 7 (done): **catalogue expanded to 58,118 unique games.** GameMonetize feed
   raised to 100k (actual ~38k), and GamePix (~18.8k) plus Playgama (~8.9k) sitemap
-  sources added. Y8/Lagged/GameDistribution/AddictingGames were explored but not
-  added — see notes below. The 15MB `cg-games.js` parses in ~200ms and a full
+  sources added. The 15MB `cg-games.js` parses in ~200ms and a full
   58k-card render is ~0.5s, so no client-side paging cap is needed.
-- Explored and rejected: **Y8** (sitemaps ~34.6k games, no images and embed
-  thumbnails 403 without a referer, so cards would be iconless), **Lagged**
-  (~11.1k URLs, embed/thumb patterns inconsistent and many 404), **GameDistribution**
-  (30.6k, iframe-only thumbnails), **AddictingGames** (7.1k sitemap, no covers).
+- Phase 8 (done): **catalogue expanded to 69,997 unique games.** CrazyGames raised from
+  ~100 to 4,423 (sitemap covers + category listing pages), and GameDistribution added
+  (20,911 frames with metadata) after the earlier "iframe-only thumbnails" rejection was
+  revisited — the frame embeds directly and its `og:image` gives a working cover. Y8,
+  Lagged and AddictingGames remain rejected: **Y8** (sitemaps ~34.6k games, no images and
+  embed thumbnails 403 without a referer), **Lagged** (~11.1k URLs, embed/thumb patterns
+  inconsistent and many 404), **AddictingGames** (7.1k sitemap, no covers).
 - Next: revisit anything that refuses to be framed, and consider a service for
   comments.

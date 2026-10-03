@@ -893,9 +893,9 @@ def source_gamedistribution():
     each frame's `<title>`. That is one small request per game; a thread pool
     keeps the whole set to a few minutes. Frames that do not answer are skipped.
 
-    Categories are left empty so `classify()` derives a genre from the title,
-    the same as every other source that publishes none. The frame's keywords are
-    platform flags ("No Blood", "Kids Friendly"), not genres.
+    The cover URL is not uniform (`<md5>.jpg` works for some games,
+    `<md5>-512x512.jpeg` for others, and the wrong form 403s), so the frame's
+    `og:image` is used, which always points at the working one.
     """
     try:
         body = fetch("https://html5.gamedistribution.com/sitemap.xml",
@@ -921,11 +921,14 @@ def source_gamedistribution():
         title = html.unescape(match.group(1)).strip() if match else ""
         if not title:
             return None
+        img = re.search(r'og:image content=([^\s>]+)', page)
+        thumb = html.unescape(img.group(1)) if img else \
+            f"https://img.gamedistribution.com/{md5}.jpg"
         return {
             "slug": md5,
             "title": title,
             "embed": url,
-            "thumbSource": f"https://img.gamedistribution.com/{md5}.jpg",
+            "thumbSource": thumb,
             "categories": [],
             "rating": None,
         }

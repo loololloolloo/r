@@ -209,12 +209,13 @@ def main():
 
     # FPS games are few and grow as sources are added, so assert it narrows
     # rather than pinning a count that every catalogue change invalidates.
-    check("category filter FPS narrows", 0 < cat["filtered"] < total_cards,
+    # Compare against the whole catalogue, not the server-rendered carousels.
+    check("category filter FPS narrows", 0 < cat["filtered"] < home["games"],
           str(cat["filtered"]))
     # The catalogue grows, so assert the search actually narrows rather than a
     # fixed count (a stale count failed every time games were added).
-    check("search 'basket' narrows", 0 < srch["n"] < total_cards,
-          f"{srch['n']} of {total_cards}")
+    check("search 'basket' narrows", 0 < srch["n"] < home["games"],
+          f"{srch['n']} of {home['games']}")
     check("search hides carousels", srch["rowsHidden"], str(srch["rowsHidden"]))
     # Filtered views render every match at once, with no "Load more" button.
     check("filtered view renders all matches",
@@ -260,7 +261,7 @@ def main():
           home.get("favHearts") == home.get("cards"),
           json.dumps({"hearts": home.get("favHearts"), "cards": home.get("cards")}))
     check("favorites rail entry",
-          (home.get("favRail") or {}).get("href") == "/favorites"
+          (home.get("favRail") or {}).get("href") == "./favorites"
           and "Favorites.svg" in ((home.get("favRail") or {}).get("icon") or ""),
           json.dumps(home.get("favRail")))
     # /favorites renders the saved slugs as the same card component, lit hearts.
