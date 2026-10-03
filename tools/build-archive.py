@@ -407,16 +407,7 @@ def build_play(games):
     document.getElementById('cgMetaDesc').textContent =
       'Play ' + g.title + ' for free in your browser. No download, no install.';
 
-    // GameDistribution gates on document.referrer at the frame's *first*
-    // navigation and rewrites itself to <md5>/?rd=1 ("not available here").
-    // The policy has to be on the element before src, or that first load is
-    // already gated — initPlay() running later is too late. Other providers
-    // keep the normal referrer.
-    var frame = document.getElementById('cgFrame');
-    if (/gamedistribution\.com/.test(g.embed || '')) {
-      frame.setAttribute('referrerpolicy', 'no-referrer');
-    }
-    frame.src = g.embed;
+    document.getElementById('cgFrame').src = g.embed;
 
     // Related first (shared category), then the rest, so the section shows
     // genre-mates instead of the catalogue's first alphabetical entries.

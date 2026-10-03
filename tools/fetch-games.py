@@ -414,7 +414,6 @@ def ensure_team(games):
 # its bare domain, since inventing a brand name for a one-game host is worse
 # than the domain the player is actually loading.
 SOURCE_NAMES = [
-    ("gamedistribution.com", "GameDistribution"),
     ("gamemonetize.co", "GameMonetize"),
     ("gamepix.com", "GamePix"),
     ("playgama.com", "Playgama"),
@@ -935,71 +934,6 @@ def source_playgama():
     return out
 
 
-def source_gamedistribution():
-    """GameDistribution's html5 catalogue (~20.9k games).
-
-    The sitemap at html5.gamedistribution.com lists every game frame
-    (`/<md5>/`) and its cover (`img.gamedistribution.com/<md5>.jpg`). The frame
-    carries no X-Frame-Options and answers with `Access-Control-Allow-Origin: *`,
-    so it embeds directly, and the cover hotlinks. The sitemap has no titles and
-    the publisher's slug pages 404 without a referer, so the title is read from
-    each frame's `<title>`. That is one small request per game; a thread pool
-    keeps the whole set to a few minutes. Frames that do not answer are skipped.
-
-    The embed is the game frame itself (`/rvvASMiM/<md5>/index.html`). The
-    `/md5/` SDK wrapper rejects non-whitelisted parent domains and renders its
-    own "not available here" page inside our iframe; the game frame behind it
-    has no such gate and loads with our page as `parentDomain`.
-
-    The cover URL is not uniform (`<md5>.jpg` works for some games,
-    `<md5>-512x512.jpeg` for others, and the wrong form 403s), so the frame's
-    `og:image` is used, which always points at the working one.
-    """
-    try:
-        body = fetch("https://html5.gamedistribution.com/sitemap.xml",
-                     timeout=120)
-        if body[:2] == b"\x1f\x8b":
-            body = gzip.decompress(body)
-        sitemap = body.decode("utf-8", "ignore")
-    except (urllib.error.URLError, OSError, ValueError) as exc:
-        print(f"  ! gamedistribution sitemap: {exc}", file=sys.stderr)
-        return []
-    ids = re.findall(
-        r"<loc>https://html5\.gamedistribution\.com/([0-9a-f]{16,})/</loc>",
-        sitemap)
-    print(f"  gamedistribution ids: {len(ids)}")
-
-    def one(md5):
-        url = f"https://html5.gamedistribution.com/{md5}/"
-        try:
-            page = fetch_text(url, timeout=30)
-        except (urllib.error.URLError, OSError, ValueError):
-            return None
-        match = re.search(r"<title>([^<]*)</title>", page)
-        title = html.unescape(match.group(1)).strip() if match else ""
-        if not title:
-            return None
-        img = re.search(r'og:image content=([^\s>]+)', page)
-        thumb = html.unescape(img.group(1)) if img else \
-            f"https://img.gamedistribution.com/{md5}.jpg"
-        return {
-            "slug": md5,
-            "title": title,
-            "embed": f"https://html5.gamedistribution.com/rvvASMiM/{md5}/index.html",
-            "thumbSource": thumb,
-            "categories": [],
-            "rating": None,
-        }
-
-    out = []
-    with concurrent.futures.ThreadPoolExecutor(max_workers=32) as pool:
-        for game in pool.map(one, ids):
-            if game:
-                out.append(game)
-    print(f"  gamedistribution with metadata: {len(out)}")
-    return out
-
-
 SOURCES = [
     ("crazygames", source_crazygames),
     ("retrobowl26.com", source_retrobowl26),
@@ -1010,7 +944,6 @@ SOURCES = [
     ("gamemonetize", source_gamemonetize),
     ("gamepix", source_gamepix),
     ("playgama", source_playgama),
-    ("gamedistribution", source_gamedistribution),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added

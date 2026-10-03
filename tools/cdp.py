@@ -180,8 +180,7 @@ def run_seq(steps, port=9299, wait=7, width=1430, height=1400):
         browser.close()
 
 
-def frame_probe(url, port=9299, wait=30, width=1430, height=1400,
-                match="gamedistribution"):
+def frame_probe(url, port=9299, wait=30, width=1430, height=1400, match=""):
     """Load url and report every subframe whose URL contains `match`.
 
     Returns [{"url", "canvas"}]. Used to prove an embedded game frame is still

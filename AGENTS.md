@@ -146,11 +146,6 @@ theme layer sits on top:
   9. **Playgama** — four sitemaps listed from `/sitemap.xml`, each entry carrying the
      slug, an `<image:loc>` cover and the title in the og path. The portal allows framing
      (`frame-ancestors *`) and `/game/<slug>` renders the game directly. ~8.9k games.
- 10. **GameDistribution** — `html5.gamedistribution.com/sitemap.xml` lists ~20.9k game
-     frames (`/<md5>/`). The frame embeds directly (no X-Frame-Options,
-     `Access-Control-Allow-Origin: *`), so the title is read from each frame's `<title>`
-     (the sitemap carries none, and publisher slug pages 404 without a referer). The
-     cover is hotlinked from the frame's `og:image`. ~20.9k games.
 - **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 70k-game catalogue
   cannot be downloaded icon-by-icon in a reasonable time or committed to the repo
   (~36MB for 1k games, so ~2GB at 70k). The source CDNs serve their icons with
@@ -158,10 +153,7 @@ theme layer sits on top:
   builder drops the local-path assumption; set `CG_MIRROR_THUMBS=1` to go back to
   downloading/optimising into `assets/img/games/<slug>.jpg` (Pillow, 480px wide,
   8-worker pool). A handful of source icons 404; `initImageFallback()` in `cg-site.js`
-  hides the broken image so the card background shows through. GameDistribution covers
-  are the exception to the "URL is stable" rule: the same md5 serves as `.jpg`,
-  `-512x512.jpeg` or `-512x384.jpeg` and the wrong form 403s, so `cg-site.js` has a
-  capture-phase `error` handler that walks the remaining forms (~0.5% of GD covers).
+  hides the broken image so the card background shows through.
 - Feed titles carry HTML entities and zero-width marks (`&amp;`, `&zwnj;`), which also
   polluted the derived slugs. The collector unescapes/strips them once after
   collection and re-derives any slug that still contains entity residue.
@@ -283,31 +275,26 @@ theme layer sits on top:
 - Phase 7 (done): **catalogue expanded to 58,118 unique games.** GameMonetize feed
   raised to 100k (actual ~38k), and GamePix (~18.8k) plus Playgama (~8.9k) sitemap
   sources added. The 15MB `cg-games.js` parses in ~200ms.
-- Phase 8 (done): **catalogue expanded to 69,997 unique games.** CrazyGames raised from
-  ~100 to 4,423 (sitemap covers + category listing pages), and GameDistribution added
-  (20,911 frames with metadata) after the earlier "iframe-only thumbnails" rejection was
-  revisited — the frame embeds directly and its `og:image` gives a working cover. Y8,
-  Lagged and AddictingGames remain rejected: **Y8** (sitemaps ~34.6k games, no images and
-  embed thumbnails 403 without a referer), **Lagged** (~11.1k URLs, embed/thumb patterns
-  inconsistent and many 404), **AddictingGames** (7.1k sitemap, no covers).
+- Phase 8 (done): **catalogue expanded to 69,997 unique games** (later trimmed to
+  60,930 when GameDistribution was removed). CrazyGames raised from ~100 to 4,423
+  (sitemap covers + category listing pages). Y8, Lagged and AddictingGames remain
+  rejected: **Y8** (sitemaps ~34.6k games, no images and embed thumbnails 403 without a
+  referer), **Lagged** (~11.1k URLs, embed/thumb patterns inconsistent and many 404),
+  **AddictingGames** (7.1k sitemap, no covers).
+- Phase 10 (done): **GameDistribution removed entirely.** Its frames gate on the parent
+  domain (`unregistered=true` -> `html5.api.gamedistribution.com/blocked.html`, or
+  `<md5>/?rd=1`), so most titles render a "not available here" panel inside our iframe
+  and even whitelisted domains get a black, non-rendering canvas. The source was dropped
+  from `fetch-games.py`, all `gamedistribution.com` games were stripped from
+  `data/games.json` (69,997 -> 60,930), the `referrerpolicy` workaround and the md5 cover
+  fallback were removed from `cg-site.js`/`build-archive.py`, and the GD checks were
+  dropped from `verify.py`.
 - Phase 9 (done): **paging, provider source, admin panel and theming.**
   - The catalogue grid paints 60 cards then "Load more" (60→120→…); dropping from
     ~25k simultaneous cards cut DCL from ~1.6s to ~0.5s.
   - Every game carries a `source` (the provider/distributor it came from) shown as a
     `Source:` row on the play page. `source_label()` derives it from the embed host, so
     it survives source reordering.
-  - **GameDistribution embeds must use the game frame**
-    `https://html5.gamedistribution.com/rvvASMiM/<md5>/index.html` **and** load it with
-    `referrerpolicy="no-referrer"` **set before the first `src`**. The `/md5/` SDK
-    wrapper rejects non-whitelisted parents, and the frame gates on `document.referrer`
-    at its *first* navigation: with a referrer it rewrites itself to
-    `<md5>/?rd=1` (older builds) or swaps itself for
-    `html5.api.gamedistribution.com/blocked.html` (current builds) — both render
-    "… is not available here". Suppressing the referrer keeps it live. The attribute
-    must be on the element *before* `src`: the play page's inline script sets it
-    there (and `initPlay()` repeats it), because setting it after the frame has
-    already navigated leaves the first load gated. Verified by `frame_probe()` in
-    `tools/cdp.py`, which fails the suite if the frame is on `?rd=1`/`blocked`.
   - Rail "Recently Played" (`./?recent=1`) lists games the player opened, most recent
     first, from `localStorage` key `cg-recent` (capped at 60). `initPlay()` records the
     slug (`markPlayed`); `initCatalogue()` reads `?recent` and filters/sorts the grid.

@@ -61,22 +61,6 @@
 
   /* --------------------------------------------------------- image fallback -- */
 
-  /* GameDistribution covers are not uniform: the same md5 serves as .jpg,
-     -512x512.jpeg or -512x384.jpeg depending on the game, and the wrong form
-     403s. Try the remaining forms once before giving up on the tile. */
-  var GD_IMG = /^(https:\/\/img\.gamedistribution\.com\/[0-9a-f]+)(-512x512\.jpeg|-512x384\.jpeg|\.jpg)$/;
-  var GD_FORMS = ["-512x512.jpeg", "-512x384.jpeg", ".jpg"];
-
-  document.addEventListener("error", function (ev) {
-    var img = ev.target;
-    if (!img || img.tagName !== "IMG") return;
-    var m = GD_IMG.exec(img.src);
-    if (!m) return;
-    var next = GD_FORMS.indexOf(m[2]) + 1;
-    if (next >= GD_FORMS.length) return;
-    img.src = m[1] + GD_FORMS[next];
-  }, true);
-
   /* Card markup, kept in one place so the catalogue, the play sidebar and the
      favourites page all render the same thing. */
   function cardHTML(g) {
@@ -416,16 +400,6 @@
     document.title = game.title + " - Games";
     markPlayed(game.slug);
 
-    // GameDistribution blocks non-whitelisted parents at the frame's first
-    // navigation: its frame JS reads document.referrer and redirects to
-    // <md5>/?rd=1 ("not available here"). The play page's inline script already
-    // set the policy before src; repeat it here so nothing re-navigates with a
-    // referrer. Other providers are left with the normal referrer.
-    if (/gamedistribution\.com/.test(game.embed || "")) {
-      frame.setAttribute("referrerpolicy", "no-referrer");
-    } else {
-      frame.removeAttribute("referrerpolicy");
-    }
     if (frame.getAttribute("src") !== game.embed) frame.src = game.embed;
 
     var h1 = document.getElementById("cgStageTitle");

@@ -189,7 +189,7 @@ ADMIN = r"""(()=>{
  press();
  const opened=!p.hidden, linkAfter=getComputedStyle(link).display;
  const inp=p.querySelector('.cg-admin-search');
- inp.value='2 Player Head Basketball';
+ inp.value='Retro Bowl';
  inp.dispatchEvent(new Event('input',{bubbles:true}));
  const matched=p.querySelectorAll('.cg-admin-row').length;
  const btn=p.querySelector('.cg-admin-row .cg-admin-star[data-rate="4"]');
@@ -223,10 +223,6 @@ TEAM = r"""(()=>{
    twoPlayer:titles.filter(t=>/2 player|multiplayer|two player/i.test(t)).length};})()"""
 
 
-GD_PLAY = r"""(()=>{const f=document.getElementById('cgFrame');
- return {policy:f.getAttribute('referrerpolicy'),
-   src:(f.src||'').slice(0,70)};})()"""
-
 RECENT_VIEW = r"""(()=>{
  const t=document.getElementById('cgAllTitle');
  const c=document.getElementById('cgAllCount');
@@ -250,12 +246,6 @@ def main():
     admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
     apage = cdp.run(BASE + "/admin", ADMIN_PAGE, port=9362, wait=8)
     team = cdp.run(BASE + "/?category=Team", TEAM, port=9363, wait=9)
-    gd = cdp.run(BASE + "/play?g=e492074b2a1f46b09d084d1ef2713dff", GD_PLAY,
-                 port=9364, wait=8)
-    # The attribute being present is not enough: the frame must still be the
-    # game, not swapped for gamedistribution's blocked/redirect page.
-    gd_live = cdp.frame_probe(
-        BASE + "/play?g=e492074b2a1f46b09d084d1ef2713dff", port=9366, wait=30)
     # Play two games, then open Recently Played: it must list them, most recent
     # first, in one browser profile (run_seq keeps localStorage).
     recent = cdp.run_seq([
@@ -411,21 +401,6 @@ def main():
           (home.get("recentRail") or {}).get("label") == "Recently Played"
           and (home.get("recentRail") or {}).get("href") == "./?recent=1",
           json.dumps(home.get("recentRail")))
-    # GameDistribution's frame reads document.referrer and redirects to its
-    # "not available here" page for non-whitelisted parents; the play page must
-    # suppress the referrer for GD embeds only.
-    check("GameDistribution frame suppresses referrer",
-          gd.get("policy") == "no-referrer"
-          and "gamedistribution.com" in (gd.get("src") or ""),
-          json.dumps(gd))
-    # The frame must still be on the game: a gated frame ends up on ?rd=1 or on
-    # html5.api.gamedistribution.com/blocked.html.
-    check("GameDistribution frame is not gated",
-          bool(gd_live)
-          and all("rd=1" not in f["url"] and "blocked" not in f["url"]
-                  for f in gd_live)
-          and any("rvvASMiM" in f["url"] and f["canvas"] for f in gd_live),
-          json.dumps(gd_live))
     # Playing two games then opening Recently Played lists both, newest first.
     rh = recent.get("hrefs") or []
     check("recently played tracks and orders games",
