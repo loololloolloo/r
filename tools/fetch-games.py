@@ -51,8 +51,10 @@ THUMB_WIDTH = 480
 WORKERS = 16
 
 # Upper bound on the catalogue. Sources are ordered by quality and trimmed from
-# the tail, so the cap drops the least wanted games first.
-MAX_GAMES = 12000
+# the tail, so the cap drops the least wanted games first. The bulk sources
+# (playgama ~90k, gamepix ~18k, gamemonetize ~38k) sit at the tail, so the cap
+# mainly bounds how many of those secondary games are kept.
+MAX_GAMES = 120000
 
 # Thumbnails are hotlinked from the source CDN rather than mirrored. A full
 # catalogue is ~12k games; downloading and re-encoding each icon would make a
@@ -707,7 +709,7 @@ def source_gamemonetize():
     The feed serves at most MAX_FEED entries; asking for more simply truncates,
     so this pulls a large slice and lets the global cap do the trimming.
     """
-    url = "https://gamemonetize.com/feed.php?format=0&num=20000"
+    url = "https://gamemonetize.com/feed.php?format=0&num=100000"
     try:
         entries = json.loads(fetch_text(url, timeout=120))
     except (urllib.error.URLError, OSError, ValueError) as exc:
@@ -734,6 +736,79 @@ def source_gamemonetize():
     return games
 
 
+def source_gamepix():
+    """GamePix publishes its catalogue as eight plain sitemaps.
+
+    The public site sits behind Cloudflare (the listing and API 403), but the
+    sitemaps are served from the same host with an image extension that carries
+    the cover, so a single fetch per sitemap yields slug, title and icon. The
+    play page is /play/<slug>; the embeddable frame is /play/<slug>/embed, which
+    answers without X-Frame-Options or a frame-ancestors policy.
+    """
+    out = []
+    for page in range(1, 9):
+        url = f"https://www.gamepix.com/sitemaps/games-{page}.xml"
+        try:
+            xml = fetch_text(url, timeout=60)
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            print(f"  ! gamepix sitemap {page}: {exc}", file=sys.stderr)
+            continue
+        for loc, slug, img in re.findall(
+                r"<loc>(https://www\.gamepix\.com/play/([^<]+))</loc>"
+                r"(?:<image:image><image:loc>([^<]+)</image:loc></image:image>)?",
+                xml):
+            slug = slug.strip()
+            if not slug:
+                continue
+            title = re.sub(r"[-_]+", " ", slug).strip().title()
+            out.append({
+                "slug": slug,
+                "title": title,
+                "embed": f"https://play.gamepix.com/{slug}/embed",
+                "thumbSource": img,
+                "categories": [],
+                "rating": None,
+            })
+    return out
+
+
+def source_playgama():
+    """Playgama (playhop catalogue) publishes ~90k games as four sitemaps.
+
+    Each entry carries the slug, the English title via the og image path and an
+    <image:loc> cover. The portal allows framing (frame-ancestors *), and its
+    /game/<slug> page renders the game directly, so that URL is the embed.
+    """
+    index = fetch_text("https://playgama.com/sitemap.xml", timeout=30)
+    sitemaps = re.findall(
+        r"<loc>(https://playgama\.com/sitemaps/[^<]*sitemap-games-\d+\.xml)</loc>",
+        index)
+    out = []
+    for url in sitemaps:
+        try:
+            xml = fetch_text(url, timeout=120)
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            print(f"  ! playgama sitemap {url.rsplit('/', 1)[-1]}: {exc}",
+                  file=sys.stderr)
+            continue
+        for block in re.findall(r"<url>(.*?)</url>", xml, re.S):
+            slug = re.search(r"<loc>https://playgama\.com/game/([^<]+)</loc>",
+                             block)
+            img = re.search(r"<image:loc>([^<]+)</image:loc>", block)
+            if not slug:
+                continue
+            name = slug.group(1).strip()
+            out.append({
+                "slug": name,
+                "title": re.sub(r"[-_]+", " ", name).strip().title(),
+                "embed": f"https://playgama.com/game/{name}",
+                "thumbSource": img.group(1) if img else "",
+                "categories": [],
+                "rating": None,
+            })
+    return out
+
+
 SOURCES = [
     ("crazygames", source_crazygames),
     ("retrobowl26.com", source_retrobowl26),
@@ -742,6 +817,8 @@ SOURCES = [
     ("retrobowlfree.io", source_retrobowlfree),
     ("3kh0-lite", source_3kh0),
     ("gamemonetize", source_gamemonetize),
+    ("gamepix", source_gamepix),
+    ("playgama", source_playgama),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added
