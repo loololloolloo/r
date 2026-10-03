@@ -36,6 +36,29 @@
     try { localStorage.setItem(FAV_KEY, JSON.stringify(list)); } catch (e) {}
   }
 
+  /* ------------------------------------------------------ recently played -- */
+
+  var RECENT_KEY = "cg-recent";
+  var RECENT_MAX = 60;
+
+  function recentSlugs() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(RECENT_KEY));
+      return Array.isArray(raw) ? raw : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function markPlayed(slug) {
+    if (!slug) return;
+    var list = recentSlugs().filter(function (s) { return s !== slug; });
+    list.unshift(slug);
+    try {
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, RECENT_MAX)));
+    } catch (e) {}
+  }
+
   /* --------------------------------------------------------- image fallback -- */
 
   /* GameDistribution covers are not uniform: the same md5 serves as .jpg,
@@ -212,6 +235,7 @@
     var term = qs("q") || "";
     var category = qs("category") || "";
     var sort = qs("sort") || "";
+    if (qs("recent") !== null) sort = "recent";
 
     var shown = 0;          // cards currently in the grid
     var results = [];       // full match set for the current view
@@ -242,7 +266,8 @@
       });
     }
 
-    if (term || category || sort === "rating" || sort === "newest") {
+    if (term || category || sort === "rating" || sort === "newest"
+        || sort === "recent") {
       render(term, category, sort);
     } else {
       initHome();
@@ -265,6 +290,13 @@
         results = byRating(results);
       } else if (sortMode === "newest") {
         results = results.slice().reverse();
+      } else if (sortMode === "recent") {
+        var order = recentSlugs();
+        var rank = {};
+        order.forEach(function (s, i) { rank[s] = i; });
+        results = results.filter(function (g) {
+          return order.indexOf(g.slug) !== -1;
+        }).sort(function (a, b) { return rank[a.slug] - rank[b.slug]; });
       }
 
       var title = document.getElementById("cgAllTitle");
@@ -274,6 +306,7 @@
           : cat ? cat + " games"
           : sortMode === "rating" ? "Top games"
           : sortMode === "newest" ? "New games"
+          : sortMode === "recent" ? "Recently played"
           : "All games";
       }
       var count = document.getElementById("cgAllCount");
@@ -381,6 +414,17 @@
     if (!game) return;
 
     document.title = game.title + " - Games";
+    markPlayed(game.slug);
+
+    // GameDistribution blocks non-whitelisted parents at runtime: its frame JS
+    // reads document.referrer and redirects to <md5>/?rd=1 ("not available
+    // here"). Suppressing the referrer keeps the game frame live. Other
+    // providers are left with the normal referrer.
+    if (/gamedistribution\.com/.test(game.embed || "")) {
+      frame.setAttribute("referrerpolicy", "no-referrer");
+    } else {
+      frame.removeAttribute("referrerpolicy");
+    }
     frame.src = game.embed;
 
     var h1 = document.getElementById("cgStageTitle");

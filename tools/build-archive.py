@@ -50,11 +50,9 @@ def asset_version(games_js):
 # --- rail (same entries and order as the archive, minus the account block) ----
 RAIL = [
     ("Home", "./", "Home", True),
-    ("Recent", "./?sort=newest", "Recent", True),
+    ("Recently Played", "./?recent=1", "Recent", True),
     ("New", "./?sort=newest", "New", False),
     ("Trending", "./?sort=rating", "Trending", False),
-    ("Updated", "./?sort=newest", "Updated", False),
-    ("Originals", "./?sort=rating", "Originals", False),
     ("Favorites", "./favorites", "Favorites", True),
     ("__hr__",),
     ("2 Player", "./?category=Team", "2players", False),

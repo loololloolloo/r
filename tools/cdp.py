@@ -156,6 +156,30 @@ def run(url, js, port=9299, wait=8, shot=None, width=1430, height=1400):
         browser.close()
 
 
+def run_seq(steps, port=9299, wait=7, width=1430, height=1400):
+    """Visit several URLs in one browser (so localStorage persists), evaluating
+    each step's [url, js] after its load. Returns the last step's value."""
+    browser = _Browser(width, height)
+    try:
+        session = _Session(browser.target())
+        try:
+            session.call("Page.enable")
+            session.call("Runtime.enable")
+            value = None
+            for url, js in steps:
+                session.call("Page.navigate", url=url)
+                time.sleep(wait)
+                if js:
+                    result = session.call("Runtime.evaluate", expression=js,
+                                          returnByValue=True, awaitPromise=True)
+                    value = result.get("result", {}).get("value")
+            return value if value is not None else {}
+        finally:
+            session.close()
+    finally:
+        browser.close()
+
+
 def failed_requests(url, port=9299, wait=8, width=1430, height=1400):
     """Load url and return [(status, url), ...] for every response >= 400."""
     browser = _Browser(width, height)

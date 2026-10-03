@@ -297,9 +297,16 @@ theme layer sits on top:
     `Source:` row on the play page. `source_label()` derives it from the embed host, so
     it survives source reordering.
   - **GameDistribution embeds must use the game frame**
-    `https://html5.gamedistribution.com/rvvASMiM/<md5>/index.html`, not the `/md5/`
-    SDK wrapper: the wrapper rejects non-whitelisted parent domains and renders its own
-    "… is not available here" page inside our iframe. The direct frame has no such gate.
+    `https://html5.gamedistribution.com/rvvASMiM/<md5>/index.html` **and** load it with
+    `referrerpolicy="no-referrer"`. The `/md5/` SDK wrapper rejects non-whitelisted
+    parent domains, and even the direct frame's own JS reads `document.referrer` at
+    runtime and rewrites the frame to `<md5>/?rd=1` ("… is not available here") when the
+    parent is not whitelisted. Suppressing the referrer keeps the frame live; the page
+    had to send *no* `Referer`, and GD does not require one. `initPlay()` in `cg-site.js`
+    sets the attribute only for `gamedistribution.com` embeds and removes it otherwise.
+  - Rail "Recently Played" (`./?recent=1`) lists games the player opened, most recent
+    first, from `localStorage` key `cg-recent` (capped at 60). `initPlay()` records the
+    slug (`markPlayed`); `initCatalogue()` reads `?recent` and filters/sorts the grid.
   - Rail "2 Player" points at `./?category=Team`; `ensure_team()` in `fetch-games.py`
     tags every multiplayer/2-player game with `Team` (from multiplayer-ish categories or
     a title match), so the entry is not just the 17 games the feeds tag `Team`.

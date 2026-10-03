@@ -75,6 +75,8 @@ MEAS = r"""(()=>{
  m.teamRail=(()=>{const a=[...document.querySelectorAll('.cg-rail-item')]
    .find(x=>/2 player/i.test(x.textContent));
    return a?a.getAttribute('href'):null;})();
+ m.recentRail=(()=>{const a=document.querySelectorAll('.cg-rail-item')[1];
+   return a?{label:a.textContent.trim(),href:a.getAttribute('href')}:null;})();
  m.filtered=document.querySelectorAll('#cgAllGrid .cg-card').length;
  m.rowsHidden=[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden);
  return m;})()"""
@@ -221,6 +223,19 @@ TEAM = r"""(()=>{
    twoPlayer:titles.filter(t=>/2 player|multiplayer|two player/i.test(t)).length};})()"""
 
 
+GD_PLAY = r"""(()=>{const f=document.getElementById('cgFrame');
+ return {policy:f.getAttribute('referrerpolicy'),
+   src:(f.src||'').slice(0,70)};})()"""
+
+RECENT_VIEW = r"""(()=>{
+ const t=document.getElementById('cgAllTitle');
+ const c=document.getElementById('cgAllCount');
+ return {title:t&&t.textContent, count:c&&c.textContent,
+   hrefs:[...document.querySelectorAll('#cgAllGrid .cg-card')]
+     .map(a=>a.getAttribute('href')),
+   stored:localStorage.getItem('cg-recent')};})()"""
+
+
 def main():
     home = cdp.run(BASE + "/", MEAS, port=9350, wait=7)
     play = cdp.run(BASE + "/play?g=2048", MEAS, port=9351, wait=7)
@@ -235,6 +250,15 @@ def main():
     admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
     apage = cdp.run(BASE + "/admin", ADMIN_PAGE, port=9362, wait=8)
     team = cdp.run(BASE + "/?category=Team", TEAM, port=9363, wait=9)
+    gd = cdp.run(BASE + "/play?g=e492074b2a1f46b09d084d1ef2713dff", GD_PLAY,
+                 port=9364, wait=8)
+    # Play two games, then open Recently Played: it must list them, most recent
+    # first, in one browser profile (run_seq keeps localStorage).
+    recent = cdp.run_seq([
+        (BASE + "/play?g=2048", None),
+        (BASE + "/play?g=retro-bowl", None),
+        (BASE + "/?recent=1", RECENT_VIEW),
+    ], port=9365, wait=8)
     failed = cdp.failed_requests(BASE + "/", port=9357, wait=7)
     total_cards = home["cards"]
 
@@ -261,7 +285,7 @@ def main():
           home["headerBg"])
     check("body background", home["bodyBg"] == ARCHIVE["bodyBg"], home["bodyBg"])
     check("Nunito font", home["font"] == "Nunito", home["font"])
-    check("rail has 19 items", home["railItems"] == 19, str(home["railItems"]))
+    check("rail has 17 items", home["railItems"] == 17, str(home["railItems"]))
     check("catalogue cards rendered", home["cards"] >= 200, str(home["cards"]))
     # The catalogue itself is the ~12k bundle; the home page renders carousels
     # from it rather than server-rendering every card.
@@ -379,6 +403,24 @@ def main():
     check("team rail entry labelled 2 Player",
           home.get("teamRail") == "./?category=Team",
           str(home.get("teamRail")))
+    check("rail second entry is Recently Played",
+          (home.get("recentRail") or {}).get("label") == "Recently Played"
+          and (home.get("recentRail") or {}).get("href") == "./?recent=1",
+          json.dumps(home.get("recentRail")))
+    # GameDistribution's frame reads document.referrer and redirects to its
+    # "not available here" page for non-whitelisted parents; the play page must
+    # suppress the referrer for GD embeds only.
+    check("GameDistribution frame suppresses referrer",
+          gd.get("policy") == "no-referrer"
+          and "gamedistribution.com" in (gd.get("src") or ""),
+          json.dumps(gd))
+    # Playing two games then opening Recently Played lists both, newest first.
+    rh = recent.get("hrefs") or []
+    check("recently played tracks and orders games",
+          recent.get("title") == "Recently played"
+          and "./play?g=retro-bowl" in rh and "./play?g=2048" in rh
+          and rh.index("./play?g=retro-bowl") < rh.index("./play?g=2048"),
+          json.dumps(recent))
 
     # Ctrl+Alt+A opens the admin panel; its search + star rating work; the
     # header admin link stays hidden until the panel is opened.
