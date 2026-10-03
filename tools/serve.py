@@ -19,6 +19,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return full
         if not os.path.splitext(full)[1] and os.path.exists(full + ".html"):
             return full + ".html"
+        # Game pages live at the site root (/<slug>); GitHub Pages resolves an
+        # unknown path to 404.html, so mimic that for the flat-slug routes.
+        if not os.path.splitext(full)[1] and os.path.exists(
+                os.path.join(ROOT, "404.html")):
+            return os.path.join(ROOT, "404.html")
         return full
 
     def log_message(self, *a):

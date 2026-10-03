@@ -1,0 +1,503 @@
+/* ---------- game page (1:1 sportsgamesaz.io layout) -------------------------
+   Rules lifted from the sportsgamesaz.io 2026 build for the classes our play
+   page uses, so the play page matches it. Our theme carries these classes only
+   inside some media queries; the base rules below are what give the info
+   column, cards and sidebar their shape at desktop widths. */
+
+  .TagGrid_tagPillContainer__rY0CY { background-color: var(--black-70);
+    border-radius: calc(var(--base-unit)*1);
+    width: 300px;
+    max-width: 100%;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    transition: background-color .2s ease-in;
+    padding: calc(var(--base-unit)*0) calc(var(--base-unit)*2) }
+  .TagGrid_tagPillContainer__rY0CY p { white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: padding-left .2s ease-in;
+    color: var(--white-80);
+    font-size: var(--font-size-button) }
+  .TagGrid_tagPillContainer__rY0CY span { padding-left: calc(var(--base-unit)*1);
+    color: var(--brand-60) }
+  .TagGrid_tagPillContainer__rY0CY:hover { background-color: var(--brand-130) }
+  .TagGrid_tagPillContainer__rY0CY:hover p.TagGrid_animateTextOnHover__El9hM { padding-left: calc(var(--base-unit)*1) }
+  .GameTags_gameTagChipContainer__F5xPO { display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--base-unit)*2);
+    gap: calc(var(--base-unit)*1) }
+  .GameTags_gameTagChipContainer__F5xPO .tagPill { width: unset }
+  .GameThumb_czyButton__1lEe2 { border-radius: 30px;
+    transition: all .25s ease;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 16px;
+    box-sizing: border-box;
+    padding: calc(var(--base-unit)*1) calc(var(--base-unit)*2);
+    background: #0000;
+    height: 40px;
+    -webkit-user-select: none;
+    user-select: none }
+  .GameThumb_czyButton__1lEe2:focus { outline: none }
+  .GameThumb_czyButton--contained--purple__NawR3 { color: var(--white-100);
+    background: var(--brand-100) }
+  .GameThumb_czyButton--contained--purple__NawR3:active { background: rgb(var(--brand-100)/70%) }
+  .GameThumb_czyButton--contained--white__9kgyS { color: var(--black-50);
+    background: var(--white-100) }
+  .GameThumb_czyButton--contained--white__9kgyS:active { background: rgb(var(--white-100)/70%) }
+  .GameThumb_czyButton--contained--grey__kU45V { color: var(--white-100);
+    background: var(--black-40) }
+  .GameThumb_czyButton--contained--grey__kU45V:active { background: rgb(var(--black-40)/70%) }
+  .GameThumb_czyButton--contained--alert__HtiHW { color: var(--white-100);
+    background: var(--alert-100) }
+  .GameThumb_czyButton--contained--alert__HtiHW:active { background: rgb(var(--alert-100)/70%) }
+  .GameThumb_czyButton--contained--success__6EuD8 { color: var(--white-100);
+    background: var(--success-100) }
+  .GameThumb_czyButton--contained--success__6EuD8:active { background: rgb(var(--success-100)/70%) }
+  .GameThumb_czyButton--contained--black__A7FPs { color: var(--white-100);
+    background: var(--black-80) }
+  .GameThumb_czyButton--contained--black__A7FPs:active { background: rgb(var(--black-80)/70%) }
+  .GameThumb_czyButton--contained--green-gradient___bcC_ { color: var(--black-100);
+    background: linear-gradient(90deg, #49f3c3, #64f17e) }
+  .GameThumb_czyButton--contained--green-gradient___bcC_:active { background: linear-gradient(90deg, #289777, #408b4e) }
+  .GameThumb_czyButton--link--purple__ajKWN, .GameThumb_czyButton--outlined--purple__vM8Gp { color: var(--brand-60) }
+  .GameThumb_czyButton--link--purple__ajKWN:active, .GameThumb_czyButton--outlined--purple__vM8Gp:active { color: rgb(var(--brand-100)/80%) }
+  .GameThumb_czyButton--link--white__vWdNr, .GameThumb_czyButton--outlined--white__uqj5O { color: var(--white-90) }
+  .GameThumb_czyButton--link--white__vWdNr:active, .GameThumb_czyButton--outlined--white__uqj5O:active { color: rgb(var(--white-50)/80%) }
+  .GameThumb_czyButton--link--grey__OWss4, .GameThumb_czyButton--outlined--grey__TH87w { color: rgb(var(--white-100)/30%) }
+  .GameThumb_czyButton--link--grey__OWss4:active, .GameThumb_czyButton--outlined--grey__TH87w:active { color: rgb(var(--brand-100)/80%) }
+  .GameThumb_czyButton--link--alert__2xjfp, .GameThumb_czyButton--outlined--alert__v1PbU { color: var(--alert-100) }
+  .GameThumb_czyButton--link--alert__2xjfp:active, .GameThumb_czyButton--outlined--alert__v1PbU:active { color: rgb(var(--brand-100)/80%) }
+  .GameThumb_czyButton--link--success__z8mWI, .GameThumb_czyButton--outlined--success__I9Hdq { color: var(--success-100) }
+  .GameThumb_czyButton--link--success__z8mWI:active, .GameThumb_czyButton--outlined--success__I9Hdq:active { color: rgb(var(--success-100)/80%) }
+  .GameThumb_czyButton--outlined--purple__vM8Gp { border: 1px solid var(--brand-60) }
+  .GameThumb_czyButton--outlined--white__uqj5O { border: 1px solid var(--white-90) }
+  .GameThumb_czyButton--outlined--grey__TH87w { border: 1px solid rgb(var(--white-100)/30%) }
+  .GameThumb_czyButton--outlined--alert__v1PbU { border: 1px solid var(--alert-100) }
+  .GameThumb_czyButton--outlined--success__I9Hdq { border: 1px solid var(--success-100) }
+  .GameThumb_czyButton--outlined__DSn4U:active { border-color: rgb(var(--white-30)/70%) }
+  .GameThumb_czyButton--disabled__40avt { opacity: .4;
+    cursor: default }
+  .GameThumb_czyButton--height50__qbi0h { height: 50px }
+  .GameThumb_czyButton--height34__eSUw_ { height: 34px }
+  .GameThumb_czyButton--fullWidth__i_36k { width: 100% }
+  .GameThumb_czyButton__1lEe2 svg { height: 20px;
+    width: 20px;
+    margin-right: calc(var(--base-unit)*1) }
+  .GameThumb_gameThumbLinkDesktop__wcir5 { position: relative;
+    width: var(--game-thumb-width);
+    height: var(--game-thumb-height);
+    border-radius: calc(var(--base-unit)*1 + 2px);
+    border: 2px solid #0000;
+    box-sizing: border-box;
+    display: block;
+    contain: layout;
+    z-index: 0;
+    background-color: #ffffff12;
+    background-clip: padding-box }
+  .GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbTitleContainer__J1K4D { color: #fff;
+    position: absolute;
+    bottom: 5px;
+    margin-bottom: calc(var(--base-unit)*1);
+    margin-left: calc(var(--base-unit)*1);
+    z-index: 4;
+    font-size: var(--font-size-body-small);
+    font-weight: 700;
+    width: calc(100% - var(--base-unit)*2);
+    height: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap }
+  .GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbTitleContainer__J1K4D.GameThumb_greyedOut__m6CwS { opacity: .1 }
+  .GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbImage__FSasr { z-index: 1;
+    border-radius: calc(var(--base-unit)*1);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    color: #0000;
+    object-fit: cover }
+  .GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbImage__FSasr.GameThumb_greyedOut__m6CwS { opacity: .3 }
+  .GameThumb_gameThumbLinkDesktop__wcir5.GameThumb_isResponsive__UwFpC { width: 100%;
+    height: 100% }
+  .GameThumb_gameThumbLinkDesktop__wcir5.GameThumb_isResponsiveGrid__b4QQf { height: 0;
+    margin-left: 1px;
+    margin-top: 1px;
+    width: calc(100% - 1px);
+    padding-top: calc(var(--game-thumb-aspect-ratio)*(100% - var(--base-unit)*0.5)) }
+  .GameThumb_gradientVignette__Q04oZ { background: linear-gradient(0deg, rgba(0, 0, 0, .878) 0, #0000 50%);
+    /*! @noflip */
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: calc(var(--base-unit)*1);
+    border-bottom-right-radius: calc(var(--base-unit)*1) }
+  .GameThumb_closeBtnContainer__84qjx { position: absolute;
+    display: flex;
+    top: -6px;
+    right: -3px;
+    z-index: 11;
+    background-color: var(--alert-100);
+    border-radius: 20px;
+    padding: 4px;
+    color: #fff;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--black-100) }
+  .GameThumb_closeBtnContainer__84qjx svg { width: 16px;
+    height: 16px }
+  .GameThumb_closeBtnContainer__84qjx:hover { cursor: pointer;
+    background-color: #c00 }
+  .OriginalsGameThumb_originalsGameLink__XH7NN { position: relative;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    contain: layout;
+    border: 2px solid #0000;
+    background-color: #ffffff12;
+    background-clip: padding-box }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz { width: var(--originals-portrait-width);
+    height: calc(var(--originals-portrait-width)*1.5) }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz.OriginalsGameThumb_isMobile__Roy7_ { width: var(--originals-portrait-mobile-width);
+    height: calc(var(--originals-portrait-mobile-width)*1.5) }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_square__HDuqf { width: var(--originals-square-width);
+    height: var(--originals-square-width) }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_square__HDuqf.OriginalsGameThumb_isMobile__Roy7_ { width: var(--originals-square-mobile-width);
+    height: var(--originals-square-mobile-width) }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_square__HDuqf.OriginalsGameThumb_isMobile__Roy7_ .greyedOutOverlay { box-sizing: border-box }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_landscape__RmPbK { width: var(--originals-landscape-width);
+    height: calc(var(--originals-landscape-width)*.5625) }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_landscape__RmPbK.OriginalsGameThumb_isMobile__Roy7_ { width: var(--originals-landscape-mobile-width);
+    height: calc(var(--originals-landscape-mobile-width)*.5625) }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_isResponsive__pDvtH { width: 100% !important;
+    height: 100% !important }
+  .OriginalsGameThumb_originalsGameLink__XH7NN>img { position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover }
+  .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz:not(.OriginalsGameThumb_isMobile__Roy7_), .OriginalsGameThumb_originalsGameLink__XH7NN>img { transition: opacity .6s cubic-bezier(.5, 0, .1, 1);
+    transition-delay: 0s }
+  .OriginalsGameThumb_originalsGameLink__XH7NN:hover { cursor: pointer;
+    box-shadow: 0 0 7px 1px rgba(0, 0, 0, .569);
+    border-color: var(--brand-100);
+    z-index: 10; }
+  .OriginalsGameThumb_originalsGameLink__XH7NN .GameThumb_gameThumbTitleContainer__J1K4D { color: #fff;
+    position: absolute;
+    bottom: 5px;
+    margin-bottom: calc(var(--base-unit) * 1);
+    margin-left: calc(var(--base-unit) * 1);
+    z-index: 4;
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    width: calc(100% - var(--base-unit) * 2);
+    height: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .OriginalsGameThumb_originalsGameLink__XH7NN:hover .GameThumb_gameThumbTitleContainer__J1K4D { height: auto; }
+  .OriginalsGameThumb_originalsGameLink__XH7NN:hover .GameThumb_gradientVignette__Q04oZ { opacity: 1;
+    visibility: visible; }
+  .GameInfo_containerWithPadding__z9aMp { width: 100% }
+  .GameInfo_containerWithPadding__z9aMp>p:first-of-type { margin-block-start: 0 }
+  .GameInfo_containerWithPadding__z9aMp>p:last-of-type { margin-block-end: 0 }
+  .GameInfo_containerWithPadding__z9aMp h2, .GameInfo_containerWithPadding__z9aMp h3 { margin-block: 1em }
+  .GameInfo_styledHtmlDiv__Zg2EY { width: 100% }
+  .GameInfo_styledHtmlDiv__Zg2EY>p:first-of-type { margin-block-start: 0 }
+  .GameInfo_styledHtmlDiv__Zg2EY>p:last-of-type { margin-block-end: 0 }
+  .GameInfo_styledHtmlDiv__Zg2EY h2, .GameInfo_styledHtmlDiv__Zg2EY h3 { margin-block: 1em }
+  .GameInfo_styledHtmlDiv__Zg2EY ol>li { padding: 14px }
+  .GameInfo_styledHtmlDiv__Zg2EY iframe { width: 100% }
+  .GameInfo_styledHtmlDiv__Zg2EY.GameInfo_marginBlockEnd1__CZiMD { margin-block-end: 1em }
+  .GameInfo_styledDevName__MnwFN { color: var(--brand-60);
+    cursor: pointer;
+    font-weight: 700 }
+  .GameInfo_styledDevName__MnwFN:hover { color: var(--brand-100) }
+  .GameInfo_gameInfo__2UItk { display: flex;
+    background-color: var(--black-80);
+    flex-flow: row wrap;
+    border-width: 0;
+    color: var(--white-60);
+    width: 100%;
+    position: relative;
+    margin: auto;
+    line-height: 1.5 }
+  .GameInfo_gameInfo__2UItk h1 { color: var(--white-100);
+    font-size: 28px;
+    line-height: 1.167 }
+  .GameInfo_gameInfo__2UItk h2, .GameInfo_gameInfo__2UItk h3 { font-size: var(--font-size-h2-small);
+    color: var(--white-100) }
+  .GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d { font-size: 16px;
+    flex-flow: initial;
+    background: #0000;
+    gap: calc(var(--base-unit)*1) }
+  .GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d h2, .GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d h3 { font-size: 20px }
+  .GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d h2 { font-size: 24px }
+  .GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d { padding: calc(var(--base-unit)*3);
+    font-size: 16px }
+  .GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d h1 { display: block;
+    text-overflow: ellipsis;
+    font-size: 28px;
+    width: calc(100vw - 82px);
+    word-wrap: break-word;
+    overflow: hidden;
+    margin-bottom: calc(var(--base-unit)*2.5) }
+  .GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d h2, .GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d h3 { font-size: 24px;
+    font-weight: 700;
+    color: var(--white-80) }
+  .GameInfo_gameInfo__2UItk a { color: var(--brand-60) }
+  .GameInfo_gameInfo__2UItk a:hover { color: var(--brand-100) }
+  .GameInfo_gameInfo__2UItk .GameInfo_leftColumn__vMTeN { display: flex;
+    flex-direction: column;
+    gap: calc(var(--base-unit)*1) }
+  .GameInfo_gameInfo__2UItk .GameInfo_rightColumn__hExHC { position: relative }
+  .GameInfo_gameInfo__2UItk .gameDescription_first { margin-top: calc(var(--base-unit)*4) }
+  .GameInfo_gameInfo__2UItk p { color: var(--white-100) }
+  .GameInfo_roundedCornersContainer__D5D_p { padding: calc(var(--base-unit)*3);
+    background: var(--black-90);
+    border-radius: 16px;
+	width:100%; }
+  .GameInfo_roundedCornersContainer__D5D_p.GameInfo_removeTopPadding__hI61b { padding-top: 0 }
+  .GameInfo_leaderboard__rgrmE { padding: calc(var(--base-unit)*1.25) calc(var(--base-unit)*3);
+    position: relative;
+    margin-top: calc(var(--base-unit)*1);
+    display: flex;
+    justify-content: center }
+  .GameInfo_leaderboard__rgrmE>div { position: relative }
+  .GameInfo_secondMpuContainer__xiGbJ { padding: calc(var(--base-unit)*1.25) calc(var(--base-unit)*3);
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--base-unit)*2.5) }
+  .GameInfo_secondMpuContainer__xiGbJ>div { position: relative }
+  .Breadcrumbs_breadcrumbs__L3mrb { margin-bottom: calc(var(--base-unit)*2) }
+  .Breadcrumbs_breadcrumbs__L3mrb>div, .Breadcrumbs_breadcrumbs__L3mrb>div>a, .Breadcrumbs_breadcrumbs__L3mrb>div>div { display: inline-block }
+  .Breadcrumbs_breadcrumbs__L3mrb>div>a { text-decoration: none;
+    text-transform: capitalize;
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    color: var(--brand-60) }
+  .Breadcrumbs_breadcrumbs__L3mrb>div>a:hover { cursor: pointer;
+    color: var(--brand-100) }
+  .Breadcrumbs_breadcrumbs__L3mrb.Breadcrumbs_isNotDesktop__8z5fy { margin-bottom: 0 }
+  .Breadcrumbs_separator__yCVN1 { font-size: var(--font-size-body);
+    margin: 0 calc(var(--base-unit)*1);
+    color: var(--white-10);
+    margin-left: calc(var(--base-unit)*.5);
+    margin-right: calc(var(--base-unit)*.5) }
+  .GameSummary_styledGameSummaryTable__OTcI_ { max-width: 100%;
+    padding: calc(var(--base-unit)*1) calc(var(--base-unit)*0) }
+  .GameSummary_gameTableRow__9i4Mt { display: flex;
+    min-height: 29px }
+  .GameSummary_gameTableRowHeader__qmvU_ { color: var(--white-60);
+    width: 110px;
+    flex-shrink: 0 }
+  .GameSummary_gameTableRowContent__RW5fE { display: flex;
+    align-items: baseline;
+    color: var(--white-80);
+    font-weight: 700 }
+  .GameSummary_gameTableRowContent__RW5fE div a { min-height: 0 !important }
+  .GameSummary_wikiLinks__xu_24 a:hover { cursor: pointer }
+  .GamePageDesktop_main__fSalE { display: flex }
+  .GamePageDesktop_mainContainer__QMRhB { display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: calc(100% - 356px);
+    padding: calc(var(--base-unit)*2) }
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfContainer__ywzsh { height: auto;
+    max-height: calc(100vh - var(--header-height) - 45px - 64px);
+    width: 100% }
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfAspectRatioContainer__f_hUp { max-height: 100%;
+    aspect-ratio: 16/9;
+    margin: auto;
+    display: flex;
+    flex-direction: column }
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky { margin: auto;
+    width: 100%;
+    max-width: 1600px;
+    height: 122px;
+    display: flex;
+    justify-content: center;
+    padding: calc(var(--base-unit)*2) }
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky .GamePageDesktop_leaderboard__ddMUk { width: 728px;
+    height: 96.9px;
+    position: relative }
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gameInfoContainer__SwKQu { max-width: 1600px;
+    height: 100%;
+    margin: auto }
+  .GamePageDesktop_rightSidebar__QgTMJ { width: 187px;
+    padding: calc(var(--base-unit)*2);
+    padding-bottom: 0;
+    padding-top: 0;
+    background-color: var(--black-90);
+    margin-top: 2px }
+  .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightMpuContainer__tFXsw { position: relative;
+    margin-bottom: calc(var(--base-unit)*3);
+    margin-top: calc(var(--base-unit)*2 - 2px);
+    display: flex;
+    justify-content: center }
+  .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH { padding: calc(var(--base-unit)*.5);
+    padding-top: calc(var(--base-unit)*.5);
+    padding-bottom: calc(var(--base-unit)*2.5) }
+  .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH>div:last-child { grid-template-columns: 1fr;
+    gap: 4px 8px }
+  .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH>div:last-child>a { margin: 0 }
+  .GamePageDesktop_underGameContainerGrid__cdhNC { display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--black-90);
+    border-radius: 10px;
+    padding-bottom: calc(var(--base-unit)*2.5) }
+  .GamePageDesktop_underGameContainerGrid__cdhNC .GamePageDesktop_underGameContainerGamesWrapper__Rahgf { display: grid;
+    width: 100% }
+  .GamePageDesktop_underGameContainerGrid__cdhNC .GamePageDesktop_underGameContainerGamesWrapper__Rahgf>div:first-child { padding: calc(var(--base-unit)*2);
+    gap: calc(var(--base-unit)*1) calc(var(--base-unit)*2);
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)) }
+  .GamePageDesktop_underGameContainerGrid__cdhNC .GamePageDesktop_showMoreButton__xWgfT { width: 150px }
+  .css-1q2ta1u ul li .gameThumbTitleContainer { display: none; }
+  /*@game_play*/
+.css-ujjn8y { display: grid;
+    flex-flow: wrap;
+    box-sizing: border-box;
+    content-visibility: visible;
+    padding: 0px;
+    width: 100%;
+    gap: 6px;
+    margin: 0px; }
+  .css-1h1938b { /* display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0px;
+    z-index: 2;
+    width: 100%; */ }
+  .css-uwwqev { width: 100%;
+    height: 100%; }
+  .GamePageDesktop_gfAspectRatioContainer__f_hUp { position: relative; }
+  .GameInfo_roundedCornersContainer__D5D_p img { max-width: 100%;
+    height: auto; }
+  body.fullscreen .GamePageDesktop_gfAspectRatioContainer__f_hUp { position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999; }
+  .GameThumb_gradientVignette__Q04oZ { visibility: hidden;
+    opacity: 0; }
+  .GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumb_gradientVignette__Q04oZ { opacity: 1;
+    visibility: visible; }
+  .GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumbLabel_label__dz3yR { opacity: 0; }
+  .GameThumb_gameThumbVideo__jgUDS { transition: opacity .3s cubic-bezier(.5, 0, .1, 1);
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    transition-delay: .3s;
+    border-radius: calc(var(--base-unit)*1);
+    overflow: hidden }
+  .GameThumb_gameThumbVideo__jgUDS .GameThumb_greyedOutOverlay__iTvsq { background: linear-gradient(0deg, rgba(0, 0, 0, .878) 0, #000);
+    top: 0 }
+  .GameThumb_gameThumbVideo__jgUDS video { height: 100%;
+    width: 100%;
+    object-fit: cover }
+  .GameThumb_bottomLabelContainer__IaMqV.GameThumb_videoPlaying__vNDTS { opacity: 0 }
+  .GameInfo_styledHtmlDiv__Zg2EY table { font-family:inherit!important;
+	border-radius: 0!important; }
+@media(hover:hover) {
+    .GameThumb_czyButton--contained--purple__NawR3:hover:not(:disabled) { background: var(--brand-80) }
+    .GameThumb_czyButton--contained--white__9kgyS:hover:not(:disabled) { background: var(--white-50) }
+    .GameThumb_czyButton--contained--grey__kU45V:hover:not(:disabled) { background: var(--black-50) }
+    .GameThumb_czyButton--contained--alert__HtiHW:hover:not(:disabled) { background: var(--alert-100) }
+    .GameThumb_czyButton--contained--success__6EuD8:hover:not(:disabled) { background: #52b187 }
+    .GameThumb_czyButton--contained--black__A7FPs:hover:not(:disabled) { background: var(--black-70) }
+    .GameThumb_czyButton--contained--green-gradient___bcC_:hover:not(:disabled) { background: linear-gradient(90deg, #2dc59a, #5db96e) }
+    .GameThumb_czyButton--link--purple__ajKWN:hover:not(:disabled), .GameThumb_czyButton--outlined--purple__vM8Gp:hover:not(:disabled) { color: var(--brand-100) }
+    .GameThumb_czyButton--link--white__vWdNr:hover:not(:disabled), .GameThumb_czyButton--outlined--white__uqj5O:hover:not(:disabled) { color: var(--white-50) }
+    .GameThumb_czyButton--link--grey__OWss4:hover:not(:disabled), .GameThumb_czyButton--outlined--grey__TH87w:hover:not(:disabled) { color: var(--brand-100) }
+    .GameThumb_czyButton--link--alert__2xjfp:hover:not(:disabled), .GameThumb_czyButton--outlined--alert__v1PbU:hover:not(:disabled) { color: var(--brand-100) }
+    .GameThumb_czyButton--link--success__z8mWI:hover:not(:disabled), .GameThumb_czyButton--outlined--success__I9Hdq:hover:not(:disabled) { color: var(--success-100) }
+    .GameThumb_gameThumbLinkDesktop__wcir5:hover { cursor: pointer;
+        box-shadow: 0 0 7px 1px rgba(0, 0, 0, .569);
+        border-color: var(--brand-100);
+        z-index: 10;
+        overflow: visible }
+    .GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumb_gameThumbTitleContainer__J1K4D { height: auto }
+  }
+@media(min-width:1082px) {
+    .GameInfo_containerWithPadding__z9aMp { padding-bottom: calc(var(--base-unit)*1) }
+    .GamePageDesktop_underGameContainerGrid__cdhNC { display: none }
+  }
+@media(max-width:599.98px) {
+    .GameInfo_halfPage300x600BelowGame__lYeY7 { display: none }
+    .Breadcrumbs_breadcrumbs__L3mrb>div>a { font-size: 16px;
+        min-width: 48px;
+        margin-bottom: calc(var(--base-unit)*1.5) }
+  }
+@media(max-width:1081.98px) {
+    .GameInfo_gameInfo__2UItk { padding-left: 0;
+        padding-right: 0;
+        margin-top: calc(var(--base-unit)*1.5) }
+    .GamePageDesktop_rightSidebar__QgTMJ { display: none }
+  }
+@media(max-width:1599.98px) {
+    .GameInfo_leaderboard__rgrmE { display: none }
+  }
+@media(min-width:1600px) {
+    .GameInfo_secondMpuContainer__xiGbJ { margin-top: calc(var(--base-unit)*1) }
+    .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfContainer__ywzsh { max-height: calc(100vh - var(--header-height) - 150px - 40px) }
+    .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky { display: none }
+  }
+@media(max-width:1279.98px) {
+    .GamePageDesktop_mainContainer__QMRhB { width: 100% }
+    .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightMpuContainer__tFXsw { display: none }
+  }
+@media(max-width:819px) {
+    .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky { display: none }
+    .GamePageDesktop_underGameContainerGrid__cdhNC { margin-top: calc(var(--base-unit)*2) }
+  }
+@media(min-width:1280px) {
+    .GamePageDesktop_rightSidebar__QgTMJ { width: 356px }
+    .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH>div:last-child { grid-template-columns: 1fr 1fr }
+  }
+@media(max-width:1024px) {
+    .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfContainer__ywzsh { max-height: unset !important; }
+  }
+@media (max-width:768px) {
+    .GameThumb_gradientVignette__Q04oZ { opacity: 1 !important;
+        visibility: visible !important; }
+    .GameThumb_gameThumbTitleContainer__J1K4D { height: auto !important; }
+  }
+@media(max-width:600px) {
+    .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfAspectRatioContainer__f_hUp { min-height: 550px;
+        width: 100%; }
+  }
+
+
+/* Our additions on top of the lifted sportsgamesaz rules: the archive sets
+   main__fSalE to flex only at >=1910px, but the portal flexes it at every width
+   (that is what puts the play-next sidebar beside the info column), and the
+   iframe must fill the 16:9 aspect box. */
+#cgFrame {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border: 0; margin: 0; padding: 0; background: #000;
+}
+.GamePageDesktop_gfAspectRatioContainer__f_hUp > .css-uwwqev,
+.GamePageDesktop_gfAspectRatioContainer__f_hUp > .css-uwwqev > .GameContainer {
+  position: relative; width: 100%; height: 100%;
+}
+/* Our info column has no MUI action row to widen it, so it would otherwise
+   shrink to its text; the portal's fills the space left of the sidebar. */
+.GamePageDesktop_gameInfoContainer__SwKQu { width: 100%; }
+/* With no MUI action column to size against, the info column must grow to fill
+   the space left of the sidebar (the portal's flexes to the same width). */
+.GameInfo_gameInfo__2UItk .GameInfo_leftColumn__vMTeN { flex: 1 1 auto; }

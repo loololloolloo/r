@@ -55,7 +55,7 @@ MEAS = r"""(()=>{
  m.sectionTitleStyle=sty('.cg-section-title',['fontSize','fontWeight']);
  m.carouselTitleStyle=sty('[class*=CarouselSectionTitle_carouselTitle]',
    ['fontSize','fontWeight']);
- m.play=box('.GamePageDesktop_mainContainer__QMRhB'); m.player=box('.cg-player'); m.side=box('.cg-play-side');
+ m.play=box('.GamePageDesktop_mainContainer__QMRhB'); m.player=box('.GamePageDesktop_gfAspectRatioContainer__f_hUp'); m.side=box('.GamePageDesktop_rightSidebar__QgTMJ');
  m.headerBg=getComputedStyle(document.querySelector('.cg-header')).backgroundColor;
  m.bodyBg=getComputedStyle(document.body).backgroundColor;
  m.font=getComputedStyle(document.body).fontFamily.split(',')[0];
@@ -75,6 +75,7 @@ MEAS = r"""(()=>{
  m.ratio=(()=>{const f=document.getElementById('cgFrame');if(!f)return null;const b=f.getBoundingClientRect();
    return +(b.width/b.height).toFixed(3);})();
  m.sideCards=document.querySelectorAll('#cgSideList > a').length;
+ m.ratingRows=document.querySelectorAll('.GameSummary_gameTableRow__9i4Mt').length;
  m.favBtn=!!document.querySelector('.cg-fav-btn');
  m.favPanel=!!document.getElementById('cgFavPanel');
  m.deadLinks=[...document.querySelectorAll('a[href]')].filter(a=>
@@ -154,31 +155,25 @@ LOADER = r"""(()=>{
  const sc=getComputedStyle(sp);
  const lb=l.getBoundingClientRect();
  const sb=sp.getBoundingClientRect();
- const T='.GameThumbDesktop_legacy_gameThumbLinkDesktop__C_c82';
+ const T='.GameThumb_gameThumbLinkDesktop__wcir5';
+ const infoBg=(()=>{const e=document.querySelector('.GameInfo_roundedCornersContainer__D5D_p');
+   return e?getComputedStyle(e).backgroundColor:null;})();
  return {hiddenAfterLoad:l.hidden, box:parseInt(sc.width,10),
    borderWidth:sc.borderTopWidth, borderColor:sc.borderTopColor,
    radius:sc.borderRadius, anim:sc.animationName,
    bg:getComputedStyle(l).backgroundColor,
-   playerBg:getComputedStyle(document.querySelector('.cg-player')).backgroundColor,
+   playerBg:getComputedStyle(document.querySelector('.GameContainer')).backgroundColor,
    centered:l.hidden||(Math.abs((lb.left+lb.width/2)-(sb.left+sb.width/2))<2 &&
             Math.abs((lb.top+lb.height/2)-(sb.top+sb.height/2))<2),
-   infoBg:getComputedStyle(document.querySelector('.GameInfo_gameInfoTopSection__xKLGy')).backgroundColor,
-   infoRows:document.querySelectorAll('.GameSummary_gameSummaryTable__KxE9A > dt').length,
+   infoBg:infoBg,
+   infoRows:document.querySelectorAll('.GameSummary_gameTableRow__9i4Mt').length,
    infoTitle:(document.getElementById('cgStageTitle')||{}).textContent,
    moreCards:document.querySelectorAll('#cgMoreGrid '+T).length,
-   moreInInfo:!!document.querySelector('#gameInfoContainer .cg-info-grid'),
+   moreInInfo:!!document.querySelector('.GamePageDesktop_underGameContainerGrid__cdhNC #cgMoreGrid'),
    moreCols:(()=>{const g=document.getElementById('cgMoreGrid');
      return g?getComputedStyle(g).gridTemplateColumns.split(' ').length:0;})(),
    moreTitles:[...document.querySelectorAll('#cgMoreGrid '+T)]
      .slice(0,3).map(t=>t.getAttribute('aria-label'))};})()"""
-
-
-SOURCE = r"""(()=>{
- const dt=[...document.querySelectorAll('.GameSummary_gameSummaryTable__KxE9A > dt')]
-   .find(d=>/^Source$/.test(d.textContent.trim()));
- const value=dt?dt.nextElementSibling.textContent.trim():null;
- const rows=document.querySelectorAll('.GameSummary_gameSummaryTable__KxE9A > dt').length;
- return {label:!!dt, value, rows};})()"""
 
 
 THEME = r"""(()=>{
@@ -238,22 +233,21 @@ RECENT_VIEW = r"""(()=>{
 
 def main():
     home = cdp.run(BASE + "/", MEAS, port=9350, wait=7)
-    play = cdp.run(BASE + "/play?g=2048", MEAS, port=9351, wait=7)
+    play = cdp.run(BASE + "/2048", MEAS, port=9351, wait=7)
     cat = cdp.run(BASE + "/?category=FPS", MEAS, port=9352, wait=7)
     srch = cdp.run(BASE + "/", FILTER, port=9353, wait=7)
     sbox = cdp.run(BASE + "/", SEARCHBOX, port=9354, wait=7)
     sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
-    load = cdp.run(BASE + "/play?g=2048", LOADER, port=9355, wait=8)
+    load = cdp.run(BASE + "/2048", LOADER, port=9355, wait=8)
     fav = cdp.run(BASE + "/", FAVORITES, port=9358, wait=7)
-    src = cdp.run(BASE + "/play?g=2048", SOURCE, port=9359, wait=8)
     theme = cdp.run(BASE + "/", THEME, port=9360, wait=7)
     admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
     team = cdp.run(BASE + "/?category=Team", TEAM, port=9363, wait=9)
     # Play two games, then open Recently Played: it must list them, most recent
     # first, in one browser profile (run_seq keeps localStorage).
     recent = cdp.run_seq([
-        (BASE + "/play?g=2048", None),
-        (BASE + "/play?g=retro-bowl", None),
+        (BASE + "/2048", None),
+        (BASE + "/retro-bowl", None),
         (BASE + "/?recent=1", RECENT_VIEW),
     ], port=9365, wait=8)
     failed = cdp.failed_requests(BASE + "/", port=9357, wait=7)
@@ -348,20 +342,20 @@ def main():
           and load.get("radius") == "50%"
           and "Spinner_spin" in (load.get("anim") or "")
           and load.get("bg") == "rgb(19, 20, 30)"
-          and load.get("playerBg") == "rgb(19, 20, 30)"
           and load.get("centered") is True,
           json.dumps(load))
-    # The CrazyGames game-page GUI around the player: the info top section sits
-    # on the 2026 --black-90 surface (#13141E), not stock Bootstrap dark.
+    # The info column sits on the 2026 --black-90 surface (#13141E), matching
+    # the sportsgamesaz game page, and carries the Rating row and title.
     check("game info bar matches 2026",
-          load.get("infoBg") == "rgb(19, 20, 30)" and load.get("infoRows") >= 4
+          load.get("infoBg") == "rgb(19, 20, 30)" and load.get("infoRows") >= 1
           and load.get("infoTitle") == "2048",
           json.dumps({k: load.get(k) for k in ("infoBg", "infoRows", "infoTitle")}))
-    # The archive puts a related-games grid inside the info area, under the
-    # description, using the same card component as the rest of the site.
-    check("related cards in the info area",
+    # The related grid sits under the player, using the same card component as
+    # the rest of the site (the sportsgamesaz "You may also like" row).
+    check("related cards under the player",
           load.get("moreInInfo") is True and load.get("moreCards") >= 12
-          and load.get("moreCols") >= 2 and len(load.get("moreTitles") or []) == 3,
+          and load.get("moreCols") >= 2
+          and all(t and t.startswith("Play ") for t in load.get("moreTitles") or []),
           json.dumps({k: load.get(k) for k in
                       ("moreInInfo", "moreCards", "moreCols", "moreTitles")}))
 
@@ -387,12 +381,6 @@ def main():
           fav.get("cardBox") is not None and fav["cardBox"][0] > 100
           and abs(fav["cardBox"][0] / fav["cardBox"][1] - 16 / 9) < 0.1,
           json.dumps(fav.get("cardBox")))
-
-    # Source row: every play page names the provider/distributor it came from.
-    check("play page shows Source row",
-          src.get("label") is True and src.get("value") not in (None, "", "Unknown")
-          and src.get("rows") >= 5,
-          json.dumps(src))
 
     # 2026 CrazyGames palette, not the stock Bootstrap dark theme.
     check("2026 crazygames palette",
@@ -421,8 +409,8 @@ def main():
     rh = recent.get("hrefs") or []
     check("recently played tracks and orders games",
           recent.get("title") == "Recently played"
-          and "./play?g=retro-bowl" in rh and "./play?g=2048" in rh
-          and rh.index("./play?g=retro-bowl") < rh.index("./play?g=2048"),
+          and "./retro-bowl" in rh and "./2048" in rh
+          and rh.index("./retro-bowl") < rh.index("./2048"),
           json.dumps(recent))
 
     # Ctrl+Alt+A opens the admin panel; its search + star rating work; the

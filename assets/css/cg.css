@@ -502,3 +502,70 @@ html.cg-admin-on .cg-admin-link { display: inline-flex; }
 }
 .cg-seo-toggle:hover { color: var(--cg-fg); }
 .cg-seo:not(.is-open) p { display: none; }
+
+/* ---------- Customisations on top of the 2026 archive ---------- */
+
+/* Fullscreen glyph we add; the archive icon set has no expand icon. */
+.Icon_icon-fullscreen__cgFs {
+  -webkit-mask-image: url(../cg2026/icons/fullscreen.svg);
+  mask-image: url(../cg2026/icons/fullscreen.svg);
+}
+
+/* Drop the thumbnail zoom on hover — the archive scales the media 1.2x (and
+   1.6x in the related grid). Keep the lift/shadow, lose the size change. */
+.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs.GameThumbDesktop_hasHoverOverlay__qNdmo:hover .GameThumbDesktop_gameThumbMedia__L7si1,
+.game-page-related-grid .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs.GameThumbDesktop_hasHoverOverlay__qNdmo:hover .GameThumbDesktop_gameThumbMedia__L7si1,
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz:not(.OriginalsGameThumb_isMobile__Roy7_).OriginalsGameThumb_hasHoverOverlay__p0KlY:hover .OriginalsGameThumb_gameThumbMedia__iklFc,
+.game-page-related-grid .OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz:not(.OriginalsGameThumb_isMobile__Roy7_).OriginalsGameThumb_hasHoverOverlay__p0KlY:hover .OriginalsGameThumb_gameThumbMedia__iklFc {
+  transform: none;
+}
+
+/* "View more" sits in the title row, pushed to the right, instead of below the
+   cards. Our carousel() wraps the archive title and the link in cg-title-row. */
+.cg-title-row {
+  display: flex; align-items: baseline; width: 100%;
+}
+.cg-title-row > .CarouselSectionTitle_carouselTitle__tDEqL {
+  flex: 1 1 auto; min-width: 0;
+}
+.cg-title-row > .cg-more {
+  flex: 0 0 auto; align-self: flex-end; white-space: nowrap;
+  padding-bottom: 3px; margin-right: calc(var(--base-unit, 8px) * 2);
+}
+
+/* New games / Trending now: two stacked rows instead of one scroller. Each row
+   is the standard 2026 carousel, so the card size is unchanged. */
+.CrazyCarousel_gamesCarouselSection__cDN02.cg-two-row .CrazyCarousel_crazyCarouselRoot__l3JCg + .CrazyCarousel_crazyCarouselRoot__l3JCg {
+  margin-top: 8px;
+}
+
+/* "Top games today": a repeating tile — one big card, then a column of two
+   small cards, per group. Overrides the archive's fixed slide width. */
+.cg-hero-track {
+  --carousel-slide-width: auto;
+  white-space: normal;
+}
+.cg-hero-grid {
+  --cg-hero-small-w: clamp(150px, 15vw, 210px);
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, calc((var(--cg-hero-small-w) * 2 + 10px) * 9 / 32));
+  grid-auto-columns: var(--cg-hero-small-w);
+  gap: 10px;
+  padding: 0 calc(var(--base-unit, 8px) * 1);
+  overflow-x: auto;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.cg-hero-grid::-webkit-scrollbar { display: none; }
+.cg-hero-grid > li { width: auto; height: auto; margin-right: 0; }
+.cg-hero-big { grid-row: span 2; grid-column: span 2; }
+.cg-hero-big .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs,
+.cg-hero-small .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs {
+  width: 100%; height: 100%;
+}
+
+/* Featured strip used by the sportsgamesaz play page. */
+.cg-featured-grid {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.cg-featured-grid > li { aspect-ratio: 16 / 9; flex: 1 1 210px; }

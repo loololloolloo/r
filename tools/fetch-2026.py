@@ -63,12 +63,17 @@ KEEP_TOKENS = (".crazy-carousel", ".skeleton", "GameThumb", "Carousel")
 # rather than the mask icons above. Capitalised names, so they do not clash
 # with the lowercase theme icons.
 SIDEBAR_ICON_BASE = "https://imgs.crazygames.com/icon/mono-sidebar-icons-2/"
+ICON_BASE = "https://imgs.crazygames.com/assets/SVG/icons/"
 SIDEBAR_ICONS = [
     "Home", "Recent", "New", "Trending", "Updated", "Originals", "Multiplayer",
     "Leaderboards", "Action", "Adventure", "Casual", "Board", "Card", "Clicker",
     "Driving", "io", "Puzzle", "Shooting", "Sports", "Strategy", "Trivia",
     "Word", "Tags",
 ]
+
+# Icons the site adds on top of the archive set. Kept here so a refetch does not
+# drop them; the theme bundle has no fullscreen/expand glyph of its own.
+EXTRA_ICONS = ["fullscreen"]
 
 
 def get(url, timeout=90):
@@ -174,6 +179,8 @@ def main():
     for name in SIDEBAR_ICONS:
         u = SIDEBAR_ICON_BASE + name + ".svg"
         mapping[u] = "icons/" + name + ".svg"
+    for name in EXTRA_ICONS:
+        mapping[ICON_BASE + name + ".svg"] = "icons/" + name + ".svg"
     with futures.ThreadPoolExecutor(max_workers=16) as ex:
         for j in [ex.submit(download, u, d, force) for u, d in mapping.items()]:
             j.result()

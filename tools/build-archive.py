@@ -39,7 +39,7 @@ def asset_version(games_js):
     """sha1 of everything the pages link, so any change busts the cache."""
     h = hashlib.sha1()
     h.update(games_js.encode("utf-8"))
-    for rel in ("assets/css/cg.css", "assets/js/cg-site.js", "assets/cg2026/theme.css"):
+    for rel in ("assets/css/cg.css", "assets/css/cg-play.css", "assets/js/cg-site.js", "assets/cg2026/theme.css"):
         try:
             with open(os.path.join(ROOT, rel), "rb") as fh:
                 h.update(fh.read())
@@ -83,7 +83,7 @@ def load_games():
 
 
 def play_url(g):
-    return "./play?g=" + g["slug"]
+    return "./" + g["slug"]
 
 
 # ---------------------------------------------------------------- page pieces --
@@ -220,13 +220,51 @@ def carousel(title, games, more_href="", highlighted=False, row="", track_id="",
             if more_href else "")
     items = "\n".join(f"          <li>{card(g)}</li>" for g in games)
     return f"""      <section class="{cls}"{attrs}>
-        <div class="{tcls}">{head}</div>
+        <div class="cg-title-row">
+          <div class="{tcls}">{head}</div>{more}
+        </div>
         <div class="CrazyCarousel_crazyCarouselRoot__l3JCg">
           <ul class="CrazyCarousel_crazyCarouselContainer__63ph_ crazy-carousel"{tid}{cat}>
 {items}
           </ul>
         </div>
-        {more}
+      </section>"""
+
+
+def two_row_carousel(title, row, track_id, more_href="", testid=""):
+    """Two stacked scrollers under one title, each a standard 2026 carousel so
+    the card size is unchanged. The client splits the games across the tracks."""
+    attrs = f' data-row="{row}"' if row else ""
+    if testid:
+        attrs += f' data-testid="{testid}"'
+    more = (f'<a class="cg-more" href="{more_href}">View more</a>'
+            if more_href else "")
+    return f"""      <section class="CrazyCarousel_gamesCarouselSection__cDN02 cg-two-row"{attrs}>
+        <div class="cg-title-row">
+          <div class="CarouselSectionTitle_carouselTitle__tDEqL">{esc(title)}</div>{more}
+        </div>
+        <div class="CrazyCarousel_crazyCarouselRoot__l3JCg">
+          <ul class="CrazyCarousel_crazyCarouselContainer__63ph_ crazy-carousel" id="{track_id}"></ul>
+        </div>
+        <div class="CrazyCarousel_crazyCarouselRoot__l3JCg">
+          <ul class="CrazyCarousel_crazyCarouselContainer__63ph_ crazy-carousel" id="{track_id}-2"></ul>
+        </div>
+      </section>"""
+
+
+def hero_carousel(title, row, track_id, testid=""):
+    """The highlighted "Top games today" strip: one big card then a column of
+    two small cards, repeating. The client fills the track with a grid."""
+    attrs = f' data-row="{row}"' if row else ""
+    if testid:
+        attrs += f' data-testid="{testid}"'
+    return f"""      <section class="CrazyCarousel_gamesCarouselSection__cDN02 CrazyCarousel_isHighlightedMode__R_Xpi"{attrs}>
+        <div class="cg-title-row">
+          <div class="CarouselSectionTitle_carouselTitle__tDEqL RecommendedCarouselTitle_recommendedTitle__M_lew"><span>{esc(title)}</span></div>
+        </div>
+        <div class="CrazyCarousel_crazyCarouselRoot__l3JCg">
+          <ul class="CrazyCarousel_crazyCarouselContainer__63ph_ crazy-carousel cg-hero-track" id="{track_id}"></ul>
+        </div>
       </section>"""
 
 
@@ -357,17 +395,18 @@ def build_home(games):
         </div>
       </section>""")
 
-    # Spotlight — the archive's highlighted "Top games in <flag> today" carousel.
-    parts.append(carousel(
-        "", [], highlighted=True, row="hero", track_id="cgHeroCards",
-        testid="carousel-recommended",
-        title_cls="RecommendedCarouselTitle_recommendedTitle__M_lew",
-        title_html='<span>Top games today</span>'))
+    # Spotlight — one big card then a column of two small cards, repeating.
+    parts.append(hero_carousel("Top games today", row="hero",
+                               track_id="cgHeroCards",
+                               testid="carousel-recommended"))
 
-    parts.append(carousel("New games", [], row="new", track_id="cgNewTrack",
-                          testid="carousel-new-games", more_href="./?sort=newest"))
-    parts.append(carousel("Trending now", [], row="trending", track_id="cgTrendTrack",
-                          testid="carousel-trending", more_href="./?sort=rating"))
+    parts.append(two_row_carousel("New games", row="new", track_id="cgNewTrack",
+                                  testid="carousel-new-games",
+                                  more_href="./?sort=newest"))
+    parts.append(two_row_carousel("Trending now", row="trending",
+                                  track_id="cgTrendTrack",
+                                  testid="carousel-trending",
+                                  more_href="./?sort=rating"))
     parts.append(carousel("Top games", [], row="top", track_id="cgTopTrack",
                           testid="carousel-top", more_href="./?sort=rating"))
 
@@ -424,158 +463,70 @@ def build_home(games):
 
 
 def build_play(games):
-    params_js = """
-  <script>
-  window.addEventListener('DOMContentLoaded', function () {
-    var p = new URLSearchParams(location.search).get('g');
-    var games = window.CG_GAMES || [];
-    var g = games.filter(function (x) { return x.slug === p; })[0] || games[0];
-    if (!g) return;
-    document.title = g.title + ' - Games';
-    document.getElementById('cgStageTitle').textContent = g.title;
+    # 1:1 with sportsgamesaz.io/2v2io: the game fills an aspect-ratio box, then a
+    # "You may also like" grid sits directly under it, with the info column (crumb,
+    # title, tags, description) and a "Play next" sidebar below. Their like /
+    # dislike / favourite / share / report / comment GUI is intentionally dropped
+    # (we have no backend for it); the iframe fills the whole player area instead.
+    params_js = ""
 
-    // Rating row and category breadcrumb values. An admin rating (1-5, set via
-    // Ctrl+Alt+A) overrides the catalogue's own 0-10 value.
-    var mine = window.CGAdmin ? window.CGAdmin.ratingFor(g.slug) : 0;
-    document.getElementById('cgMetaRating').innerHTML = mine
-      ? '<b>' + mine.toFixed(1) + '</b><span class="cg-votes">(out of 5)</span>'
-      : g.rating
-        ? '<b>' + g.rating.toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
-        : 'Not rated yet';
-    document.getElementById('cgMetaSource').textContent = g.source || 'Unknown';
-    var cats = g.categories || [];
-    document.getElementById('cgMetaCats').innerHTML =
-      cats.map(function (c) {
-        return '<a href="./?category=' + encodeURIComponent(c) + '">' +
-          '<div class="TagGrid_tagPillContainer__rY0CY tagPill"><p>' + c +
-          '</p><span>›</span></div></a>';
-      }).join('');
-    var primary = cats[0] || 'Casual';
-    var crumbTag = document.getElementById('cgCrumbTag');
-    if (crumbTag) {
-      crumbTag.textContent = g.title;
-      crumbTag.href = './?q=' + encodeURIComponent(g.title);
-    }
-    var crumbGame = document.getElementById('cgCrumbGame');
-    if (crumbGame) crumbGame.textContent = g.title;
-    var crumbCat = document.getElementById('cgCrumbCat');
-    if (crumbCat) {
-      crumbCat.textContent = primary;
-      crumbCat.href = './?category=' + encodeURIComponent(primary);
-    }
-    document.getElementById('cgMetaDesc').textContent =
-      'Play ' + g.title + ' for free in your browser. No download, no install.';
-
-    document.getElementById('cgFrame').src = g.embed;
-
-    // Related first (shared category), then the rest, so the section shows
-    // genre-mates instead of the catalogue's first alphabetical entries.
-    var others = games.filter(function (x) { return x.slug !== g.slug; });
-    var sameCat = others.filter(function (x) {
-      return (x.categories || []).some(function (c) { return cats.indexOf(c) >= 0; });
-    });
-    var related = sameCat.concat(others.filter(function (x) {
-      return sameCat.indexOf(x) < 0;
-    }));
-
-    function cards(list) {
-      return list.map(function (x) {
-        return '<a class="GameThumbDesktop_legacy_gameThumbLinkDesktop__C_c82 ' +
-          'GameThumbDesktop_legacy_isResponsiveGrid__L_ymd game-thumb-test-class" ' +
-          'aria-label="' + x.title + '" href="./play?g=' + x.slug + '">' +
-          '<div class="GameThumbDesktop_legacy_gameThumbTitleContainer__HAib2 ' +
-          'gameThumbTitleContainer">' + x.title + '</div>' +
-          '<img class="GameThumbShared_gameThumbImage__7EHHi ' +
-          'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" width="273" ' +
-          'alt="" src="' + x.thumb + '"></a>';
-      }).join('');
-    }
-
-    document.getElementById('cgSideList').innerHTML = cards(related.slice(0, 20));
-    document.getElementById('cgMoreGrid').innerHTML = cards(related.slice(0, 24));
-  });
-  </script>"""
 
     main = """      <div class="GamePageDesktop_main__fSalE">
         <div class="GamePageDesktop_mainContainer__QMRhB" id="gamePageMainContainer">
-          <div class="GamePageDesktop_gfContainer__ywzsh cg-gf">
-            <div class="GamePageDesktop_gfAspectRatioContainer__f_hUp cg-gf-ratio">
-              <div class="GameContainerDesktop_gameContainerDesktopRoot__qvoxU cg-player">
-                <div class="GameContainer GameContainerDesktop_gameContainer__TT_xK">
+          <div class="GamePageDesktop_gfContainer__ywzsh">
+            <div class="GamePageDesktop_gfAspectRatioContainer__f_hUp">
+              <div class="css-uwwqev">
+                <div class="GameContainer" style="position:relative;width:100%;height:100%">
                   <div class="cg-loader" id="cgLoader" role="status" aria-label="Loading">
                     <div class="Spinner_spinner__LzRWH Spinner_size40__BUkhC Spinner_colorWhite__9a9nd"></div>
                   </div>
-                  <iframe id="cgFrame" class="cg-frame" title="Game" allowfullscreen
-                          allow="autoplay; fullscreen; gamepad; clipboard-write"></iframe>
+                  <iframe id="cgFrame" class="d-block iframe-default" title="Game"
+                          allowfullscreen allow="autoplay; fullscreen; gamepad; clipboard-write"></iframe>
                 </div>
               </div>
+              <div class="css-1h1938b"></div>
             </div>
           </div>
-          <div class="GamePageDesktop_gameInfoContainer__SwKQu" id="gameInfoContainer">
+          <div class="GamePageDesktop_underGameContainerGrid__cdhNC">
+            <div class="GamePageDesktop_underGameContainerGamesWrapper__Rahgf">
+              <div class="css-ujjn8y" style="justify-content:center" id="cgMoreGrid"></div>
+            </div>
+          </div>
+          <div class="GamePageDesktop_gameInfoContainer__SwKQu">
             <div class="GameInfo_gameInfo__2UItk GameInfo_isDesktop__KqJ3d">
-              <div class="GameInfo_top__7H_Pq">
-                <div class="GameInfo_leftColumn__vMTeN">
-                  <div class="GameInfo_gameInfoTopSection__xKLGy">
-                    <div class="Breadcrumbs_breadcrumbs__L3mrb">
-                      <div><a href="./" >Games</a><div class="Breadcrumbs_separator__yCVN1">»</div></div>
-                      <div><a href="./?category=Puzzle" id="cgCrumbCat">Puzzle</a><div class="Breadcrumbs_separator__yCVN1">»</div></div>
-                      <div><a href="#" id="cgCrumbTag">2048</a></div><div class="Breadcrumbs_separator__yCVN1">»</div>
-                      <div><a href="#" id="cgCrumbGame">2048</a></div>
-                    </div>
-                    <div class="GameInfo_containerWithPadding__z9aMp"><h1 id="cgStageTitle">2048</h1></div>
-                    <div class="GameInfo_gameUnderTitle__EyUXF">
-                      <button class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--height34__0zFYJ cg-pill cg-pill-fav" type="button" id="cgFavToggle" aria-pressed="false">
-                        <span role="img" aria-hidden="true" class="Icon_icon__OracF Icon_icon-heart__qO3Kr Icon_size20__yF8AY"></span><span>Favorite</span>
-                      </button>
-                      <button class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--height34__0zFYJ cg-pill" type="button" id="cgFullscreen">
-                        <span role="img" aria-hidden="true" class="Icon_icon__OracF Icon_icon-double-arrow__ibHgA Icon_size20__yF8AY"></span><span>Fullscreen</span>
-                      </button>
-                      <a class="Button_czyButton__y8IRs Button_czyButton--contained--grey__sz05o Button_czyButton--height34__0zFYJ cg-pill" href="./?random=1">
-                        <span role="img" aria-hidden="true" class="Icon_icon__OracF Icon_icon-random__S6lNl Icon_size20__yF8AY"></span><span>Random game</span>
-                      </a>
-                    </div>
-                    <dl class="GameSummary_gameSummaryTable__KxE9A">
-                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Rating</dt>
-                      <dd class="GameSummary_gameTableRowContent__RW5fE cg-info-value" id="cgMetaRating"></dd>
-                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Released</dt>
-                      <dd class="GameSummary_gameTableRowContent__RW5fE">Free to play</dd>
-                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Game engine</dt>
-                      <dd class="GameSummary_gameTableRowContent__RW5fE">HTML5</dd>
-                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Platforms</dt>
-                      <dd class="GameSummary_gameTableRowContent__RW5fE">Browser (desktop, mobile, tablet)</dd>
-                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Orientation</dt>
-                      <dd class="GameSummary_gameTableRowContent__RW5fE">Landscape</dd>
-                      <dt class="GameSummary_gameTableRowHeader__qmvU_">Source</dt>
-                      <dd class="GameSummary_gameTableRowContent__RW5fE cg-info-value" id="cgMetaSource"></dd>
-                    </dl>
-                    <div class="GameTags_gameTagChipContainer__F5xPO" id="cgMetaCats"></div>
+              <div class="GameInfo_leftColumn__vMTeN">
+                <div class="GameInfo_roundedCornersContainer__D5D_p" style="margin-top:12px">
+                  <div class="Breadcrumbs_breadcrumbs__L3mrb">
+                    <div><a href="./">Home</a><div class="Breadcrumbs_separator__yCVN1">&raquo;</div></div>
+                    <div><a href="./?category=Casual" id="cgCrumbCat">Casual</a><div class="Breadcrumbs_separator__yCVN1">&raquo;</div></div>
+                    <div><span style="font-size:14px" id="cgCrumbGame">Game</span></div>
                   </div>
+                  <div class="GameInfo_containerWithPadding__z9aMp"><h1 id="cgStageTitle">Game</h1></div>
+                  <div>
+                    <div class="GameSummary_gameTableRow__9i4Mt">
+                      <div class="GameSummary_gameTableRowHeader__qmvU_">Rating:</div>
+                      <div class="GameSummary_gameTableRowContent__RW5fE" id="cgMetaRating"></div>
+                    </div>
+                  </div>
+                  <div class="GameTags_gameTagChipContainer__F5xPO" id="cgMetaCats"></div>
                 </div>
-                <div class="GameInfo_rightColumn__hExHC"></div>
-              </div>
-              <div class="GameInfo_roundedCornersContainer__D5D_p">
-                <div class="GameInfo_styledHtmlDiv__Zg2EY GameInfo_marginBlockEnd1__CZiMD gameDesc">
-                  <p id="cgMetaDesc"></p>
-                </div>
-                <div class="GameInfo_styledHtmlDiv__Zg2EY">
-                  <h2 class="GameInfo_marginBlockEnd1__CZiMD">More games</h2>
-                  <div class="GameGrid_gameContainer__2YwGl gamePage_common_gameGrid__jTVRK cg-info-grid" id="cgMoreGrid"></div>
+                <div class="GameInfo_roundedCornersContainer__D5D_p">
+                  <div class="GameInfo_styledHtmlDiv__Zg2EY" id="cgMetaDesc"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="GamePageDesktop_rightSidebar__QgTMJ cg-play-side">
+        <div class="GamePageDesktop_rightSidebar__QgTMJ">
           <div class="GamePageDesktop_rightGridContainer__qJUvH">
             <div class="GamePageDesktop_playNextTitle__mvetU">Play next</div>
-            <div class="GameGrid_gameContainer__2YwGl gamePage_common_gameGrid__jTVRK cg-side-list" id="cgSideList"></div>
+            <div class="css-ujjn8y" id="cgSideList"></div>
           </div>
         </div>
       </div>"""
+    head_extra = ('  <link href="assets/css/cg-play.css?v={VERSION}" rel="stylesheet">\n')
     return page("Play - Games", "Play a free browser game.",
-                main, params_js, "Home", "cg-main-play")
-
-
+                main, params_js, "Home", "cg-main-play", head_extra=head_extra)
 def build_about(games):
     main = f"""      <div class="cg-about">
         <h1>About</h1>
@@ -602,6 +553,9 @@ def main():
         "play.html": build_play(games),
         "about.html": build_about(games),
     }
+    # GitHub Pages serves 404.html for /<slug> game URLs; it is the same play
+    # page, so the slug is read from the path and the game renders as usual.
+    out["404.html"] = out["play.html"]
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as f:
             f.write(content)
