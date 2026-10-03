@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Collect game metadata for the Games site.
 
-Pulls from several public catalogues, de-duplicates across them, downloads and
-optimises each icon, and writes:
+Pulls from several public catalogues, de-duplicates across them, and writes:
 
-  data/games.json               catalogue (slug, title, thumb, embed, categories, rating)
-  assets/img/games/<slug>.jpg   downloaded icon
+  data/games.json   catalogue (slug, title, thumb, embed, categories, rating)
 
 Usage:  python3 tools/fetch-games.py
+
+Icons are hotlinked from each source's CDN by default (see HOTLINK_THUMBS);
+`CG_MIRROR_THUMBS=1` downloads and optimises them into
+`assets/img/games/<slug>.jpg` instead.
 
 Sources are tried in order and the first one to claim a game wins, so the more
 authoritative catalogues should come first. De-duplication is by slug, by
@@ -16,6 +18,7 @@ only appears once.
 """
 import collections
 import concurrent.futures
+import html
 import json
 import os
 import re
@@ -47,10 +50,16 @@ THUMB_WIDTH = 480
 # a few minutes without hammering anyone.
 WORKERS = 16
 
-# Upper bound on the catalogue. Every game costs a thumbnail download, so the
-# cap keeps a full rebuild bounded; the highest-priority sources are first in
-# the raw list, so trimming the tail drops the least wanted games.
-MAX_GAMES = 1200
+# Upper bound on the catalogue. Sources are ordered by quality and trimmed from
+# the tail, so the cap drops the least wanted games first.
+MAX_GAMES = 12000
+
+# Thumbnails are hotlinked from the source CDN rather than mirrored. A full
+# catalogue is ~12k games; downloading and re-encoding each icon would make a
+# rebuild take hours and put hundreds of MB in the repo. The source feeds serve
+# their icons with permissive CORS and no referer check, so the cards load them
+# directly. Set CG_MIRROR_THUMBS=1 to download them locally instead.
+HOTLINK_THUMBS = os.environ.get("CG_MIRROR_THUMBS") != "1"
 
 # iogames.fun's genre slugs and the display names we use for them. Games get
 # these as categories so the sidebar describes the whole catalogue, not just
@@ -648,13 +657,57 @@ def _retrobowl26_page(path):
     }
 
 
+def source_crazygames():
+    """CrazyGames publishes its whole catalogue through a public JSON API.
+
+    The portal we replicate is CrazyGames, so this is the closest source: same
+    titles, same covers. The embed lives at /embed/<slug> and the cover at
+    imgs.crazygames.com/<cover>?format=webp (the bare cover path 404s without
+    the format query).
+    """
+    page_size, page, out = 100, 1, []
+    while True:
+        url = ("https://api.crazygames.com/v3/en_US/games"
+               f"?page={page}&limit={page_size}")
+        try:
+            payload = json.loads(fetch_text(url, timeout=60))
+            block = payload["games"]["data"]
+            items = block["items"]
+        except (urllib.error.URLError, OSError, ValueError, KeyError) as exc:
+            print(f"  ! crazygames page {page}: {exc}", file=sys.stderr)
+            break
+        if not items:
+            break
+        for item in items:
+            title = (item.get("name") or "").strip()
+            slug = (item.get("slug") or "").strip()
+            cover = (item.get("cover") or "").strip()
+            if not title or not slug or not cover:
+                continue
+            cat = (item.get("categoryName") or "").strip()
+            out.append({
+                "slug": slug,
+                "title": title,
+                "embed": f"https://www.crazygames.com/embed/{slug}",
+                "thumbSource": ("https://imgs.crazygames.com/" + cover +
+                                "?format=webp&quality=80&width=480"),
+                "categories": [cat] if cat else [],
+                "rating": None,
+            })
+        total = block.get("total") or 0
+        if len(out) >= total or len(items) < page_size:
+            break
+        page += 1
+    return out
+
+
 def source_gamemonetize():
     """GameMonetize's public feed is a JSON catalogue of html5 games.
 
     The feed serves at most MAX_FEED entries; asking for more simply truncates,
     so this pulls a large slice and lets the global cap do the trimming.
     """
-    url = "https://gamemonetize.com/feed.php?format=0&num=5000"
+    url = "https://gamemonetize.com/feed.php?format=0&num=20000"
     try:
         entries = json.loads(fetch_text(url, timeout=120))
     except (urllib.error.URLError, OSError, ValueError) as exc:
@@ -682,6 +735,7 @@ def source_gamemonetize():
 
 
 SOURCES = [
+    ("crazygames", source_crazygames),
     ("retrobowl26.com", source_retrobowl26),
     ("iogames.space", source_iogames_space),
     ("iogames.fun", source_iogames_fun),
@@ -787,7 +841,8 @@ def dedupe(raw_games):
 
 
 def main():
-    os.makedirs(IMG_DIR, exist_ok=True)
+    if not HOTLINK_THUMBS:
+        os.makedirs(IMG_DIR, exist_ok=True)
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
 
     raw = [dict(game) for game in SPECIAL_GAMES]
@@ -802,6 +857,19 @@ def main():
         raw.extend(found)
 
     print(f"collected {len(raw)} raw entries")
+
+    # Feeds publish titles with HTML entities (&amp;, &zwnj;). Unescape once here
+    # so the cards, search and de-duplication all see the real title.
+    for game in raw:
+        game["title"] = html.unescape(game["title"])
+        # Strip zero-width marks the feeds sprinkle in; they render as nothing
+        # but break search and sorting.
+        game["title"] = re.sub(r"[\u200b-\u200f\u2028-\u202f\ufeff]", "", game["title"]).strip()
+        # Titles that carried an entity left residue in the slug ("ampzwnj-...").
+        # Re-derive those from the clean title; source slugs stay untouched.
+        if re.search(r"(?:^|-)(?:amp|zwnj|nbsp|ndash|mdash|quot|lt|gt|apos|hellip|rsquo|lsquo|ldquo|rdquo)(?:-|$)",
+                     game["slug"]):
+            game["slug"] = slugify(game["title"])
 
     # Every Retro Bowl release is kept: the user asked for all of them, and on
     # retrobowl26.com each one is a distinct playable build rather than a
@@ -836,16 +904,23 @@ def main():
 
     games.sort(key=lambda g: g["title"].lower())
 
-    print(f"downloading {len(games)} thumbnails")
-    done = [0]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = {pool.submit(download_thumb, g.pop("thumbSource"), g["slug"]): g
-                   for g in games}
-        for future in concurrent.futures.as_completed(futures):
-            futures[future]["thumb"] = future.result() or ""
-            done[0] += 1
-            if done[0] % 50 == 0:
-                print(f"  {done[0]}/{len(games)}")
+    if HOTLINK_THUMBS:
+        # Keep the source CDN URL as the card image. Only http:// icons are
+        # upgraded, since an http image would be blocked as mixed content.
+        for game in games:
+            game["thumb"] = https_embed(game.get("thumbSource") or "")
+        print(f"hotlinked {len(games)} thumbnails from source CDNs")
+    else:
+        print(f"downloading {len(games)} thumbnails")
+        done = [0]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            futures = {pool.submit(download_thumb, g.pop("thumbSource"), g["slug"]): g
+                       for g in games}
+            for future in concurrent.futures.as_completed(futures):
+                futures[future]["thumb"] = future.result() or ""
+                done[0] += 1
+                if done[0] % 50 == 0:
+                    print(f"  {done[0]}/{len(games)}")
 
     # A card with no icon looks broken, so games without one are left out.
     without = [g for g in games if not g["thumb"]]

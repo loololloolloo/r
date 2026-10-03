@@ -53,6 +53,7 @@ MEAS = r"""(()=>{
  m.font=getComputedStyle(document.body).fontFamily.split(',')[0];
  m.railItems=document.querySelectorAll('.cg-rail-item').length;
  m.cards=document.querySelectorAll('.cg-card').length;
+ m.games=(window.CG_GAMES||[]).length;
  m.imgs=[...document.querySelectorAll('img')];
  m.imgTotal=m.imgs.length;
  m.imgLoaded=m.imgs.filter(i=>i.complete&&i.naturalWidth>0).length;
@@ -80,10 +81,14 @@ FILTER = r"""(()=>{
  i.value='basket'; i.dispatchEvent(new Event('input',{bubbles:true}));
  const g=document.getElementById('cgAllGrid');
  return {n:g.querySelectorAll('.cg-card').length,
+   count:document.getElementById('cgAllCount').textContent,
    title:document.getElementById('cgAllTitle').textContent,
+   moreHidden:document.getElementById('cgAllMore').hidden,
    rowsHidden:[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden)};})()"""
 
 CATEGORY = r"""(()=>{
+ const more=document.getElementById('cgAllMore');
+ for(let k=0;k<60&&more&&!more.hidden;k++) more.click();
  const g=document.getElementById('cgAllGrid');
  const titles=[...g.querySelectorAll('.cg-card')].map(c=>c.querySelector('.cg-card-title').textContent);
  return {n:titles.length, retro:titles.filter(t=>/retro bowl/i.test(t)).length,
@@ -185,7 +190,10 @@ def main():
     check("body background", home["bodyBg"] == ARCHIVE["bodyBg"], home["bodyBg"])
     check("Nunito font", home["font"] == "Nunito", home["font"])
     check("rail has 19 items", home["railItems"] == 19, str(home["railItems"]))
-    check("catalogue cards rendered", home["cards"] >= 1000, str(home["cards"]))
+    check("catalogue cards rendered", home["cards"] >= 200, str(home["cards"]))
+    # The catalogue itself is the ~12k bundle; the home page renders carousels
+    # from it rather than server-rendering every card.
+    check("catalogue has 10000+ games", home["games"] >= 10000, str(home["games"]))
     check("no broken images in viewport", home["imgVisibleBroken"] == 0,
           "%d broken of %d visible" % (home["imgVisibleBroken"], len(home["imgVisible"])))
 
@@ -211,6 +219,10 @@ def main():
     check("search 'basket' narrows", 0 < srch["n"] < total_cards,
           f"{srch['n']} of {total_cards}")
     check("search hides carousels", srch["rowsHidden"], str(srch["rowsHidden"]))
+    # The all-games grid pages its results so the DOM never holds 12k cards.
+    check("load more pages the catalogue",
+          srch["n"] == 60 and "61 games" == srch["count"] and srch["moreHidden"] is False,
+          json.dumps({k: srch.get(k) for k in ("n", "count", "moreHidden")}))
 
     # Every Retro Bowl release must be reachable from the Sports rail entry; it
     # was the whole point of adding them, and they used to be invisible here.

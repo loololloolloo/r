@@ -121,7 +121,70 @@
     }
   }
 
+  /* A handful of source CDNs 404 the odd icon; hide the broken image so the
+     card's own background shows instead of a torn-image glyph. */
+  function initImageFallback() {
+    document.addEventListener("error", function (e) {
+      var el = e.target;
+      if (el && el.tagName === "IMG" && !el.classList.contains("cg-img-fail")) {
+        el.classList.add("cg-img-fail");
+      }
+    }, true);
+  }
+
   /* ------------------------------------------------------------- catalogue -- */
+
+  // Cards added per "Load more" click in the all-games grid.
+  var PAGE = 60;
+
+  function spread(items, count) {
+    // Sample evenly instead of taking the head, so a category carousel does not
+    // show only the A-B titles.
+    if (items.length <= count) return items.slice();
+    var step = items.length / count, out = [];
+    for (var i = 0; i < count; i++) {
+      out.push(items[Math.min(Math.floor(i * step), items.length - 1)]);
+    }
+    return out;
+  }
+
+  function byRating(list) {
+    return list.slice().sort(function (a, b) {
+      return (b.rating || 0) - (a.rating || 0);
+    });
+  }
+
+  /* Fill the home-page carousels and the "best games" grid from the bundle. */
+  function initHome() {
+    var newest = document.getElementById("cgNewTrack");
+    var top = document.getElementById("cgTopTrack");
+    var best = document.getElementById("cgBestGrid");
+    if (!newest && !top && !best) return;
+
+    var rated = byRating(games);
+    if (newest) {
+      newest.innerHTML = games.slice().reverse().slice(0, 24)
+        .map(function (g) { return "<li>" + cardHTML(g) + "</li>"; }).join("");
+    }
+    if (top) {
+      top.innerHTML = rated.slice(0, 24)
+        .map(function (g) { return "<li>" + cardHTML(g) + "</li>"; }).join("");
+    }
+    var tracks = document.querySelectorAll(".cg-carousel-track[data-cat]");
+    for (var i = 0; i < tracks.length; i++) {
+      var cat = tracks[i].getAttribute("data-cat");
+      var got = games.filter(function (g) {
+        return (g.categories || []).indexOf(cat) !== -1;
+      });
+      tracks[i].innerHTML = spread(got, 24)
+        .map(function (g) { return "<li>" + cardHTML(g) + "</li>"; }).join("");
+    }
+    if (best) {
+      best.innerHTML = (rated.length ? rated : games).slice(0, 48)
+        .map(cardHTML).join("");
+    }
+    paintFavs();
+  }
 
   function initCatalogue() {
     var rows = document.querySelectorAll(".cg-section[data-row]");
@@ -133,6 +196,25 @@
     var term = qs("q") || "";
     var category = qs("category") || "";
     var sort = qs("sort") || "";
+
+    var shown = 0;          // cards currently in the grid
+    var results = [];       // full match set for the current view
+
+    var moreBtn = document.getElementById("cgAllMore");
+    if (moreBtn) {
+      moreBtn.addEventListener("click", function () { grow(); });
+    }
+
+    function grow() {
+      var slice = results.slice(shown, shown + PAGE);
+      grid.insertAdjacentHTML("beforeend", slice.map(cardHTML).join(""));
+      shown += slice.length;
+      paintFavs();
+      if (moreBtn) {
+        moreBtn.hidden = shown >= results.length;
+        moreBtn.textContent = "Load more (" + (results.length - shown) + ")";
+      }
+    }
 
     if (input) {
       input.value = term;
@@ -146,6 +228,8 @@
 
     if (term || category || sort === "rating" || sort === "newest") {
       render(term, category, sort);
+    } else {
+      initHome();
     }
 
     function render(t, cat, sortMode) {
@@ -155,18 +239,16 @@
       if (!showAll) return;
 
       var needle = (t || "").trim().toLowerCase();
-      var matched = games.filter(function (g) {
+      results = games.filter(function (g) {
         var okCat = !cat || (g.categories || []).indexOf(cat) !== -1;
         var okTerm = !needle || g.title.toLowerCase().indexOf(needle) !== -1;
         return okCat && okTerm;
       });
 
       if (sortMode === "rating") {
-        matched = matched.slice().sort(function (a, b) {
-          return (b.rating || 0) - (a.rating || 0);
-        });
+        results = byRating(results);
       } else if (sortMode === "newest") {
-        matched = matched.slice().reverse();
+        results = results.slice().reverse();
       }
 
       var title = document.getElementById("cgAllTitle");
@@ -179,10 +261,11 @@
           : "All games";
       }
       var count = document.getElementById("cgAllCount");
-      if (count) count.textContent = matched.length + " games";
+      if (count) count.textContent = results.length + " games";
 
-      grid.innerHTML = matched.map(cardHTML).join("");
-      paintFavs();
+      grid.innerHTML = "";
+      shown = 0;
+      grow();
     }
   }
 
@@ -339,6 +422,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    initImageFallback();
     initRandom();
     initFavorites();
     initFavoritesPage();

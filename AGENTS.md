@@ -13,7 +13,8 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 
 ## Pages
 - `index.html` — catalogue: CrazyGames-style carousels (New, Top, per-category)
-  plus a full grid that search/category/sort filters in place.
+  rendered client-side from `cg-games.js`, plus a paged full grid that
+  search/category/sort filters in place ("Load more" adds 60 at a time).
 - `play.html` — player, 1:1 with the archived CrazyGames game page: a 922px 16:9
   iframe beside a 364px right sidebar ("More games"). This **does** have a right
   sidebar — the earlier "no right sidebar" rule was dropped when we moved to the
@@ -104,35 +105,54 @@ theme layer sits on top:
 
 ## Games data
 - `data/games.json` is the catalogue: `{slug, title, thumb, embed, categories, rating}`.
-  Currently ~1070 games, capped by `MAX_GAMES` (1200). Regenerate with
-  `python3 tools/fetch-games.py`. It merges several public catalogues, in priority
-  order, and de-duplicates across them (by slug, normalised title, and embed
-  host+path) so the same game listed twice appears once. The cap trims the tail
-  (lowest-priority source last), so priority order decides what survives:
-  1. **retrobowl26.com** — `sitemap.xml` for `/<game>` pages; embed is `/<game>.embed`.
+  Currently **~12,000 games** (the 10k+ target), capped by `MAX_GAMES` (12000).
+  Regenerate with `python3 tools/fetch-games.py`. It merges several public
+  catalogues, in priority order, and de-duplicates across them (by slug, normalised
+  title, and embed host+path) so the same game listed twice appears once. The cap
+  trims the tail (lowest-priority source last), so priority order decides what
+  survives:
+  1. **CrazyGames** — `api.crazygames.com/v3/en_US/games` public JSON. The portal we
+     replicate, so same titles and covers. **The API ignores every paging param and
+     always returns the same 100 items**, so this source can only contribute ~100
+     games; it is first only so those 100 win de-duplication. Embed is
+     `/embed/<slug>`; cover is `imgs.crazygames.com/<cover>?format=webp&width=480`
+     (the bare cover path 404s without the `format` query).
+  2. **retrobowl26.com** — `sitemap.xml` for `/<game>` pages; embed is `/<game>.embed`.
      Its whole Retro Bowl family is kept (25/26/27/college/NFL/unblocked); each is a
      distinct build, and the user asked for all of them. Pages without the
      `iframehtml5` player are skipped, which filters listings/tags/blog/legal.
-  2. **iogames.space** (`/popular`, `/new`, `/featured`) — `__NEXT_DATA__` JSON with
+  3. **iogames.space** (`/popular`, `/new`, `/featured`) — `__NEXT_DATA__` JSON with
      `title`/`thumbnailUrl`/`embedUrl`/`categories`.
-  3. **iogames.fun** — `sitemap-games.xml` for the game list; each `/<game>` page is read
+  4. **iogames.fun** — `sitemap-games.xml` for the game list; each `/<game>` page is read
      for its `og:image` icon and title. The embed is the game's own site (`https://<game>`).
      The icon path is *not* predictable (`/images/games/og/x.jpg` vs `/images/games/x.jpg`),
      so it is read from the page rather than guessed.
-  4. **retrobowlfree.io** — `sitemap.xml` for `/<game>` pages; embed is `/<game>.embed`.
+  5. **retrobowlfree.io** — `sitemap.xml` for `/<game>` pages; embed is `/<game>.embed`.
      The icon URL is read from `og:image`. Extra Retro Bowl re-skins (25/26/college/NFL)
      are dropped here; only the original `retro-bowl` is kept — this source's re-skins
      point at the same embed, so keeping them would only add duplicates.
-  5. **3kh0-lite** (`lite.3kh0.net`) — self-hosted games listed in `config/games.json`;
+  6. **3kh0-lite** (`lite.3kh0.net`) — self-hosted games listed in `config/games.json`;
      embed is `/projects/<folder>/`. jsDelivr serves the same files as `text/plain`, which
      browsers refuse to render in an iframe, so the site URL is used.
-  6. **GameMonetize** — `feed.php?format=0&num=5000`, a JSON catalogue of html5 games
-     (`title`/`url`/`thumb`/`category`). The feed caps out around 5000 entries.
+  7. **GameMonetize** — `feed.php?format=0&num=20000`, a JSON catalogue of html5 games
+     (`title`/`url`/`thumb`/`category`). This is the bulk of the catalogue (~11k). The
+     feed serves at most 20000 entries; asking for more truncates.
+- **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 12k-game catalogue
+  cannot be downloaded icon-by-icon in a reasonable time or committed to the repo
+  (~36MB for 1k games, so ~400MB at 12k). The source CDNs serve their icons with
+  permissive CORS and no referer check, so cards use the source URL directly. The
+  builder drops the local-path assumption; set `CG_MIRROR_THUMBS=1` to go back to
+  downloading/optimising into `assets/img/games/<slug>.jpg` (Pillow, 480px wide,
+  8-worker pool). A handful of source icons 404; `initImageFallback()` in `cg-site.js`
+  hides the broken image so the card background shows through.
+- Feed titles carry HTML entities and zero-width marks (`&amp;`, `&zwnj;`), which also
+  polluted the derived slugs. The collector unescapes/strips them once after
+  collection and re-derives any slug that still contains entity residue.
 - `SPECIAL_GAMES` in the collector holds hand-picked games that are not in any catalogue
   (currently **One Tap FPS**, embedded from bloxity.io). They are added first so they win
   de-duplication. Its icon is fetched like any other.
-- Games with no downloadable icon are dropped — a card with a broken image looks worse
-  than a smaller catalogue.
+- Games with no icon are dropped — a card with a broken image looks worse than a smaller
+  catalogue.
 - The rail filters on exact category names, and sources like retrobowl26.com and 3kh0
   publish no genre at all. Those games used to end up with `categories: []`, which made
   them unreachable from every rail entry — that is why the whole Retro Bowl family was
@@ -145,16 +165,18 @@ theme layer sits on top:
   re-running the whole network fetch.
 - `CATEGORY_ICON` in the builder maps categories onto the archived icon SVGs. Football
   and Soccer both point at the sports icon (a football is a sport, not soccer only).
-- Thumbnails are downloaded to `assets/img/games/<slug>.jpg` and resized to 480px wide
-  (Pillow) — source art is up to 1280px and the grid renders ~320px, so shipping the
-  originals costs ~3x the bytes for no visible gain. Downloads run through a small thread
-  pool (8 workers) so a ~500 game run finishes in a couple of minutes.
 - Embeds are rewritten http -> https where the host supports it; games with no https
   embed are dropped, because an http iframe is blocked as mixed content on our https site.
 - These games are third-party sites embedded directly. They are not ours, and some may
   refuse framing later; the player shows a plain message rather than a broken frame.
 - The homepage shows carousels with no game count; the filtered "All games" view
   (search / category / sort) does show a count, because there it is useful.
+- **The home page renders client-side.** 12k server-rendered cards would make
+  `index.html` megabytes of markup, so `build_home()` emits empty carousel tracks and
+  `cg-games.js` (the catalogue, ~3MB) fills them in `initHome()`. The "All games" grid
+  pages its results (`PAGE = 60`) with a "Load more" button rather than dumping 12k
+  cards into the DOM at once. `tools/verify.py` asserts the bundle has 10k+ games and
+  that load-more pages the grid.
 
 ## Conventions
 - Styling: no framework. `assets/cg/archive.css` (the archived CrazyGames 2024
@@ -216,12 +238,15 @@ theme layer sits on top:
 - Phase 2 (done): catalogue grid, search, category filtering, generated pages.
 - Phase 3 (done): play page embedding each game's own site in an iframe.
 - Phase 4 (done): CrazyGames-style play page + collapsible icon-rail sidebar.
-- Phase 5 (in progress): **1:1 CrazyGames 2024 replica.** The archived stylesheet
+- Phase 5 (done): **1:1 CrazyGames 2024 replica.** The archived stylesheet
   is shipped (`assets/cg/archive.css`), the shell is rebuilt in
   `tools/build-archive.py`, and `tools/verify.py` proves the geometry matches the
   archive (header 60px, rail 60px, cards 218×124, play 922px player + 364px
-  sidebar at x=102). The game page now carries the archive's loading screen
+  sidebar at x=102). The game page carries the archive's loading screen
   (MUI ring, rotate-only) and info bar, plus a related-games card grid inside the
-  info area under the description. Awaiting user sign-off on the UI **before**
-  any further game work.
-- Next: more games/categories, and revisit anything that refuses to be framed.
+  info area under the description.
+- Phase 6 (done): **catalogue scaled to ~12,000 unique games** and favoriting.
+  Sources now include the CrazyGames public API and a 20k-entry GameMonetize feed;
+  thumbnails are hotlinked and the home page renders client-side with paged results.
+- Next: revisit anything that refuses to be framed, and consider a service for
+  comments.

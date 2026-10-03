@@ -345,6 +345,9 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: block;
 }
 
+/* Broken source icons are hidden so the card background shows through. */
+.cg-card-img.cg-img-fail { display: none; }
+
 /* Archive keeps the title in a 0x0 box and grows it to its content on hover,
    which is why the card never reflows. */
 .cg-card-title {
@@ -647,6 +650,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-fav-empty { margin: 8px 0 20px; color: var(--cg-dim); line-height: 1.6; }
 .cg-fav-clear-wrap { margin: 20px 0 0; }
+
+/* ---------- Load more ---------- */
+
+.cg-loadmore-wrap { display: flex; justify-content: center; margin: 28px 0 8px; }
+.cg-loadmore-wrap .cg-btn { min-width: 220px; }
 
 /* ---------- Footer ---------- */
 

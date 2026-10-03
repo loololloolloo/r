@@ -101,8 +101,6 @@ CATEGORY_ICON = {
 }
 DEFAULT_ICON = "Tags"
 
-PAGE_SIZE = 24
-
 
 def esc(s):
     return html.escape(str(s), quote=True)
@@ -286,52 +284,26 @@ def page(title, description, main, scripts, rail_active="Home", main_class=""):
 # ------------------------------------------------------------------- builders --
 
 def build_home(games):
-    by_rating = sorted([g for g in games if g.get("rating")],
-                       key=lambda g: -g["rating"])
-    newest = list(reversed(games))
-
-    # One long list of every card, so search/category filtering can re-render the
-    # page from the same source the initial HTML was built from.
-    all_cards = "\n".join(f"          <li>{card(g)}</li>" for g in games)
-
-    def carousel_li(items):
-        return "\n".join(f"          <li>{card(g)}</li>" for g in items)
-
-    def spread(items, count=PAGE_SIZE):
-        """Sample evenly across a sorted list instead of taking its head.
-
-        Titles are alphabetical, so a plain slice would show only the A-B
-        entries of a category and hide everything later in the alphabet.
-        """
-        if len(items) <= count:
-            return list(items)
-        step = len(items) / count
-        return [items[min(int(i * step), len(items) - 1)] for i in range(count)]
-
+    # The catalogue is ~12k games, so the page ships the data (cg-games.js) and
+    # lets cg-site.js render the cards. Server-rendering every card would make
+    # index.html megabytes of markup for a grid the client filters anyway; the
+    # carousels below are filled from the same bundle on load.
     parts = []
-    parts.append(f"""      <section class="cg-section" data-row="new">
+    parts.append("""      <section class="cg-section" data-row="new">
         <div class="cg-section-head">
           <h2 class="cg-section-title">New games</h2>
           <a class="cg-more" href="/?sort=newest">View more</a>
         </div>
-        <div class="cg-carousel"><ul class="cg-carousel-track">
-{carousel_li(newest[:PAGE_SIZE])}
-        </ul></div>
+        <div class="cg-carousel"><ul class="cg-carousel-track" id="cgNewTrack"></ul></div>
       </section>""")
 
-    if by_rating:
-        parts.append(f"""      <section class="cg-section" data-row="top">
+    parts.append("""      <section class="cg-section" data-row="top">
         <div class="cg-section-head">
           <h2 class="cg-section-title">Top games</h2>
           <a class="cg-more" href="/?sort=rating">View more</a>
         </div>
-        <div class="cg-carousel"><ul class="cg-carousel-track">
-{carousel_li(by_rating[:PAGE_SIZE])}
-        </ul></div>
+        <div class="cg-carousel"><ul class="cg-carousel-track" id="cgTopTrack"></ul></div>
       </section>""")
-
-    def has(cat):
-        return [g for g in games if cat in g["categories"]]
 
     rows = [
         (".io Games", "Agario Style"),
@@ -343,38 +315,32 @@ def build_home(games):
         ("Casual Games", "Casual"),
     ]
     for label, cat in rows:
-        got = has(cat)
-        if len(got) < 4:
-            continue
         parts.append(f"""      <section class="cg-section" data-row="cat">
         <div class="cg-section-head">
           <h2 class="cg-section-title">{esc(label)}</h2>
           <a class="cg-more" href="/?category={cat.replace(' ', '%20')}">View more</a>
         </div>
-        <div class="cg-carousel"><ul class="cg-carousel-track">
-{carousel_li(spread(got))}
-        </ul></div>
+        <div class="cg-carousel"><ul class="cg-carousel-track"
+          data-cat="{esc(cat)}"></ul></div>
       </section>""")
 
-    best = by_rating[:48] or games[:48]
-    parts.append(f"""      <section class="cg-section" data-row="best">
+    parts.append("""      <section class="cg-section" data-row="best">
         <div class="cg-section-head">
           <h2 class="cg-section-title">Play our best games</h2>
         </div>
-        <ul class="cg-grid">
-{carousel_li(best)}
-        </ul>
+        <ul class="cg-grid" id="cgBestGrid"></ul>
       </section>""")
 
-    # Every game, in a plain grid the client filters in place.
-    parts.append(f"""      <section class="cg-section" id="cgAllGames" hidden>
+    # Every game, rendered in pages by the client so the DOM stays small.
+    parts.append("""      <section class="cg-section" id="cgAllGames" hidden>
         <div class="cg-section-head">
           <h2 class="cg-section-title" id="cgAllTitle">All games</h2>
           <span class="cg-more" id="cgAllCount"></span>
         </div>
-        <ul class="cg-grid" id="cgAllGrid">
-{all_cards}
-        </ul>
+        <ul class="cg-grid" id="cgAllGrid"></ul>
+        <p class="cg-loadmore-wrap">
+          <button class="cg-btn" type="button" id="cgAllMore" hidden>Load more</button>
+        </p>
       </section>""")
 
     return page("Games - Free Online Games",

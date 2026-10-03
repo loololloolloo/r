@@ -7,3 +7,5 @@ __pycache__/
 .cache/
 # ad-hoc screenshots
 _shots/
+# mirrored thumbnails (only used with CG_MIRROR_THUMBS=1; icons are hotlinked)
+assets/img/games/
