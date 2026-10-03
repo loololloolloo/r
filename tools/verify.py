@@ -83,12 +83,9 @@ FILTER = r"""(()=>{
  return {n:g.querySelectorAll('.cg-card').length,
    count:document.getElementById('cgAllCount').textContent,
    title:document.getElementById('cgAllTitle').textContent,
-   moreHidden:document.getElementById('cgAllMore').hidden,
    rowsHidden:[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden)};})()"""
 
 CATEGORY = r"""(()=>{
- const more=document.getElementById('cgAllMore');
- for(let k=0;k<60&&more&&!more.hidden;k++) more.click();
  const g=document.getElementById('cgAllGrid');
  const titles=[...g.querySelectorAll('.cg-card')].map(c=>c.querySelector('.cg-card-title').textContent);
  return {n:titles.length, retro:titles.filter(t=>/retro bowl/i.test(t)).length,
@@ -219,10 +216,10 @@ def main():
     check("search 'basket' narrows", 0 < srch["n"] < total_cards,
           f"{srch['n']} of {total_cards}")
     check("search hides carousels", srch["rowsHidden"], str(srch["rowsHidden"]))
-    # The all-games grid pages its results so the DOM never holds 12k cards.
-    check("load more pages the catalogue",
-          srch["n"] == 60 and "61 games" == srch["count"] and srch["moreHidden"] is False,
-          json.dumps({k: srch.get(k) for k in ("n", "count", "moreHidden")}))
+    # Filtered views render every match at once, with no "Load more" button.
+    check("filtered view renders all matches",
+          srch["n"] > 1 and srch["count"] == str(srch["n"]) + " games",
+          json.dumps({k: srch.get(k) for k in ("n", "count")}))
 
     # Every Retro Bowl release must be reachable from the Sports rail entry; it
     # was the whole point of adding them, and they used to be invisible here.

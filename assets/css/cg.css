@@ -322,6 +322,13 @@ ul { list-style: none; margin: 0; padding: 0; }
   gap: 12px;
 }
 
+/* The all-games grid can hold thousands of cards. Let the browser skip layout
+   and paint for the off-screen ones so opening a big category stays instant. */
+#cgAllGrid > li {
+  content-visibility: auto;
+  contain-intrinsic-size: 218px 124px;
+}
+
 /* ---------- Card (archive: 218x124, radius 10, 2px border) ---------- */
 
 .cg-card {
@@ -650,11 +657,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-fav-empty { margin: 8px 0 20px; color: var(--cg-dim); line-height: 1.6; }
 .cg-fav-clear-wrap { margin: 20px 0 0; }
-
-/* ---------- Load more ---------- */
-
-.cg-loadmore-wrap { display: flex; justify-content: center; margin: 28px 0 8px; }
-.cg-loadmore-wrap .cg-btn { min-width: 220px; }
 
 /* ---------- Footer ---------- */
 

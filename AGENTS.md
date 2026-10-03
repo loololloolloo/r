@@ -13,8 +13,9 @@ Hosted on GitHub Pages, so every asset must be relative-path and static.
 
 ## Pages
 - `index.html` — catalogue: CrazyGames-style carousels (New, Top, per-category)
-  rendered client-side from `cg-games.js`, plus a paged full grid that
-  search/category/sort filters in place ("Load more" adds 60 at a time).
+  rendered client-side from `cg-games.js`, plus a full grid that
+  search/category/sort filters in place. A filtered view renders every match at
+  once (no paging button).
 - `play.html` — player, 1:1 with the archived CrazyGames game page: a 922px 16:9
   iframe beside a 364px right sidebar ("More games"). This **does** have a right
   sidebar — the earlier "no right sidebar" rule was dropped when we moved to the
@@ -173,10 +174,12 @@ theme layer sits on top:
   (search / category / sort) does show a count, because there it is useful.
 - **The home page renders client-side.** 12k server-rendered cards would make
   `index.html` megabytes of markup, so `build_home()` emits empty carousel tracks and
-  `cg-games.js` (the catalogue, ~3MB) fills them in `initHome()`. The "All games" grid
-  pages its results (`PAGE = 60`) with a "Load more" button rather than dumping 12k
-  cards into the DOM at once. `tools/verify.py` asserts the bundle has 10k+ games and
-  that load-more pages the grid.
+  `cg-games.js` (the catalogue, ~3MB) fills them in `initHome()`. `cardHTML()` returns
+  the whole `<li>`, so callers must not wrap it in another `<li>` — doing that makes the
+  HTML parser close the outer `<li>` immediately and emit an empty one, which shows up as
+  a huge gap between cards. The "All games" grid renders every match at once (no paging
+  button); `#cgAllGrid > li { content-visibility: auto }` keeps a multi-thousand-card
+  category cheap to paint.
 
 ## Conventions
 - Styling: no framework. `assets/cg/archive.css` (the archived CrazyGames 2024
@@ -247,6 +250,7 @@ theme layer sits on top:
   info area under the description.
 - Phase 6 (done): **catalogue scaled to ~12,000 unique games** and favoriting.
   Sources now include the CrazyGames public API and a 20k-entry GameMonetize feed;
-  thumbnails are hotlinked and the home page renders client-side with paged results.
+  thumbnails are hotlinked and the home page renders client-side. Filtered views
+  render every match at once.
 - Next: revisit anything that refuses to be framed, and consider a service for
   comments.

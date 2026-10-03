@@ -331,16 +331,14 @@ def build_home(games):
         <ul class="cg-grid" id="cgBestGrid"></ul>
       </section>""")
 
-    # Every game, rendered in pages by the client so the DOM stays small.
+    # Every game, rendered in full by the client. Cards use content-visibility
+    # so a category with thousands of games still paints only what is on screen.
     parts.append("""      <section class="cg-section" id="cgAllGames" hidden>
         <div class="cg-section-head">
           <h2 class="cg-section-title" id="cgAllTitle">All games</h2>
           <span class="cg-more" id="cgAllCount"></span>
         </div>
         <ul class="cg-grid" id="cgAllGrid"></ul>
-        <p class="cg-loadmore-wrap">
-          <button class="cg-btn" type="button" id="cgAllMore" hidden>Load more</button>
-        </p>
       </section>""")
 
     return page("Games - Free Online Games",
