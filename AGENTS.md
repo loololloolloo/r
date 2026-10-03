@@ -298,12 +298,16 @@ theme layer sits on top:
     it survives source reordering.
   - **GameDistribution embeds must use the game frame**
     `https://html5.gamedistribution.com/rvvASMiM/<md5>/index.html` **and** load it with
-    `referrerpolicy="no-referrer"`. The `/md5/` SDK wrapper rejects non-whitelisted
-    parent domains, and even the direct frame's own JS reads `document.referrer` at
-    runtime and rewrites the frame to `<md5>/?rd=1` ("… is not available here") when the
-    parent is not whitelisted. Suppressing the referrer keeps the frame live; the page
-    had to send *no* `Referer`, and GD does not require one. `initPlay()` in `cg-site.js`
-    sets the attribute only for `gamedistribution.com` embeds and removes it otherwise.
+    `referrerpolicy="no-referrer"` **set before the first `src`**. The `/md5/` SDK
+    wrapper rejects non-whitelisted parents, and the frame gates on `document.referrer`
+    at its *first* navigation: with a referrer it rewrites itself to
+    `<md5>/?rd=1` (older builds) or swaps itself for
+    `html5.api.gamedistribution.com/blocked.html` (current builds) — both render
+    "… is not available here". Suppressing the referrer keeps it live. The attribute
+    must be on the element *before* `src`: the play page's inline script sets it
+    there (and `initPlay()` repeats it), because setting it after the frame has
+    already navigated leaves the first load gated. Verified by `frame_probe()` in
+    `tools/cdp.py`, which fails the suite if the frame is on `?rd=1`/`blocked`.
   - Rail "Recently Played" (`./?recent=1`) lists games the player opened, most recent
     first, from `localStorage` key `cg-recent` (capped at 60). `initPlay()` records the
     slug (`markPlayed`); `initCatalogue()` reads `?recent` and filters/sorts the grid.

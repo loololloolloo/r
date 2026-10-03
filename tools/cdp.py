@@ -180,8 +180,61 @@ def run_seq(steps, port=9299, wait=7, width=1430, height=1400):
         browser.close()
 
 
+def frame_probe(url, port=9299, wait=30, width=1430, height=1400,
+                match="gamedistribution"):
+    """Load url and report every subframe whose URL contains `match`.
+
+    Returns [{"url", "canvas"}]. Used to prove an embedded game frame is still
+    running instead of having been swapped for a provider's "blocked" page.
+    """
+    browser = _Browser(width, height)
+    try:
+        session = _Session(browser.target())
+        try:
+            session.call("Page.enable")
+            session.call("Target.setAutoAttach", autoAttach=True,
+                         waitForDebuggerOnStart=False, flatten=True)
+            session.call("Page.navigate", url=url)
+            time.sleep(wait)
+            session.ws.settimeout(1.0)
+            deadline = time.time() + 2
+            targets = []
+            while time.time() < deadline:
+                try:
+                    msg = json.loads(session.ws.recv())
+                except Exception:
+                    continue
+                if msg.get("method") == "Target.attachedToTarget":
+                    targets.append(msg["params"]["sessionId"])
+            session.ws.settimeout(60)
+            out = []
+            for i, sid in enumerate(targets):
+                def ev(expr, mid):
+                    session.ws.send(json.dumps({
+                        "id": mid, "method": "Runtime.evaluate",
+                        "params": {"expression": expr, "returnByValue": True},
+                        "sessionId": sid}))
+                    end = time.time() + 5
+                    while time.time() < end:
+                        try:
+                            m = json.loads(session.ws.recv())
+                        except Exception:
+                            break
+                        if m.get("id") == mid:
+                            return m.get("result", {}).get("result", {}).get("value")
+                u = ev("location.href", 700 + i * 2) or ""
+                if match in u:
+                    out.append({"url": u,
+                                "canvas": ev("document.querySelectorAll('canvas').length",
+                                             701 + i * 2)})
+            return out
+        finally:
+            session.close()
+    finally:
+        browser.close()
+
+
 def failed_requests(url, port=9299, wait=8, width=1430, height=1400):
-    """Load url and return [(status, url), ...] for every response >= 400."""
     browser = _Browser(width, height)
     try:
         session = _Session(browser.target())

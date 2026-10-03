@@ -416,16 +416,17 @@
     document.title = game.title + " - Games";
     markPlayed(game.slug);
 
-    // GameDistribution blocks non-whitelisted parents at runtime: its frame JS
-    // reads document.referrer and redirects to <md5>/?rd=1 ("not available
-    // here"). Suppressing the referrer keeps the game frame live. Other
-    // providers are left with the normal referrer.
+    // GameDistribution blocks non-whitelisted parents at the frame's first
+    // navigation: its frame JS reads document.referrer and redirects to
+    // <md5>/?rd=1 ("not available here"). The play page's inline script already
+    // set the policy before src; repeat it here so nothing re-navigates with a
+    // referrer. Other providers are left with the normal referrer.
     if (/gamedistribution\.com/.test(game.embed || "")) {
       frame.setAttribute("referrerpolicy", "no-referrer");
     } else {
       frame.removeAttribute("referrerpolicy");
     }
-    frame.src = game.embed;
+    if (frame.getAttribute("src") !== game.embed) frame.src = game.embed;
 
     var h1 = document.getElementById("cgStageTitle");
     if (h1) h1.textContent = game.title;
