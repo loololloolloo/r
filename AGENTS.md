@@ -290,5 +290,26 @@ theme layer sits on top:
   Lagged and AddictingGames remain rejected: **Y8** (sitemaps ~34.6k games, no images and
   embed thumbnails 403 without a referer), **Lagged** (~11.1k URLs, embed/thumb patterns
   inconsistent and many 404), **AddictingGames** (7.1k sitemap, no covers).
+- Phase 9 (done): **paging, provider source, admin panel and theming.**
+  - The catalogue grid paints 60 cards then "Load more" (60→120→…); dropping from
+    ~25k simultaneous cards cut DCL from ~1.6s to ~0.5s.
+  - Every game carries a `source` (the provider/distributor it came from) shown as a
+    `Source:` row on the play page. `source_label()` derives it from the embed host, so
+    it survives source reordering.
+  - **GameDistribution embeds must use the game frame**
+    `https://html5.gamedistribution.com/rvvASMiM/<md5>/index.html`, not the `/md5/`
+    SDK wrapper: the wrapper rejects non-whitelisted parent domains and renders its own
+    "… is not available here" page inside our iframe. The direct frame has no such gate.
+  - Rail "2 Player" points at `./?category=Team`; `ensure_team()` in `fetch-games.py`
+    tags every multiplayer/2-player game with `Team` (from multiplayer-ish categories or
+    a title match), so the entry is not just the 17 games the feeds tag `Team`.
+  - Admin panel: **Ctrl+Alt+A** toggles a modal on any page (standalone `./admin` page
+    linked from the header once opened). It searches the catalogue and stores 1–5 star
+    ratings in `localStorage`, which override the play page's `Rating:` row.
+  - Theme is the archived 2024 CrazyGames palette (`#0c0d14` body, `rgba(33,34,51,.9)`
+    header, `#2f3148` panels, `#aaadbe` dim, `#6842ff` accent), not stock Bootstrap dark.
+    `cg.css` holds no Bootstrap; the palette lives in `:root` plus a few archive-measured
+    surfaces. Two surfaces stay `#13141e` (player, loader) because the archive measures
+    the game container there.
 - Next: revisit anything that refuses to be framed, and consider a service for
-  comments.
+  comments. GameMonetize pre-roll ads remain (provider-controlled, inside the iframe).

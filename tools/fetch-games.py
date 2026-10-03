@@ -383,6 +383,59 @@ def classify(title, existing):
     return ["Casual"]
 
 
+# "Team" is the site's 2-player/multiplayer entry point. The feeds only tag a
+# few hundred games as multiplayer, so anything already tagged with a
+# multiplayer-ish category - or whose title says so - joins Team as well.
+TEAM_CATS = {
+    "Multiplayer", "2 Player", "Cooperative", "Team", "Free For All",
+    "Battle Royale", "Agario Style", ".io", ".IO", "Moomoo.io Style",
+    "Splix Style", "Diep Style", "Spectate",
+}
+TEAM_TITLE = re.compile(
+    r"\b(2 player|two player|2-player|multiplayer|multi-player|co-?op|"
+    r"local multiplayer|party game|versus|pvp)\b", re.I)
+
+
+def ensure_team(games):
+    """Make every multiplayer game reachable from the 2 Player rail entry."""
+    added = 0
+    for game in games:
+        cats = game.get("categories") or []
+        if "Team" in cats:
+            continue
+        if set(cats) & TEAM_CATS or TEAM_TITLE.search(game.get("title", "")):
+            game["categories"] = cats + ["Team"]
+            added += 1
+    print(f"tagged {added} games as Team (2 player / multiplayer)")
+
+
+# The source a game came from, for the play page's "Source:" row. The big
+# distributors get a friendly name; everything else (the ~300 .io sites) shows
+# its bare domain, since inventing a brand name for a one-game host is worse
+# than the domain the player is actually loading.
+SOURCE_NAMES = [
+    ("gamedistribution.com", "GameDistribution"),
+    ("gamemonetize.co", "GameMonetize"),
+    ("gamepix.com", "GamePix"),
+    ("playgama.com", "Playgama"),
+    ("crazygames.com", "CrazyGames"),
+    ("3kh0.net", "3kh0"),
+    ("retrobowl26.com", "Retro Bowl"),
+    ("retrobowlfree.io", "Retro Bowl"),
+]
+
+
+def source_label(embed):
+    """Provider/distributor a game's embed belongs to, derived from its host."""
+    host = (urllib.parse.urlparse(embed).hostname or "").lower()
+    if host.startswith("www."):
+        host = host[4:]
+    for domain, name in SOURCE_NAMES:
+        if host == domain or host.endswith("." + domain):
+            return name
+    return host or "Unknown"
+
+
 # ---------------------------------------------------------------- sources
 
 
@@ -893,6 +946,11 @@ def source_gamedistribution():
     each frame's `<title>`. That is one small request per game; a thread pool
     keeps the whole set to a few minutes. Frames that do not answer are skipped.
 
+    The embed is the game frame itself (`/rvvASMiM/<md5>/index.html`). The
+    `/md5/` SDK wrapper rejects non-whitelisted parent domains and renders its
+    own "not available here" page inside our iframe; the game frame behind it
+    has no such gate and loads with our page as `parentDomain`.
+
     The cover URL is not uniform (`<md5>.jpg` works for some games,
     `<md5>-512x512.jpeg` for others, and the wrong form 403s), so the frame's
     `og:image` is used, which always points at the working one.
@@ -927,7 +985,7 @@ def source_gamedistribution():
         return {
             "slug": md5,
             "title": title,
-            "embed": url,
+            "embed": f"https://html5.gamedistribution.com/rvvASMiM/{md5}/index.html",
             "thumbSource": thumb,
             "categories": [],
             "rating": None,
@@ -1114,6 +1172,14 @@ def main():
             c for g in games for c in g["categories"]).most_common()))
 
     games.sort(key=lambda g: g["title"].lower())
+
+    # Stamp the provider each game came from so the play page can show a
+    # "Source:" row. Derived from the final embed host, so it stays correct
+    # however the sources are reordered.
+    for game in games:
+        game["source"] = source_label(game.get("embed") or "")
+
+    ensure_team(games)
 
     if HOTLINK_THUMBS:
         # Keep the source CDN URL as the card image. Only http:// icons are

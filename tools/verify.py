@@ -72,6 +72,9 @@ MEAS = r"""(()=>{
    .find(x=>/favorites/i.test(x.textContent));
    return a?{href:a.getAttribute('href'),
      icon:(a.querySelector('img')||{}).getAttribute('src')}:null;})();
+ m.teamRail=(()=>{const a=[...document.querySelectorAll('.cg-rail-item')]
+   .find(x=>/2 player/i.test(x.textContent));
+   return a?a.getAttribute('href'):null;})();
  m.filtered=document.querySelectorAll('#cgAllGrid .cg-card').length;
  m.rowsHidden=[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden);
  return m;})()"""
@@ -156,6 +159,68 @@ LOADER = r"""(()=>{
      .slice(0,3).map(t=>t.textContent)};})()"""
 
 
+SOURCE = r"""(()=>{
+ const label=[...document.querySelectorAll('.cg-info-label')]
+   .find(l=>/^Source:$/.test(l.textContent.trim()));
+ const value=label?label.parentElement.querySelector('.cg-info-value').textContent.trim():null;
+ const rows=document.querySelectorAll('.cg-info-row').length;
+ return {label:!!label, value, rows};})()"""
+
+
+THEME = r"""(()=>{
+ const cs=getComputedStyle(document.body);
+ const doc=getComputedStyle(document.documentElement);
+ return {bodyBg:cs.backgroundColor, bodyFg:cs.color,
+   headerBg:getComputedStyle(document.querySelector('.cg-header')).backgroundColor,
+   activeBorder:getComputedStyle(document.querySelector('.cg-rail-item.cg-active')).borderLeftColor,
+   dim:doc.getPropertyValue('--cg-dim').trim(),
+   purple:doc.getPropertyValue('--cg-purple').trim()};})()"""
+
+
+ADMIN = r"""(()=>{
+ try{ localStorage.removeItem('cg-admin-ratings'); }catch(e){}
+ const link=document.querySelector('.cg-admin-link');
+ const linkBefore=getComputedStyle(link).display;
+ const press=()=>document.dispatchEvent(new KeyboardEvent('keydown',
+   {ctrlKey:true,altKey:true,key:'a',bubbles:true}));
+ const p=document.getElementById('cgAdmin');
+ press();
+ const opened=!p.hidden, linkAfter=getComputedStyle(link).display;
+ const inp=p.querySelector('.cg-admin-search');
+ inp.value='2 Player Head Basketball';
+ inp.dispatchEvent(new Event('input',{bubbles:true}));
+ const matched=p.querySelectorAll('.cg-admin-row').length;
+ const btn=p.querySelector('.cg-admin-row .cg-admin-star[data-rate="4"]');
+ if(btn) btn.click();
+ const row=p.querySelector('.cg-admin-row');
+ const rated=row?row.querySelectorAll('.cg-admin-star.is-on').length:0;
+ const stored=JSON.parse(localStorage.getItem('cg-admin-ratings')||'{}');
+ press();
+ const closed=p.hidden;
+ return {linkBefore, opened, linkAfter, matched, rated,
+   stored:Object.keys(stored).length, closed};})()"""
+
+
+ADMIN_PAGE = r"""(()=>{
+ const p=document.getElementById('cgAdmin');
+ if(!p)return {missing:true};
+ return {rows:p.querySelectorAll('.cg-admin-row').length,
+   search:!!p.querySelector('.cg-admin-search'),
+   onPage:!!p.closest('.cg-admin-page'),
+   notOverlay:!p.closest('.cg-admin')};})()"""
+
+
+TEAM = r"""(()=>{
+ const more=document.getElementById('cgAllMore');
+ let guard=0; while(more && !more.hidden && guard++<4000){ more.click(); }
+ const titles=[...document.querySelectorAll('#cgAllGrid .cg-card-title')]
+   .map(e=>e.textContent);
+ return {n:titles.length,
+   count:document.getElementById('cgAllCount').textContent,
+   title:document.getElementById('cgAllTitle').textContent,
+   twoPlayer:titles.filter(t=>/2 player|multiplayer|two player/i.test(t)).length};})()"""
+
+
 def main():
     home = cdp.run(BASE + "/", MEAS, port=9350, wait=7)
     play = cdp.run(BASE + "/play?g=2048", MEAS, port=9351, wait=7)
@@ -165,6 +230,11 @@ def main():
     sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
     load = cdp.run(BASE + "/play?g=2048", LOADER, port=9355, wait=8)
     fav = cdp.run(BASE + "/favorites", FAVORITES, port=9358, wait=7)
+    src = cdp.run(BASE + "/play?g=2048", SOURCE, port=9359, wait=8)
+    theme = cdp.run(BASE + "/", THEME, port=9360, wait=7)
+    admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
+    apage = cdp.run(BASE + "/admin", ADMIN_PAGE, port=9362, wait=8)
+    team = cdp.run(BASE + "/?category=Team", TEAM, port=9363, wait=9)
     failed = cdp.failed_requests(BASE + "/", port=9357, wait=7)
     total_cards = home["cards"]
 
@@ -250,9 +320,10 @@ def main():
           and load.get("playerBg") == "rgb(19, 20, 30)"
           and load.get("centered") is True,
           json.dumps(load))
-    # The CrazyGames game-page GUI around the player: details rows on #1A1B28.
+    # The CrazyGames game-page GUI around the player: details rows on the
+    # archive's #2F3148 panel surface (not stock Bootstrap dark).
     check("game info bar matches archive",
-          load.get("infoBg") == "rgb(26, 27, 40)" and load.get("infoRows") >= 4
+          load.get("infoBg") == "rgb(47, 49, 72)" and load.get("infoRows") >= 4
           and load.get("infoTitle") == "2048",
           json.dumps({k: load.get(k) for k in ("infoBg", "infoRows", "infoTitle")}))
     # The archive puts a related-games grid inside the info area, under the
@@ -282,6 +353,45 @@ def main():
     check("favorite heart 26x26 on cards",
           fav.get("heartBox") == [26, 26] and fav.get("heartOpacity") == "1",
           json.dumps({"heart": fav.get("heartBox"), "opacity": fav.get("heartOpacity")}))
+
+    # Source row: every play page names the provider/distributor it came from.
+    check("play page shows Source row",
+          src.get("label") is True and src.get("value") not in (None, "", "Unknown")
+          and src.get("rows") >= 5,
+          json.dumps(src))
+
+    # 2024 CrazyGames palette, not the stock Bootstrap dark theme.
+    check("2024 crazygames palette",
+          theme.get("bodyBg") == "rgb(12, 13, 20)"
+          and theme.get("bodyFg") == "rgb(249, 250, 255)"
+          and theme.get("headerBg") == "rgba(33, 34, 51, 0.9)"
+          and theme.get("activeBorder") == "rgb(104, 66, 255)"
+          and theme.get("dim") == "#aaadbe"
+          and theme.get("purple") == "#6842ff",
+          json.dumps(theme))
+
+    # Team is the site's 2-player/multiplayer category, reachable from the rail.
+    check("Team category is 2 player / multiplayer",
+          team.get("n", 0) >= 400
+          and team.get("count") == str(team.get("n")) + " games"
+          and team.get("twoPlayer", 0) >= 150,
+          json.dumps(team))
+    check("team rail entry labelled 2 Player",
+          home.get("teamRail") == "./?category=Team",
+          str(home.get("teamRail")))
+
+    # Ctrl+Alt+A opens the admin panel; its search + star rating work; the
+    # header admin link stays hidden until the panel is opened.
+    check("Ctrl+Alt+A admin panel",
+          admin.get("linkBefore") == "none" and admin.get("opened") is True
+          and admin.get("linkAfter") != "none" and admin.get("matched", 0) >= 1
+          and admin.get("rated") == 4 and admin.get("stored") == 1
+          and admin.get("closed") is True,
+          json.dumps(admin))
+    check("standalone /admin page",
+          apage.get("rows", 0) >= 1 and apage.get("search") is True
+          and apage.get("onPage") is True and apage.get("notOverlay") is True,
+          json.dumps(apage))
 
     # Every local asset the page asks for must resolve. Relative URLs inside
     # assets/cg/archive.css resolve from that directory, not the site root, so a

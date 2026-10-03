@@ -386,12 +386,27 @@
     var h1 = document.getElementById("cgStageTitle");
     if (h1) h1.textContent = game.title;
 
-    var meta = document.getElementById("cgMetaRating");
-    if (meta) {
-      meta.innerHTML = game.rating
-        ? '<b>' + Number(game.rating).toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
-        : "Not rated yet";
+    // Admin ratings (1-5) are a local override; without one the catalogue's
+    // own 0-10 rating is shown.
+    function paintRating() {
+      var meta = document.getElementById("cgMetaRating");
+      if (!meta) return;
+      var mine = window.CGAdmin ? window.CGAdmin.ratingFor(game.slug) : 0;
+      if (mine) {
+        meta.innerHTML = '<b>' + mine.toFixed(1) +
+          '</b><span class="cg-votes">(out of 5)</span>';
+      } else {
+        meta.innerHTML = game.rating
+          ? '<b>' + Number(game.rating).toFixed(1) +
+            '</b><span class="cg-votes">(out of 10)</span>'
+          : "Not rated yet";
+      }
     }
+    paintRating();
+    document.addEventListener("cg:ratingchange", paintRating);
+
+    var src = document.getElementById("cgMetaSource");
+    if (src) src.textContent = game.source || "Unknown";
 
     var cats = document.getElementById("cgMetaCats");
     if (cats) {

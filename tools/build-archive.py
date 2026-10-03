@@ -169,6 +169,9 @@ def header():
         <div class="cg-search-results" id="cgSearchResults" role="listbox" hidden></div>
       </form>
       <div class="cg-header-actions">
+        <a class="cg-iconbtn cg-admin-link" href="./admin" aria-label="Admin panel" title="Admin panel">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94a7.5 7.5 0 0 0 .06-.94 7.5 7.5 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.58.24-1.12.55-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.74 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.5 7.5 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.6.22l2.39-.96c.5.39 1.04.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.58-.24 1.12-.55 1.62-.94l2.39.96c.22.08.48 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
+        </a>
         <a class="cg-iconbtn" href="./?random=1" aria-label="Random game" title="Random game">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17 3h4v4h-2V6.4l-3.3 3.3-1.4-1.4L17.6 5H17zM3 5h4.2l3.3 3.3-1.4 1.4L6.4 7H3zm14 10.6 1.4-1.4 1.6 1.6V14h2v4h-4v-2h.6zM3 19h3.4l4.1-4.1 1.4 1.4L7.2 21H3z"/></svg>
         </a>
@@ -252,8 +255,36 @@ def footer():
   </footer>"""
 
 
-def page(title, description, main, scripts, rail_active="Home", main_class=""):
+def admin_dialog(with_close=True):
+    """Admin search/rate dialog, shared by the modal and the standalone page."""
+    close = """        <button class="cg-admin-close" type="button" aria-label="Close admin panel">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>""" if with_close else ""
+    return f"""      <div class="cg-admin-head">
+        <h2 class="cg-admin-title">Admin panel</h2>
+{close}
+      </div>
+      <p class="cg-admin-note">Search the catalogue and click a star to set a game's
+        rating. Ratings are saved in this browser and shown on the play page.</p>
+      <input class="cg-admin-search" type="search" placeholder="Search games to rate"
+             aria-label="Search games to rate" autocomplete="off">
+      <ul class="cg-admin-results"></ul>"""
+
+
+def admin_modal():
+    """Overlay version, present on every page and opened with Ctrl+Alt+A."""
+    return f"""  <div class="cg-admin" id="cgAdmin" role="dialog" aria-modal="true"
+       aria-label="Admin panel" hidden>
+    <div class="cg-admin-dialog">
+{admin_dialog()}
+    </div>
+  </div>"""
+
+
+def page(title, description, main, scripts, rail_active="Home", main_class="",
+         admin_overlay=True):
     cls = ("cg-main " + main_class).strip()
+    modal = admin_modal() if admin_overlay else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -273,9 +304,11 @@ def page(title, description, main, scripts, rail_active="Home", main_class=""):
   </div>
 
 {footer()}
+{modal}
 
   <script src="assets/js/cg-games.js?v={VERSION}"></script>
-  <script src="assets/js/cg-site.js?v={VERSION}"></script>{scripts}
+  <script src="assets/js/cg-site.js?v={VERSION}"></script>
+  <script src="assets/js/cg-admin.js?v={VERSION}"></script>{scripts}
 </body>
 </html>
 """
@@ -360,10 +393,15 @@ def build_play(games):
     document.title = g.title + ' - Games';
     document.getElementById('cgStageTitle').textContent = g.title;
 
-    // Rating row and category breadcrumb values.
-    document.getElementById('cgMetaRating').innerHTML = g.rating
-      ? '<b>' + g.rating.toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
-      : 'Not rated yet';
+    // Rating row and category breadcrumb values. An admin rating (1-5, set via
+    // Ctrl+Alt+A) overrides the catalogue's own 0-10 value.
+    var mine = window.CGAdmin ? window.CGAdmin.ratingFor(g.slug) : 0;
+    document.getElementById('cgMetaRating').innerHTML = mine
+      ? '<b>' + mine.toFixed(1) + '</b><span class="cg-votes">(out of 5)</span>'
+      : g.rating
+        ? '<b>' + g.rating.toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
+        : 'Not rated yet';
+    document.getElementById('cgMetaSource').textContent = g.source || 'Unknown';
     document.getElementById('cgMetaCats').innerHTML =
       (g.categories || []).map(function (c) {
         return '<a class="cg-chip" href="./?category=' + encodeURIComponent(c) + '">' + c + '</a>';
@@ -433,7 +471,7 @@ def build_play(games):
               <div class="cg-info-row"><div class="cg-info-label">Rating:</div><div class="cg-info-value" id="cgMetaRating"></div></div>
               <div class="cg-info-row"><div class="cg-info-label">Released:</div><div class="cg-info-value">Free to play</div></div>
               <div class="cg-info-row"><div class="cg-info-label">Technology:</div><div class="cg-info-value">HTML5</div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Platform:</div><div class="cg-info-value">Browser (desktop, mobile, tablet)</div></div>
+              <div class="cg-info-row"><div class="cg-info-label">Source:</div><div class="cg-info-value" id="cgMetaSource"></div></div>
               <div class="cg-info-row"><div class="cg-info-label">Categories:</div><div class="cg-info-value" id="cgMetaCats"></div></div>
             </div>
             <hr class="cg-info-divider">
@@ -483,12 +521,23 @@ def build_favorites(games):
                 "cg-main-fav")
 
 
+def build_admin(games):
+    """Standalone admin page: the same dialog, without the overlay."""
+    main = f"""      <div class="cg-admin-page">
+        <div class="cg-admin-dialog" id="cgAdmin">
+{admin_dialog(with_close=False)}
+        </div>
+      </div>"""
+    return page("Admin - Games", "Admin panel.", main, "", "Home", "cg-main-admin",
+                admin_overlay=False)
+
+
 def main():
     games = load_games()
 
     # Build the catalogue bundle first so its content feeds the version token.
     data = json.dumps([{k: g[k] for k in ("slug", "title", "embed", "thumb",
-                                          "categories", "rating")} for g in games],
+                                          "categories", "rating", "source")} for g in games],
                       separators=(",", ":"))
     games_js = "window.CG_GAMES=" + data + ";\n"
     global VERSION
@@ -499,6 +548,7 @@ def main():
         "play.html": build_play(games),
         "about.html": build_about(games),
         "favorites.html": build_favorites(games),
+        "admin.html": build_admin(games),
     }
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as f:
