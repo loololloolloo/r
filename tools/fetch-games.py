@@ -421,6 +421,7 @@ SOURCE_NAMES = [
     ("3kh0.net", "3kh0"),
     ("retrobowl26.com", "Retro Bowl"),
     ("retrobowlfree.io", "Retro Bowl"),
+    ("retrogames.cc", "RetroGames"),
 ]
 
 
@@ -934,6 +935,82 @@ def source_playgama():
     return out
 
 
+def source_retrogames():
+    """RetroGames.cc: ~33k console/arcade ROMs.
+
+    The sitemap index points at 33 sitemaps holding one /<system>-games/<slug>.html
+    URL each. A game's page embeds `/<system>-games/...` -> an
+    `embed/<id>-<slug>.html` frame, but the page is 80KB+, so the id is taken
+    from the thumbnail instead (`<...>/<id>_<sha>.png`) and combined with the
+    slug from the sitemap URL: `embed/<id>-<slug>.html` renders the game (the
+    id alone 404s). The thumbnail is hotlinked; the site serves it with
+    `access-control-allow-origin: *` and no referer check.
+    """
+    index = fetch_text("https://www.retrogames.cc/sitemap.xml", timeout=30)
+    sitemaps = re.findall(r"<loc>(https://www\.retrogames\.cc/sitemap/\d+\.xml)</loc>",
+                          index)
+    by_slug = {}
+    for url in sitemaps:
+        try:
+            xml = fetch_text(url, timeout=120)
+        except (urllib.error.URLError, OSError, ValueError) as exc:
+            print(f"  ! retrogames sitemap {url.rsplit('/', 1)[-1]}: {exc}",
+                  file=sys.stderr)
+            continue
+        for loc in re.findall(r"<loc>(https://www\.retrogames\.cc/[^<]+\.html)</loc>",
+                              xml):
+            by_slug[loc] = None
+
+    # The listing pages carry the per-game id in the thumbnail filename, 50 at a
+    # time. Walk each system until a page yields nothing new (page 2 of a 60-game
+    # system is short, page 3 is the empty index, so stop on the first empty one).
+    systems = sorted({urllib.parse.urlsplit(u).path.strip("/").split("/")[0]
+                      for u in by_slug})
+    id_by_slug, thumb_by_slug = {}, {}
+    for system in systems:
+        page, seen = 1, set()
+        while page <= 200:
+            url = (f"https://www.retrogames.cc/{system}/" if page == 1
+                   else f"https://www.retrogames.cc/{system}/page/{page}.html")
+            try:
+                doc = fetch_text(url, timeout=60)
+            except (urllib.error.URLError, OSError, ValueError):
+                break
+            rows = re.findall(
+                r'<div[^>]*class="post-thumb[^"]*"[^>]*data-poster="([^"]+)"'
+                r'[^>]*>\s*<a href="([^"]+)"[^>]*>.*?alt="([^"]*)"', doc, re.S)
+            fresh = 0
+            for thumb, href, _alt in rows:
+                gid = re.search(r"/(\d+)_", thumb)
+                if href in by_slug and gid and href not in seen:
+                    id_by_slug[href] = gid.group(1)
+                    thumb_by_slug[href] = thumb
+                    seen.add(href)
+                    fresh += 1
+            if fresh == 0:
+                break
+            page += 1
+        if not any(h.startswith(f"https://www.retrogames.cc/{system}/")
+                   for h in id_by_slug):
+            print(f"  ! retrogames system {system} yielded no ids", file=sys.stderr)
+
+    out = []
+    for loc in by_slug:
+        gid = id_by_slug.get(loc)
+        if not gid:
+            continue
+        slug = loc.rsplit("/", 1)[-1][:-5]
+        out.append({
+            "slug": slug,
+            "title": re.sub(r"[-_]+", " ", slug).strip().title(),
+            "embed": f"https://www.retrogames.cc/embed/{gid}-{slug}.html",
+            "thumbSource": thumb_by_slug.get(loc, ""),
+            "categories": ["Retro", "Emulator"],
+            "rating": None,
+        })
+    return out
+
+
 SOURCES = [
     ("crazygames", source_crazygames),
     ("retrobowl26.com", source_retrobowl26),
@@ -944,6 +1021,7 @@ SOURCES = [
     ("gamemonetize", source_gamemonetize),
     ("gamepix", source_gamepix),
     ("playgama", source_playgama),
+    ("retrogames.cc", source_retrogames),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added
