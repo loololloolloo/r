@@ -68,10 +68,10 @@ MEAS = r"""(()=>{
    return +(b.width/b.height).toFixed(3);})();
  m.sideCards=document.querySelectorAll('#cgSideList .cg-card').length;
  m.favHearts=document.querySelectorAll('.cg-fav').length;
- m.favRail=(()=>{const a=[...document.querySelectorAll('.cg-rail-item')]
-   .find(x=>/favorites/i.test(x.textContent));
-   return a?{href:a.getAttribute('href'),
-     icon:(a.querySelector('img')||{}).getAttribute('src')}:null;})();
+ m.favBtn=!!document.querySelector('.cg-fav-btn');
+ m.favPanel=!!document.getElementById('cgFavPanel');
+ m.deadLinks=[...document.querySelectorAll('a[href]')].filter(a=>
+   /\/(favorites|admin)\/?$/.test(a.getAttribute('href'))).length;
  m.teamRail=(()=>{const a=[...document.querySelectorAll('.cg-rail-item')]
    .find(x=>/2 player/i.test(x.textContent));
    return a?a.getAttribute('href'):null;})();
@@ -116,11 +116,17 @@ SEARCHBOX = r"""(()=>{
 FAVORITES = r"""(()=>{
  localStorage.setItem('cg-favorites', JSON.stringify(['2048','retro-bowl','tetris']));
  document.dispatchEvent(new CustomEvent('cg:favchange'));
+ const btn=document.querySelector('.cg-fav-btn');
+ const panel=document.getElementById('cgFavPanel');
+ const hiddenBefore=panel.hidden;
+ btn.click();
+ const shown=!panel.hidden;
  const g=document.getElementById('cgFavGrid');
  const c=g?[...g.querySelectorAll('.cg-card')]:[];
  const hearts=g?[...g.querySelectorAll('.cg-fav')]:[];
  const rect=hearts[0]?hearts[0].getBoundingClientRect():null;
- return {cards:c.length,
+ const res={openBtn:!!btn, panel:!!panel, hiddenBefore, shown,
+   cards:c.length,
    titles:c.map(x=>x.querySelector('.cg-card-title').textContent),
    count:(document.getElementById('cgFavCount')||{}).textContent,
    emptyHidden:(document.getElementById('cgFavEmpty')||{}).hidden,
@@ -129,7 +135,10 @@ FAVORITES = r"""(()=>{
    heartBox:rect?[Math.round(rect.width),Math.round(rect.height)]:null,
    heartOpacity:hearts[0]?getComputedStyle(hearts[0]).opacity:null,
    cardBox:(()=>{const r=c[0]?c[0].getBoundingClientRect():null;
-     return r?[Math.round(r.width),Math.round(r.height)]:null;})()};})()"""
+     return r?[Math.round(r.width),Math.round(r.height)]:null;})()};
+ panel.querySelector('.cg-admin-close').click();
+ res.closed=panel.hidden;
+ return res;})()"""
 
 
 
@@ -203,14 +212,6 @@ ADMIN = r"""(()=>{
    stored:Object.keys(stored).length, closed};})()"""
 
 
-ADMIN_PAGE = r"""(()=>{
- const p=document.getElementById('cgAdmin');
- if(!p)return {missing:true};
- return {rows:p.querySelectorAll('.cg-admin-row').length,
-   search:!!p.querySelector('.cg-admin-search'),
-   onPage:!!p.closest('.cg-admin-page'),
-   notOverlay:!p.closest('.cg-admin')};})()"""
-
 
 TEAM = r"""(()=>{
  const more=document.getElementById('cgAllMore');
@@ -240,11 +241,10 @@ def main():
     sbox = cdp.run(BASE + "/", SEARCHBOX, port=9354, wait=7)
     sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
     load = cdp.run(BASE + "/play?g=2048", LOADER, port=9355, wait=8)
-    fav = cdp.run(BASE + "/favorites", FAVORITES, port=9358, wait=7)
+    fav = cdp.run(BASE + "/", FAVORITES, port=9358, wait=7)
     src = cdp.run(BASE + "/play?g=2048", SOURCE, port=9359, wait=8)
     theme = cdp.run(BASE + "/", THEME, port=9360, wait=7)
     admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
-    apage = cdp.run(BASE + "/admin", ADMIN_PAGE, port=9362, wait=8)
     team = cdp.run(BASE + "/?category=Team", TEAM, port=9363, wait=9)
     # Play two games, then open Recently Played: it must list them, most recent
     # first, in one browser profile (run_seq keeps localStorage).
@@ -279,7 +279,7 @@ def main():
           home["headerBg"])
     check("body background", home["bodyBg"] == ARCHIVE["bodyBg"], home["bodyBg"])
     check("Nunito font", home["font"] == "Nunito", home["font"])
-    check("rail has 17 items", home["railItems"] == 17, str(home["railItems"]))
+    check("rail has 16 items", home["railItems"] == 16, str(home["railItems"]))
     check("catalogue cards rendered", home["cards"] >= 200, str(home["cards"]))
     # The catalogue itself is the ~12k bundle; the home page renders carousels
     # from it rather than server-rendering every card.
@@ -352,17 +352,23 @@ def main():
           json.dumps({k: load.get(k) for k in
                       ("moreInInfo", "moreCards", "moreCols", "moreTitles")}))
 
-    # Every card carries a heart; the Favorites rail entry points at the page.
+    # Every card carries a heart; the header button opens the favourites popup.
     check("cards have favourite hearts",
           home.get("favHearts") == home.get("cards"),
           json.dumps({"hearts": home.get("favHearts"), "cards": home.get("cards")}))
-    check("favorites rail entry",
-          (home.get("favRail") or {}).get("href") == "./favorites"
-          and "Favorites.svg" in ((home.get("favRail") or {}).get("icon") or ""),
-          json.dumps(home.get("favRail")))
-    # /favorites renders the saved slugs as the same card component, lit hearts.
-    check("favorites page renders saved games",
-          fav.get("cards") == 3
+    check("favorites popup in header",
+          home.get("favBtn") is True and home.get("favPanel") is True,
+          json.dumps({"btn": home.get("favBtn"), "panel": home.get("favPanel")}))
+    # Favorites moved into the header popup; no page links to the old pages.
+    check("no links to removed favorites/admin pages",
+          home.get("deadLinks") == 0 and play.get("deadLinks") == 0,
+          json.dumps({"home": home.get("deadLinks"), "play": play.get("deadLinks")}))
+    # The popup renders the saved slugs as the same card component, lit hearts.
+    check("favorites popup renders saved games",
+          fav.get("openBtn") is True and fav.get("panel") is True
+          and fav.get("hiddenBefore") is True and fav.get("shown") is True
+          and fav.get("closed") is True
+          and fav.get("cards") == 3
           and fav.get("titles") == ["2048", "Retro Bowl", "Tetris"]
           and fav.get("lit") == 3 and fav.get("emptyHidden") is True
           and fav.get("clearHidden") is False,
@@ -417,10 +423,6 @@ def main():
           and admin.get("rated") == 4 and admin.get("stored") == 1
           and admin.get("closed") is True,
           json.dumps(admin))
-    check("standalone /admin page",
-          apage.get("rows", 0) >= 1 and apage.get("search") is True
-          and apage.get("onPage") is True and apage.get("notOverlay") is True,
-          json.dumps(apage))
 
     # Every local asset the page asks for must resolve. Relative URLs inside
     # assets/cg/archive.css resolve from that directory, not the site root, so a

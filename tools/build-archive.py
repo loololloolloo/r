@@ -53,7 +53,6 @@ RAIL = [
     ("Recently Played", "./?recent=1", "Recent", True),
     ("New", "./?sort=newest", "New", False),
     ("Trending", "./?sort=rating", "Trending", False),
-    ("Favorites", "./favorites", "Favorites", True),
     ("__hr__",),
     ("2 Player", "./?category=Team", "2players", False),
     ("Action", "./?category=Action", "Action", False),
@@ -167,9 +166,13 @@ def header():
         <div class="cg-search-results" id="cgSearchResults" role="listbox" hidden></div>
       </form>
       <div class="cg-header-actions">
-        <a class="cg-iconbtn cg-admin-link" href="./admin" aria-label="Admin panel" title="Admin panel">
+        <button class="cg-iconbtn cg-admin-link" type="button" aria-label="Admin panel" title="Admin panel">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M19.14 12.94a7.5 7.5 0 0 0 .06-.94 7.5 7.5 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.58.24-1.12.55-1.62.94l-2.39-.96a.5.5 0 0 0-.6.22L2.74 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.5 7.5 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.6.22l2.39-.96c.5.39 1.04.7 1.62.94l.36 2.54c.04.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.58-.24 1.12-.55 1.62-.94l2.39.96c.22.08.48 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>
-        </a>
+        </button>
+        <button class="cg-iconbtn cg-fav-btn" type="button" aria-label="Favorites" title="Favorites"
+                aria-haspopup="dialog" aria-controls="cgFavPanel">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
         <a class="cg-iconbtn" href="./?random=1" aria-label="Random game" title="Random game">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17 3h4v4h-2V6.4l-3.3 3.3-1.4-1.4L17.6 5H17zM3 5h4.2l3.3 3.3-1.4 1.4L6.4 7H3zm14 10.6 1.4-1.4 1.6 1.6V14h2v4h-4v-2h.6zM3 19h3.4l4.1-4.1 1.4 1.4L7.2 21H3z"/></svg>
         </a>
@@ -279,6 +282,30 @@ def admin_modal():
   </div>"""
 
 
+def favorites_modal():
+    """Header-popup version of the favourites list, present on every page."""
+    return """  <div class="cg-fav-modal" id="cgFavPanel" role="dialog" aria-modal="true"
+       aria-label="Favorites" hidden>
+    <div class="cg-fav-dialog">
+      <div class="cg-admin-head">
+        <h2 class="cg-admin-title">Favorites</h2>
+        <button class="cg-admin-close" type="button" aria-label="Close favorites">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+      <p class="cg-fav-count" id="cgFavCount"></p>
+      <p class="cg-fav-empty" id="cgFavEmpty" hidden>
+        You haven't saved any games yet. Tap the heart on a game card to keep it
+        here.
+      </p>
+      <ul class="cg-fav-grid" id="cgFavGrid"></ul>
+      <p class="cg-fav-clear-wrap">
+        <button class="cg-btn" type="button" id="cgFavClear" hidden>Clear all</button>
+      </p>
+    </div>
+  </div>"""
+
+
 def page(title, description, main, scripts, rail_active="Home", main_class="",
          admin_overlay=True):
     cls = ("cg-main " + main_class).strip()
@@ -303,6 +330,7 @@ def page(title, description, main, scripts, rail_active="Home", main_class="",
 
 {footer()}
 {modal}
+{favorites_modal()}
 
   <script src="assets/js/cg-games.js?v={VERSION}"></script>
   <script src="assets/js/cg-site.js?v={VERSION}"></script>
@@ -500,36 +528,6 @@ def build_about(games):
     return page("About - Games", "About Games.", main, "", "Home")
 
 
-def build_favorites(games):
-    main = """      <div class="cg-fav-page">
-        <div class="cg-section-head">
-          <h2 class="cg-section-title">Favorites</h2>
-          <span class="cg-more" id="cgFavCount"></span>
-        </div>
-        <p class="cg-fav-empty" id="cgFavEmpty" hidden>
-          You haven't saved any games yet. Tap the heart on a game card to keep
-          it here.
-        </p>
-        <ul class="cg-grid" id="cgFavGrid"></ul>
-        <p class="cg-fav-clear-wrap">
-          <button class="cg-btn" type="button" id="cgFavClear" hidden>Clear all</button>
-        </p>
-      </div>"""
-    return page("Favorites - Games", "Your saved games.", main, "", "Favorites",
-                "cg-main-fav")
-
-
-def build_admin(games):
-    """Standalone admin page: the same dialog, without the overlay."""
-    main = f"""      <div class="cg-admin-page">
-        <div class="cg-admin-dialog" id="cgAdmin">
-{admin_dialog(with_close=False)}
-        </div>
-      </div>"""
-    return page("Admin - Games", "Admin panel.", main, "", "Home", "cg-main-admin",
-                admin_overlay=False)
-
-
 def main():
     games = load_games()
 
@@ -545,8 +543,6 @@ def main():
         "index.html": build_home(games),
         "play.html": build_play(games),
         "about.html": build_about(games),
-        "favorites.html": build_favorites(games),
-        "admin.html": build_admin(games),
     }
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as f:

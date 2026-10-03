@@ -107,15 +107,17 @@
     paintFavs();
   }
 
-  /* -------------------------------------------------------- favourites page -- */
+  /* ------------------------------------------------------- favourites popup -- */
 
-  function initFavoritesPage() {
+  function initFavoritesPanel() {
+    var panel = document.getElementById("cgFavPanel");
+    if (!panel) return;
+
     var grid = document.getElementById("cgFavGrid");
-    if (!grid) return;
-
     var empty = document.getElementById("cgFavEmpty");
     var count = document.getElementById("cgFavCount");
     var clear = document.getElementById("cgFavClear");
+    var openBtn = document.querySelector(".cg-fav-btn");
 
     function render() {
       var items = favSlugs().map(function (slug) {
@@ -135,8 +137,37 @@
       if (clear) clear.hidden = items.length === 0;
     }
 
+    function open() {
+      render();
+      panel.hidden = false;
+      var close = panel.querySelector(".cg-admin-close");
+      if (close) close.focus();
+    }
+
+    function close() { panel.hidden = true; }
+
+    function toggle() { if (panel.hidden) open(); else close(); }
+
+    if (openBtn) {
+      openBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        toggle();
+      });
+    }
+
+    panel.addEventListener("click", function (e) {
+      if (e.target === panel || (e.target.closest &&
+          e.target.closest(".cg-admin-close"))) close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !panel.hidden) close();
+    });
+
     render();
-    document.addEventListener("cg:favchange", render);
+    document.addEventListener("cg:favchange", function () {
+      if (!panel.hidden) render();
+    });
 
     if (clear) {
       clear.addEventListener("click", function () {
@@ -475,7 +506,7 @@
     initImageFallback();
     initRandom();
     initFavorites();
-    initFavoritesPage();
+    initFavoritesPanel();
     initCatalogue();
     initSearchBox();
     initPlay();

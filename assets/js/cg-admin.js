@@ -95,15 +95,14 @@
     document.documentElement.classList.add("cg-admin-on");
   }
 
-  // Only the overlay can close; on the standalone ./admin page the panel is the
-  // page content, so there is nothing to hide.
+  // The overlay can always be closed (there is no standalone page any more).
   function isOverlay(panel) {
     return !!(panel && panel.closest(".cg-admin"));
   }
 
   function closePanel() {
     var panel = document.getElementById("cgAdmin");
-    if (isOverlay(panel)) panel.hidden = true;
+    if (panel) panel.hidden = true;
   }
 
   function togglePanel() {
@@ -151,17 +150,22 @@
     }
   });
 
-  // The standalone page opens with its panel already visible, so paint the
-  // first page of games and focus the search box on load.
+  // The header gear (revealed once admin mode is armed) opens the same panel.
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest ? e.target.closest(".cg-admin-link") : null;
+    if (btn) {
+      e.preventDefault();
+      togglePanel();
+    }
+  });
+
+  // The panel is always an overlay now, so paint the first page of games and
+  // focus the search box on load.
   function init() {
     var panel = document.getElementById("cgAdmin");
     if (!panel) return;
     wirePanel(panel);
-    if (!isOverlay(panel)) {
-      render(panel, "");
-      var input = panel.querySelector(".cg-admin-search");
-      if (input) input.focus();
-    }
+    render(panel, "");
   }
 
   if (document.readyState === "loading") {
