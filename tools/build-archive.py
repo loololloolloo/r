@@ -49,26 +49,26 @@ def asset_version(games_js):
 
 # --- rail (same entries and order as the archive, minus the account block) ----
 RAIL = [
-    ("Home", "/", "Home", True),
-    ("Recent", "/?sort=newest", "Recent", True),
-    ("New", "/?sort=newest", "New", False),
-    ("Trending", "/?sort=rating", "Trending", False),
-    ("Updated", "/?sort=newest", "Updated", False),
-    ("Originals", "/?sort=rating", "Originals", False),
-    ("Favorites", "/favorites", "Favorites", True),
+    ("Home", "./", "Home", True),
+    ("Recent", "./?sort=newest", "Recent", True),
+    ("New", "./?sort=newest", "New", False),
+    ("Trending", "./?sort=rating", "Trending", False),
+    ("Updated", "./?sort=newest", "Updated", False),
+    ("Originals", "./?sort=rating", "Originals", False),
+    ("Favorites", "./favorites", "Favorites", True),
     ("__hr__",),
-    ("2 Player", "/?category=Team", "2players", False),
-    ("Action", "/?category=Action", "Action", False),
-    ("Adventure", "/?category=Adventure", "Adventure", False),
-    ("Casual", "/?category=Casual", "Casual", False),
-    ("Puzzle", "/?category=Puzzle", "Puzzle", False),
-    ("Shooting", "/?category=Shooter", "Shooting", False),
-    ("Sports", "/?category=Sports", "Sports", False),
-    ("Racing", "/?category=Racing", "Driving", False),
-    ("Strategy", "/?category=Strategy", "TowerDefense", False),
-    ("FPS", "/?category=FPS", "FPS", False),
-    ("Horror", "/?category=Zombies", "Horror", False),
-    (".io", "/?category=Agario%20Style", "io", False),
+    ("2 Player", "./?category=Team", "2players", False),
+    ("Action", "./?category=Action", "Action", False),
+    ("Adventure", "./?category=Adventure", "Adventure", False),
+    ("Casual", "./?category=Casual", "Casual", False),
+    ("Puzzle", "./?category=Puzzle", "Puzzle", False),
+    ("Shooting", "./?category=Shooter", "Shooting", False),
+    ("Sports", "./?category=Sports", "Sports", False),
+    ("Racing", "./?category=Racing", "Driving", False),
+    ("Strategy", "./?category=Strategy", "TowerDefense", False),
+    ("FPS", "./?category=FPS", "FPS", False),
+    ("Horror", "./?category=Zombies", "Horror", False),
+    (".io", "./?category=Agario%20Style", "io", False),
 ]
 
 # --- our categories -> the archive's own category artwork ---------------------
@@ -117,7 +117,7 @@ def load_games():
 
 
 def play_url(g):
-    return "/play?g=" + g["slug"]
+    return "./play?g=" + g["slug"]
 
 
 def icon(name):
@@ -160,7 +160,7 @@ def header():
     """Archive header geometry: 60px tall, logo left, actions right."""
     return f"""  <header id="czyHeader" class="cg-header">
     <div class="cg-header-bar">
-      <a class="cg-header-logo" href="/" aria-label="Games home">
+      <a class="cg-header-logo" href="./" aria-label="Games home">
         <img src="assets/img/logo.png" width="58" height="28" alt="Games">
       </a>
       <form class="cg-search" role="search" onsubmit="return false;">
@@ -169,10 +169,10 @@ def header():
         <div class="cg-search-results" id="cgSearchResults" role="listbox" hidden></div>
       </form>
       <div class="cg-header-actions">
-        <a class="cg-iconbtn" href="/?random=1" aria-label="Random game" title="Random game">
+        <a class="cg-iconbtn" href="./?random=1" aria-label="Random game" title="Random game">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17 3h4v4h-2V6.4l-3.3 3.3-1.4-1.4L17.6 5H17zM3 5h4.2l3.3 3.3-1.4 1.4L6.4 7H3zm14 10.6 1.4-1.4 1.6 1.6V14h2v4h-4v-2h.6zM3 19h3.4l4.1-4.1 1.4 1.4L7.2 21H3z"/></svg>
         </a>
-        <a class="cg-iconbtn" href="/about" aria-label="About" title="About">
+        <a class="cg-iconbtn" href="./about" aria-label="About" title="About">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
         </a>
       </div>
@@ -292,7 +292,7 @@ def build_home(games):
     parts.append("""      <section class="cg-section" data-row="new">
         <div class="cg-section-head">
           <h2 class="cg-section-title">New games</h2>
-          <a class="cg-more" href="/?sort=newest">View more</a>
+          <a class="cg-more" href="./?sort=newest">View more</a>
         </div>
         <div class="cg-carousel"><ul class="cg-carousel-track" id="cgNewTrack"></ul></div>
       </section>""")
@@ -300,7 +300,7 @@ def build_home(games):
     parts.append("""      <section class="cg-section" data-row="top">
         <div class="cg-section-head">
           <h2 class="cg-section-title">Top games</h2>
-          <a class="cg-more" href="/?sort=rating">View more</a>
+          <a class="cg-more" href="./?sort=rating">View more</a>
         </div>
         <div class="cg-carousel"><ul class="cg-carousel-track" id="cgTopTrack"></ul></div>
       </section>""")
@@ -318,7 +318,7 @@ def build_home(games):
         parts.append(f"""      <section class="cg-section" data-row="cat">
         <div class="cg-section-head">
           <h2 class="cg-section-title">{esc(label)}</h2>
-          <a class="cg-more" href="/?category={cat.replace(' ', '%20')}">View more</a>
+          <a class="cg-more" href="./?category={cat.replace(' ', '%20')}">View more</a>
         </div>
         <div class="cg-carousel"><ul class="cg-carousel-track"
           data-cat="{esc(cat)}"></ul></div>
@@ -363,7 +363,7 @@ def build_play(games):
       : 'Not rated yet';
     document.getElementById('cgMetaCats').innerHTML =
       (g.categories || []).map(function (c) {
-        return '<a class="cg-chip" href="/?category=' + encodeURIComponent(c) + '">' + c + '</a>';
+        return '<a class="cg-chip" href="./?category=' + encodeURIComponent(c) + '">' + c + '</a>';
       }).join('') || '<span>Casual</span>';
     document.getElementById('cgMetaDesc').textContent =
       'Play ' + g.title + ' for free in your browser. No download, no install.';
@@ -383,7 +383,7 @@ def build_play(games):
 
     function cards(list) {
       return list.map(function (x) {
-        return '<li><a class="cg-card" href="/play?g=' + x.slug + '">' +
+        return '<li><a class="cg-card" href="./play?g=' + x.slug + '">' +
           '<div class="cg-card-title">' + x.title + '</div>' +
           '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt="">' +
           '<button class="cg-fav" type="button" data-fav="' + x.slug +
@@ -421,7 +421,7 @@ def build_play(games):
                 <button class="cg-pill" type="button" id="cgFullscreen">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg><span>Fullscreen</span>
                 </button>
-                <a class="cg-pill" href="/?random=1">
+                <a class="cg-pill" href="./?random=1">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5zm-3 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm2-9H5V5h9l2 2v2z"/></svg><span>Random game</span>
                 </a>
               </div>
@@ -456,7 +456,7 @@ def build_about(games):
         <h1>About</h1>
         <p>Games is a free browser games portal with {len(games)} games you can
         play instantly, no download required.</p>
-        <p><a class="cg-btn" href="/">Browse all games</a></p>
+        <p><a class="cg-btn" href="./">Browse all games</a></p>
       </div>"""
     return page("About - Games", "About Games.", main, "", "Home")
 

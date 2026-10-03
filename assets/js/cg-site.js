@@ -39,7 +39,7 @@
   /* Card markup, kept in one place so the catalogue, the play sidebar and the
      favourites page all render the same thing. */
   function cardHTML(g) {
-    return '<li><a class="cg-card" href="/play?g=' + g.slug + '">' +
+    return '<li><a class="cg-card" href="./play?g=' + g.slug + '">' +
       '<div class="cg-card-title">' + esc(g.title) + "</div>" +
       '<img class="cg-card-img" loading="lazy" src="' + esc(g.thumb) +
       '" alt="' + esc(g.title) + '">' +
@@ -272,12 +272,12 @@
       var shown = hits.slice(0, 6);
       var html = shown.map(function (g, i) {
         return '<a class="cg-search-hit" role="option" data-i="' + i +
-          '" href="/play?g=' + g.slug + '">' +
+          '" href="./play?g=' + g.slug + '">' +
           '<img src="' + esc(g.thumb) + '" alt="" loading="lazy">' +
           '<span class="cg-search-hit-title">' + esc(g.title) + "</span></a>";
       }).join("");
       if (hits.length > shown.length) {
-        html += '<a class="cg-search-more" href="/?q=' +
+        html += '<a class="cg-search-more" href="./?q=' +
           encodeURIComponent(term.trim()) + '">See all ' + hits.length +
           " results</a>";
       }
@@ -356,7 +356,7 @@
     var cats = document.getElementById("cgMetaCats");
     if (cats) {
       cats.innerHTML = (game.categories || []).map(function (c) {
-        return '<a class="cg-chip" href="/?category=' +
+        return '<a class="cg-chip" href="./?category=' +
           encodeURIComponent(c) + '">' + esc(c) + "</a>";
       }).join("") || "<span>Casual</span>";
     }
@@ -394,7 +394,7 @@
   function initRandom() {
     if (qs("random") === null || !games.length) return;
     var g = games[Math.floor(Math.random() * games.length)];
-    window.location.replace("/play?g=" + encodeURIComponent(g.slug));
+    window.location.replace("./play?g=" + encodeURIComponent(g.slug));
   }
 
   document.addEventListener("DOMContentLoaded", function () {

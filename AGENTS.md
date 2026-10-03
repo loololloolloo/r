@@ -240,6 +240,12 @@ theme layer sits on top:
   latter was blocked, so the project sits at the `/r` subpath. All paths are
   relative for exactly this reason.
 - Both `main` and `games` are kept in sync at the same commit.
+- **All internal links must be relative** (`./`, `./play?g=`, `./about`,
+  `./favorites`, `./?category=`). The project site is served under the `/r`
+  subpath, so a root-absolute `href="/about"` 404s. GitHub Pages resolves the
+  extensionless `./about` to `about.html`; do not link `about.html` directly.
+  Note `python3 -m http.server` does *not* do that fallback, so verify
+  extensionless paths against Pages, not a local http.server.
 - **Cache busting:** the pages link `cg.css`/`cg-site.js` with a `?v=<hash>` token
   that `tools/build-archive.py` derives from the asset contents. Never replace it
   with a hand-kept number: Pages serves `cg.css` with `max-age=14400` but the HTML
