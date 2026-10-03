@@ -5,8 +5,8 @@
 <!-- build 2026-10-03 00:10:12Z -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Play - Games</title>
-  <meta name="description" content="Play a free browser game.">
+  <title>Favorites - Games</title>
+  <meta name="description" content="Your saved games.">
   <meta name="theme-color" content="#0c0d14">
   <link rel="icon" href="assets/img/favicon.png" type="image/png">
   <link href="assets/cg/archive.css?v=93e8b71d4b" rel="stylesheet">
@@ -38,13 +38,13 @@
   <div class="cg-shell">
   <nav id="mainNav" class="cg-rail" aria-label="Main">
     <div class="cg-rail-inner">
-      <a class="cg-rail-item cg-active" href="/" aria-label="Home"><img src="assets/cg/icons/Home.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Home</div></a>
+      <a class="cg-rail-item" href="/" aria-label="Home"><img src="assets/cg/icons/Home.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Home</div></a>
       <a class="cg-rail-item" href="/?sort=newest" aria-label="Recent"><img src="assets/cg/icons/Recent.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Recent</div></a>
       <a class="cg-rail-item" href="/?sort=newest" aria-label="New"><img src="assets/cg/icons/New.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">New</div></a>
       <a class="cg-rail-item" href="/?sort=rating" aria-label="Trending"><img src="assets/cg/icons/Trending.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Trending</div></a>
       <a class="cg-rail-item" href="/?sort=newest" aria-label="Updated"><img src="assets/cg/icons/Updated.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Updated</div></a>
       <a class="cg-rail-item" href="/?sort=rating" aria-label="Originals"><img src="assets/cg/icons/Originals.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Originals</div></a>
-      <a class="cg-rail-item" href="/favorites" aria-label="Favorites"><img src="assets/cg/icons/Favorites.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Favorites</div></a>
+      <a class="cg-rail-item cg-active" href="/favorites" aria-label="Favorites"><img src="assets/cg/icons/Favorites.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Favorites</div></a>
       <hr class="cg-rail-hr">
       <a class="cg-rail-item" href="/?category=Team" aria-label="2 Player"><img src="assets/cg/icons/2players.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">2 Player</div></a>
       <a class="cg-rail-item" href="/?category=Action" aria-label="Action"><img src="assets/cg/icons/Action.svg" loading="lazy" alt="" width="28" height="28"><div class="cg-rail-label">Action</div></a>
@@ -61,55 +61,20 @@
     </div>
   </nav>
 
-    <main class="cg-main cg-main-play">
-      <div class="cg-play">
-        <div class="cg-play-main">
-          <div class="cg-player">
-            <div class="cg-loader" id="cgLoader" role="progressbar" aria-label="Loading game">
-              <span class="cg-spinner">
-                <svg viewBox="22 22 44 44"><circle cx="44" cy="44" r="20.2"
-                  fill="none" stroke-width="3.6"></circle></svg>
-              </span>
-            </div>
-            <iframe id="cgFrame" class="cg-frame" title="Game" allowfullscreen
-                    allow="autoplay; fullscreen; gamepad; clipboard-write"></iframe>
-          </div>
-          <div class="cg-info" id="gameInfoContainer">
-            <div class="cg-info-head">
-              <h1 class="cg-info-title" id="cgStageTitle">Loading...</h1>
-              <div class="cg-info-actions">
-                <button class="cg-pill cg-pill-fav" type="button" id="cgFavToggle" hidden
-                        aria-pressed="false">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#cg-heart"></use></svg><span>Favorite</span>
-                </button>
-                <button class="cg-pill" type="button" id="cgFullscreen">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg><span>Fullscreen</span>
-                </button>
-                <a class="cg-pill" href="/?random=1">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5zm-3 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm2-9H5V5h9l2 2v2z"/></svg><span>Random game</span>
-                </a>
-              </div>
-            </div>
-            <div class="cg-info-rows">
-              <div class="cg-info-row"><div class="cg-info-label">Rating:</div><div class="cg-info-value" id="cgMetaRating"></div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Released:</div><div class="cg-info-value">Free to play</div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Technology:</div><div class="cg-info-value">HTML5</div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Platform:</div><div class="cg-info-value">Browser (desktop, mobile, tablet)</div></div>
-              <div class="cg-info-row"><div class="cg-info-label">Categories:</div><div class="cg-info-value" id="cgMetaCats"></div></div>
-            </div>
-            <hr class="cg-info-divider">
-            <div class="cg-info-desc"><p id="cgMetaDesc"></p></div>
-            <hr class="cg-info-divider">
-            <div class="cg-info-more">
-              <h2 class="cg-info-more-title">More games</h2>
-              <ul class="cg-grid cg-info-grid" id="cgMoreGrid"></ul>
-            </div>
-          </div>
+    <main class="cg-main cg-main-fav">
+      <div class="cg-fav-page">
+        <div class="cg-section-head">
+          <h2 class="cg-section-title">Favorites</h2>
+          <span class="cg-more" id="cgFavCount"></span>
         </div>
-        <aside class="cg-play-side">
-          <h2 class="cg-side-title">More games</h2>
-          <ul class="cg-side-list" id="cgSideList"></ul>
-        </aside>
+        <p class="cg-fav-empty" id="cgFavEmpty" hidden>
+          You haven't saved any games yet. Tap the heart on a game card to keep
+          it here.
+        </p>
+        <ul class="cg-grid" id="cgFavGrid"></ul>
+        <p class="cg-fav-clear-wrap">
+          <button class="cg-btn" type="button" id="cgFavClear" hidden>Clear all</button>
+        </p>
       </div>
     </main>
   </div>
@@ -123,54 +88,5 @@
 
   <script src="assets/js/cg-games.js?v=93e8b71d4b"></script>
   <script src="assets/js/cg-site.js?v=93e8b71d4b"></script>
-  <script>
-  (function () {
-    var p = new URLSearchParams(location.search).get('g');
-    var games = window.CG_GAMES || [];
-    var g = games.filter(function (x) { return x.slug === p; })[0] || games[0];
-    if (!g) return;
-    document.title = g.title + ' - Games';
-    document.getElementById('cgStageTitle').textContent = g.title;
-
-    // Rating row and category breadcrumb values.
-    document.getElementById('cgMetaRating').innerHTML = g.rating
-      ? '<b>' + g.rating.toFixed(1) + '</b><span class="cg-votes">(out of 10)</span>'
-      : 'Not rated yet';
-    document.getElementById('cgMetaCats').innerHTML =
-      (g.categories || []).map(function (c) {
-        return '<a class="cg-chip" href="/?category=' + encodeURIComponent(c) + '">' + c + '</a>';
-      }).join('') || '<span>Casual</span>';
-    document.getElementById('cgMetaDesc').textContent =
-      'Play ' + g.title + ' for free in your browser. No download, no install.';
-
-    document.getElementById('cgFrame').src = g.embed;
-
-    // Related first (shared category), then the rest, so the section shows
-    // genre-mates instead of the catalogue's first alphabetical entries.
-    var cats = g.categories || [];
-    var others = games.filter(function (x) { return x.slug !== g.slug; });
-    var sameCat = others.filter(function (x) {
-      return (x.categories || []).some(function (c) { return cats.indexOf(c) >= 0; });
-    });
-    var related = sameCat.concat(others.filter(function (x) {
-      return sameCat.indexOf(x) < 0;
-    }));
-
-    function cards(list) {
-      return list.map(function (x) {
-        return '<li><a class="cg-card" href="/play?g=' + x.slug + '">' +
-          '<div class="cg-card-title">' + x.title + '</div>' +
-          '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt="">' +
-          '<button class="cg-fav" type="button" data-fav="' + x.slug +
-          '" aria-label="Add to favourites" aria-pressed="false">' +
-          '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-          '<use href="#cg-heart"></use></svg></button></a></li>';
-      }).join('');
-    }
-
-    document.getElementById('cgSideList').innerHTML = cards(related.slice(0, 20));
-    document.getElementById('cgMoreGrid').innerHTML = cards(related.slice(0, 24));
-  })();
-  </script>
 </body>
 </html>

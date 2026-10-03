@@ -365,6 +365,47 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .cg-card:hover { background-color: var(--cg-card-hover); }
 
+/* Favourite toggle. Sits above the card's own link so clicking it never
+   navigates to the game. Outline by default, filled once saved. */
+.cg-fav {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(12, 13, 20, 0.6);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.cg-card:hover .cg-fav,
+.cg-fav:focus-visible,
+.cg-fav.is-fav { opacity: 1; }
+
+.cg-fav:hover { transform: scale(1.1); }
+
+.cg-fav svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linejoin: round;
+}
+
+.cg-fav.is-fav { color: #ff5c8a; }
+
+.cg-fav.is-fav svg { fill: currentColor; stroke: currentColor; }
+
 .cg-card:hover .cg-card-title,
 .cg-card:focus-visible .cg-card-title {
   width: auto;
@@ -500,6 +541,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 .cg-pill:hover { background: #454770; color: #fff; }
 .cg-pill svg { width: 24px; height: 24px; margin-right: 8px; fill: currentColor; flex: 0 0 auto; }
 
+/* Heart in the info bar, matching the card hearts. */
+.cg-pill-fav svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linejoin: round; }
+.cg-pill-fav.is-fav { color: #ff5c8a; }
+.cg-pill-fav.is-fav svg { fill: currentColor; stroke: currentColor; }
+
 .cg-info-rows { padding: 8px 0; }
 
 .cg-info-row { display: flex; min-height: 29px; }
@@ -596,6 +642,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 .cg-about { max-width: 720px; }
 .cg-about h1 { margin: 0 0 12px; font-size: 28px; font-weight: 900; }
 .cg-about p { margin: 0 0 16px; color: var(--cg-dim); line-height: 1.6; }
+
+/* ---------- Favorites ---------- */
+
+.cg-fav-empty { margin: 8px 0 20px; color: var(--cg-dim); line-height: 1.6; }
+.cg-fav-clear-wrap { margin: 20px 0 0; }
 
 /* ---------- Footer ---------- */
 

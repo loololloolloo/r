@@ -19,6 +19,108 @@
     });
   }
 
+  /* ------------------------------------------------------------ favourites -- */
+
+  var FAV_KEY = "cg-favorites";
+
+  function favSlugs() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(FAV_KEY));
+      return Array.isArray(raw) ? raw : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveFavs(list) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  /* Card markup, kept in one place so the catalogue, the play sidebar and the
+     favourites page all render the same thing. */
+  function cardHTML(g) {
+    return '<li><a class="cg-card" href="/play?g=' + g.slug + '">' +
+      '<div class="cg-card-title">' + esc(g.title) + "</div>" +
+      '<img class="cg-card-img" loading="lazy" src="' + esc(g.thumb) +
+      '" alt="' + esc(g.title) + '">' +
+      '<button class="cg-fav" type="button" data-fav="' + esc(g.slug) +
+      '" aria-label="Add to favourites" aria-pressed="false">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<use href="#cg-heart"></use></svg></button></a></li>';
+  }
+
+  /* Reflect the stored list onto every heart currently in the DOM. */
+  function paintFavs() {
+    var saved = favSlugs();
+    var btns = document.querySelectorAll(".cg-fav, .cg-pill-fav");
+    for (var i = 0; i < btns.length; i++) {
+      var on = saved.indexOf(btns[i].getAttribute("data-fav")) !== -1;
+      btns[i].classList.toggle("is-fav", on);
+      btns[i].setAttribute("aria-pressed", on ? "true" : "false");
+      btns[i].setAttribute("aria-label",
+        on ? "Remove from favourites" : "Add to favourites");
+      var label = btns[i].querySelector("span");
+      if (label) label.textContent = on ? "Favorited" : "Favorite";
+    }
+  }
+
+  function initFavorites() {
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest(".cg-fav, .cg-pill-fav") : null;
+      if (!btn) return;
+      // The heart lives inside the card's link, so stop it opening the game.
+      e.preventDefault();
+      e.stopPropagation();
+      var slug = btn.getAttribute("data-fav");
+      var list = favSlugs();
+      var at = list.indexOf(slug);
+      if (at === -1) list.push(slug); else list.splice(at, 1);
+      saveFavs(list);
+      paintFavs();
+      document.dispatchEvent(new CustomEvent("cg:favchange"));
+    });
+    paintFavs();
+  }
+
+  /* -------------------------------------------------------- favourites page -- */
+
+  function initFavoritesPage() {
+    var grid = document.getElementById("cgFavGrid");
+    if (!grid) return;
+
+    var empty = document.getElementById("cgFavEmpty");
+    var count = document.getElementById("cgFavCount");
+    var clear = document.getElementById("cgFavClear");
+
+    function render() {
+      var items = favSlugs().map(function (slug) {
+        for (var i = 0; i < games.length; i++) {
+          if (games[i].slug === slug) return games[i];
+        }
+        return null;
+      }).filter(Boolean);
+
+      grid.innerHTML = items.map(cardHTML).join("");
+      paintFavs();
+      if (empty) empty.hidden = items.length > 0;
+      if (count) {
+        count.textContent = items.length +
+          (items.length === 1 ? " game" : " games");
+      }
+      if (clear) clear.hidden = items.length === 0;
+    }
+
+    render();
+    document.addEventListener("cg:favchange", render);
+
+    if (clear) {
+      clear.addEventListener("click", function () {
+        saveFavs([]);
+        document.dispatchEvent(new CustomEvent("cg:favchange"));
+      });
+    }
+  }
+
   /* ------------------------------------------------------------- catalogue -- */
 
   function initCatalogue() {
@@ -79,12 +181,8 @@
       var count = document.getElementById("cgAllCount");
       if (count) count.textContent = matched.length + " games";
 
-      grid.innerHTML = matched.map(function (g) {
-        return '<li><a class="cg-card" href="/play?g=' + g.slug + '">' +
-          '<div class="cg-card-title">' + esc(g.title) + "</div>" +
-          '<img class="cg-card-img" loading="lazy" src="' + esc(g.thumb) +
-          '" alt="' + esc(g.title) + '"></a></li>';
-      }).join("");
+      grid.innerHTML = matched.map(cardHTML).join("");
+      paintFavs();
     }
   }
 
@@ -214,12 +312,14 @@
     if (side) {
       side.innerHTML = games.filter(function (g) {
         return g.slug !== game.slug;
-      }).slice(0, 20).map(function (g) {
-        return '<li><a class="cg-card" href="/play?g=' + g.slug + '">' +
-          '<div class="cg-card-title">' + esc(g.title) + "</div>" +
-          '<img class="cg-card-img" loading="lazy" src="' + esc(g.thumb) +
-          '" alt=""></a></li>';
-      }).join("");
+      }).slice(0, 20).map(cardHTML).join("");
+    }
+
+    // Heart in the info bar, mirroring the card hearts.
+    var fav = document.getElementById("cgFavToggle");
+    if (fav) {
+      fav.setAttribute("data-fav", game.slug);
+      fav.hidden = false;
     }
 
     var fs = document.getElementById("cgFullscreen");
@@ -240,8 +340,11 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     initRandom();
+    initFavorites();
+    initFavoritesPage();
     initCatalogue();
     initSearchBox();
     initPlay();
+    paintFavs();
   });
 })();

@@ -66,6 +66,11 @@ MEAS = r"""(()=>{
  m.ratio=(()=>{const f=document.getElementById('cgFrame');if(!f)return null;const b=f.getBoundingClientRect();
    return +(b.width/b.height).toFixed(3);})();
  m.sideCards=document.querySelectorAll('#cgSideList .cg-card').length;
+ m.favHearts=document.querySelectorAll('.cg-fav').length;
+ m.favRail=(()=>{const a=[...document.querySelectorAll('.cg-rail-item')]
+   .find(x=>/favorites/i.test(x.textContent));
+   return a?{href:a.getAttribute('href'),
+     icon:(a.querySelector('img')||{}).getAttribute('src')}:null;})();
  m.filtered=document.querySelectorAll('#cgAllGrid .cg-card').length;
  m.rowsHidden=[...document.querySelectorAll('.cg-section[data-row]')].every(r=>r.hidden);
  return m;})()"""
@@ -95,6 +100,26 @@ SEARCHBOX = r"""(()=>{
    underBar:Math.round(box.getBoundingClientRect().top) >=
             Math.round(i.getBoundingClientRect().bottom),
    smallImg:img?Math.round(img.width):0, more:!!box.querySelector('.cg-search-more')};})()"""
+
+FAVORITES = r"""(()=>{
+ localStorage.setItem('cg-favorites', JSON.stringify(['2048','snake','tetris']));
+ document.dispatchEvent(new CustomEvent('cg:favchange'));
+ const g=document.getElementById('cgFavGrid');
+ const c=g?[...g.querySelectorAll('.cg-card')]:[];
+ const hearts=g?[...g.querySelectorAll('.cg-fav')]:[];
+ const rect=hearts[0]?hearts[0].getBoundingClientRect():null;
+ return {cards:c.length,
+   titles:c.map(x=>x.querySelector('.cg-card-title').textContent),
+   count:(document.getElementById('cgFavCount')||{}).textContent,
+   emptyHidden:(document.getElementById('cgFavEmpty')||{}).hidden,
+   clearHidden:(document.getElementById('cgFavClear')||{}).hidden,
+   lit:hearts.filter(h=>h.classList.contains('is-fav')).length,
+   heartBox:rect?[Math.round(rect.width),Math.round(rect.height)]:null,
+   heartOpacity:hearts[0]?getComputedStyle(hearts[0]).opacity:null,
+   cardBox:(()=>{const r=c[0]?c[0].getBoundingClientRect():null;
+     return r?[Math.round(r.width),Math.round(r.height)]:null;})()};})()"""
+
+
 
 LOADER = r"""(()=>{
  const l=document.getElementById('cgLoader'), f=document.getElementById('cgFrame');
@@ -132,6 +157,7 @@ def main():
     sbox = cdp.run(BASE + "/", SEARCHBOX, port=9354, wait=7)
     sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
     load = cdp.run(BASE + "/play?g=2048", LOADER, port=9355, wait=8)
+    fav = cdp.run(BASE + "/favorites", FAVORITES, port=9358, wait=7)
     failed = cdp.failed_requests(BASE + "/", port=9357, wait=7)
     total_cards = home["cards"]
 
@@ -158,7 +184,7 @@ def main():
           home["headerBg"])
     check("body background", home["bodyBg"] == ARCHIVE["bodyBg"], home["bodyBg"])
     check("Nunito font", home["font"] == "Nunito", home["font"])
-    check("rail has 18 items", home["railItems"] == 18, str(home["railItems"]))
+    check("rail has 19 items", home["railItems"] == 19, str(home["railItems"]))
     check("catalogue cards rendered", home["cards"] >= 1000, str(home["cards"]))
     check("no broken images in viewport", home["imgVisibleBroken"] == 0,
           "%d broken of %d visible" % (home["imgVisibleBroken"], len(home["imgVisible"])))
@@ -219,6 +245,25 @@ def main():
           and load.get("moreCols") >= 2 and len(load.get("moreTitles") or []) == 3,
           json.dumps({k: load.get(k) for k in
                       ("moreInInfo", "moreCards", "moreCols", "moreTitles")}))
+
+    # Every card carries a heart; the Favorites rail entry points at the page.
+    check("cards have favourite hearts",
+          home.get("favHearts") == home.get("cards"),
+          json.dumps({"hearts": home.get("favHearts"), "cards": home.get("cards")}))
+    check("favorites rail entry",
+          (home.get("favRail") or {}).get("href") == "/favorites"
+          and "Favorites.svg" in ((home.get("favRail") or {}).get("icon") or ""),
+          json.dumps(home.get("favRail")))
+    # /favorites renders the saved slugs as the same card component, lit hearts.
+    check("favorites page renders saved games",
+          fav.get("cards") == 1 and fav.get("titles") == ["2048"]
+          and fav.get("lit") == 1 and fav.get("emptyHidden") is True
+          and fav.get("clearHidden") is False,
+          json.dumps(fav))
+    # Heart sits over the card's top-right; the card itself keeps its ratio.
+    check("favorite heart 26x26 on cards",
+          fav.get("heartBox") == [26, 26] and fav.get("heartOpacity") == "1",
+          json.dumps({"heart": fav.get("heartBox"), "opacity": fav.get("heartOpacity")}))
 
     # Every local asset the page asks for must resolve. Relative URLs inside
     # assets/cg/archive.css resolve from that directory, not the site root, so a

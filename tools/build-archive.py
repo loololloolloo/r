@@ -55,6 +55,7 @@ RAIL = [
     ("Trending", "/?sort=rating", "Trending", False),
     ("Updated", "/?sort=newest", "Updated", False),
     ("Originals", "/?sort=rating", "Originals", False),
+    ("Favorites", "/favorites", "Favorites", True),
     ("__hr__",),
     ("2 Player", "/?category=Team", "2players", False),
     ("Action", "/?category=Action", "Action", False),
@@ -139,13 +140,22 @@ def head(title, description, extra_css=""):
 
 
 def sprite():
-    """Inline the archive's <symbol> defs so <use href="#id"> resolves."""
+    """Inline the archive's <symbol> defs so <use href="#id"> resolves.
+
+    Our own heart symbol is appended so the favourite buttons on the cards can
+    share one definition instead of repeating the path on every card.
+    """
     path = os.path.join(ROOT, CG, "sprite.svg")
     try:
         with open(path, encoding="utf-8") as f:
-            return f.read()
+            data = f.read()
     except OSError:
-        return ""
+        data = '<svg xmlns="http://www.w3.org/2000/svg" style="display:none">'
+    heart = ('<symbol id="cg-heart" viewBox="0 0 24 24">'
+             '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 '
+             '7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 '
+             '5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></symbol>')
+    return data.replace("</svg>", heart + "</svg>")
 
 
 def header():
@@ -198,7 +208,11 @@ def card(g):
             f'data-rating="{g["rating"] or 0}" data-i="{g["_i"]}">'
             f'<div class="cg-card-title">{esc(g["title"])}</div>'
             f'<img class="cg-card-img" loading="lazy" src="{esc(g["thumb"])}" '
-            f'alt="{esc(g["title"])}"></a>')
+            f'alt="{esc(g["title"])}">'
+            f'<button class="cg-fav" type="button" data-fav="{esc(g["slug"])}" '
+            f'aria-label="Add {esc(g["title"])} to favourites" aria-pressed="false">'
+            f'<svg viewBox="0 0 24 24" aria-hidden="true">'
+            f'<use href="#cg-heart"></use></svg></button></a>')
 
 
 def carousel(title, games, more_href=""):
@@ -407,7 +421,11 @@ def build_play(games):
       return list.map(function (x) {
         return '<li><a class="cg-card" href="/play?g=' + x.slug + '">' +
           '<div class="cg-card-title">' + x.title + '</div>' +
-          '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt=""></a></li>';
+          '<img class="cg-card-img" loading="lazy" src="' + x.thumb + '" alt="">' +
+          '<button class="cg-fav" type="button" data-fav="' + x.slug +
+          '" aria-label="Add to favourites" aria-pressed="false">' +
+          '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+          '<use href="#cg-heart"></use></svg></button></a></li>';
       }).join('');
     }
 
@@ -432,6 +450,10 @@ def build_play(games):
             <div class="cg-info-head">
               <h1 class="cg-info-title" id="cgStageTitle">Loading...</h1>
               <div class="cg-info-actions">
+                <button class="cg-pill cg-pill-fav" type="button" id="cgFavToggle" hidden
+                        aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#cg-heart"></use></svg><span>Favorite</span>
+                </button>
                 <button class="cg-pill" type="button" id="cgFullscreen">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg><span>Fullscreen</span>
                 </button>
@@ -475,6 +497,25 @@ def build_about(games):
     return page("About - Games", "About Games.", main, "", "Home")
 
 
+def build_favorites(games):
+    main = """      <div class="cg-fav-page">
+        <div class="cg-section-head">
+          <h2 class="cg-section-title">Favorites</h2>
+          <span class="cg-more" id="cgFavCount"></span>
+        </div>
+        <p class="cg-fav-empty" id="cgFavEmpty" hidden>
+          You haven't saved any games yet. Tap the heart on a game card to keep
+          it here.
+        </p>
+        <ul class="cg-grid" id="cgFavGrid"></ul>
+        <p class="cg-fav-clear-wrap">
+          <button class="cg-btn" type="button" id="cgFavClear" hidden>Clear all</button>
+        </p>
+      </div>"""
+    return page("Favorites - Games", "Your saved games.", main, "", "Favorites",
+                "cg-main-fav")
+
+
 def main():
     games = load_games()
 
@@ -490,6 +531,7 @@ def main():
         "index.html": build_home(games),
         "play.html": build_play(games),
         "about.html": build_about(games),
+        "favorites.html": build_favorites(games),
     }
     for name, content in out.items():
         with open(os.path.join(ROOT, name), "w", encoding="utf-8") as f:
