@@ -104,7 +104,7 @@ SEARCHBOX = r"""(()=>{
    smallImg:img?Math.round(img.width):0, more:!!box.querySelector('.cg-search-more')};})()"""
 
 FAVORITES = r"""(()=>{
- localStorage.setItem('cg-favorites', JSON.stringify(['2048','snake','tetris']));
+ localStorage.setItem('cg-favorites', JSON.stringify(['2048','retro-bowl','tetris']));
  document.dispatchEvent(new CustomEvent('cg:favchange'));
  const g=document.getElementById('cgFavGrid');
  const c=g?[...g.querySelectorAll('.cg-card')]:[];
@@ -265,8 +265,9 @@ def main():
           json.dumps(home.get("favRail")))
     # /favorites renders the saved slugs as the same card component, lit hearts.
     check("favorites page renders saved games",
-          fav.get("cards") == 1 and fav.get("titles") == ["2048"]
-          and fav.get("lit") == 1 and fav.get("emptyHidden") is True
+          fav.get("cards") == 3
+          and fav.get("titles") == ["2048", "Retro Bowl", "Tetris"]
+          and fav.get("lit") == 3 and fav.get("emptyHidden") is True
           and fav.get("clearHidden") is False,
           json.dumps(fav))
     # Heart sits over the card's top-right; the card itself keeps its ratio.

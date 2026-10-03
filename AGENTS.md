@@ -106,8 +106,8 @@ theme layer sits on top:
 
 ## Games data
 - `data/games.json` is the catalogue: `{slug, title, thumb, embed, categories, rating}`.
-  Currently **~12,000 games** (the 10k+ target), capped by `MAX_GAMES` (12000).
-  Regenerate with `python3 tools/fetch-games.py`. It merges several public
+  Currently **58,118 games** (well past the 10k+ target), capped by `MAX_GAMES`
+  (120000). Regenerate with `python3 tools/fetch-games.py`. It merges several public
   catalogues, in priority order, and de-duplicates across them (by slug, normalised
   title, and embed host+path) so the same game listed twice appears once. The cap
   trims the tail (lowest-priority source last), so priority order decides what
@@ -135,12 +135,19 @@ theme layer sits on top:
   6. **3kh0-lite** (`lite.3kh0.net`) — self-hosted games listed in `config/games.json`;
      embed is `/projects/<folder>/`. jsDelivr serves the same files as `text/plain`, which
      browsers refuse to render in an iframe, so the site URL is used.
-  7. **GameMonetize** — `feed.php?format=0&num=20000`, a JSON catalogue of html5 games
-     (`title`/`url`/`thumb`/`category`). This is the bulk of the catalogue (~11k). The
-     feed serves at most 20000 entries; asking for more truncates.
-- **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 12k-game catalogue
+  7. **GameMonetize** — `feed.php?format=0&num=100000`, a JSON catalogue of html5 games
+     (`title`/`url`/`thumb`/`category`). This is the bulk of the catalogue (~38k). The
+     feed serves at most ~38k entries; asking for more truncates.
+  8. **GamePix** — eight plain sitemaps (`/sitemaps/games-<n>.xml`) with the cover in an
+     `<image:loc>`. The public listing/API 403 behind Cloudflare, but the sitemaps are
+     not; the embeddable frame is `play.gamepix.com/<slug>/embed` (no X-Frame-Options).
+     ~18.8k games.
+  9. **Playgama** — four sitemaps listed from `/sitemap.xml`, each entry carrying the
+     slug, an `<image:loc>` cover and the title in the og path. The portal allows framing
+     (`frame-ancestors *`) and `/game/<slug>` renders the game directly. ~8.9k games.
+- **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 58k-game catalogue
   cannot be downloaded icon-by-icon in a reasonable time or committed to the repo
-  (~36MB for 1k games, so ~400MB at 12k). The source CDNs serve their icons with
+  (~36MB for 1k games, so ~2GB at 58k). The source CDNs serve their icons with
   permissive CORS and no referer check, so cards use the source URL directly. The
   builder drops the local-path assumption; set `CG_MIRROR_THUMBS=1` to go back to
   downloading/optimising into `assets/img/games/<slug>.jpg` (Pillow, 480px wide,
@@ -172,9 +179,10 @@ theme layer sits on top:
   refuse framing later; the player shows a plain message rather than a broken frame.
 - The homepage shows carousels with no game count; the filtered "All games" view
   (search / category / sort) does show a count, because there it is useful.
-- **The home page renders client-side.** 12k server-rendered cards would make
-  `index.html` megabytes of markup, so `build_home()` emits empty carousel tracks and
-  `cg-games.js` (the catalogue, ~3MB) fills them in `initHome()`. `cardHTML()` returns
+- **The home page renders client-side.** 58k server-rendered cards would make
+  `index.html` tens of megabytes of markup, so `build_home()` emits empty carousel
+  tracks and `cg-games.js` (the catalogue, ~15MB raw / ~2.5MB gzipped) fills them in
+  `initHome()`. `cardHTML()` returns
   the whole `<li>`, so callers must not wrap it in another `<li>` — doing that makes the
   HTML parser close the outer `<li>` immediately and emit an empty one, which shows up as
   a huge gap between cards. The "All games" grid renders every match at once (no paging
@@ -226,8 +234,8 @@ theme layer sits on top:
 ## Deploy
 - GitHub Pages serves from the **`games`** branch, path `/` — NOT `main`.
   Pushing to `main` alone will not update the live site.
-- Custom domain: `games.gazeee.xyz` (CNAME file at repo root, content `games.gazeee.xyz`).
-  Needs a DNS record: `CNAME games -> loololloolloo.github.io`.
+- Custom domain: `bum.wolimons.lol` (CNAME file at repo root, content `bum.wolimons.lol`).
+  Needs a DNS record: `CNAME bum -> loololloolloo.github.io`.
 - Both `main` and `games` are kept in sync at the same commit.
 - **Cache busting:** the pages link `cg.css`/`cg-site.js` with a `?v=<hash>` token
   that `tools/build-archive.py` derives from the asset contents. Never replace it
@@ -252,5 +260,14 @@ theme layer sits on top:
   Sources now include the CrazyGames public API and a 20k-entry GameMonetize feed;
   thumbnails are hotlinked and the home page renders client-side. Filtered views
   render every match at once.
+- Phase 7 (done): **catalogue expanded to 58,118 unique games.** GameMonetize feed
+  raised to 100k (actual ~38k), and GamePix (~18.8k) plus Playgama (~8.9k) sitemap
+  sources added. Y8/Lagged/GameDistribution/AddictingGames were explored but not
+  added — see notes below. The 15MB `cg-games.js` parses in ~200ms and a full
+  58k-card render is ~0.5s, so no client-side paging cap is needed.
+- Explored and rejected: **Y8** (sitemaps ~34.6k games, no images and embed
+  thumbnails 403 without a referer, so cards would be iconless), **Lagged**
+  (~11.1k URLs, embed/thumb patterns inconsistent and many 404), **GameDistribution**
+  (30.6k, iframe-only thumbnails), **AddictingGames** (7.1k sitemap, no covers).
 - Next: revisit anything that refuses to be framed, and consider a service for
   comments.
