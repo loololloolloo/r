@@ -98,6 +98,16 @@ theme layer sits on top:
   The archived CrazyGames logo SVG is **not** used. There is no social/follow block.
 - `assets/js/cg-site.js` does the client work (filter in place, play page, random
   redirect). `assets/js/cg-games.js` is the catalogue emitted by the builder.
+- The play page needs fields the catalogue pages never use (description, vote
+  count, keyword tags). Those ship in a second bundle, `assets/js/cg-detail.js`,
+  keyed by slug and loaded **only** by `play.html`/`404.html`; `mergeDetail()` in
+  `cg-site.js` folds them into the records on `DOMContentLoaded` (cg-detail.js is
+  `defer`-loaded after cg-site.js, so it must not be read at parse time). Keeping
+  them out of `cg-games.js` avoids bloating the bundle every page downloads.
+- Favorites live in `localStorage` (`cg-favorites`) and surface two ways: a heart
+  overlay on every card (`.cg-fav`, `data-fav=<slug>`) and the play page's
+  `#addFavoritesGame` button. Any new card renderer must emit the heart markup or
+  the heart simply won't appear.
 - The play page shows a loader over the iframe until it fires `load`, so the black
   gap while a game boots is a spinner rather than an empty box. It is the 2026
   `Spinner_spinner__LzRWH` component: a 40px white ring (`Spinner_size40`,
@@ -280,7 +290,7 @@ theme layer sits on top:
   markup. The rail is the 2026 collapsed sidebar (60px), the header sits on
   `--black-80`, the game info panel on `--black-90` with 16px radii, and the loader
   is the 2026 40px white `Spinner`. `tools/verify.py` asserts the 2026 palette,
-  geometry (1014px main column, 982×552 player, 356px sidebar) and component
+  geometry (1014px main column, 982×597 16:9 player, 356px sidebar) and component
   classes.
 - Phase 6 (done): **catalogue scaled to ~12,000 unique games** and favoriting.
   Sources now include the CrazyGames public API and a 20k-entry GameMonetize feed;
@@ -335,8 +345,11 @@ theme layer sits on top:
     showed one column; the lifted CSS is what makes the layout match at desktop widths.
     The archive sets `main__fSalE` to flex only at >=1910px, so cg-play.css also forces
     it at every width, and grows the info column to fill the space left of the sidebar.
-  - Game pages are flat: `/<slug>` (e.g. `/2048`), served by GitHub Pages through
-    `404.html`, which `build-archive.py` writes as a copy of `play.html`. `tools/serve.py`
-    mirrors that fallback locally.
-  - Measured parity vs `sportsgamesaz.io/2v2io` at 1024/1280/1430px: frame 982x552,
-    sidebar 356px, `mainContainer` 1014px, info column 982px, side grid 154px columns.
+  - Game pages are flat: `/<slug>` (e.g. `/1-archery-master`), served by GitHub
+    Pages through `404.html`, which `build-archive.py` writes as a copy of
+    `play.html`. `tools/serve.py` mirrors that fallback locally. GitHub Pages
+    answers such a URL with HTTP 404 while still returning the play page's HTML,
+    so a 404 status on a game URL is expected, not a broken deploy.
+  - Measured parity vs `sportsgamesaz.io/2v2io` at 1024/1280/1430px: frame 982x597
+    (16:9), sidebar 356px, `mainContainer` 1014px, info column 982px, side grid
+    154px columns.
