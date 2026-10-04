@@ -256,6 +256,38 @@ ul { list-style: none; margin: 0; padding: 0; }
    is enough - no fill/stroke to flip). */
 .cg-pill-fav.is-fav { color: #ff5c8a; }
 
+/* Heart on a game card. Overlays the art top-right and stays out of the way
+   until the card is hovered (or the game is already saved / the card is
+   focused), so the thumbnails keep their art. */
+.cg-fav {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(12, 13, 20, 0.66);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+}
+.cg-fav svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+.cg-fav:hover { background-color: rgba(12, 13, 20, 0.92); }
+.cg-fav:focus-visible { opacity: 1; transform: scale(1); outline: 2px solid var(--cg-fg); outline-offset: 2px; }
+.cg-fav.is-fav { opacity: 1; transform: scale(1); color: #ff5c8a; }
+.cg-fav.is-fav svg { fill: currentColor; }
+
+.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs:hover .cg-fav,
+.GameThumb_gameThumbLinkDesktop__wcir5:hover .cg-fav { opacity: 1; transform: scale(1); }
+
 /* ---------- Buttons ---------- */
 
 .cg-btn {

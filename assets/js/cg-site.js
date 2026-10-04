@@ -9,6 +9,22 @@
 
   var games = window.CG_GAMES || [];
 
+  /* The play page loads cg-detail.js (which runs after this file), adding the
+     long-form fields (desc, votes, tags) keyed by slug. Fold them into the
+     records so the play renderer reads them like any other field; home and
+     catalogue pages never load the detail bundle. */
+  function mergeDetail() {
+    var d = window.CG_DETAIL;
+    if (!d) return;
+    for (var i = 0; i < games.length; i++) {
+      var x = d[games[i].slug];
+      if (!x) continue;
+      if (x.d) games[i].desc = x.d;
+      if (x.v != null) games[i].votes = x.v;
+      if (x.t) games[i].tags = x.t;
+    }
+  }
+
   function qs(name) {
     return new URLSearchParams(window.location.search).get(name);
   }
@@ -22,6 +38,24 @@
   /* ------------------------------------------------------------ favourites -- */
 
   var FAV_KEY = "cg-favorites";
+
+  /* The heart shown on every card. It lives inside the card's link, so
+     initFavorites stops the click from opening the game. Hidden until the card
+     is hovered (or the game is already saved), so it does not clutter the art. */
+  var HEART_PATH = "M12 21C11.11 21 10.11 20.5 9.21 19.9C8.27 19.26 7.25 18.38 " +
+    "6.30 17.36C4.41 15.35 2.61 12.66 2.11 10.09C1.92 9.10 1.91 7.38 2.70 " +
+    "5.86C3.11 5.08 3.72 4.35 4.63 3.82C5.53 3.30 6.66 3 8.04 3C9.62 3 11.05 " +
+    "3.62 12 4.64C12.95 3.62 14.38 3 15.96 3C17.34 3 18.47 3.30 19.37 3.82C20.28 " +
+    "4.35 20.89 5.08 21.30 5.86C22.09 7.38 22.08 9.10 21.89 10.09C21.39 12.66 " +
+    "19.59 15.35 17.70 17.36C16.75 18.38 15.73 19.26 14.79 19.90C13.89 20.50 " +
+    "12.89 21 12 21Z";
+
+  function favBtnHTML(slug) {
+    return '<button class="cg-fav" type="button" data-fav="' + esc(slug) +
+      '" aria-label="Add to favourites" aria-pressed="false" title="Add to favourites">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="' +
+      HEART_PATH + '"></path></svg></button>';
+  }
 
   function favSlugs() {
     try {
@@ -81,6 +115,7 @@
       '<a class="GameThumbDesktop_gameThumbLinkDesktop__LS_Bs ' +
       'GameThumbDesktop_hasHoverOverlay__qNdmo game-thumb-test-class" ' +
       'aria-label="' + t + '" href="./' + g.slug + '">' + badge +
+      favBtnHTML(g.slug) +
       '<div class="GameThumbDesktop_gameThumbMedia__L7si1">' +
       '<img class="GameThumbShared_gameThumbImage__7EHHi ' +
       'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" width="273" ' +
@@ -125,8 +160,9 @@
       var on = saved.indexOf(btns[i].getAttribute("data-fav")) !== -1;
       btns[i].classList.toggle("is-fav", on);
       btns[i].setAttribute("aria-pressed", on ? "true" : "false");
-      btns[i].setAttribute("aria-label",
-        on ? "Remove from favourites" : "Add to favourites");
+      var lab = on ? "Remove from favourites" : "Add to favourites";
+      btns[i].setAttribute("aria-label", lab);
+      btns[i].setAttribute("title", lab);
       var label = btns[i].querySelector("span");
       if (label) label.textContent = on ? "Favorited" : "Favorite";
     }
@@ -602,10 +638,16 @@
     var cats = game.categories || [];
     var tags = document.querySelector(".GameTags_gameTagChipContainer__F5xPO");
     if (tags) {
-      tags.innerHTML = cats.map(function (c) {
-        return '<a href="./?category=' + encodeURIComponent(c) + '">' +
-          '<div class="TagGrid_tagPillContainer__rY0CY tagPill"><p>' + esc(c) +
-          "</p><span>&rsaquo;</span></div></a>";
+      var keywords = (game.tags && game.tags.length) ? game.tags : cats;
+      tags.innerHTML = keywords.map(function (c) {
+        var words = c.replace(/-/g, " ");
+        // Keyword tags have no page of their own, so a pill runs a title search.
+        var href = (game.tags && game.tags.length)
+          ? "./?q=" + encodeURIComponent(words.replace(/ games$/, ""))
+          : "./?category=" + encodeURIComponent(c);
+        return '<a href="' + href + '">' +
+          '<div class="TagGrid_tagPillContainer__rY0CY tagPill"><p>' +
+          esc(words) + "</p><span>&rsaquo;</span></div></a>";
       }).join("");
     }
 
@@ -669,6 +711,7 @@
       "GameThumb_isResponsiveGrid__b4QQf GameThumb_isResponsive__UwFpC " +
       'game-thumb-test-class" aria-label="Play ' + t + ' game" href="./' +
       g.slug + '">' +
+      favBtnHTML(g.slug) +
       '<div class="GameThumb_gameThumbTitleContainer__J1K4D gameThumbTitleContainer">' +
       t + "</div>" +
       '<div class="GameThumb_gradientVignette__Q04oZ"></div>' +
@@ -696,6 +739,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    mergeDetail();
     initImageFallback();
     initRandom();
     initFavorites();

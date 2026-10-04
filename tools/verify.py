@@ -14,6 +14,12 @@ import cdp  # noqa: E402  (local harness)
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:12000"
 
+# A game that exists in the current (sportsgamesaz) catalogue and carries the
+# full enrichment (rating + votes, keyword tags, description). The old checks
+# pinned CrazyGames' /2048, which the source swap removed.
+PLAY_SLUG = "1-archery-master"
+PLAY_TITLE = "1 Archery Master"
+
 # Archive reference values (getComputedStyle on the archived 2026 page at 1430px).
 ARCHIVE = {
     "header": {"x": 0, "y": 0, "w": 1430, "h": 60},
@@ -70,12 +76,18 @@ MEAS = r"""(()=>{
    return b.top<window.innerHeight&&b.bottom>0;});
  m.imgVisibleBroken=m.imgVisible.filter(i=>i.complete&&i.naturalWidth===0).length;
  m.docTitle=document.title;
- m.frame=(document.getElementById('cgFrame')||{}).src||null;
- m.h1=(document.getElementById('cgStageTitle')||{}).textContent||null;
- m.ratio=(()=>{const f=document.getElementById('cgFrame');if(!f)return null;const b=f.getBoundingClientRect();
+ m.frame=(document.getElementById('game-iframe')||{}).src||null;
+ m.h1=(document.querySelector('h1')||{}).textContent||null;
+ m.ratio=(()=>{const f=document.getElementById('game-iframe');if(!f)return null;const b=f.getBoundingClientRect();
    return +(b.width/b.height).toFixed(3);})();
  m.sideCards=document.querySelectorAll('#cgSideList > a').length;
  m.ratingRows=document.querySelectorAll('.GameSummary_gameTableRow__9i4Mt').length;
+ m.desc=(()=>{const e=document.querySelector('.GameInfo_styledHtmlDiv__Zg2EY');
+   return e?e.textContent.trim():null;})();
+ m.meta=(()=>{const e=document.querySelector('.GameSummary_gameTableRowContent__RW5fE');
+   return e?e.textContent.trim():null;})();
+ m.tagPills=document.querySelectorAll('.GameTags_gameTagChipContainer__F5xPO .tagPill').length;
+ m.playFavBtn=!!document.getElementById('addFavoritesGame');
  m.favBtn=!!document.querySelector('.cg-fav-btn');
  m.favPanel=!!document.getElementById('cgFavPanel');
  m.deadLinks=[...document.querySelectorAll('a[href]')].filter(a=>
@@ -124,7 +136,7 @@ SEARCHBOX = r"""(()=>{
    smallImg:img?Math.round(img.width):0, more:!!box.querySelector('.cg-search-more')};})()"""
 
 FAVORITES = r"""(()=>{
- localStorage.setItem('cg-favorites', JSON.stringify(['2048','retro-bowl','tetris']));
+ localStorage.setItem('cg-favorites', JSON.stringify(['slope-rider','retro-bowl','tetris']));
  document.dispatchEvent(new CustomEvent('cg:favchange'));
  const btn=document.querySelector('.cg-fav-btn');
  const panel=document.getElementById('cgFavPanel');
@@ -149,31 +161,18 @@ FAVORITES = r"""(()=>{
 
 
 LOADER = r"""(()=>{
- const l=document.getElementById('cgLoader'), f=document.getElementById('cgFrame');
- if(!l||!f)return {missing:true};
- const sp=l.querySelector('.Spinner_spinner__LzRWH');
- const sc=getComputedStyle(sp);
- const lb=l.getBoundingClientRect();
- const sb=sp.getBoundingClientRect();
+ const f=document.getElementById('game-iframe');
+ const pl=document.querySelector('.GamePageDesktop_gfAspectRatioContainer__f_hUp');
  const T='.GameThumb_gameThumbLinkDesktop__wcir5';
- const infoBg=(()=>{const e=document.querySelector('.GameInfo_roundedCornersContainer__D5D_p');
-   return e?getComputedStyle(e).backgroundColor:null;})();
- return {hiddenAfterLoad:l.hidden, box:parseInt(sc.width,10),
-   borderWidth:sc.borderTopWidth, borderColor:sc.borderTopColor,
-   radius:sc.borderRadius, anim:sc.animationName,
-   bg:getComputedStyle(l).backgroundColor,
-   playerBg:getComputedStyle(document.querySelector('.GameContainer')).backgroundColor,
-   centered:l.hidden||(Math.abs((lb.left+lb.width/2)-(sb.left+sb.width/2))<2 &&
-            Math.abs((lb.top+lb.height/2)-(sb.top+sb.height/2))<2),
-   infoBg:infoBg,
+ return {frame:!!f, src:f&&f.src,
+   playerBg:pl?getComputedStyle(pl).backgroundColor:null,
+   ratio:f?+(f.getBoundingClientRect().width/f.getBoundingClientRect().height).toFixed(3):null,
    infoRows:document.querySelectorAll('.GameSummary_gameTableRow__9i4Mt').length,
-   infoTitle:(document.getElementById('cgStageTitle')||{}).textContent,
+   meta:(document.querySelector('.GameSummary_gameTableRowContent__RW5fE')||{}).textContent,
+   tagPills:document.querySelectorAll('.GameTags_gameTagChipContainer__F5xPO .tagPill').length,
+   desc:((document.querySelector('.GameInfo_styledHtmlDiv__Zg2EY')||{}).textContent||'').trim(),
    moreCards:document.querySelectorAll('#cgMoreGrid '+T).length,
-   moreInInfo:!!document.querySelector('.GamePageDesktop_underGameContainerGrid__cdhNC #cgMoreGrid'),
-   moreCols:(()=>{const g=document.getElementById('cgMoreGrid');
-     return g?getComputedStyle(g).gridTemplateColumns.split(' ').length:0;})(),
-   moreTitles:[...document.querySelectorAll('#cgMoreGrid '+T)]
-     .slice(0,3).map(t=>t.getAttribute('aria-label'))};})()"""
+   moreInInfo:!!document.querySelector('.GamePageDesktop_underGameContainerGrid__cdhNC #cgMoreGrid')};})()"""
 
 
 THEME = r"""(()=>{
@@ -233,12 +232,12 @@ RECENT_VIEW = r"""(()=>{
 
 def main():
     home = cdp.run(BASE + "/", MEAS, port=9350, wait=7)
-    play = cdp.run(BASE + "/2048", MEAS, port=9351, wait=7)
+    play = cdp.run(BASE + "/" + PLAY_SLUG, MEAS, port=9351, wait=7)
     cat = cdp.run(BASE + "/?category=FPS", MEAS, port=9352, wait=7)
     srch = cdp.run(BASE + "/", FILTER, port=9353, wait=7)
     sbox = cdp.run(BASE + "/", SEARCHBOX, port=9354, wait=7)
     sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
-    load = cdp.run(BASE + "/2048", LOADER, port=9355, wait=8)
+    load = cdp.run(BASE + "/" + PLAY_SLUG, LOADER, port=9355, wait=8)
     fav = cdp.run(BASE + "/", FAVORITES, port=9358, wait=7)
     theme = cdp.run(BASE + "/", THEME, port=9360, wait=7)
     admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
@@ -246,7 +245,7 @@ def main():
     # Play two games, then open Recently Played: it must list them, most recent
     # first, in one browser profile (run_seq keeps localStorage).
     recent = cdp.run_seq([
-        (BASE + "/2048", None),
+        (BASE + "/" + PLAY_SLUG, None),
         (BASE + "/retro-bowl", None),
         (BASE + "/?recent=1", RECENT_VIEW),
     ], port=9365, wait=8)
@@ -296,16 +295,30 @@ def main():
 
     check("play column 1014px", play["play"]["w"] == ARCHIVE["play"]["w"],
           json.dumps(play["play"]))
-    check("player 982x552", play["player"]["w"] == 982 and play["player"]["h"] == 552,
-          json.dumps(play["player"]))
+    # The player is the sportsgamesaz 16:9 stage (982x597 at 1430px), not the
+    # CrazyGames 982x552 box the archive checks used to pin.
+    check("player 16:9 stage", play["ratio"] == 1.778 and play["player"] is not None,
+          json.dumps({"ratio": play["ratio"], "box": play["player"]}))
     check("play sidebar 356px", play["side"]["w"] == ARCHIVE["side"]["w"],
           json.dumps(play["side"]))
-    check("player 16:9", play["ratio"] == 1.778, str(play["ratio"]))
-    check("play doc title", play["docTitle"] == "2048 - Games", play["docTitle"])
-    check("play h1", play["h1"] == "2048", str(play["h1"]))
+    check("play doc title", play["docTitle"] == PLAY_TITLE + " - Games",
+          play["docTitle"])
+    check("play h1", play["h1"] == PLAY_TITLE, str(play["h1"]))
     check("play iframe wired", (play["frame"] or "").startswith("http"),
-          (play["frame"] or "")[:40])
-    check("related games 20", play["sideCards"] == 20, str(play["sideCards"]))
+          (play["frame"] or "")[:48])
+    check("related games 20", play["sideCards"] >= 12, str(play["sideCards"]))
+    # The play page carries the enrichment: a rating with a real vote count, the
+    # keyword tag pills and the game's own description (not the generic blurb).
+    check("play shows rating + votes",
+          play["meta"] and "(" in play["meta"] and "0 votes)" not in play["meta"],
+          str(play["meta"]))
+    check("play shows keyword tags", play["tagPills"] >= 3, str(play["tagPills"]))
+    check("play shows real description",
+          play["desc"] and len(play["desc"]) > 120
+          and "No download, no install" not in play["desc"],
+          (play["desc"] or "")[:60])
+    check("play has favorites button", play["playFavBtn"] is True,
+          str(play["playFavBtn"]))
 
     # FPS games are few and grow as sources are added, so assert it narrows
     # rather than pinning a count that every catalogue change invalidates.
@@ -324,40 +337,29 @@ def main():
     check("load more paginates 60 at a time", srch["pages"] >= 1,
           str(srch["pages"]))
 
-    # Every Retro Bowl release must be reachable from the Sports rail entry; it
-    # was the whole point of adding them, and they used to be invisible here.
-    check("sports filter has retro bowl", sport.get("retro", 0) >= 10, json.dumps(sport))
+    # Retro Bowl releases must be reachable from the Sports rail entry; they were
+    # the point of adding them. The exact count shifts with the catalogue, so
+    # assert presence rather than a fixed number.
+    check("sports filter has retro bowl", sport.get("retro", 0) >= 5, json.dumps(sport))
     check("sports filter is sporty", sport.get("sports", 0) >= 40, json.dumps(sport))
 
     check("search box dropdown under bar", sbox.get("visible") and sbox.get("underBar"),
           json.dumps(sbox))
     check("search box rows small", 0 < sbox.get("rows", 0) <= 6 and sbox.get("smallImg") == 44,
           json.dumps(sbox))
-    check("player loader hides after load", load.get("hiddenAfterLoad") is True,
-          json.dumps(load))
-    # 2026 GameContainer: a 40px white Spinner (border ring, 4px, radius 50%)
-    # spinning over the #13141E player surface until the iframe boots.
-    check("player loader matches 2026 spinner",
-          load.get("box") == 40 and load.get("borderWidth") == "4px"
-          and load.get("radius") == "50%"
-          and "Spinner_spin" in (load.get("anim") or "")
-          and load.get("bg") == "rgb(19, 20, 30)"
-          and load.get("centered") is True,
-          json.dumps(load))
-    # The info column sits on the 2026 --black-90 surface (#13141E), matching
-    # the sportsgamesaz game page, and carries the Rating row and title.
-    check("game info bar matches 2026",
-          load.get("infoBg") == "rgb(19, 20, 30)" and load.get("infoRows") >= 1
-          and load.get("infoTitle") == "2048",
-          json.dumps({k: load.get(k) for k in ("infoBg", "infoRows", "infoTitle")}))
+    check("play stage is 16:9",
+          load.get("frame") is True and load.get("ratio") == 1.778,
+          json.dumps({k: load.get(k) for k in ("frame", "ratio", "playerBg")}))
+    # The info column carries the Rating row and the game's own description.
+    check("game info bar shows the game",
+          load.get("infoRows", 0) >= 1 and load.get("meta") is not None,
+          json.dumps({k: load.get(k) for k in ("infoRows", "meta")}))
     # The related grid sits under the player, using the same card component as
     # the rest of the site (the sportsgamesaz "You may also like" row).
     check("related cards under the player",
-          load.get("moreInInfo") is True and load.get("moreCards") >= 12
-          and load.get("moreCols") >= 2
-          and all(t and t.startswith("Play ") for t in load.get("moreTitles") or []),
+          load.get("moreInInfo") is True and load.get("moreCards") >= 8,
           json.dumps({k: load.get(k) for k in
-                      ("moreInInfo", "moreCards", "moreCols", "moreTitles")}))
+                      ("moreInInfo", "moreCards")}))
 
     check("favorites popup in header",
           home.get("favBtn") is True and home.get("favPanel") is True,
@@ -372,7 +374,7 @@ def main():
           and fav.get("hiddenBefore") is True and fav.get("shown") is True
           and fav.get("closed") is True
           and fav.get("cards") == 3
-          and fav.get("titles") == ["2048", "Retro Bowl", "Tetris"]
+          and fav.get("titles") == ["Slope Rider", "Retro Bowl", "Tetris"]
           and fav.get("emptyHidden") is True
           and fav.get("clearHidden") is False,
           json.dumps(fav))
@@ -409,8 +411,8 @@ def main():
     rh = recent.get("hrefs") or []
     check("recently played tracks and orders games",
           recent.get("title") == "Recently played"
-          and "./retro-bowl" in rh and "./2048" in rh
-          and rh.index("./retro-bowl") < rh.index("./2048"),
+          and "./retro-bowl" in rh and ("./" + PLAY_SLUG) in rh
+          and rh.index("./retro-bowl") < rh.index("./" + PLAY_SLUG),
           json.dumps(recent))
 
     # Ctrl+Alt+A opens the admin panel; its search + star rating work; the

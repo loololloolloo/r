@@ -26,6 +26,16 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FILE = os.path.join(ROOT, "data", "games.json")
 CG26 = "assets/cg2026"
 
+# Filled-heart path used by the card favourite overlay. The same shape is
+# inlined in cg-site.js for the client-rendered cards.
+HEART_PATH = ("M12 21C11.11 21 10.11 20.5 9.21 19.9C8.27 19.26 7.25 18.38 6.30 "
+              "17.36C4.41 15.35 2.61 12.66 2.11 10.09C1.92 9.10 1.91 7.38 2.70 "
+              "5.86C3.11 5.08 3.72 4.35 4.63 3.82C5.53 3.30 6.66 3 8.04 3C9.62 3 "
+              "11.05 3.62 12 4.64C12.95 3.62 14.38 3 15.96 3C17.34 3 18.47 3.30 "
+              "19.37 3.82C20.28 4.35 20.89 5.08 21.30 5.86C22.09 7.38 22.08 9.10 "
+              "21.89 10.09C21.39 12.66 19.59 15.35 17.70 17.36C16.75 18.38 15.73 "
+              "19.26 14.79 19.90C13.89 20.50 12.89 21 12 21Z")
+
 # Cache-busting token for the local stylesheet/scripts. It is derived from the
 # asset contents in main(), not hand-maintained: the old fixed "v=28" let a
 # rebuilt cg.css sit behind a 4h max-age while the HTML (10min) updated, so
@@ -172,6 +182,16 @@ def rail(active=""):
   </nav>"""
 
 
+def fav_btn(g):
+    """The heart overlay on a card. cg-site.js wires the click (it must not open
+    the game) and reflects the saved state."""
+    return (
+        f'<button class="cg-fav" type="button" data-fav="{esc(g["slug"])}" '
+        f'aria-label="Add to favourites" aria-pressed="false" '
+        f'title="Add to favourites"><svg viewBox="0 0 24 24" aria-hidden="true">'
+        f'<path fill-rule="evenodd" d="{HEART_PATH}"></path></svg></button>')
+
+
 def card(g):
     """A CrazyGames-2026 game thumb: an image-only link with the title in the
     aria-label, an optional new/hot badge and a hover-zoom overlay."""
@@ -192,7 +212,7 @@ def card(g):
     return (
         f'<a class="GameThumbDesktop_gameThumbLinkDesktop__LS_Bs '
         f'GameThumbDesktop_hasHoverOverlay__qNdmo game-thumb-test-class" '
-        f'aria-label="{title}" href="{href}">{label}'
+        f'aria-label="{title}" href="{href}">{label}{fav_btn(g)}'
         f'<div class="GameThumbDesktop_gameThumbMedia__L7si1">'
         f'<img class="GameThumbShared_gameThumbImage__7EHHi '
         f'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" '
@@ -471,8 +491,9 @@ def build_play(games):
     from play_body import PLAY_BODY
 
     head_extra = (f'  <link href="assets/css/sga-play.css?v={VERSION}" rel="stylesheet">\n')
+    scripts = f'\n  <script defer src="assets/js/cg-detail.js?v={VERSION}"></script>'
     return page("Play - Games", "Play a free browser game.",
-                "      " + PLAY_BODY.strip(), "", "Home", "cg-main-play",
+                "      " + PLAY_BODY.strip(), scripts, "Home", "cg-main-play",
                 head_extra=head_extra)
 def build_about(games):
     total = len(games)
@@ -609,8 +630,20 @@ def main():
                                           "categories", "rating", "source")} for g in games],
                       separators=(",", ":"))
     games_js = "window.CG_GAMES=" + data + ";\n"
+
+    # The play page also needs the long-form fields (description, vote count,
+    # keyword tags). Only ~half the catalogue has them, so they go in a separate
+    # bundle that the play page alone loads - the home/catalogue pages stay on
+    # the slim one.
+    detail = [{"s": g["slug"], "v": g.get("votes"), "d": g.get("desc"),
+               "t": g.get("tags")}
+              for g in games
+              if g.get("desc") or g.get("tags") or g.get("votes")]
+    detail_js = ("window.CG_DETAIL={};" +
+                 "(window.CG_DETAIL_ARR=" + json.dumps(detail, separators=(",", ":")) +
+                 ").forEach(function(x){window.CG_DETAIL[x.s]=x;});\n")
     global VERSION
-    VERSION = asset_version(games_js)
+    VERSION = asset_version(games_js + detail_js)
 
     out = {
         "index.html": build_home(games),
@@ -630,6 +663,11 @@ def main():
               encoding="utf-8") as f:
         f.write(games_js)
     print(f"wrote assets/js/cg-games.js ({len(data)} bytes)  v={VERSION}")
+
+    with open(os.path.join(ROOT, "assets", "js", "cg-detail.js"), "w",
+              encoding="utf-8") as f:
+        f.write(detail_js)
+    print(f"wrote assets/js/cg-detail.js ({len(detail_js)} bytes)")
 
 
 if __name__ == "__main__":
