@@ -1,0 +1,3130 @@
+/* Reference sportsgamesaz.io play-page stylesheet, taken verbatim from the
+   archived page. Only the standalone body/html/* resets are removed so the
+   Games shell keeps its own chrome. Everything the game page needs (player
+   box, footer bar, info column, thumbnails, sidebar, back-to-top) is here. */
+
+/* ---- part 50 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/04af38dfdaecf376.css ---- */
+@charset "utf-8";
+
+.TagGrid_tagPillContainer__rY0CY{ background-color: var(--black-70); border-radius: calc(var(--base-unit)*1); width: 300px; max-width: 100%; height: 38px; display: flex; align-items: center; transition: background-color 0.2s ease-in; padding: calc(var(--base-unit)*0) calc(var(--base-unit)*2); }
+
+
+.TagGrid_tagPillContainer__rY0CY p{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: padding-left 0.2s ease-in; color: var(--white-80); font-size: var(--font-size-button); }
+
+
+.TagGrid_tagPillContainer__rY0CY span{ padding-left: calc(var(--base-unit)*1); color: var(--brand-60); }
+
+
+.TagGrid_tagPillContainer__rY0CY:hover{ background-color: var(--brand-130); }
+
+
+.TagGrid_tagPillContainer__rY0CY:hover p.TagGrid_animateTextOnHover__El9hM{ padding-left: calc(var(--base-unit)*1); }
+
+
+.GameTags_gameTagChipContainer__F5xPO{ display: flex; flex-wrap: wrap; margin-top: calc(var(--base-unit)*2); gap: calc(var(--base-unit)*1); }
+
+
+.GameTags_gameTagChipContainer__F5xPO .tagPill{ width: unset; }
+
+/* ---- part 51 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/a714c8a4cede9eec.css ---- */
+@charset "utf-8";
+
+.GameInfo_containerWithPadding__z9aMp{ width: 100%; }
+
+
+.GameInfo_containerWithPadding__z9aMp > p:first-of-type{ margin-block-start: 0px; }
+
+
+.GameInfo_containerWithPadding__z9aMp > p:last-of-type{ margin-block-end: 0px; }
+
+
+.GameInfo_containerWithPadding__z9aMp h2, .GameInfo_containerWithPadding__z9aMp h3{ margin-block: 1em; }
+
+
+@media (min-width: 1082px){
+  .GameInfo_containerWithPadding__z9aMp { padding-bottom: calc(var(--base-unit)*1); }
+}
+
+
+.GameInfo_styledHtmlDiv__Zg2EY{ width: 100%; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY > p:first-of-type{ margin-block-start: 0px; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY > p:last-of-type{ margin-block-end: 0px; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY h2, .GameInfo_styledHtmlDiv__Zg2EY h3{ margin-block: 1em; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY ol > li{ padding: 14px; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY iframe{ width: 100%; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY.GameInfo_marginBlockEnd1__CZiMD{ margin-block-end: 1em; }
+
+
+.GameInfo_styledDevName__MnwFN{ color: var(--brand-60); cursor: pointer; font-weight: 700; }
+
+
+.GameInfo_styledDevName__MnwFN:hover{ color: var(--brand-100); }
+
+
+@media (max-width: 599.98px){
+  .GameInfo_halfPage300x600BelowGame__lYeY7 { display: none; }
+}
+
+
+.GameInfo_gameInfo__2UItk{ display: flex; background-color: var(--black-80); flex-flow: wrap; border-width: 0px; color: var(--white-60); width: 100%; position: relative; margin: auto; line-height: 1.5; }
+
+
+@media (max-width: 1081.98px){
+  .GameInfo_gameInfo__2UItk { padding-left: 0px; padding-right: 0px; margin-top: calc(var(--base-unit)*1.5); }
+}
+
+
+.GameInfo_gameInfo__2UItk h1{ color: var(--white-100); font-size: 28px; line-height: 1.167; }
+
+
+.GameInfo_gameInfo__2UItk h2, .GameInfo_gameInfo__2UItk h3{ font-size: var(--font-size-h2-small); color: var(--white-100); }
+
+
+.GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d{ font-size: 16px; flex-flow: initial; background: rgba(0, 0, 0, 0); gap: calc(var(--base-unit)*1); }
+
+
+.GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d h2, .GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d h3{ font-size: 20px; }
+
+
+.GameInfo_gameInfo__2UItk.GameInfo_isDesktop__KqJ3d h2{ font-size: 24px; }
+
+
+.GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d{ padding: calc(var(--base-unit)*3); font-size: 16px; }
+
+
+.GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d h1{ display: block; text-overflow: ellipsis; font-size: 28px; width: calc(-82px + 100vw); overflow-wrap: break-word; overflow: hidden; margin-bottom: calc(var(--base-unit)*2.5); }
+
+
+.GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d h2, .GameInfo_gameInfo__2UItk.GameInfo_isMobile___Uz1d h3{ font-size: 24px; font-weight: 700; color: var(--white-80); }
+
+
+.GameInfo_gameInfo__2UItk a{ color: var(--brand-60); }
+
+
+.GameInfo_gameInfo__2UItk a:hover{ color: var(--brand-100); }
+
+
+.GameInfo_gameInfo__2UItk .GameInfo_leftColumn__vMTeN{ display: flex; flex-direction: column; gap: calc(var(--base-unit)*1); }
+
+
+.GameInfo_gameInfo__2UItk .GameInfo_rightColumn__hExHC{ position: relative; }
+
+
+.GameInfo_gameInfo__2UItk .gameDescription_first{ margin-top: calc(var(--base-unit)*4); }
+
+
+.GameInfo_gameInfo__2UItk p{ color: var(--white-100); }
+
+
+.GameInfo_roundedCornersContainer__D5D_p{ padding: calc(var(--base-unit)*3); background: var(--black-90); border-radius: 16px; width: 100%; }
+
+
+.GameInfo_roundedCornersContainer__D5D_p.GameInfo_removeTopPadding__hI61b{ padding-top: 0px; }
+
+
+.GameInfo_leaderboard__rgrmE{ padding: calc(var(--base-unit)*1.25) calc(var(--base-unit)*3); position: relative; margin-top: calc(var(--base-unit)*1); display: flex; justify-content: center; }
+
+
+@media (max-width: 1599.98px){
+  .GameInfo_leaderboard__rgrmE { display: none; }
+}
+
+
+.GameInfo_leaderboard__rgrmE > div{ position: relative; }
+
+
+.GameInfo_secondMpuContainer__xiGbJ{ padding: calc(var(--base-unit)*1.25) calc(var(--base-unit)*3); display: flex; flex-direction: column; gap: calc(var(--base-unit)*2.5); }
+
+
+@media (min-width: 1600px){
+  .GameInfo_secondMpuContainer__xiGbJ { margin-top: calc(var(--base-unit)*1); }
+}
+
+
+.GameInfo_secondMpuContainer__xiGbJ > div{ position: relative; }
+
+
+.Breadcrumbs_breadcrumbs__L3mrb{ margin-bottom: calc(var(--base-unit)*2); }
+
+
+.Breadcrumbs_breadcrumbs__L3mrb > div, .Breadcrumbs_breadcrumbs__L3mrb > div > a, .Breadcrumbs_breadcrumbs__L3mrb > div > div{ display: inline-block; }
+
+
+.Breadcrumbs_breadcrumbs__L3mrb > div > a{ text-decoration: none; text-transform: capitalize; font-size: var(--font-size-body); font-weight: 700; color: var(--brand-60); }
+
+
+@media (max-width: 599.98px){
+  .Breadcrumbs_breadcrumbs__L3mrb > div > a { font-size: 16px; min-width: 48px; margin-bottom: calc(var(--base-unit)*1.5); }
+}
+
+
+.Breadcrumbs_breadcrumbs__L3mrb > div > a:hover{ cursor: pointer; color: var(--brand-100); }
+
+
+.Breadcrumbs_breadcrumbs__L3mrb.Breadcrumbs_isNotDesktop__8z5fy{ margin-bottom: 0px; }
+
+
+.Breadcrumbs_separator__yCVN1{ font-size: var(--font-size-body); margin-top: ; margin-bottom: ; color: var(--white-10); margin-left: calc(var(--base-unit)*.5); margin-right: calc(var(--base-unit)*.5); }
+
+
+.GameSummary_styledGameSummaryTable__OTcI_{ max-width: 100%; padding: calc(var(--base-unit)*1) calc(var(--base-unit)*0); }
+
+
+.GameSummary_gameTableRow__9i4Mt{ display: flex; min-height: 29px; }
+
+
+.GameSummary_gameTableRowHeader__qmvU_{ color: var(--white-60); width: 110px; flex-shrink: 0; }
+
+
+.GameSummary_gameTableRowContent__RW5fE{ display: flex; align-items: baseline; color: var(--white-80); font-weight: 700; }
+
+
+.GameSummary_gameTableRowContent__RW5fE div a{ min-height: 0px !important; }
+
+
+.GameSummary_wikiLinks__xu_24 a:hover{ cursor: pointer; }
+
+
+.BackToTop_buttonContainer__GQast{ position: fixed; bottom: calc(var(--base-unit)*2); left: 0px; width: 100%; display: flex; justify-content: flex-end; padding-right: calc(var(--base-unit)*2); padding-left: calc(var(--base-unit)*2); z-index: 10; transition: opacity 0.2s; opacity: 1; }
+
+
+.BackToTop_buttonContainer__GQast.BackToTop_center__l50Lu{ justify-content: center; }
+
+
+.BackToTop_buttonContainer__GQast button{ font-size: 16px; }
+
+
+.BackToTop_buttonContainer__GQast.BackToTop_hide__qS9u6{ opacity: 0; }
+
+
+.BackToTop_jumpingButton__MI8to{ box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 40px; }
+
+
+@keyframes BackToTop_bouncenimation__b81on{ 
+  0% { transform: scale(1) translateY(0px); }
+  10% { transform: scale(1.03, 0.97) translateY(0px); }
+  30% { transform: scale(0.97, 1.03) translateY(-30px); }
+  50% { transform: scale(1) translateY(0px); }
+  57% { transform: scale(1) translateY(-3px); }
+  64% { transform: scale(1) translateY(0px); }
+  100% { transform: scale(1) translateY(0px); }
+}
+
+
+.BackToTop_jumpingButton__MI8to svg{ height: 25px; width: 25px; margin-right: 0px; position: absolute; }
+
+
+.BackToTop_jumpingButton__MI8to.BackToTop_hasLabel__e_GhC svg{ height: 20px; width: 20px; margin-right: 1px; position: static; }
+
+
+.BackToTop_jumpingButton__MI8to.BackToTop_isDesktop__QrI6d:hover{ animation-name: none; }
+
+
+.BackToTop_jumpingButton__MI8to.BackToTop_playAnimation__lIo7n{ animation-duration: 1.5s; animation-iteration-count: 4; animation-name: BackToTop_bouncenimation__b81on; animation-timing-function: ease; }
+
+
+.GamePageDesktop_main__fSalE{ display: flex; }
+
+
+.GamePageDesktop_mainContainer__QMRhB{ display: flex; flex-direction: column; justify-content: flex-start; width: calc(100% - 356px); padding: calc(var(--base-unit)*2); }
+
+
+@media (max-width: 1279.98px){
+  .GamePageDesktop_mainContainer__QMRhB { width: 100%; }
+}
+
+
+.GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfContainer__ywzsh{ height: auto; max-height: calc(100vh - var(--header-height) - 45px - 64px); width: 100%; }
+
+
+@media (min-width: 1600px){
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfContainer__ywzsh { max-height: calc(100vh - var(--header-height) - 150px - 40px); }
+}
+
+
+.GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfAspectRatioContainer__f_hUp{ max-height: 100%; aspect-ratio: 16 / 9; margin: auto; display: flex; flex-direction: column; }
+
+
+.GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky{ margin: auto; width: 100%; max-width: 1600px; height: 122px; display: flex; justify-content: center; padding: calc(var(--base-unit)*2); }
+
+
+@media (min-width: 1600px){
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky { display: none; }
+}
+
+
+@media (max-width: 819px){
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky { display: none; }
+}
+
+
+.GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_leaderboardContainer__Mmiky .GamePageDesktop_leaderboard__ddMUk{ width: 728px; height: 96.9px; position: relative; }
+
+
+.GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gameInfoContainer__SwKQu{ max-width: 1600px; height: 100%; margin: auto; }
+
+
+.GamePageDesktop_rightSidebar__QgTMJ{ width: 187px; padding-right: ; padding-left: ; padding-bottom: 0px; padding-top: 0px; background-color: var(--black-90); margin-top: 2px; }
+
+
+@media (min-width: 1280px){
+  .GamePageDesktop_rightSidebar__QgTMJ { width: 356px; }
+}
+
+
+@media (max-width: 1081.98px){
+  .GamePageDesktop_rightSidebar__QgTMJ { display: none; }
+}
+
+
+.GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightMpuContainer__tFXsw{ position: relative; margin-bottom: calc(var(--base-unit)*3); margin-top: calc(var(--base-unit)*2 - 2px); display: flex; justify-content: center; }
+
+
+@media (max-width: 1279.98px){
+  .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightMpuContainer__tFXsw { display: none; }
+}
+
+
+.GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH{ padding-right: ; padding-left: ; padding-top: calc(var(--base-unit)*.5); padding-bottom: calc(var(--base-unit)*2.5); }
+
+
+.GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH > div:last-child{ grid-template-columns: 1fr; gap: 4px 8px; }
+
+
+@media (min-width: 1280px){
+  .GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH > div:last-child { grid-template-columns: 1fr 1fr; }
+}
+
+
+.GamePageDesktop_rightSidebar__QgTMJ .GamePageDesktop_rightGridContainer__qJUvH > div:last-child > a{ margin: 0px; }
+
+
+.GamePageDesktop_underGameContainerGrid__cdhNC{ display: flex; flex-direction: column; align-items: center; background-color: var(--black-90); border-radius: 10px; padding-bottom: calc(var(--base-unit)*2.5); }
+
+
+@media (min-width: 1082px){
+  .GamePageDesktop_underGameContainerGrid__cdhNC { display: none; }
+}
+
+
+@media (max-width: 819px){
+  .GamePageDesktop_underGameContainerGrid__cdhNC { margin-top: calc(var(--base-unit)*2); }
+}
+
+
+.GamePageDesktop_underGameContainerGrid__cdhNC .GamePageDesktop_underGameContainerGamesWrapper__Rahgf{ display: grid; width: 100%; }
+
+
+.GamePageDesktop_underGameContainerGrid__cdhNC .GamePageDesktop_underGameContainerGamesWrapper__Rahgf > div:first-child{ padding: calc(var(--base-unit)*2); gap: calc(var(--base-unit)*1) calc(var(--base-unit)*2); grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+
+
+.GamePageDesktop_underGameContainerGrid__cdhNC .GamePageDesktop_showMoreButton__xWgfT{ width: 150px; }
+
+/* ---- part 52 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/1a6e766d5ec0971d.css ---- */
+@charset "utf-8";
+
+.TextField_textField__XUqJS{ outline: 0px; border-radius: 8px; width: 100%; height: 60px; font-family: var(--font-nunito); background-color: rgba(0, 0, 0, 0.3); border: 2px solid rgba(255, 255, 255, 0.2); padding-left: calc(var(--base-unit)*2); padding-right: calc(var(--base-unit)*2); color: var(--white-100); font-size: 16px; }
+
+
+.TextField_textField__XUqJS:hover{ border-color: var(--white-60); }
+
+
+.TextField_textField__XUqJS:focus{ border-color: var(--brand-100); }
+
+
+.TextField_label__iAfKB{ font-size: 16px; color: var(--white-50); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; position: absolute; left: 0px; top: 0px; transition: color 0.2s cubic-bezier(0, 0, 0.2, 1), transform 0.2s cubic-bezier(0, 0, 0.2, 1); transform-origin: left top; max-width: calc(100% - var(--base-unit)*2); transform: translate(calc(var(--base-unit) * 2), calc(var(--base-unit) * 2)) scale(1); }
+
+
+.TextField_hasLabel__8fiac.TextField_textField__XUqJS{ padding-top: calc(var(--base-unit)*3); padding-bottom: calc(var(--base-unit)*1.5); }
+
+
+.TextField_textField__XUqJS:focus ~ .TextField_label__iAfKB, .TextField_textField__XUqJS:not(:placeholder-shown) ~ label{ transform: translate(calc(var(--base-unit) * 2), calc(var(--base-unit) * 1)) scale(.75); }
+
+
+.TextField_textField__XUqJS.TextField_isTextarea__fStTl{ height: auto; }
+
+
+.TextField_textField__XUqJS:read-only{ border-color: rgba(255, 255, 255, 0.2); user-select: none; }
+
+
+.TextField_textField__XUqJS:disabled{ color: var(--white-10); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: rgba(47, 49, 72, 0.4); }
+
+
+.TextField_textField__XUqJS:disabled ~ label{ color: var(--white-10); }
+
+
+.TextField_textField__XUqJS.TextField_hasError__3conj{ border-color: var(--alert-60); }
+
+
+.TextField_textField__XUqJS.TextField_hasError__3conj ~ label{ color: var(--alert-60); }
+
+
+.TextField_wrapper__rVcy9{ width: 100%; position: relative; }
+
+
+.TextField_wrapper__rVcy9.TextField_hasOnClick__VuKxI:hover{ cursor: pointer; }
+
+
+.TextField_wrapper__rVcy9.TextField_hasOnClick__VuKxI:hover .TextField_textField__XUqJS{ border-color: var(--white-60); cursor: pointer; }
+
+
+.TextField_wrapper__rVcy9.TextField_endAdorned__MdZ_v input{ padding-right: calc(var(--base-unit)*7); }
+
+
+.TextField_wrapper__rVcy9 .TextField_helperText__Zlp8S{ font-size: 12px; text-align: left; padding-top: calc(var(--base-unit)*.5); padding-left: 2px; opacity: 0.7; }
+
+
+.TextField_wrapper__rVcy9 .TextField_endAdornment__OS4eW{ position: absolute; top: 18px; right: calc(var(--base-unit)*2); cursor: pointer; }
+
+
+.TextField_wrapper__rVcy9 .TextField_endAdornment__OS4eW:hover{ color: var(--brand-60); }
+
+
+.GameThumb_czyButton__1lEe2{ border-radius: 30px; transition: 0.25s; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: calc(var(--base-unit)*1) calc(var(--base-unit)*2); background: rgba(0, 0, 0, 0); height: 40px; user-select: none; }
+
+
+.GameThumb_czyButton__1lEe2:focus{ outline: none; }
+
+
+.GameThumb_czyButton--contained--purple__NawR3{ color: var(--white-100); background: var(--brand-100); }
+
+
+.GameThumb_czyButton--contained--purple__NawR3:active{ background: rgb(var(--brand-100)/70%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--purple__NawR3:hover:not(:disabled) { background: var(--brand-80); }
+}
+
+
+.GameThumb_czyButton--contained--white__9kgyS{ color: var(--black-50); background: var(--white-100); }
+
+
+.GameThumb_czyButton--contained--white__9kgyS:active{ background: rgb(var(--white-100)/70%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--white__9kgyS:hover:not(:disabled) { background: var(--white-50); }
+}
+
+
+.GameThumb_czyButton--contained--grey__kU45V{ color: var(--white-100); background: var(--black-40); }
+
+
+.GameThumb_czyButton--contained--grey__kU45V:active{ background: rgb(var(--black-40)/70%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--grey__kU45V:hover:not(:disabled) { background: var(--black-50); }
+}
+
+
+.GameThumb_czyButton--contained--alert__HtiHW{ color: var(--white-100); background: var(--alert-100); }
+
+
+.GameThumb_czyButton--contained--alert__HtiHW:active{ background: rgb(var(--alert-100)/70%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--alert__HtiHW:hover:not(:disabled) { background: var(--alert-100); }
+}
+
+
+.GameThumb_czyButton--contained--success__6EuD8{ color: var(--white-100); background: var(--success-100); }
+
+
+.GameThumb_czyButton--contained--success__6EuD8:active{ background: rgb(var(--success-100)/70%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--success__6EuD8:hover:not(:disabled) { background: rgb(82, 177, 135); }
+}
+
+
+.GameThumb_czyButton--contained--black__A7FPs{ color: var(--white-100); background: var(--black-80); }
+
+
+.GameThumb_czyButton--contained--black__A7FPs:active{ background: rgb(var(--black-80)/70%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--black__A7FPs:hover:not(:disabled) { background: var(--black-70); }
+}
+
+
+.GameThumb_czyButton--contained--green-gradient___bcC_{ color: var(--black-100); background: linear-gradient(90deg, rgb(73, 243, 195), rgb(100, 241, 126)); }
+
+
+.GameThumb_czyButton--contained--green-gradient___bcC_:active{ background: linear-gradient(90deg, rgb(40, 151, 119), rgb(64, 139, 78)); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--contained--green-gradient___bcC_:hover:not(:disabled) { background: linear-gradient(90deg, rgb(45, 197, 154), rgb(93, 185, 110)); }
+}
+
+
+.GameThumb_czyButton--link--purple__ajKWN, .GameThumb_czyButton--outlined--purple__vM8Gp{ color: var(--brand-60); }
+
+
+.GameThumb_czyButton--link--purple__ajKWN:active, .GameThumb_czyButton--outlined--purple__vM8Gp:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--link--purple__ajKWN:hover:not(:disabled), .GameThumb_czyButton--outlined--purple__vM8Gp:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.GameThumb_czyButton--link--white__vWdNr, .GameThumb_czyButton--outlined--white__uqj5O{ color: var(--white-90); }
+
+
+.GameThumb_czyButton--link--white__vWdNr:active, .GameThumb_czyButton--outlined--white__uqj5O:active{ color: rgb(var(--white-50)/80%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--link--white__vWdNr:hover:not(:disabled), .GameThumb_czyButton--outlined--white__uqj5O:hover:not(:disabled) { color: var(--white-50); }
+}
+
+
+.GameThumb_czyButton--link--grey__OWss4, .GameThumb_czyButton--outlined--grey__TH87w{ color: rgb(var(--white-100)/30%); }
+
+
+.GameThumb_czyButton--link--grey__OWss4:active, .GameThumb_czyButton--outlined--grey__TH87w:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--link--grey__OWss4:hover:not(:disabled), .GameThumb_czyButton--outlined--grey__TH87w:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.GameThumb_czyButton--link--alert__2xjfp, .GameThumb_czyButton--outlined--alert__v1PbU{ color: var(--alert-100); }
+
+
+.GameThumb_czyButton--link--alert__2xjfp:active, .GameThumb_czyButton--outlined--alert__v1PbU:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--link--alert__2xjfp:hover:not(:disabled), .GameThumb_czyButton--outlined--alert__v1PbU:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.GameThumb_czyButton--link--success__z8mWI, .GameThumb_czyButton--outlined--success__I9Hdq{ color: var(--success-100); }
+
+
+.GameThumb_czyButton--link--success__z8mWI:active, .GameThumb_czyButton--outlined--success__I9Hdq:active{ color: rgb(var(--success-100)/80%); }
+
+
+@media (hover: hover){
+  .GameThumb_czyButton--link--success__z8mWI:hover:not(:disabled), .GameThumb_czyButton--outlined--success__I9Hdq:hover:not(:disabled) { color: var(--success-100); }
+}
+
+
+.GameThumb_czyButton--outlined--purple__vM8Gp{ border: 1px solid var(--brand-60); }
+
+
+.GameThumb_czyButton--outlined--white__uqj5O{ border: 1px solid var(--white-90); }
+
+
+.GameThumb_czyButton--outlined--grey__TH87w{ border: 1px solid rgb(var(--white-100)/30%); }
+
+
+.GameThumb_czyButton--outlined--alert__v1PbU{ border: 1px solid var(--alert-100); }
+
+
+.GameThumb_czyButton--outlined--success__I9Hdq{ border: 1px solid var(--success-100); }
+
+
+.GameThumb_czyButton--outlined__DSn4U:active{ border-color: rgb(var(--white-30)/70%); }
+
+
+.GameThumb_czyButton--disabled__40avt{ opacity: 0.4; cursor: default; }
+
+
+.GameThumb_czyButton--height50__qbi0h{ height: 50px; }
+
+
+.GameThumb_czyButton--height34__eSUw_{ height: 34px; }
+
+
+.GameThumb_czyButton--fullWidth__i_36k{ width: 100%; }
+
+
+.GameThumb_czyButton__1lEe2 svg{ height: 20px; width: 20px; margin-right: calc(var(--base-unit)*1); }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5{ position: relative; width: var(--game-thumb-width); height: var(--game-thumb-height); border-radius: calc(var(--base-unit)*1 + 2px); border: 2px solid rgba(0, 0, 0, 0); box-sizing: border-box; display: block; contain: layout; z-index: 0; background-color: rgba(255, 255, 255, 0.07); background-clip: padding-box; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbTitleContainer__J1K4D{ color: rgb(255, 255, 255); position: absolute; bottom: 5px; margin-bottom: calc(var(--base-unit)*1); margin-left: calc(var(--base-unit)*1); z-index: 4; font-size: var(--font-size-body-small); font-weight: 700; width: calc(100% - var(--base-unit)*2); height: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbTitleContainer__J1K4D.GameThumb_greyedOut__m6CwS{ opacity: 0.1; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbImage__FSasr{ z-index: 1; border-radius: calc(var(--base-unit)*1); position: absolute; bottom: 0px; width: 100%; height: 100%; color: rgba(0, 0, 0, 0); object-fit: cover; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gameThumbImage__FSasr.GameThumb_greyedOut__m6CwS{ opacity: 0.3; }
+
+
+@media (hover: hover){
+  .GameThumb_gameThumbLinkDesktop__wcir5:hover { cursor: pointer; box-shadow: rgba(0, 0, 0, 0.57) 0px 0px 7px 1px; border-color: var(--brand-100); z-index: 10; overflow: visible; }
+  .GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumb_gameThumbTitleContainer__J1K4D { height: auto; }
+}
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5.GameThumb_isResponsive__UwFpC{ width: 100%; height: 100%; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5.GameThumb_isResponsiveGrid__b4QQf{ height: 0px; margin-left: 1px; margin-top: 1px; width: calc(100% - 1px); padding-top: calc(var(--game-thumb-aspect-ratio)*(100% - var(--base-unit)*0.5)); }
+
+
+.GameThumb_gradientVignette__Q04oZ{ background: linear-gradient(0deg, rgba(0, 0, 0, 0.88) 0px, rgba(0, 0, 0, 0) 50%); position: absolute; z-index: 3; bottom: 0px; width: 100%; height: 100%; border-bottom-left-radius: calc(var(--base-unit)*1); border-bottom-right-radius: calc(var(--base-unit)*1); }
+
+
+.GameThumb_closeBtnContainer__84qjx{ position: absolute; display: flex; top: -6px; right: -3px; z-index: 11; background-color: var(--alert-100); border-radius: 20px; padding: 4px; color: rgb(255, 255, 255); border-width: 2px; border-style: solid; border-color: var(--black-100); }
+
+
+.GameThumb_closeBtnContainer__84qjx svg{ width: 16px; height: 16px; }
+
+
+.GameThumb_closeBtnContainer__84qjx:hover{ cursor: pointer; background-color: rgb(204, 0, 0); }
+
+
+.GameThumbLabel_label__dz3yR{ border-radius: 8px; box-shadow: rgba(0, 0, 0, 0.5) 4px 4px 20px 0px; display: inline-flex; padding: 3px 10px; justify-content: center; align-items: center; position: absolute; z-index: 4; opacity: 1; transition: opacity 0.2s linear; font-size: 14px; font-weight: 800; top: -4px; left: -4px; user-select: none; }
+
+
+.GameThumbLabel_label__dz3yR.GameThumbLabel_videoPlaying__Xtmok{ opacity: 0; }
+
+
+.GameThumbLabel_hot__CWhxn{ background: linear-gradient(90deg, rgb(255, 47, 15), rgb(255, 139, 45)); }
+
+
+.GameThumbLabel_new__8GnG6{ background: linear-gradient(90deg, rgb(201, 61, 209), rgb(138, 79, 255)); }
+
+
+.GameThumbLabel_topRated__xYfMw{ background: linear-gradient(90deg, rgb(255, 195, 82), rgb(250, 255, 156)); color: rgb(54, 57, 13); }
+
+
+.GameThumbLabel_updated__Z69rK{ background: linear-gradient(90deg, rgb(40, 199, 223), rgb(80, 130, 255)); }
+
+
+.GameInfoModal_gameInfoModalButton__P6ho9{ position: absolute; right: calc(var(--base-unit)*2); z-index: 1; }
+
+
+.GameInfoModal_input__WRCv3{ width: 100%; padding-right: 96px; }
+
+/* ---- part 53 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/head.css ---- */
+@charset "utf-8";
+
+html{ -webkit-font-smoothing: antialiased; box-sizing: border-box; text-size-adjust: 100%; }
+
+
+*, ::before, ::after{ box-sizing: inherit; }
+
+
+strong, b{ font-weight: 700; }
+
+
+@media print{
+  body { background-color: rgb(255, 255, 255); }
+}
+
+
+body::backdrop{ background-color: rgb(12, 13, 20); }
+
+
+@font-face{ font-family: Nunito-fallback; size-adjust: 101.44%; ascent-override: 109%; src: local("Arial"); }
+
+
+html::-webkit-scrollbar{ width: 6px; height: 6px; background: rgba(0, 0, 0, 0); }
+
+
+html::-webkit-scrollbar-thumb{ background: rgb(170, 173, 190); border-radius: 30px; }
+
+
+html::-webkit-scrollbar-corner{ background: rgba(0, 0, 0, 0); }
+
+
+button{ font-family: Nunito, "Nunito Fallback", Arial, "Helvetica Neue", Helvetica, sans-serif; }
+
+
+h1, h2, h3, h4, h5, h6{ font-family: Nunito, "Nunito Fallback", Arial, "Helvetica Neue", Helvetica, sans-serif; font-weight: 900; color: rgb(255, 255, 255); margin-block: 0px; }
+
+
+h1{ font-size: 24px; line-height: 31px; }
+
+
+h2{ font-size: 1.2rem; }
+
+
+@media (max-width: 1509.95px){
+  h2 { font-size: 0.875rem; }
+}
+
+
+h3{ font-family: Nunito, "Nunito Fallback", Arial, "Helvetica Neue", Helvetica, sans-serif; font-weight: 900; color: rgb(255, 255, 255); }
+
+
+a{ text-decoration: none; color: rgb(255, 255, 255); }
+
+
+@-webkit-keyframes animation-1nudq4e{ 
+  50% { transform: translateX(1.5px) rotate(2deg); }
+  100% { transform: translateX(-1.5px) rotate(-2deg); }
+}
+
+
+@keyframes animation-1nudq4e{ 
+  50% { transform: translateX(1.5px) rotate(2deg); }
+  100% { transform: translateX(-1.5px) rotate(-2deg); }
+}
+
+
+.css-1f20jmh{ display: flex; flex-direction: column; -webkit-box-align: stretch; align-items: stretch; background: rgb(12, 13, 20); position: relative; }
+
+
+.css-1geg79l{ z-index: 12; position: fixed; background: rgba(33, 34, 51, 0.9); backdrop-filter: blur(8px); width: 100%; top: 0px; left: 0px; right: 0px; display: flex; -webkit-box-pack: justify; justify-content: space-between; -webkit-box-align: center; align-items: center; height: 60px; flex-flow: wrap; box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px; }
+
+
+.css-1geg79l .MuiBackdrop-root{ z-index: -1; }
+
+
+.css-h9dwsh{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 0px; background: transparent; color: rgb(239, 240, 247); height: 48px; width: 48px; margin-right: 4px; }
+
+
+.css-h9dwsh:active{ color: rgba(170, 173, 190, 0.8); }
+
+
+@media (hover: hover){
+  .css-h9dwsh:hover { color: rgba(170, 173, 190, 0.8); }
+  .css-1osun8m:hover { background: rgb(134, 104, 255); }
+}
+
+
+.css-h9dwsh.Mui-disabled{ background: rgb(40, 41, 61); color: rgb(71, 73, 103); cursor: default; }
+
+
+.css-h9dwsh svg{ height: 24px; width: 24px; }
+
+
+@media (max-width: 388.95px){
+  .css-h9dwsh { display: none; }
+}
+
+
+.css-6qu7l6{ display: inline-block; fill: currentcolor; height: 22px; width: 22px; }
+
+
+.css-15nij48{ display: flex; -webkit-box-pack: start; justify-content: flex-start; margin-right: 16px; margin-left: 4px; }
+
+
+.css-15nij48 svg{ fill: white; height: 100%; }
+
+
+.css-1q4s03l{ height: 35px; position: relative; margin-right: 8px; }
+
+
+@media (pointer: fine){
+  .css-1q4s03l:hover { animation-name: animation-1nudq4e; animation-duration: 0.2s; animation-timing-function: linear; animation-iteration-count: infinite; }
+}
+
+
+.css-v5k1q0{ height: 35px; padding-top: 3px; }
+
+
+@media (max-width: 321.95px){
+  .css-v5k1q0 { display: none; }
+}
+
+
+.css-1r4eqz{ color: rgb(170, 173, 190); height: 36px; width: 36px; padding: 0px; margin: 0px; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; position: absolute; top: 2px; right: 8px; }
+
+
+button.css-1r4eqz{ background-color: transparent; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; outline: none; cursor: pointer; }
+
+
+.css-1r4eqz svg{ height: 20px; width: 20px; }
+
+
+.css-v9gl8y{ position: absolute; inset: 0px; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; }
+
+
+.css-v9gl8y span{ display: inline-block; width: 10px; height: 10px; margin-right: 2px; background: rgb(85, 86, 106); border-radius: 50%; transform: translateY(0px); animation: 1s ease-in-out 0s infinite normal none running wave; }
+
+
+.css-v9gl8y span:nth-of-type(1){ animation-delay: 0s; }
+
+
+.css-v9gl8y span:nth-of-type(2){ animation-delay: 0.1s; }
+
+
+.css-v9gl8y span:nth-of-type(3){ animation-delay: 0.2s; }
+
+
+@-webkit-keyframes wave{ 
+  0%, 60%, 100% { opacity: 0.4; transform: translateY(0px); }
+  20% { opacity: 1; transform: translateY(6px); }
+  40% { opacity: 1; transform: translateY(-6px); }
+}
+
+
+@keyframes wave{ 
+  0%, 60%, 100% { opacity: 0.4; transform: translateY(0px); }
+  20% { opacity: 1; transform: translateY(6px); }
+  40% { opacity: 1; transform: translateY(-6px); }
+}
+
+
+.css-ta5pm1{ position: fixed; top: 0px; left: 0px; background-color: transparent; transition: background-color 225ms cubic-bezier(0.4, 0, 0.2, 1); -webkit-tap-highlight-color: transparent; z-index: 11; }
+
+
+.css-148wt6v{ flex-shrink: 0; border-width: 0px 0px thin; border-style: solid; border-color: rgba(255, 255, 255, 0.12); margin: 8px 16px; }
+
+
+@media (min-width: 0px){
+  .css-1ibfcce { display: none; }
+}
+
+
+@media (min-width: 1910px){
+  .css-1ibfcce { display: block; }
+}
+
+
+.css-1ibfcce button.sidebarContactButton{ width: 176px; margin-left: 12px; margin-top: 8px; }
+
+
+.css-1hjjlbf{ padding-left: 16px; padding-right: 16px; margin-top: 16px; }
+
+
+@media (min-width: 0px){
+  .css-1hjjlbf { display: none; }
+}
+
+
+@media (min-width: 1910px){
+  .css-1hjjlbf { display: block; }
+}
+
+
+.css-1hjjlbf button{ min-width: unset; width: 165px; }
+
+
+.css-1ha0f91{ border-radius: 30px; transition: 250ms; border: 2px solid rgb(47, 49, 72); cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 8px 16px; background: transparent; color: rgb(239, 240, 247); margin-right: 4px; margin-left: 4px; height: 35px; min-width: 35px; width: 35px; }
+
+
+.css-1ha0f91:active{ border-color: rgba(135, 138, 158, 0.7); }
+
+
+@media (hover: hover){
+  .css-1ha0f91:hover { color: rgba(170, 173, 190, 0.8); }
+}
+
+
+.css-1ha0f91.Mui-disabled{ background: rgb(40, 41, 61); color: rgb(71, 73, 103); cursor: default; }
+
+
+.css-1ha0f91 svg{ height: 20px; width: 20px; margin-right: 8px; }
+
+
+.css-1ha0f91:focus{ outline: none; }
+
+
+.css-1ha0f91:hover{ border-width: 2px; border-color: rgb(104, 66, 255); }
+
+
+.css-1ha0f91 svg{ margin-right: 0px; }
+
+
+.css-17r7lae{ display: inline-block; fill: currentcolor; min-width: 15px; width: 15px; height: 15px; }
+
+
+.css-t2sft{ min-height: calc(-68px + 100vh); margin-top: 60px; }
+
+
+.css-1ajjotx{ min-height: calc(-68px + 100vh); margin-top: 60px; }
+
+
+@media (max-width: 1909.95px){
+  .css-t2sft { padding-left: 60px; }
+}
+
+
+@media (min-width: 1910px){
+  .css-t2sft { padding-left: 200px; }
+}
+
+
+.css-linpkp{ position: fixed; left: 0px; right: 0px; z-index: -1; height: 100vh; }
+
+
+.css-19dlbhf{ position: absolute; overflow: hidden; inset: 0px; width: 100%; height: 100%; background-image: url("/images/background2.jpg"); background-repeat: repeat; }
+
+
+.css-11r0q0n{ padding-left: 8px; padding-bottom: 20px; }
+
+
+.css-1rukkkz{ display: block; background-color: rgba(249, 250, 255, 0.13); height: 1.2em; position: relative; border-radius: 8px; margin-left: 2px; margin-right: 2px; }
+
+
+.css-1uxnwi7{ display: grid; height: 100%; width: 100%; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; grid-auto-flow: column; }
+
+
+.css-r8vhmt{ display: block; background-color: rgba(249, 250, 255, 0.13); height: 1.2em; position: relative; border-radius: 8px; box-sizing: content-box; margin-left: 2px; margin-right: 2px; }
+
+
+.css-d7g3uh{ display: block; background-color: rgba(249, 250, 255, 0.13); height: 1.2em; position: relative; border-radius: 8px; }
+
+
+.css-1maq35i{ width: calc(100% - 32px); display: flex; -webkit-box-pack: justify; justify-content: space-between; height: 183px; margin: 16px 8px; background: rgb(26, 27, 40); border-radius: 8px; }
+
+
+.css-oiq5uk{ display: flex; -webkit-box-align: center; align-items: center; padding-left: 56px; padding-right: 40px; width: 456px; }
+
+
+.css-oiq5uk h2{ font-size: 28px; font-weight: 700; }
+
+
+@media (max-width: 1329.95px){
+  .css-oiq5uk { padding-left: 32px; padding-right: 16px; width: 344px; }
+  .css-oiq5uk h2 { font-size: 24px; }
+}
+
+
+@media (max-width: 789.95px){
+  .css-oiq5uk { width: 150px; padding-left: 16px; padding-right: 8px; }
+  .css-oiq5uk img { display: none; }
+}
+
+
+.css-1ffeks4{ display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; gap: 32px; flex: 1 1 0%; margin: 12px; background: rgb(19, 20, 30); border-radius: 8px; padding: 12px; }
+
+
+@media (max-width: 1349.95px){
+  .css-1ffeks4 { margin: 8px; }
+}
+
+
+@media (max-width: 1219.95px){
+  .css-1ffeks4 img { width: 100px; }
+}
+
+
+@media (max-width: 1159.95px){
+  .css-1ffeks4 img { display: none; }
+}
+
+
+.css-y4by9e{ display: flex; flex-direction: column; -webkit-box-align: center; align-items: center; text-align: center; }
+
+
+.css-y4by9e span{ font-size: 16px; font-weight: 400; color: rgb(189, 191, 206); }
+
+
+.css-y4by9e h3{ font-size: 20px; font-weight: 700; }
+
+
+@media (max-width: 1369.95px){
+  .css-y4by9e button { font-size: 13px; }
+}
+
+
+@media (max-width: 1219.95px){
+  .css-y4by9e span { font-size: 12px; }
+  .css-y4by9e h3 { font-size: 16px; }
+}
+
+
+@media (max-width: 749.95px){
+  .css-y4by9e span { display: none; }
+}
+
+
+.css-y4by9e button{ margin-top: 12px; }
+
+
+.css-16livkf{ margin: 16px 16px 24px 10px; content-visibility: auto; contain: layout paint; overflow-anchor: none; height: 218px; overflow: hidden; display: flex; }
+
+
+@media (max-width: 874.95px){
+  .css-16livkf { flex-direction: column; height: unset; }
+}
+
+
+.css-jjkk1a{ border-radius: 10px; background-color: rgb(33, 34, 51); position: relative; width: 424px; flex-shrink: 0; padding: 20px; height: 218px; }
+
+
+@media (max-width: 874.95px){
+  .css-jjkk1a { width: 100%; height: 318px; }
+}
+
+
+.css-17c412x{ scrollbar-width: thin; scrollbar-color: rgb(170, 173, 190) transparent; color: rgb(189, 191, 206); font-size: 14px; height: 146px; overflow: hidden; }
+
+
+.css-17c412x::-webkit-scrollbar{ width: 4px; height: 4px; background: rgba(0, 0, 0, 0); }
+
+
+.css-17c412x::-webkit-scrollbar-thumb{ background: rgb(170, 173, 190); border-radius: 30px; }
+
+
+.css-17c412x::-webkit-scrollbar-corner{ background: rgba(0, 0, 0, 0); }
+
+
+@media (max-width: 874.95px){
+  .css-17c412x { height: 244px; }
+}
+
+
+.css-17c412x h2{ font-size: 20px; }
+
+
+.css-17c412x a{ color: rgb(164, 142, 255); font-weight: 700; text-decoration: underline; }
+
+
+.css-1fyguz1{ height: 218px; overflow: hidden; flex: 1 1 0%; }
+
+
+.css-1fyguz1 ul{ padding-top: 0px; padding-bottom: 0px; }
+
+
+@media (max-width: 874.95px){
+  .css-1fyguz1 ul { margin-top: 16px; }
+}
+
+
+.css-1fyguz1 .double-arrow{ display: none; }
+
+
+.css-1fyguz1 .arrow{ margin: 0px; height: 100%; }
+
+
+.css-1fyguz1 li{ width: min(33.3333%, 220px); }
+
+
+@media (min-width: 1082px){
+  .css-1fyguz1 li { width: min(25%, 220px); }
+}
+
+
+@media (min-width: 1280px){
+  .css-1fyguz1 li { width: min(16.6667%, 220px); }
+}
+
+
+@media (min-width: 1910px){
+  .css-1fyguz1 li { width: min(12.5%, 220px); }
+}
+
+
+.css-nb4mi8{ height: 102px; background-color: rgb(26, 27, 40); margin-right: 8px; padding: 16px; border-radius: 10px; margin-bottom: 12px; }
+
+
+.css-nb4mi8 img{ width: 35px; height: 35px; color: rgb(104, 66, 255); display: block; margin-bottom: 6px; }
+
+
+.css-nb4mi8:hover{ background-color: rgb(33, 34, 51); }
+
+
+.css-15yp4kt{ font-weight: 700; color: rgb(249, 250, 255); font-size: 16px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+
+
+.css-inysc7{ height: 102px; background-color: rgb(26, 27, 40); margin-right: 8px; padding: 16px; border-radius: 10px; }
+
+
+.css-inysc7 img{ width: 35px; height: 35px; color: rgb(104, 66, 255); display: block; margin-bottom: 6px; }
+
+
+.css-inysc7:hover{ background-color: rgb(33, 34, 51); }
+
+
+.css-2r8q21{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; color: rgb(239, 240, 247); width: 40px; height: 40px; padding: 0px; background: rgba(255, 255, 255, 0.1); }
+
+
+.css-1rts7k6{ position: relative; display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; flex-shrink: 0; font-family: Roboto, Helvetica, Arial, sans-serif; font-size: 1.25rem; line-height: 1; border-radius: 50%; overflow: hidden; user-select: none; height: 40px; width: 40px; border-width: 1px; background-color: rgb(12, 13, 20); border-color: rgb(12, 13, 20); border-style: solid; }
+
+
+.css-1rts7k6:hover{ cursor: pointer; opacity: 0.85; }
+
+
+.css-2r8q21:hover{ color: rgba(170, 173, 190, 0.8); }
+
+
+.css-1q2ta1u{ height: 50px; width: 100%; position: relative; display: flex; -webkit-box-align: center; align-items: center; }
+
+
+.css-1q2ta1u ul{ padding: 0px; }
+
+
+.css-1q2ta1u ul li{ margin-right: 4px; }
+
+
+.css-1q2ta1u ul a, .css-1q2ta1u ul .skeleton{ height: 50px !important; aspect-ratio: 89 / 50; }
+
+
+.css-1q2ta1u .arrow{ height: 100%; width: 30px; margin: 0px; }
+
+
+.GameCarousel_primeCarouselContainer__QZ_gh li{ list-style: none; display: inline-block; box-sizing: border-box; vertical-align: middle; position: relative; }
+
+
+.css-1x843ir:hover{ background: rgb(19, 20, 30) !important; border: 1px solid rgb(104, 66, 255) !important; }
+
+
+.css-1q2ta1u ul li > div{ height: 50px !important; aspect-ratio: 89 / 50; }
+
+
+.css-1q2ta1u ul li .gameThumbTitleContainer{ display: none; }
+
+
+.css-ujjn8y{ display: grid; flex-flow: wrap; box-sizing: border-box; content-visibility: visible; padding: 0px; width: 100%; gap: 6px; margin: 0px; }
+
+
+.css-1ii02y2{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 8px 16px; background: rgb(104, 66, 255); color: rgb(249, 250, 255); height: 50px; width: auto; }
+
+
+.css-1xe247z{ display: flex; flex-flow: row; -webkit-box-pack: justify; justify-content: space-between; -webkit-box-align: center; align-items: center; user-select: none; box-sizing: content-box; background: rgb(33, 34, 51); z-index: 1; width: 100%; height: 45px; }
+
+
+.css-1bnqyvi{ position: relative; box-sizing: border-box; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; vertical-align: middle; appearance: none; font-family: Nunito, Arial, "Helvetica Neue", Helvetica, sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.75; text-transform: uppercase; display: inline-flex; min-width: 40px; height: 100%; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; color: rgb(249, 250, 255); outline: 0px; margin: 0px; text-decoration: none; transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; padding: 6px 12px; background: rgb(47, 49, 72); border-radius: 50px; }
+
+
+.css-lhmnzp{ box-sizing: border-box; margin: 0px; flex-direction: row; padding-left: 16px; }
+
+
+.css-glv0sd{ font-size: 24px; margin: 0px; display: flex; -webkit-box-align: center; align-items: center; overflow: hidden; }
+
+
+.css-s1msf5{ box-sizing: border-box; display: flex; flex-flow: wrap; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; width: 23px; height: 100%; }
+
+
+.css-inwm4l{ font-size: 1rem; font-weight: 900; margin-left: 8px; overflow: hidden; white-space: nowrap; }
+
+
+@media (max-width: 900px){
+  .css-inwm4l { display: none; }
+}
+
+
+.css-u9enjd{ box-sizing: border-box; margin: 0px; flex-direction: row; -webkit-box-pack: end; justify-content: flex-end; padding-right: 8px; }
+
+
+.css-1h1owej{ box-sizing: border-box; display: flex; flex-flow: row; width: 100%; margin: 0px; justify-content: space-around; -webkit-box-align: center; align-items: center; gap: 8px; }
+
+
+.css-jyxwok{ position: relative; -webkit-tap-highlight-color: transparent; outline: 0px; margin: 0px 8px 0px 0px; user-select: none; vertical-align: middle; appearance: none; text-decoration: none; border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito; font-weight: 800; box-sizing: border-box; padding: 8px 16px; background: linear-gradient(90deg, rgb(73, 243, 195) 0%, rgb(100, 241, 126) 100%); color: rgb(47, 49, 72); opacity: 0.4; height: 30px; animation-iteration-count: 2; animation-timing-function: ease-out; animation-duration: 1s; will-change: transform; font-size: 14px; }
+
+
+.css-jyxwok.Mui-disabled{ cursor: default; pointer-events: auto; }
+
+
+.css-1sv96h7{ box-sizing: border-box; margin: 0px; flex-direction: row; cursor: pointer; font-weight: bold; height: 32px; position: relative; overflow: visible; }
+
+
+.css-16hlm1x{ box-sizing: border-box; margin: 0px; flex-direction: row; cursor: pointer; font-weight: bold; height: 32px; position: relative; }
+
+
+.css-1g0vwi8{ position: relative; box-sizing: border-box; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; vertical-align: middle; appearance: none; font-family: Nunito, Arial, "Helvetica Neue", Helvetica, sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.75; text-transform: uppercase; display: inline-flex; min-width: 40px; height: 100%; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; color: rgb(249, 250, 255); outline: 0px; margin: 0px; text-decoration: none; transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; padding: 6px 12px 6px 14px; background: rgb(47, 49, 72); border-radius: 50px 0px 0px 50px; }
+
+
+.css-v3z1wi{ box-sizing: border-box; display: flex; flex-flow: wrap; width: 100%; -webkit-box-align: center; align-items: center; }
+
+
+.css-1wxaqej{ box-sizing: border-box; margin: 0px; flex-direction: row; }
+
+
+.css-1nsd28h{ display: flex; -webkit-box-pack: center; justify-content: center; font-size: 24px; }
+
+
+.css-1nsd28h span{ display: flex; -webkit-box-pack: center; justify-content: center; user-select: none; cursor: pointer; }
+
+
+.css-1nsd28h span::before{ box-sizing: border-box; margin: -1.6875rem; border: 2.25rem solid rgb(226, 38, 77); width: 3.375rem; height: 3.375rem; transform: scale(0); }
+
+
+.css-1nsd28h span::before, .css-1nsd28h span::after{ position: absolute; z-index: 10; top: 50%; left: 50%; border-radius: 50%; content: ""; }
+
+
+.css-v3z1wi{ box-sizing: border-box; display: flex; flex-flow: wrap; width: 100%; -webkit-box-align: center; align-items: center; }
+
+
+.css-14yq2cq{ user-select: none; width: 1em; height: 1em; display: inline-block; fill: currentcolor; flex-shrink: 0; font-size: 1.71429rem; transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1); }
+
+
+.css-1g0vwi8 svg{ width: 20px; height: 20px; fill: white; }
+
+
+.css-1bnqyvi svg{ width: 20px; height: 20px; fill: white; }
+
+
+.css-qeuppi svg{ width: 20px; height: 20px; fill: white; }
+
+
+.css-1h1938b{ }
+
+
+.css-qeuppi{ position: relative; box-sizing: border-box; -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; vertical-align: middle; appearance: none; font-family: Nunito, Arial, "Helvetica Neue", Helvetica, sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.75; text-transform: uppercase; display: inline-flex; min-width: 40px; height: 100%; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; color: rgb(249, 250, 255); outline: 0px; margin: 0px; text-decoration: none; transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid transparent; padding: 6px 14px 6px 12px; background: rgb(47, 49, 72); border-radius: 0px 50px 50px 0px; }
+
+
+.css-re3xxe{ font-size: 12px; font-weight: 700; margin-left: 4px; line-height: 1; }
+
+
+.css-1c87emg{ box-sizing: border-box; display: flex; flex-flow: wrap; width: 100%; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; }
+
+
+.css-1bnqyvi:hover{ text-decoration: none; background-color: rgba(60, 30, 110, 0.08); }
+
+
+.css-1bnqyvi:hover{ background: rgb(63, 65, 92); }
+
+
+.css-1xe247z{ display: flex; flex-flow: row; -webkit-box-pack: justify; justify-content: space-between; -webkit-box-align: center; align-items: center; user-select: none; box-sizing: content-box; background: rgb(33, 34, 51); z-index: 1; width: 100%; height: 45px; }
+
+
+.css-uwwqev{ width: 100%; height: 100%; }
+
+
+.css-1g0vwi8:hover{ background: rgb(63, 65, 92); }
+
+
+.css-qeuppi:hover{ background: rgb(63, 65, 92); }
+
+
+.BackToTop_buttonContainer__GQast{ opacity: 0; visibility: hidden; }
+
+
+.BackToTop_buttonContainer__GQast.active{ opacity: 1; visibility: visible; }
+
+
+.BackToTop_buttonContainer__GQast{ left: 50%; width: auto; }
+
+
+#menuButton .css-6qu7l6{ display: none; }
+
+
+#menuButton.open .menu-svg-open{ display: flex; }
+
+
+#menuButton.close .menu-svg-close{ display: flex; }
+
+
+.contact-us-link{ width: 176px; margin-left: 12px; margin-top: 8px; }
+
+
+.MuiButtonBase-root::after{ content: attr(data-content); position: absolute; bottom: 100%; background-color: rgba(97, 97, 97, 0.92); border-radius: 4px; color: rgb(255, 255, 255); font-family: Nunito, Arial, "Helvetica Neue", Helvetica, sans-serif; padding: 4px 8px; font-size: 0.785714rem; max-width: 300px; margin: 2px 2px 14px; overflow-wrap: break-word; font-weight: 500; transform-origin: center bottom; opacity: 0; visibility: hidden; transform: none; transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 133ms cubic-bezier(0.4, 0, 0.2, 1); text-transform: none; white-space: nowrap; }
+
+
+.MuiButtonBase-root:hover::after{ opacity: 1; visibility: visible; }
+
+
+.MuiButtonBase-root.active{ background: rgb(33, 34, 51); border: 1px solid rgb(55, 57, 82); }
+
+
+#game-controls-toggle-button.MuiButtonBase-root.active:hover::after{ opacity: 0; visibility: hidden; }
+
+
+.css-15ngedg{ color: rgb(222, 202, 255); box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px; height: 100%; transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1); border-radius: 4px; background: none rgb(33, 34, 51); padding: 15px; }
+
+
+.css-1a6omjn{ height: calc(100% - 32px); overflow: hidden auto; margin-top: 32px; padding: 8px 8px 8px 16px; border-radius: 8px; background-color: rgb(33, 34, 51); text-align: left; color: rgb(189, 191, 206); font-size: 16px; font-weight: 400; }
+
+
+.css-12hw0sw{ overflow: hidden; margin: 20px; max-height: 65vh; height: min(65vh, 350px); position: absolute; right: 0px; bottom: 45px; max-width: min(38%, 600px); min-width: 491px; border-radius: 20px; transform: none; transition: transform 225ms cubic-bezier(0, 0, 0.2, 1); z-index: 3; display: none; }
+
+
+.css-16f9g0o{ display: inline-flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; box-sizing: border-box; -webkit-tap-highlight-color: transparent; background-color: transparent; cursor: pointer; user-select: none; vertical-align: middle; appearance: none; text-align: center; font-size: 1.71429rem; color: rgb(255, 255, 255); position: absolute; right: 12px; top: 12px; outline: 0px; border: 0px initial initial; margin: 0px; text-decoration: none; flex: 0 0 auto; padding: 8px; border-radius: 50%; overflow: visible; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+
+
+.css-16f9g0o:hover{ cursor: pointer; opacity: 0.75; }
+
+
+.GamePageDesktop_gfAspectRatioContainer__f_hUp{ position: relative; }
+
+
+.ytb-container{ position: relative; overflow: hidden; width: 100%; padding-top: 56.25%; }
+
+
+.responsive-iframe{ position: absolute; inset: 0px; width: 100%; height: 100%; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; outline: none; }
+
+
+.GameInfo_roundedCornersContainer__D5D_p img{ max-width: 100%; height: auto; }
+
+
+#likeGame.active{ color: rgb(74, 240, 167); }
+
+
+#likeGame.active svg{ fill: rgb(74, 240, 167); }
+
+
+#dislikeGame.active svg{ fill: rgb(231, 13, 92) !important; }
+
+
+#addFavoritesGame.active svg{ fill: rgb(226, 38, 77) !important; }
+
+
+.svg-active{ display: none; }
+
+
+#likeGame.active .svg-unactive, #dislikeGame.active .svg-unactive, #addFavoritesGame.active .svg-unactive, #expand.active .svg-unactive{ display: none; }
+
+
+#likeGame.active .svg-active, #dislikeGame.active .svg-active, #addFavoritesGame.active .svg-active, #expand.active .svg-active{ display: flex; }
+
+
+.GameCarousel_primeCarouselArrow__Xo4VH:disabled{ visibility: hidden; opacity: 0; }
+
+
+.css-dywc1x{ display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; gap: 24px; flex-direction: row; width: 100%; padding: 24px; }
+
+
+body.fullscreen{ overflow: hidden; }
+
+
+body.fullscreen .GamePageDesktop_gfAspectRatioContainer__f_hUp{ position: fixed; inset: 0px; width: 100vw; height: 100vh; z-index: 99999; }
+
+
+.css-18ji4f7{ position: fixed; inset: 60px 0px 0px; background-color: rgba(0, 0, 0, 0.5); -webkit-tap-highlight-color: transparent; z-index: 1198; transition: background-color 225ms cubic-bezier(0.4, 0, 0.2, 1); display: none; }
+
+
+.css-18ji4f7.active, .css-5ts3i0.active, #panel-favorites.active{ display: block; }
+
+
+.css-5ts3i0{ flex: 0 0 auto; height: calc(100% - 76px); top: calc(68px); position: fixed; right: 0px; display: none; z-index: 1199; }
+
+
+.css-5clig5{ background-color: rgb(26, 27, 40); color: rgb(249, 250, 255); box-shadow: none; background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)); overflow-y: auto; display: flex; flex-direction: column; height: 100%; z-index: 1200; position: fixed; top: 0px; right: 0px; transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1); flex: 1 0 auto; outline: 0px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
+
+
+.css-5ts3i0 .MuiDrawer-paper{ width: 400px; overflow: hidden overlay; background: rgb(26, 27, 40); scrollbar-width: thin; scrollbar-color: rgb(170, 173, 190) transparent; height: calc(100% - 76px); top: calc(68px); scrollbar-gutter: stable; border-left: 0px; margin-right: 8px; border-radius: 8px; }
+
+
+.css-dtnrv7{ width: 100%; height: 60px; min-height: 60px; display: flex; -webkit-box-align: center; align-items: center; z-index: 2; }
+
+
+.css-1mnkucd{ z-index: 2; min-width: 56px; }
+
+
+.css-1td7p7w{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 0px; background: transparent; color: rgb(239, 240, 247); height: 48px; width: 48px; margin-right: 8px; }
+
+
+.css-ir28tv{ overflow: hidden; min-height: 48px; display: flex; height: 40px; justify-content: space-around; padding: 0px 24px; border-bottom: 1px solid rgb(47, 49, 72); width: 100%; }
+
+
+.css-1anid1y{ position: relative; display: inline-block; flex: 1 1 auto; white-space: nowrap; width: 100%; overflow: hidden; margin-bottom: 0px; }
+
+
+.css-1l4w6pd{ display: flex; -webkit-box-pack: center; justify-content: center; }
+
+
+.css-pdh0ev{ position: absolute; height: 2px; bottom: 0px; width: 100%; background-color: rgb(26, 27, 40); transition: 300ms cubic-bezier(0.4, 0, 0.2, 1); }
+
+
+.css-ir28tv .MuiTabs-indicator{ background-color: rgb(104, 66, 255); height: 3px; border-radius: 4px; }
+
+
+.css-pu36t6{ display: inline-flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; box-sizing: border-box; -webkit-tap-highlight-color: transparent; background-color: transparent; outline: 0px; border: 0px; margin: 0px 0px 8px; border-radius: 0px; cursor: pointer; user-select: none; vertical-align: middle; appearance: none; text-decoration: none; line-height: 1.25; letter-spacing: 0.02857em; max-width: 360px; min-width: 90px; position: relative; min-height: 48px; padding: 12px 16px; overflow: hidden; white-space: normal; text-align: center; flex-direction: column; font-family: Nunito, "Nunito Fallback", Arial, "Helvetica Neue", Helvetica, sans-serif; text-transform: capitalize; font-size: 14px; font-weight: 700; color: rgb(102, 106, 127); flex: 1 1 0%; }
+
+
+.css-pu36t6.Mui-selected{ color: rgb(249, 250, 255); }
+
+
+.css-pu36t6:hover:not(.Mui-selected){ color: rgb(135, 138, 158); }
+
+
+.css-w0pj6f{ overflow: hidden; pointer-events: none; position: absolute; z-index: 0; inset: 0px; border-radius: inherit; }
+
+
+.css-1t7u0ja{ overflow: hidden auto; display: flex; scrollbar-width: thin; scrollbar-color: rgb(170, 173, 190) transparent; padding-top: 8px; }
+
+
+.css-b45qhy{ display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; width: 100%; padding: 8px; scrollbar-width: thin; scrollbar-color: rgb(170, 173, 190) transparent; }
+
+
+.css-h0cm5o{ display: flex; margin-top: 8px; padding: 16px; width: 100%; flex-direction: column; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; text-align: center; }
+
+
+.css-11o2ve7{ font-size: 16px; font-weight: 400; color: rgb(170, 173, 190); }
+
+
+#sidebarContainer a.disabled{ pointer-events: none; opacity: 0.3; }
+
+
+#sidebarContainer a.active .Sidebar_link__Tbdup{ border-left-color: var(--brand-60); }
+
+
+.css-gj9se8{ display: flex; flex-direction: column; width: 100%; padding-left: 16px; padding-right: 16px; padding-top: 16px; }
+
+
+.css-1dtmw8n{ display: grid; flex-flow: wrap; box-sizing: border-box; content-visibility: visible; padding: 0px; gap: 6px; margin: 0px; width: 100%; grid-template-columns: repeat(1, 1fr); }
+
+
+.Pagination_gamePageLink__Q4NQK{ cursor: pointer; }
+
+
+.Pagination_disabled__9RqME{ pointer-events: none; }
+
+
+.Pagination_gamePageLink__Q4NQK.Pagination_number__UPaE8{ width: 36px; }
+
+
+.GameThumb_gradientVignette__Q04oZ{ visibility: hidden; opacity: 0; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumb_gradientVignette__Q04oZ{ opacity: 1; visibility: visible; }
+
+
+.GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumbLabel_label__dz3yR{ opacity: 0; }
+
+
+.css-medxsc{ position: fixed; inset: 0px; z-index: 1200; display: none; }
+
+
+.css-medxsc.MuiModal-root{ z-index: 1200; }
+
+
+.css-919eu4{ position: fixed; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; inset: 0px; background-color: rgba(0, 0, 0, 0.5); -webkit-tap-highlight-color: transparent; z-index: -1; transition: opacity cubic-bezier(0.4, 0, 0.2, 1); display: none; }
+
+
+.css-medxsc .MuiBackdrop-root{ }
+
+
+.css-1j62gbe{ background-color: rgb(26, 27, 40); color: rgb(249, 250, 255); box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 10px -5px, rgba(0, 0, 0, 0.14) 0px 16px 24px 2px, rgba(0, 0, 0, 0.12) 0px 6px 30px 5px; background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)); overflow-y: auto; flex-direction: column; height: 100%; z-index: 1200; position: fixed; top: 0px; left: 0px; transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1); flex: 1 0 auto; outline: 0px; display: none; }
+
+
+.css-medxsc .MuiDrawer-paper{ width: 100%; max-width: 400px; overflow: hidden overlay; background: rgb(26, 27, 40); scrollbar-width: thin; scrollbar-color: rgb(170, 173, 190) transparent; scrollbar-gutter: stable; border-left: 0px; }
+
+
+.css-dtnrv7{ width: 100%; height: 60px; min-height: 60px; display: flex; -webkit-box-align: center; align-items: center; z-index: 2; }
+
+
+.css-1mnkucd{ z-index: 2; min-width: 56px; }
+
+
+.css-fmm68i{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 0px; background: transparent; color: rgb(239, 240, 247); height: 48px; width: 48px; margin-left: 8px; }
+
+
+.css-11o2ve7{ font-size: 16px; font-weight: 400; color: rgb(170, 173, 190); }
+
+
+.css-1mnkucd{ z-index: 2; min-width: 56px; }
+
+
+.css-1td7p7w{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 0px; background: transparent; color: rgb(239, 240, 247); height: 48px; width: 48px; margin-right: 8px; }
+
+
+.css-14kxyr{ padding-top: 48px; }
+
+
+.css-1px5dlw{ margin: 0px; flex-shrink: 0; border-width: 0px 0px thin; border-style: solid; border-color: rgba(255, 255, 255, 0.12); }
+
+
+.css-medxsc hr{ width: 100%; border-color: rgb(40, 41, 61); }
+
+
+.css-1yt3x8q{ scrollbar-width: thin; scrollbar-color: rgb(170, 173, 190) transparent; width: 100%; padding: 24px; height: calc(-208px + 100vh); overflow-y: auto; }
+
+
+.css-qwlka7{ position: relative; }
+
+
+.css-1fizrsk{ display: block; font-size: 16px; font-weight: 700; color: rgb(229, 230, 238); margin-top: 12px; margin-bottom: 12px; }
+
+
+.css-1307bo8{ width: 100%; position: absolute; padding-bottom: 20px; bottom: 0px; background: rgb(26, 27, 40); }
+
+
+.css-1307bo8 hr{ margin-bottom: 20px; }
+
+
+.css-medxsc hr{ width: 100%; border-color: rgb(40, 41, 61); }
+
+
+.css-1px5dlw{ margin: 0px; flex-shrink: 0; border-width: 0px 0px thin; border-style: solid; border-color: rgba(255, 255, 255, 0.12); }
+
+
+.css-1osun8m.Mui-disabled{ background: rgb(40, 41, 61); color: rgb(71, 73, 103); cursor: default; }
+
+
+.css-1307bo8 button{ width: 100%; }
+
+
+.css-1osun8m{ border-radius: 30px; transition: 250ms; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; -webkit-box-pack: center; justify-content: center; -webkit-box-align: center; align-items: center; font-family: Nunito, "Nunito Fallback"; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: 8px 16px; background: rgb(104, 66, 255); color: rgb(249, 250, 255); height: 50px; }
+
+
+#report_select:focus{ background-color: var(--black-40); }
+
+
+.css-chxnnc{ display: flex; margin-bottom: 8px; margin-top: 16px; width: 100%; position: relative; -webkit-box-align: center; align-items: center; }
+
+
+.PageTitle_shortDescriptionContainer__roIn_ .PageTitle_shortDescription__Gmn_9{ -webkit-box-orient: vertical; color: var(--white-50); display: -webkit-box; -webkit-line-clamp: 1; margin-top: calc(var(--base-unit) * 1); overflow: hidden; transition: 0.3s ease-out; }
+
+
+.PageTitle_shortDescriptionContainer__roIn_ .PageTitle_shortDescription__Gmn_9 > p:first-of-type{ margin-block-start: 0px; }
+
+
+.PageTitle_shortDescriptionContainer__roIn_ .PageTitle_shortDescription__Gmn_9 > p:last-of-type{ margin-block-end: 0px; }
+
+
+.SearchPage_searchResultTagContainer__YDUta{ text-decoration: none; background-color: var(--brand-100); border-radius: 10px; border: 2px solid transparent; margin-top: calc(var(--base-unit) * .5); margin-left: 1px; }
+
+
+.SearchPage_searchResultTag__idWZb{ position: relative; display: block; width: 100%; height: 100%; }
+
+
+.SearchPage_searchResultTagLabel__x0TFU{ font-size: var(--font-size-button); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-weight: 700; margin: calc(var(--base-unit) * 1); }
+
+
+.SearchPage_searchResultTagTotalCount__j4_QQ{ position: absolute; padding: calc(var(--base-unit) * 4) calc(var(--base-unit) * 1) calc(var(--base-unit) * 1) calc(var(--base-unit) * 4); bottom: 0px; right: 0px; font-weight: 700; color: var(--brand-50); font-size: var(--font-size-button); }
+
+
+.SearchPage_searchResultTagContainer__YDUta:hover{ border-color: var(--brand-160); }
+
+
+.SearchPage_searchResultTag__idWZb{ position: relative; display: block; width: 100%; height: 100%; }
+
+
+.SearchPage_searchResultTagLabel__x0TFU{ font-size: var(--font-size-button); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-weight: 700; margin: calc(var(--base-unit) * 1); }
+
+
+.SearchPage_searchResultTagTotalCount__j4_QQ{ position: absolute; padding: calc(var(--base-unit) * 4) calc(var(--base-unit) * 1) calc(var(--base-unit) * 1) calc(var(--base-unit) * 4); bottom: 0px; right: 0px; font-weight: 700; color: var(--brand-50); font-size: var(--font-size-button); }
+
+
+.SearchPage_searchResultTagContainer__YDUta:hover{ border-color: var(--brand-160); }
+
+
+.GameThumb_gameThumbVideo__jgUDS{ transition: opacity 0.3s cubic-bezier(0.5, 0, 0.1, 1) 0.3s; position: absolute; bottom: 0px; z-index: 2; width: 100%; height: 100%; border-radius: calc(var(--base-unit)*1); overflow: hidden; }
+
+
+.GameThumb_gameThumbVideo__jgUDS .GameThumb_greyedOutOverlay__iTvsq{ background: linear-gradient(0deg, rgba(0, 0, 0, 0.88) 0px, rgb(0, 0, 0)); top: 0px; }
+
+
+.GameThumb_gameThumbVideo__jgUDS video{ height: 100%; width: 100%; object-fit: cover; }
+
+
+.GameThumb_bottomLabelContainer__IaMqV.GameThumb_videoPlaying__vNDTS{ opacity: 0; }
+
+
+.GameInfo_styledHtmlDiv__Zg2EY table{ font-family: inherit !important; border-radius: 0px !important; }
+
+
+@media only screen and (max-width: 959px){
+  .css-1dtmw8n { -webkit-box-pack: center; justify-content: center; padding-left: inherit; }
+}
+
+
+@media (max-width: 1081.95px){
+  .css-1dtmw8n { padding-right: 0px; padding-left: 0px; margin-left: 0px; width: 100%; }
+}
+
+
+.css-1dtmw8n .skeleton{ margin: 4px; height: 0px !important; padding-top: calc(56.1798% - 2.24719px) !important; }
+
+
+@media (min-width: 1778px){
+  .css-1dtmw8n .skeleton { margin: 6px; }
+}
+
+
+@media (min-width: 330px){
+  .css-1dtmw8n { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+@media (min-width: 590px){
+  .css-1dtmw8n { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+@media (min-width: 850px){
+  .css-1dtmw8n { grid-template-columns: repeat(4, 1fr); }
+}
+
+
+@media (min-width: 1080px){
+  .css-1dtmw8n { grid-template-columns: repeat(5, 1fr); }
+}
+
+
+@media (min-width: 1250px){
+  .css-1dtmw8n { grid-template-columns: repeat(6, 1fr); }
+}
+
+
+@media (min-width: 1545px){
+  .css-1dtmw8n { grid-template-columns: repeat(7, 1fr); }
+}
+
+
+@media (min-width: 2020px){
+  .css-1dtmw8n { grid-template-columns: repeat(8, 1fr); }
+}
+
+
+@media (min-width: 2222px){
+  .css-1dtmw8n { grid-template-columns: repeat(9, 1fr); gap: 6px 10px; }
+}
+
+
+@media (min-width: 2630px){
+  .css-1dtmw8n { grid-template-columns: repeat(10, 1fr); }
+}
+
+
+@media (min-width: 1082px){
+  .css-gj9se8 { max-width: 100%; }
+}
+
+
+.css-1ckqyej{ display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%; max-width: 372px; }
+
+
+@media (min-width: 1778px){
+  .css-1ckqyej { max-width: 380px; }
+}
+
+
+@media (max-width: 1024px){
+  .css-1xe247z { height: auto; gap: 8px; padding: 8px; min-height: 45px; box-sizing: border-box; }
+  .css-1xe247z, .css-1h1owej { flex-wrap: wrap; justify-content: center; }
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfContainer__ywzsh { max-height: unset !important; }
+  .BackToTop_buttonContainer__GQast { opacity: 0 !important; visibility: hidden !important; }
+}
+
+
+@media (max-width: 768px){
+  .GameThumb_gradientVignette__Q04oZ { opacity: 1 !important; visibility: visible !important; }
+  .GameThumb_gameThumbTitleContainer__J1K4D { height: auto !important; }
+}
+
+
+@media (max-width: 600px){
+  .GamePageDesktop_mainContainer__QMRhB .GamePageDesktop_gfAspectRatioContainer__f_hUp { min-height: 550px; width: 100%; }
+  .css-5ts3i0 .MuiDrawer-paper { width: 100%; max-width: 400px; top: 0px; height: 99.9%; }
+}
+
+
+@media (max-width: 540px){
+  #game-controls { min-width: 100%; margin: 0px; bottom: 120px; }
+}
+
+/* ---- part 54 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/3699071de987e1a1.css?v1 ---- */
+@charset "utf-8";
+
+.Carousel_recommendedDesktopContainer__N5Glm ul{ padding: calc(var(--base-unit)*1.5) calc(var(--base-unit)*1); }
+
+
+.Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8{ margin-right: calc(var(--base-unit)*.5); width: calc(-69.0909px + 90.9091vw); height: calc(((((100vw - (76px)) / 1.1) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+
+
+@media (min-width: 599.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-47.5px + 62.5vw); height: calc(((((100vw - (76px)) / 1.6) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 799.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-36.1905px + 47.619vw); height: calc(((((100vw - (76px)) / 2.1) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 999.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-29.2308px + 38.4615vw); height: calc(((((100vw - (76px)) / 2.6) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1199.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-24.5161px + 32.2581vw); height: calc(((((100vw - (76px)) / 3.1) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1699.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-21.1111px + 27.7778vw); height: calc(((((100vw - (76px)) / 3.6) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1909.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-60px + 27.7778vw); height: calc(((((100vw - (216px)) / 3.6) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2099.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-52.6829px + 24.3902vw); height: calc(((((100vw - (216px)) / 4.1) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2999.95px){
+  .Carousel_recommendedDesktopContainer__N5Glm .Carousel_primeCarouselLi__GXWe8 { width: calc(-46.9565px + 21.7391vw); height: calc(((((100vw - (216px)) / 4.6) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+.Carousel_simpleCarouselContainer__ZGe38{ margin-right: 0px; margin-bottom: 0px; margin-left: 0px; contain-intrinsic-size: auto 171px; contain: layout paint; padding: 0px; overflow: hidden; margin-top: calc(var(--base-unit)*.5); position: relative; }
+
+
+@media (max-width: 1509.98px){
+  .Carousel_simpleCarouselContainer__ZGe38 { padding-bottom: calc(var(--base-unit)*1); margin-bottom: -4px; }
+}
+
+
+.Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8{ margin-right: calc(var(--base-unit)*.5); width: calc(-33.7778px + 44.4444vw); height: calc(((((100vw - (76px)) / 2.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+
+
+@media (min-width: 599.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-23.3846px + 30.7692vw); height: calc(((((100vw - (76px)) / 3.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 799.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-17.8824px + 23.5294vw); height: calc(((((100vw - (76px)) / 4.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 999.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-14.4762px + 19.0476vw); height: calc(((((100vw - (76px)) / 5.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1199.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-12.16px + 16vw); height: calc(((((100vw - (76px)) / 6.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1699.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-10.4828px + 13.7931vw); height: calc(((((100vw - (76px)) / 7.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1909.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-29.7931px + 13.7931vw); height: calc(((((100vw - (216px)) / 7.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2099.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-26.1818px + 12.1212vw); height: calc(((((100vw - (216px)) / 8.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2999.95px){
+  .Carousel_simpleCarouselContainer__ZGe38 .Carousel_primeCarouselLi__GXWe8 { width: calc(-23.3514px + 10.8108vw); height: calc(((((100vw - (216px)) / 9.25) - 4px) * .5617977528) + calc(var(--base-unit) * .5)); }
+}
+
+
+.Carousel_simpleCarouselContainer__ZGe38.Carousel_isMobile__DG4jj .Carousel_primeCarouselLi__GXWe8{ width: calc(-23.3846px + 30.7692vw); height: calc(((((100vw - (76px)) / 3.25) - 4px) * 1) + calc(var(--base-unit) * .5)); }
+
+
+@media (min-width: 599.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isMobile__DG4jj .Carousel_primeCarouselLi__GXWe8 { width: calc(-17.8824px + 23.5294vw); height: calc(((((100vw - (76px)) / 4.25) - 4px) * 1) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 799.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isMobile__DG4jj .Carousel_primeCarouselLi__GXWe8 { width: calc(-14.4762px + 19.0476vw); height: calc(((((100vw - (76px)) / 5.25) - 4px) * 1) + calc(var(--base-unit) * .5)); }
+}
+
+
+.Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel{ height: calc(((((100vw - (76px)) / 2.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+
+
+@media (min-width: 599.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (76px)) / 3.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 799.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (76px)) / 4.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 999.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (76px)) / 5.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 1199.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (76px)) / 6.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 1699.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (76px)) / 7.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 1909.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (216px)) / 7.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 2099.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (216px)) / 8.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+@media (min-width: 2999.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .prime-carousel { height: calc(((((100vw - (216px)) / 9.25) - 4px) * 1.5) + calc(var(--base-unit) * 3)); }
+}
+
+
+.Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8{ width: calc(-33.7778px + 44.4444vw); height: calc(((((100vw - (76px)) / 2.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+
+
+@media (min-width: 599.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-23.3846px + 30.7692vw); height: calc(((((100vw - (76px)) / 3.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 799.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-17.8824px + 23.5294vw); height: calc(((((100vw - (76px)) / 4.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 999.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-14.4762px + 19.0476vw); height: calc(((((100vw - (76px)) / 5.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1199.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-12.16px + 16vw); height: calc(((((100vw - (76px)) / 6.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1699.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-10.4828px + 13.7931vw); height: calc(((((100vw - (76px)) / 7.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1909.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-29.7931px + 13.7931vw); height: calc(((((100vw - (216px)) / 7.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2099.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-26.1818px + 12.1212vw); height: calc(((((100vw - (216px)) / 8.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2999.95px){
+  .Carousel_simpleCarouselContainer__ZGe38.Carousel_isPortrait__GRnK3 .Carousel_primeCarouselLi__GXWe8 { width: calc(-23.3514px + 10.8108vw); height: calc(((((100vw - (216px)) / 9.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+.Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8{ width: calc(-33.7778px + 44.4444vw); height: calc(((((100vw - (76px)) / 2.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+
+
+@media (min-width: 599.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-23.3846px + 30.7692vw); height: calc(((((100vw - (76px)) / 3.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 799.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-17.8824px + 23.5294vw); height: calc(((((100vw - (76px)) / 4.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 999.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-14.4762px + 19.0476vw); height: calc(((((100vw - (76px)) / 5.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1199.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-12.16px + 16vw); height: calc(((((100vw - (76px)) / 6.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1699.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-10.4828px + 13.7931vw); height: calc(((((100vw - (76px)) / 7.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 1909.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-29.7931px + 13.7931vw); height: calc(((((100vw - (216px)) / 7.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2099.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-26.1818px + 12.1212vw); height: calc(((((100vw - (216px)) / 8.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+@media (min-width: 2999.95px){
+  .Carousel_portraitCarouselContainer__b3A5E li.Carousel_primeCarouselLi__GXWe8 { width: calc(-23.3514px + 10.8108vw); height: calc(((((100vw - (216px)) / 9.25) - 4px) * 1.5) + calc(var(--base-unit) * .5)); }
+}
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w{ padding-left: calc(var(--base-unit)*1); min-height: 32px; display: flex; flex-direction: row; width: 100%; }
+
+
+@media (max-width: 1509.98px){
+  .Carousel_carouselTitleContainerDiv__AzI_w { padding-left: 0px !important; min-height: 21px; }
+}
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w .Carousel_carouselTitle__wZx8l{ align-self: flex-end; padding-right: calc(var(--base-unit)*2); padding-bottom: 3px; user-select: none; }
+
+
+@media (max-width: 1509.98px){
+  .Carousel_carouselTitleContainerDiv__AzI_w .Carousel_carouselTitle__wZx8l { line-height: 1 !important; padding-left: calc(var(--base-unit)*1.5); }
+}
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w .Carousel_carouselTitleLink__Gh_NW{ align-self: center; padding: 0px; z-index: 2; text-transform: none; text-decoration: none; color: var(--brand-60); font-weight: 700; user-select: none; line-height: 1 !important; }
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w .Carousel_carouselTitleLink__Gh_NW:hover{ color: var(--brand-100); cursor: pointer; }
+
+
+@media (max-width: 1509.98px){
+  .Carousel_carouselTitleContainerDiv__AzI_w .Carousel_carouselTitleLink__Gh_NW { margin-bottom: -2px; font-size: 12px; }
+  .Carousel_carouselTitleContainerDiv__AzI_w .Carousel_carouselTitleLink__Gh_NW:hover { background-color: rgba(0, 0, 0, 0) !important; }
+}
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w.Carousel_isMobile__DG4jj{ justify-content: space-between; }
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w.Carousel_isMobile__DG4jj .Carousel_carouselTitle__wZx8l{ font-size: 20px; font-weight: 800; }
+
+
+.Carousel_carouselTitleContainerDiv__AzI_w.Carousel_isMobile__DG4jj .Carousel_carouselTitleLink__Gh_NW{ margin-right: calc(var(--base-unit)*2); color: var(--white-60); font-size: 16px; }
+
+
+.GameCarousel_root__wuYqb{ position: relative; overflow-y: hidden; z-index: 2; }
+
+
+@media (hover: hover){
+  .GameCarousel_root__wuYqb:hover .GameCarousel_primeCarouselArrow__Xo4VH { opacity: 1; }
+}
+
+
+.GameCarousel_doubleArrow__2JGpY{ position: absolute; right: 8px; top: 0px; width: 15px; z-index: 3; }
+
+
+.GameCarousel_primeCarouselArrow__Xo4VH{ height: calc(100% - 18px); top: 0px; margin: 10px 0px; background-position: 50% center; background-repeat: no-repeat; width: 50px; color: rgba(0, 0, 0, 0); border: 0px; position: absolute; z-index: 1; outline: none 0px; opacity: 0; border-radius: 0px; transition: opacity 0.25s, background-color 0.25s; background-color: rgba(0, 0, 0, 0.7); }
+
+
+.GameCarousel_primeCarouselArrow__Xo4VH:hover{ background-color: rgba(0, 0, 0, 0.9); cursor: pointer; }
+
+
+.GameCarousel_primeCarouselArrowLeft__f0k3V{ background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTMuMjM3IDE3LjIzN3YtMi40NzRsMTQgMTRjLjY4NC42ODMuNjg0IDEuNzkgMCAyLjQ3NGExLjc0OCAxLjc0OCAwIDAxLTIuNDc0IDBsLTE0LTE0YTEuNzQ4IDEuNzQ4IDAgMDEwLTIuNDc0bDE0LTE0YTEuNzQ4IDEuNzQ4IDAgMDEyLjQ3NCAwYy42ODQuNjgzLjY4NCAxLjc5IDAgMi40NzRsLTE0IDE0eiIgZmlsbD0iI0VGRjFGMSIvPjwvc3ZnPg=="); left: 0px; }
+
+
+.GameCarousel_primeCarouselArrowRight__8hF78{ background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE0Ljc2MyAxNy4yMzd2LTIuNDc0bC0xNCAxNGExLjc0OCAxLjc0OCAwIDAwMCAyLjQ3NGMuNjgzLjY4NCAxLjc5LjY4NCAyLjQ3NCAwbDE0LTE0YTEuNzQ4IDEuNzQ4IDAgMDAwLTIuNDc0bC0xNC0xNEExLjc1IDEuNzUgMCAwMC43NjMgMy4yMzdsMTQgMTR6IiBmaWxsPSIjRUZGMUYxIi8+PC9zdmc+"); right: 0px; }
+
+
+.GameCarousel_primeCarouselContainer__QZ_gh{ margin-block-end: 0px; padding: calc(var(--base-unit)*1.25) calc(var(--base-unit)*1); overflow: scroll hidden; width: 100%; white-space: nowrap; list-style: none; transform: translateZ(0px); scroll-padding: 50px; scrollbar-width: none; margin: 0px; }
+
+
+.GameCarousel_primeCarouselContainer__QZ_gh::-webkit-scrollbar{ display: none; }
+
+
+.GameCarousel_primeCarouselContainer__QZ_gh li{ list-style: none; display: inline-block; box-sizing: border-box; vertical-align: middle; position: relative; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN{ position: relative; display: block; border-radius: 10px; overflow: hidden; contain: layout; border: 2px solid rgba(0, 0, 0, 0); background-color: rgba(255, 255, 255, 0.07); background-clip: padding-box; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz{ width: var(--originals-portrait-width); height: calc(var(--originals-portrait-width)*1.5); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz.OriginalsGameThumb_isMobile__Roy7_{ width: var(--originals-portrait-mobile-width); height: calc(var(--originals-portrait-mobile-width)*1.5); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_square__HDuqf{ width: var(--originals-square-width); height: var(--originals-square-width); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_square__HDuqf.OriginalsGameThumb_isMobile__Roy7_{ width: var(--originals-square-mobile-width); height: var(--originals-square-mobile-width); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_square__HDuqf.OriginalsGameThumb_isMobile__Roy7_ .greyedOutOverlay{ box-sizing: border-box; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_landscape__RmPbK{ width: var(--originals-landscape-width); height: calc(var(--originals-landscape-width)*.5625); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_landscape__RmPbK.OriginalsGameThumb_isMobile__Roy7_{ width: var(--originals-landscape-mobile-width); height: calc(var(--originals-landscape-mobile-width)*.5625); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_isResponsive__pDvtH{ width: 100% !important; height: 100% !important; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN > img{ position: absolute; top: 0px; left: 0px; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN.OriginalsGameThumb_portrait__BB_uz:not(.OriginalsGameThumb_isMobile__Roy7_), .OriginalsGameThumb_originalsGameLink__XH7NN > img{ transition: opacity 0.6s cubic-bezier(0.5, 0, 0.1, 1); }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN:hover{ cursor: pointer; box-shadow: rgba(0, 0, 0, 0.57) 0px 0px 7px 1px; border-color: var(--brand-100); z-index: 10; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN .GameThumb_gameThumbTitleContainer__J1K4D{ color: rgb(255, 255, 255); position: absolute; bottom: 5px; margin-bottom: calc(var(--base-unit) * 1); margin-left: calc(var(--base-unit) * 1); z-index: 4; font-size: var(--font-size-body); font-weight: 700; width: calc(100% - var(--base-unit) * 2); height: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN:hover .GameThumb_gameThumbTitleContainer__J1K4D{ height: auto; }
+
+
+.OriginalsGameThumb_originalsGameLink__XH7NN:hover .GameThumb_gradientVignette__Q04oZ{ opacity: 1; visibility: visible; }
+
+
+div.Carousel_carouselTitle__wZx8l{ font-size: 1.2rem; font-weight: 900; color: rgb(255, 255, 255); }
+
+/* ---- part 55 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/b24ac2825fe81c0d.css ---- */
+@charset "utf-8";
+
+.Pagination_czyButton__sx09H{ border-radius: 30px; transition: 0.25s; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: calc(var(--base-unit)*1) calc(var(--base-unit)*2); background: rgba(0, 0, 0, 0); height: 40px; user-select: none; }
+
+
+.Pagination_czyButton__sx09H:focus{ outline: none; }
+
+
+.Pagination_czyButton--contained--purple__Zy2I4{ color: var(--white-100); background: var(--brand-100); }
+
+
+.Pagination_czyButton--contained--purple__Zy2I4:active{ background: rgb(var(--brand-100)/70%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--purple__Zy2I4:hover:not(:disabled) { background: var(--brand-80); }
+}
+
+
+.Pagination_czyButton--contained--white__kynud{ color: var(--black-50); background: var(--white-100); }
+
+
+.Pagination_czyButton--contained--white__kynud:active{ background: rgb(var(--white-100)/70%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--white__kynud:hover:not(:disabled) { background: var(--white-50); }
+}
+
+
+.Pagination_czyButton--contained--grey__9FP5I{ color: var(--white-100); background: var(--black-40); }
+
+
+.Pagination_czyButton--contained--grey__9FP5I:active{ background: rgb(var(--black-40)/70%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--grey__9FP5I:hover:not(:disabled) { background: var(--black-50); }
+}
+
+
+.Pagination_czyButton--contained--alert__pmmID{ color: var(--white-100); background: var(--alert-100); }
+
+
+.Pagination_czyButton--contained--alert__pmmID:active{ background: rgb(var(--alert-100)/70%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--alert__pmmID:hover:not(:disabled) { background: var(--alert-100); }
+}
+
+
+.Pagination_czyButton--contained--success__UKyr5{ color: var(--white-100); background: var(--success-100); }
+
+
+.Pagination_czyButton--contained--success__UKyr5:active{ background: rgb(var(--success-100)/70%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--success__UKyr5:hover:not(:disabled) { background: rgb(82, 177, 135); }
+}
+
+
+.Pagination_czyButton--contained--black__IgS6N{ color: var(--white-100); background: var(--black-80); }
+
+
+.Pagination_czyButton--contained--black__IgS6N:active{ background: rgb(var(--black-80)/70%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--black__IgS6N:hover:not(:disabled) { background: var(--black-70); }
+}
+
+
+.Pagination_czyButton--contained--green-gradient__53nJa{ color: var(--black-100); background: linear-gradient(90deg, rgb(73, 243, 195), rgb(100, 241, 126)); }
+
+
+.Pagination_czyButton--contained--green-gradient__53nJa:active{ background: linear-gradient(90deg, rgb(40, 151, 119), rgb(64, 139, 78)); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--contained--green-gradient__53nJa:hover:not(:disabled) { background: linear-gradient(90deg, rgb(45, 197, 154), rgb(93, 185, 110)); }
+}
+
+
+.Pagination_czyButton--link--purple__1Icrp, .Pagination_czyButton--outlined--purple__lfPhJ{ color: var(--brand-60); }
+
+
+.Pagination_czyButton--link--purple__1Icrp:active, .Pagination_czyButton--outlined--purple__lfPhJ:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--link--purple__1Icrp:hover:not(:disabled), .Pagination_czyButton--outlined--purple__lfPhJ:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.Pagination_czyButton--link--white__gnaPK, .Pagination_czyButton--outlined--white__KRsiU{ color: var(--white-90); }
+
+
+.Pagination_czyButton--link--white__gnaPK:active, .Pagination_czyButton--outlined--white__KRsiU:active{ color: rgb(var(--white-50)/80%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--link--white__gnaPK:hover:not(:disabled), .Pagination_czyButton--outlined--white__KRsiU:hover:not(:disabled) { color: var(--white-50); }
+}
+
+
+.Pagination_czyButton--link--grey__7Or4R, .Pagination_czyButton--outlined--grey__p2Sjb{ color: rgb(var(--white-100)/30%); }
+
+
+.Pagination_czyButton--link--grey__7Or4R:active, .Pagination_czyButton--outlined--grey__p2Sjb:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--link--grey__7Or4R:hover:not(:disabled), .Pagination_czyButton--outlined--grey__p2Sjb:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.Pagination_czyButton--link--alert___b8ET, .Pagination_czyButton--outlined--alert__u3j0N{ color: var(--alert-100); }
+
+
+.Pagination_czyButton--link--alert___b8ET:active, .Pagination_czyButton--outlined--alert__u3j0N:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--link--alert___b8ET:hover:not(:disabled), .Pagination_czyButton--outlined--alert__u3j0N:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.Pagination_czyButton--link--success__KQLTE, .Pagination_czyButton--outlined--success__2dIJc{ color: var(--success-100); }
+
+
+.Pagination_czyButton--link--success__KQLTE:active, .Pagination_czyButton--outlined--success__2dIJc:active{ color: rgb(var(--success-100)/80%); }
+
+
+@media (hover: hover){
+  .Pagination_czyButton--link--success__KQLTE:hover:not(:disabled), .Pagination_czyButton--outlined--success__2dIJc:hover:not(:disabled) { color: var(--success-100); }
+}
+
+
+.Pagination_czyButton--outlined--purple__lfPhJ{ border: 1px solid var(--brand-60); }
+
+
+.Pagination_czyButton--outlined--white__KRsiU{ border: 1px solid var(--white-90); }
+
+
+.Pagination_czyButton--outlined--grey__p2Sjb{ border: 1px solid rgb(var(--white-100)/30%); }
+
+
+.Pagination_czyButton--outlined--alert__u3j0N{ border: 1px solid var(--alert-100); }
+
+
+.Pagination_czyButton--outlined--success__2dIJc{ border: 1px solid var(--success-100); }
+
+
+.Pagination_czyButton--outlined__58TXC:active{ border-color: rgb(var(--white-30)/70%); }
+
+
+.Pagination_czyButton--disabled__wyPNU{ opacity: 0.4; cursor: default; }
+
+
+.Pagination_czyButton--height50__9znTI{ height: 50px; }
+
+
+.Pagination_czyButton--height34__GXhNQ{ height: 34px; }
+
+
+.Pagination_czyButton--fullWidth__IMxpC{ width: 100%; }
+
+
+.Pagination_czyButton__sx09H svg{ height: 20px; width: 20px; margin-right: calc(var(--base-unit)*1); }
+
+
+.Pagination_paginationContainer__hoPjL{ display: flex; width: fit-content; justify-content: center; margin: calc(var(--base-unit)*3) auto; content-visibility: auto; contain: layout paint; contain-intrinsic-size: 60px; background-color: var(--black-90); border-radius: 60px; padding: 10px; align-items: center; gap: calc(var(--base-unit)*.5); font-size: 16px; font-weight: 700; }
+
+
+.Pagination_ellipsis__JebGV{ color: var(--white-10); }
+
+
+.Pagination_gamePageLink__Q4NQK{ transition: 0.1s ease-in; display: flex; align-items: center; justify-content: center; border-radius: 50px; background: var(--brand-100); width: 50px; height: 40px; user-select: none; }
+
+
+.Pagination_gamePageLink__Q4NQK.Pagination_number__UPaE8{ background: rgba(0, 0, 0, 0); border-radius: 50px; font-size: 16px; border: 1px solid rgba(0, 0, 0, 0); width: 26px; height: 40px; padding: 8px; }
+
+
+.Pagination_gamePageLink__Q4NQK.Pagination_current__2Voa_{ border: 1px solid var(--brand-100); }
+
+
+.Pagination_gamePageLink__Q4NQK svg{ height: 20px; width: 20px; }
+
+
+.Pagination_gamePageLink__Q4NQK.Pagination_disabled__9RqME:not(.Pagination_current__2Voa_){ background-color: var(--black-100); }
+
+
+.Pagination_gamePageLink__Q4NQK.Pagination_disabled__9RqME:not(.Pagination_current__2Voa_) svg{ color: var(--black-50); }
+
+
+@media (hover: hover){
+  .Pagination_gamePageLink__Q4NQK:not(.Pagination_disabled__9RqME):hover { background: var(--brand-130); }
+}
+
+/* ---- part 56 : https://sportsgamesaz.io/themes/sportsgamesaz.io/rs/css/1ebb69982afe91dc.css ---- */
+@charset "utf-8";
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 400; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 400; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/81f44dd2e4d3cabf-s.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 400; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 400; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/3916ba59bc59a9e6-s.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 400; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/40d40f0f334d7ad1-s.p.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 600; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 600; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/81f44dd2e4d3cabf-s.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 600; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 600; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/3916ba59bc59a9e6-s.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 600; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/40d40f0f334d7ad1-s.p.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 700; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 700; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/81f44dd2e4d3cabf-s.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 700; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 700; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/3916ba59bc59a9e6-s.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 700; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/40d40f0f334d7ad1-s.p.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 800; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 800; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/81f44dd2e4d3cabf-s.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 800; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 800; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/3916ba59bc59a9e6-s.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 800; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/40d40f0f334d7ad1-s.p.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 900; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/abfec168c8990f67-s.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 900; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/81f44dd2e4d3cabf-s.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 900; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/6a9c36ea9dc9b36b-s.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 900; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/3916ba59bc59a9e6-s.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+
+@font-face{ font-family: Nunito; font-style: normal; font-weight: 900; font-display: swap; src: url("https://builds.crazygames.com/portal-web/_next/static/media/40d40f0f334d7ad1-s.p.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+
+@font-face{ font-family: "Nunito Fallback"; src: local("Arial"); ascent-override: 99.71%; descent-override: 34.82%; line-gap-override: 0%; size-adjust: 101.39%; }
+
+
+.__className_ca8460{ font-family: Nunito, "Nunito Fallback"; font-style: normal; }
+
+
+.__variable_ca8460{ --font-nunito: "Nunito", "Nunito Fallback"; }
+
+
+.Button_czyButton__y8IRs{ border-radius: 30px; transition: 0.25s; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 16px; box-sizing: border-box; padding: calc(var(--base-unit)*1) calc(var(--base-unit)*2); background: rgba(0, 0, 0, 0); height: 40px; user-select: none; }
+
+
+.Button_czyButton__y8IRs:focus{ outline: none; }
+
+
+.Button_czyButton--contained--purple__OBSeL{ color: var(--white-100); background: var(--brand-100); }
+
+
+.Button_czyButton--contained--purple__OBSeL:active{ background: rgb(var(--brand-100)/70%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--purple__OBSeL:hover:not(:disabled) { background: var(--brand-80); }
+}
+
+
+.Button_czyButton--contained--white__sCz8u{ color: var(--black-50); background: var(--white-100); }
+
+
+.Button_czyButton--contained--white__sCz8u:active{ background: rgb(var(--white-100)/70%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--white__sCz8u:hover:not(:disabled) { background: var(--white-50); }
+}
+
+
+.Button_czyButton--contained--grey__sz05o{ color: var(--white-100); background: var(--black-40); }
+
+
+.Button_czyButton--contained--grey__sz05o:active{ background: rgb(var(--black-40)/70%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--grey__sz05o:hover:not(:disabled) { background: var(--black-50); }
+}
+
+
+.Button_czyButton--contained--alert__uLqDw{ color: var(--white-100); background: var(--alert-100); }
+
+
+.Button_czyButton--contained--alert__uLqDw:active{ background: rgb(var(--alert-100)/70%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--alert__uLqDw:hover:not(:disabled) { background: var(--alert-100); }
+}
+
+
+.Button_czyButton--contained--success__AaSFp{ color: var(--white-100); background: var(--success-100); }
+
+
+.Button_czyButton--contained--success__AaSFp:active{ background: rgb(var(--success-100)/70%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--success__AaSFp:hover:not(:disabled) { background: rgb(82, 177, 135); }
+}
+
+
+.Button_czyButton--contained--black__lSHus{ color: var(--white-100); background: var(--black-80); }
+
+
+.Button_czyButton--contained--black__lSHus:active{ background: rgb(var(--black-80)/70%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--black__lSHus:hover:not(:disabled) { background: var(--black-70); }
+}
+
+
+.Button_czyButton--contained--green-gradient__yxGqG{ color: var(--black-100); background: linear-gradient(90deg, rgb(73, 243, 195), rgb(100, 241, 126)); }
+
+
+.Button_czyButton--contained--green-gradient__yxGqG:active{ background: linear-gradient(90deg, rgb(40, 151, 119), rgb(64, 139, 78)); }
+
+
+@media (hover: hover){
+  .Button_czyButton--contained--green-gradient__yxGqG:hover:not(:disabled) { background: linear-gradient(90deg, rgb(45, 197, 154), rgb(93, 185, 110)); }
+}
+
+
+.Button_czyButton--link--purple__2gfu8, .Button_czyButton--outlined--purple__75yge{ color: var(--brand-60); }
+
+
+.Button_czyButton--link--purple__2gfu8:active, .Button_czyButton--outlined--purple__75yge:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--link--purple__2gfu8:hover:not(:disabled), .Button_czyButton--outlined--purple__75yge:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.Button_czyButton--link--white__MRtJy, .Button_czyButton--outlined--white__alf7U{ color: var(--white-90); }
+
+
+.Button_czyButton--link--white__MRtJy:active, .Button_czyButton--outlined--white__alf7U:active{ color: rgb(var(--white-50)/80%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--link--white__MRtJy:hover:not(:disabled), .Button_czyButton--outlined--white__alf7U:hover:not(:disabled) { color: var(--white-50); }
+}
+
+
+.Button_czyButton--link--grey__lWfgd, .Button_czyButton--outlined--grey__RY_m5{ color: rgb(var(--white-100)/30%); }
+
+
+.Button_czyButton--link--grey__lWfgd:active, .Button_czyButton--outlined--grey__RY_m5:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--link--grey__lWfgd:hover:not(:disabled), .Button_czyButton--outlined--grey__RY_m5:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.Button_czyButton--link--alert__413_a, .Button_czyButton--outlined--alert___Tjht{ color: var(--alert-100); }
+
+
+.Button_czyButton--link--alert__413_a:active, .Button_czyButton--outlined--alert___Tjht:active{ color: rgb(var(--brand-100)/80%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--link--alert__413_a:hover:not(:disabled), .Button_czyButton--outlined--alert___Tjht:hover:not(:disabled) { color: var(--brand-100); }
+}
+
+
+.Button_czyButton--link--success__KF1ra, .Button_czyButton--outlined--success__kY6BT{ color: var(--success-100); }
+
+
+.Button_czyButton--link--success__KF1ra:active, .Button_czyButton--outlined--success__kY6BT:active{ color: rgb(var(--success-100)/80%); }
+
+
+@media (hover: hover){
+  .Button_czyButton--link--success__KF1ra:hover:not(:disabled), .Button_czyButton--outlined--success__kY6BT:hover:not(:disabled) { color: var(--success-100); }
+}
+
+
+.Button_czyButton--outlined--purple__75yge{ border: 1px solid var(--brand-60); }
+
+
+.Button_czyButton--outlined--white__alf7U{ border: 1px solid var(--white-90); }
+
+
+.Button_czyButton--outlined--grey__RY_m5{ border: 1px solid rgb(var(--white-100)/30%); }
+
+
+.Button_czyButton--outlined--alert___Tjht{ border: 1px solid var(--alert-100); }
+
+
+.Button_czyButton--outlined--success__kY6BT{ border: 1px solid var(--success-100); }
+
+
+.Button_czyButton--outlined__ItfKc:active{ border-color: rgb(var(--white-30)/70%); }
+
+
+.Button_czyButton--disabled__s63hY{ opacity: 0.4; cursor: default; }
+
+
+.Button_czyButton--height50__yzcvJ{ height: 50px; }
+
+
+.Button_czyButton--height34__0zFYJ{ height: 34px; }
+
+
+.Button_czyButton--fullWidth__wIJyy{ width: 100%; }
+
+
+.Button_czyButton__y8IRs svg{ height: 20px; width: 20px; margin-right: calc(var(--base-unit)*1); }
+
+
+.Sidebar_main___ex0V{ --mobile-sidebar-zindex: 30; width: var(--sidebar-width); height: 100vh; transition: visibility, 0.15s ease-in-out; background: var(--black-100); content-visibility: auto; z-index: 3; position: fixed; top: var(--header-height); left: 0px; border-right: 1px solid var(--black-60); }
+
+
+.Sidebar_main___ex0V.Sidebar_isDesktop__aieVO{ height: calc(100vh - var(--header-height)); }
+
+
+.Sidebar_main___ex0V:not(.Sidebar_isDesktop__aieVO){ top: 0px; z-index: var(--mobile-sidebar-zindex); padding-top: var(--header-height); width: var(--sidebar-width) !important; }
+
+
+.Sidebar_main___ex0V.Sidebar_hidden__ARber{ left: calc(var(--sidebar-width)*-1); }
+
+
+.Sidebar_main___ex0V:hover{ width: var(--sidebar-width); }
+
+
+.Sidebar_main___ex0V:hover .sidebarLinks{ display: flex !important; }
+
+
+.Sidebar_main___ex0V:hover #sidebar-hidden, .Sidebar_main___ex0V:hover #sidebar-language-selector{ display: block !important; }
+
+
+@media (max-width: 1909.98px){
+  .Sidebar_main___ex0V { width: var(--sidebar-collapsed-width); }
+  .Sidebar_main___ex0V:hover [class*="labelContainer"] { opacity: 1 !important; visibility: visible !important; }
+}
+
+
+.Sidebar_container__CqXNx{ width: 100%; height: 100%; display: flex; padding-top: calc(var(--base-unit)*2); padding-bottom: 30px; flex-direction: column; overflow: hidden auto; overflow-anchor: none; scrollbar-width: none; }
+
+
+.Sidebar_container__CqXNx::-webkit-scrollbar{ width: 0px; height: 0px; }
+
+
+.Sidebar_container__CqXNx::-webkit-scrollbar-thumb{ border-radius: 30px; }
+
+
+.Sidebar_container__CqXNx:hover{ width: 100%; scrollbar-width: thin; scrollbar-color: var(--white-50) 0 #0000; }
+
+
+.Sidebar_container__CqXNx:hover::-webkit-scrollbar{ width: 4px; height: 4px; background: var(--black-100); }
+
+
+.Sidebar_container__CqXNx:hover::-webkit-scrollbar-thumb{ background: var(--white-50); border-radius: 30px; }
+
+
+.Sidebar_container__CqXNx:hover::-webkit-scrollbar-corner{ background: var(--black-100); }
+
+
+.Sidebar_container__CqXNx.Sidebar_onMobileOrTablet__cmK_V{ padding-top: 0px; }
+
+
+.Sidebar_container__CqXNx .Sidebar_copyright__65TvR{ color: var(--white-10); font-size: 12px; font-weight: 400; margin-left: calc(var(--base-unit)*2); margin-top: calc(var(--base-unit)*2 + 30px); }
+
+
+.Sidebar_linksContainer__n3z0G{ margin-left: calc(var(--base-unit)*2.5); margin-top: calc(var(--base-unit)*1); display: flex; flex-direction: column; user-select: none; }
+
+
+.Sidebar_linksContainer__n3z0G.Sidebar_isDesktop__aieVO{ display: none; }
+
+
+@media (min-width: 1910px){
+  .Sidebar_linksContainer__n3z0G.Sidebar_isDesktop__aieVO { display: flex; }
+}
+
+
+.Sidebar_linksContainer__n3z0G .Sidebar_sidebarSpan__fHyyG{ color: var(--white-30); text-decoration: none; cursor: pointer; margin-bottom: 2px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; font-size: 16px; line-height: 24px; font-weight: 400; }
+
+
+.Sidebar_linksContainer__n3z0G .Sidebar_sidebarSpan__fHyyG:hover{ opacity: 0.8; }
+
+
+.Sidebar_link__Tbdup{ flex-wrap: nowrap; width: var(--sidebar-width); border-left: 6px solid rgba(0, 0, 0, 0); user-select: none; }
+
+
+.Sidebar_link__Tbdup, .Sidebar_link__Tbdup img{ display: flex; height: var(--sidebar-item-height); align-items: center; }
+
+
+.Sidebar_link__Tbdup img{ width: var(--sidebar-collapsed-width); padding: 0 calc((var(--sidebar-collapsed-width) - var(--sidebar-icon-size))/2); text-align: center; margin-left: -6px; justify-content: center; color: var(--white-30); }
+
+
+.Sidebar_link__Tbdup .Sidebar_labelContainer__qHPDa{ transition: visibility, opacity 0.3s, 0.2s ease-in-out; font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+
+
+@media (min-width: 1910px){
+  .Sidebar_link__Tbdup .Sidebar_labelContainer__qHPDa { opacity: 1 !important; visibility: visible !important; }
+}
+
+
+.Sidebar_link__Tbdup:active, .Sidebar_link__Tbdup:active svg{ color: var(--brand-60); }
+
+
+@media (hover: hover){
+  .Sidebar_link__Tbdup:hover:not(.Sidebar_active__bltDp, .Sidebar_disabled__g_rzR) { cursor: pointer; }
+  .Sidebar_link__Tbdup:hover:not(.Sidebar_disabled__g_rzR) { color: var(--white-50); }
+  .Sidebar_link__Tbdup:hover [class*="labelContainer"]:not(.Sidebar_disabled__g_rzR) { transform: translate(calc(var(--base-unit) * 1)); }
+  .Sidebar_link__Tbdup:hover svg:not(.Sidebar_active__bltDp, .Sidebar_disabled__g_rzR) { color: var(--white-10); }
+}
+
+
+.Sidebar_link__Tbdup.Sidebar_isMobile__OO1Bz{ width: unset; }
+
+
+.Sidebar_link__Tbdup.Sidebar_active__bltDp{ border-left-color: var(--brand-60); }
+
+
+.Sidebar_link__Tbdup.Sidebar_active__bltDp.Sidebar_isSecondary__huRBM{ }
+
+
+.Sidebar_link__Tbdup.Sidebar_active__bltDp img{ color: var(--brand-60); }
+
+
+.Sidebar_link__Tbdup.Sidebar_active__bltDp .Sidebar_labelContainer__qHPDa{ color: var(--brand-60); transform: none !important; }
+
+
+.Sidebar_link__Tbdup.Sidebar_disabled__g_rzR{ opacity: 0.3; }
+
+
+.Sidebar_link__Tbdup:not(.Sidebar_isMobile__OO1Bz) .Sidebar_labelContainer__qHPDa{ opacity: 0; visibility: hidden; }
+
+
+.Dropdown_selectButton__kNaYk, .Dropdown_selectComponent__e0C_2{ outline: 0px; border-radius: 8px; width: 100%; height: 60px; font-family: var(--font-nunito); background-color: rgba(0, 0, 0, 0.3); border: 2px solid rgba(255, 255, 255, 0.2); padding-left: calc(var(--base-unit)*2); padding-right: calc(var(--base-unit)*2); color: var(--white-100); font-size: 16px; }
+
+
+.Dropdown_selectButton__kNaYk:hover, .Dropdown_selectComponent__e0C_2:hover{ border-color: var(--white-60); }
+
+
+.Dropdown_selectButton__kNaYk:focus, .Dropdown_selectComponent__e0C_2:focus{ border-color: var(--brand-100); }
+
+
+.Dropdown_selectWrapper__TdpR7{ position: relative; }
+
+
+.Dropdown_selectComponent__e0C_2{ appearance: none; }
+
+
+.Dropdown_selectComponent__e0C_2 ~ .Dropdown_iconExpandSelect__pIMZn{ position: absolute; top: 20px; right: 16px; pointer-events: none; }
+
+
+.Dropdown_selectComponent__e0C_2:hover{ cursor: pointer; }
+
+
+.Dropdown_selectButton__kNaYk{ display: flex; justify-content: space-between; align-items: center; }
+
+
+.Dropdown_selectButton__kNaYk .Dropdown_iconCollapseSelect__nTNxY{ display: none; }
+
+
+.Dropdown_selectButton__kNaYk .Dropdown_iconExpandSelect__pIMZn{ display: block; }
+
+
+.Dropdown_selectButton__kNaYk.Mui-expanded{ border-color: var(--white-60); }
+
+
+.Dropdown_selectButton__kNaYk.Mui-expanded .Dropdown_iconCollapseSelect__nTNxY{ display: block; }
+
+
+.Dropdown_selectButton__kNaYk.Mui-expanded .Dropdown_iconExpandSelect__pIMZn{ display: none; }
+
+
+.Dropdown_selectButton__kNaYk:hover{ cursor: pointer; }
+
+
+.Dropdown_selectButton__kNaYk:disabled{ color: var(--white-10); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; background: rgba(47, 49, 72, 0.4); }
+
+
+.Dropdown_selectButton__kNaYk:disabled ~ label{ color: var(--white-10); }
+
+
+.Dropdown_selectButton__kNaYk:disabled:hover{ cursor: default; }
+
+
+.Dropdown_dropdownContent__k7Pf_{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+
+.Dropdown_dropdownPopper__nek4W{ z-index: 1500; }
+
+
+.Dropdown_multilineSelectOption__Wx0h1{ overflow: hidden; -webkit-box-orient: vertical; height: auto !important; display: -webkit-box !important; }
+
+
+@media (min-width: 1082px){
+  .TopSearch_topSearchForm__b9Z8c { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+}
+
+
+@media (max-width: 1081.98px){
+  .TopSearch_topSearchForm__b9Z8c { position: relative; flex: 1 1 0%; }
+}
+
+
+@media (max-width: 700px){
+  .TopSearch_topSearchForm__b9Z8c.TopSearch_isDesktop__2eSKm { display: none; }
+}
+
+
+.TopSearch_searchInput__Nbapa{ border-radius: 30px; fill: var(--white-50); height: 40px; background-color: var(--black-40); border: 1px solid rgba(0, 0, 0, 0); box-shadow: 0px 0px; font-family: var(--font-nunito); font-weight: 700; font-size: var(--font-size-button); color: var(--white-50); outline: 0px; }
+
+
+.TopSearch_searchInput__Nbapa:focus{ border-color: var(--brand-100); }
+
+
+.TopSearch_searchInput__Nbapa::placeholder{ color: var(--white-50); opacity: 1; font-family: var(--font-nunito); }
+
+
+.TopSearch_topSearchInput__mCCPQ.TopSearch_isDesktop__2eSKm{ padding-left: calc(var(--base-unit)*2); }
+
+
+.TopSearch_topSearchInput__mCCPQ:not(.TopSearch_isDesktop__2eSKm){ padding-left: calc(var(--base-unit)*6); }
+
+
+@media (min-width: 600px){
+  .TopSearch_topSearchInput__mCCPQ { outline: 0px; }
+}
+
+
+@media (min-width: 1082px){
+  .TopSearch_topSearchInput__mCCPQ { width: 460px; margin: auto; }
+}
+
+
+@media (max-width: 1081.98px){
+  .TopSearch_topSearchInput__mCCPQ { width: 100%; }
+}
+
+
+.TopSearch_topSearchInput__mCCPQ.TopSearch_disabled__pEttp{ opacity: 0.2; }
+
+
+.TopSearch_topSearchInput__mCCPQ.TopSearch_isMobile__W6aoz{ height: 34px; color: var(--white-100); }
+
+
+.TopSearch_topSearchInput__mCCPQ.TopSearch_isMobile__W6aoz::placeholder{ font-weight: 700; opacity: 1; }
+
+
+:root{ --brand-0: #fff; --brand-20: #e1d9ff; --brand-30: #d2c6ff; --brand-40: #c3b3ff; --brand-50: #b4a1ff; --brand-60: #a48eff; --brand-70: #957bff; --brand-80: #8668ff; --brand-100: #6842ff; --brand-120: #5335cc; --brand-130: #492eb3; --brand-140: #3e2899; --brand-150: #342180; --brand-160: #2a1a66; --brand-180: #150d33; --brand-200: #07050f; --black-10: #474967; --black-20: #434561; --black-40: #373952; --black-50: #2f3148; --black-60: #28293d; --black-70: #212233; --black-80: #1a1b28; --black-90: #13141e; --black-100: #0c0d14; --white-10: #666a7f; --white-20: #767a8e; --white-30: #878a9e; --white-40: #989bae; --white-50: #aaadbe; --white-60: #bdbfce; --white-70: #d0d2de; --white-80: #e5e6ee; --white-90: #eff0f7; --white-100: #f9faff; --success-100: #4af0a7; --alert-40: #f59ebe; --alert-60: #f16e9d; --alert-100: #e70d5c; --warning-100: #ffac4a; --warning-200: #3c2a16; }
+
+
+.halloween{ --brand-70: #da7f14; --brand-80: #da7f14; --brand-100: #da7f14; --brand-130: #da7f14; }
+
+
+:root{ --sidebar-width: 200px; --sidebar-collapsed-width: 60px; --sidebar-item-height: 34px; --sidebar-icon-size: 22px; --header-height: 60px; --header-search-width: 262px; --header-logo-height: 35px; --header-mobile-height: 56px; --header-tablet-height: 60px; --header-mobile-logo-height: 30px; --drawer-width: 400px; --game-thumb-width: 178px; --game-thumb-height: 100px; --game-thumb-aspect-ratio: 100/178; --game-thumb-mobile-width: 168px; --originals-portrait-width: 271px; --originals-portrait-mobile-width: 160px; --originals-square-width: 160px; --originals-square-mobile-width: 160px; --originals-landscape-width: 178px; --originals-landscape-mobile-width: 168px; --font-size-body: 14px; --font-size-button: 16px; --font-size-body-small: 11.2px; --font-size-body-xsmall: 0.7rem; --font-size-h1: 24px; --font-size-h1-small: 1.5rem; --font-size-h2: 1.2rem; --font-size-h2-small: 0.875rem; --font-size-h3: 1rem; --font-size-h5: 20px; --base-unit: 8px; }
+
+
+a{ text-decoration: none; font-weight: 700; }
+
+/* ---- part 57 : cid:css-6533c398-e2a2-4cbc-b1a5-4f36db934ea0@mhtml.blink ---- */
+@charset "utf-8";
+
+#comments_area .row{ display: flex; margin: 0px -15px; flex-wrap: wrap; width: unset; }
+
+
+#comments_area .col-md-12{ box-sizing: border-box; width: 100%; padding: 0px 15px; }
+
+
+#comments_area .col-md-6{ box-sizing: border-box; padding: 0px 15px; width: 50%; }
+
+
+@media (max-width: 850px){
+  #comments_area .col-md-6 { width: 100%; }
+}
+
+
+#comments_area .col-md-4{ box-sizing: border-box; padding: 0px 15px; width: 33.33%; }
+
+
+.comment-header, .comment-count{ display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+
+
+#comment_count{ margin-left: 5px; }
+
+
+.comment-load-more, .comment_loading{ background: url("/themes/hotgames.io/rs/imgs/comments/icon_loader.gif") 0px 0px / 100% no-repeat; width: 70px; height: 50px; margin: 0px auto; display: none; }
+
+
+.col-all{ display: flex; flex-basis: auto; }
+
+
+.replyWrap{ position: relative; background: url("/themes/hotgames.io/rs/imgs/comments/quote.png") right top no-repeat; border-top: 1px solid rgb(232, 232, 232); }
+
+
+.clearAfter{ display: block; clear: both; padding: 10px 0px; }
+
+
+.listProfile{ display: flex; align-items: center; margin-bottom: 10px; }
+
+
+.listProfile .user{ font-size: 12px; margin-right: 10px; }
+
+
+.listProfile .user:nth-child(2){ text-decoration: underline; }
+
+
+.listProfile .user:nth-child(3){ opacity: 0.85; }
+
+
+.listContent{ position: relative; overflow: hidden; }
+
+
+.replyWrap .left{ float: left; padding: 0px; }
+
+
+.replyWrap b.voteUp{ color: rgb(74, 240, 167); margin-left: 5px; }
+
+
+.replyWrap .rating b{ font-weight: 400; }
+
+
+.replyWrap b.voteDown{ color: rgb(239, 48, 86); }
+
+
+.replyWrap a.icon.voteDown svg{ transform: rotate(-180deg); fill: rgb(239, 48, 86); }
+
+
+.replyWrap a.icon.voteUp svg{ fill: rgb(74, 240, 167); }
+
+
+.replyWrap .right{ float: right; padding: 0px; }
+
+
+.replyWrap a.icon{ display: flex; align-items: center; letter-spacing: -1px; font-size: 12px; padding: 2px; margin-right: 8px; }
+
+
+.replyWrap a.icon > svg{ width: 18px; height: 18px; fill: rgb(104, 66, 255); }
+
+
+.icon{ padding-left: 20px; background-position: left center; background-repeat: no-repeat; }
+
+
+a.icon{ border: 0px !important; }
+
+
+.replyWrap a.icon > b{ font-size: 16px; line-height: 1; margin-left: 2px; opacity: 0.8; }
+
+
+.commentBlock{ }
+
+
+.commentBlock .listProfile{ margin-left: 0px; padding-left: 6px; text-align: center; }
+
+
+.your_comment{ background: rgb(209, 244, 168); padding: 10px; }
+
+
+.replyWrap a.report{ background-position: 0px 2px; }
+
+
+.commentLink{ float: left; padding-left: 35px; background: url("/themes/hotgames.io/rs/imgs/comments/comment_comment.png") left center no-repeat; border: 0px; line-height: 26px; }
+
+
+#rc-imageselect{ transform: scale(0.77); transform-origin: 0px 0px; }
+
+
+@media screen and (max-height: 575px){
+  #rc-imageselect, .g-recaptcha { transform: scale(0.77); transform-origin: 0px 0px; }
+}
+
+
+.required{ color: red; }
+
+
+input.error, textarea.error{ border: 1px solid red !important; }
+
+
+div.error, label.error{ font-weight: 400; display: block; color: red !important; }
+
+
+.text-normal{ font-weight: 400 !important; }
+
+
+.make-comment label{ display: block; margin-right: 12px; padding: 10px 0px; }
+
+
+#respond textarea{ background-color: rgb(255, 255, 255); border: 1px solid rgb(221, 221, 221); color: rgb(51, 51, 51); font-size: 1.8rem; font-weight: 400; padding: 16px; width: 100%; }
+
+
+.btn, .form-control{ font-size: 14px; line-height: 1.42857; background-image: none; }
+
+
+#comments_area{ text-align: left; color: inherit; line-height: 1.5; }
+
+
+.form-control{ display: block; width: 100%; color: rgb(85, 85, 85); background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); border-radius: 4px; box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; box-sizing: border-box; padding: 10px 15px; margin-top: 15px; }
+
+
+textarea.form-control{ height: auto; }
+
+
+.btn{ display: inline-block; padding: 6px 12px; margin-bottom: 0px; font-weight: 400; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; user-select: none; border: 1px solid transparent; border-radius: 4px; }
+
+
+.btn-primary{ background-color: var(--brand-100); border-color: var(--brand-100); color: rgb(255, 255, 255); transition: unset; font-weight: bold; }
+
+
+.btn-primary:hover{ background: var(--brand-80); }
+
+
+.hidden{ display: none; }
+
+
+.pull-right{ float: right !important; }
+
+
+.comment-date{ }
+
+
+select.input-sm{ line-height: 30px; margin: 10px; }
+
+
+#list_comment a{ color: inherit; }
+
+
+#load_more_comment{ color: rgb(255, 255, 255) !important; }
+
+
+#msg{ padding: 10px 0px; font-style: italic; }
+
+
+.comment-notes{ padding-bottom: 10px; font-style: italic; }
+
+
+#comment_form{ clear: both; }
+
+
+.question-title{ padding-left: 15px; }
+
+
+#sort_by{ color: rgb(0, 0, 0); padding: 5px 10px; cursor: pointer; background-color: rgb(255, 255, 255); }
+
+
+#sort_by option{ color: rgb(0, 0, 0); }
+
+
+#comments_area .img-thumbnail{ display: inline-block; transition: 0.2s ease-in-out; border-radius: 50%; background-color: rgb(104, 66, 255); color: rgb(255, 255, 255); text-transform: uppercase; width: 45px; height: 45px; line-height: 45px; text-align: center; margin-right: 10px; font-weight: bold; font-size: 20px; }
+
+
+.listProfile img{ width: auto; height: auto; }
+
+
+.img-cirle{ width: 24px !important; height: 24px !important; }
+
+
+.comment--content{ margin-bottom: 10px; word-break: break-word; }
+
+
+.control-action{ display: flex; align-items: center; }
+
+
+.comment__reply{ padding-left: 20px; margin-left: 20px; }
+
+
+.comment-title{ font-size: 20px; font-weight: 600; }
+
+
+p > i{ font-size: 12px; }
+
+
+@media (max-width: 991px){
+  #comments_area .col-md-4 { width: 100%; }
+}
+
+
+.adminManager{ margin-left: auto; padding: 5px 10px; cursor: pointer; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); border: 1px solid rgb(204, 204, 204); }
+
+/* ---- part 58 : cid:css-48cd0880-1ae4-4914-85ea-117e116ab740@mhtml.blink ---- */
+@charset "utf-8";
+
+.pending-comment{ padding: 5px; background-color: rgb(255, 255, 255); color: red; }
+
+/* ---- part 59 : cid:css-99d3f0cc-4886-484e-b6da-99780036c8c7@mhtml.blink ---- */
+@charset "utf-8";
+
+@media (max-width: 600px){
+  .css-uwwqev { min-height: 450px; }
+}
+
+/* ---- part 60 : cid:css-701f623c-fff4-4b14-88a8-be91f0f43932@mhtml.blink ---- */
+@charset "utf-8";
+
+th-rw4gc.th-rw{ color-scheme: light; --listGroupItemBackgroundColorActive: white; --squareButtonBackgroundHover: #f5f5f5; --squareButtonIconFillColor: rgb(36, 42, 56); --squareButtonActiveBackGroundColor: #EFEFEF; --squareButtonIconTickColor: #506C7E; }
+
+
+th-rw4gc.dark-mode{ --listGroupItemBackgroundColorFocus: rgb(63, 79, 90); --modalTextColorFocus: white; --listGroupItemBackgroundColorActive: rgb(36, 45, 51); --modalTextColorActive: white; --squareButtonBackgroundHover: rgb(56, 71, 81); --squareButtonIconFillColor: white; --squareButtonActiveBackGroundColor: #24323E; --squareButtonIconTickColor: #FFF; }
+
+
+th-rw4gc.dark-mode.th-rw{ color-scheme: dark; --toolbarIconButtonFillColor: var(--white); --settingsTitleColor: var(--white); }
+
+
+.gw-toolbar--s1{ --th-fontSize: 5px; }
+
+
+.gw-toolbar--s2{ --th-fontSize: 10px; }
+
+
+.gw-toolbar--s3{ --th-fontSize: 15px; }
+
+
+.gw-toolbar--s4{ --th-fontSize: 20px; }
+
+
+.gw-listitem-fontsize-s10{ --gw-listitem-fontsize: 10px !important; }
+
+
+.gw-listitem-fontsize-s11{ --gw-listitem-fontsize: 11px !important; }
+
+
+.gw-listitem-fontsize-s12{ --gw-listitem-fontsize: 12px !important; }
+
+
+.gw-listitem-fontsize-s13{ --gw-listitem-fontsize: 13px !important; }
+
+
+.gw-listitem-fontsize-s14{ --gw-listitem-fontsize: 14px !important; }
+
+
+.gw-listitem-fontsize-s15{ --gw-listitem-fontsize: 15px !important; }
+
+
+.gw-listitem-fontsize-s16{ --gw-listitem-fontsize: 16px !important; }
+
+
+.gw-listitem-fontsize-s17{ --gw-listitem-fontsize: 17px !important; }
+
+
+.gw-listitem-fontsize-s18{ --gw-listitem-fontsize: 18px !important; }
+
+
+.gw-listitem-fontsize-s19{ --gw-listitem-fontsize: 19px !important; }
+
+
+.gw-listitem-fontsize-s20{ --gw-listitem-fontsize: 20px !important; }
+
+
+.gw-listitem-fontsize-s21{ --gw-listitem-fontsize: 21px !important; }
+
+
+.gw-listitem-fontsize-s22{ --gw-listitem-fontsize: 22px !important; }
+
+
+.gw-listitem-fontsize-s23{ --gw-listitem-fontsize: 23px !important; }
+
+
+.gw-listitem-fontsize-s24{ --gw-listitem-fontsize: 24px !important; }
+
+
+th-rw4gc{ color-scheme: light; --th-fontSize: 10px; --th-placeholderColor: hsl(222, 10%, 46%); }
+
+
+th-rw4gc.dark-mode{ color-scheme: dark; --th-placeholderColor: hsl(222, 10%, 62%); }
+
+
+.gw-info{ --notification-bg-color: var(--infoBackgroundColor); --notification-border-color: var(--infoBorderColor); --notification-color: var(--infoTitleColor); }
+
+
+.gw-success{ --notification-bg-color: var(--successBackgroundColor); --notification-border-color: var(--successBorderColor); --notification-color: var(--successTitleColor); }
+
+
+.gw-error{ --notification-bg-color: var(--errorBackgroundColor); --notification-border-color: var(--errorBorderColor); --notification-color: var(--errorTitleColor); }
+
+
+.gw-warning{ --notification-bg-color: var(--warningBackgroundColor); --notification-border-color: var(--warningBorderColor); --notification-color: var(--warningTitleColor); }
+
+
+th-rw4gc.th-rw{ --toolbarIconToggleFill: var(--primaryColorPurple); --toolbarIconToggleHoverFill: var(--primaryColorPurple); --settingsTitleColor: var(--primaryColorPurple); }
+
+
+.gw-toolbar--undocked{ --toolbarWidth: fit-content; --toolbarDisplay: block; --toolbarPosition: fixed; }
+
+
+.gw-ul--small{ --liWidth: 150px; }
+
+
+.gw-ul--medium{ --liWidth: 300px; }
+
+
+.gw-ul--large{ --liWidth: 450px; }
+
+
+gw-radio label.gw-radio__input-label b{ font-weight: var(--label-bold-font-weight, bold); font-size: var(--label-bold-font-size, 1.4em); font-family: var(--label-bold-font-family, "Open Sans", sans-serif); color: var(--label-bold-color, inherit); }
+
+
+gw-radio label.gw-radio__input-label u{ text-decoration: underline; font-size: 1em; font-weight: normal; }
+
+/* ---- part 61 : cid:css-087e144d-c8c3-4a70-85fa-05693047be41@mhtml.blink ---- */
+@charset "utf-8";
+
+th-rw4gc{ --transparent: rgba(255, 255, 255, 0); --white: hsl(0, 0%, 100%); --th-white: hsl(0, 0%, 100%); --black: hsl(0, 0%, 0%); --th-black: hsl(0, 0%, 0%); --lightGrey: hsl(0, 0%, 94%); --th-grey-white: hsl(210, 10%, 97%); --th-grey-light: hsl(210, 10%, 94.8%); --th-grey-medium: hsl(212, 10%, 94%); --th-grey: hsl(216, 22%, 91%); --th-grey-dark: hsl(221, 20%, 78%); --th-slate: hsl(221, 20%, 33%); --th-slate-light: hsl(222, 20%, 45%); --th-slate-dark: hsl(222, 22%, 18%); --th-slate-alt: #333F57; --th-slate-hover: #3E4A62; --th-slate-dark-hover800: hsl(220, 22%, 24%); --th-slate-dark-active800: hsl(219, 24%, 26%); --th-slate-dark-hover600: hsl(222, 22%, 21%); --th-slate-dark-active600: hsl(221, 24%, 23%); --th-cool-grey-600: hsl(203, 16%, 44%); --th-cool-grey-700: hsl(204, 18%, 30%); --th-cool-grey-750: hsl(203, 18%, 32%); --th-cool-grey-800: hsl(209, 20%, 25%); --th-cool-grey-850: hsl(209, 20%, 21%); --th-cool-grey-900: hsl(210, 24%, 16%); --fontColorDark: var( --th-slate-dark); --fontColorWhite: hsl(0, 0%, 100%); --list-item-hover: hsl(225, 20%, 96%); --list-item-light-hover: hsl(210, 20%, 98%); --list-item-hover-dark: hsla(222, 22%, 18%, 0.50); --list-item-light-hover-dark: hsla(222, 20%, 33%, 0.50); --greyTransparent: hsla(222, 22%, 18%, 0.12); --whiteTransparent: hsla(0, 0%, 100%, 0.12); --defaultColor: hsl(220, 20%, 91%); --defaultColorHover: hsl(220, 19%, 78%); --defaultColorActive: hsl(220, 19%, 68%); --defaultColorSelected: hsl(221, 20%, 75%); --buttonBorderColor: 2px solid hsl(220, 20%, 91%); --buttonBorderColorHover: 2px solid hsl(220, 19%, 78%); --buttonBorderColorActive: 2px solid hsl(220, 19%, 68%); --buttonBorderColorSelected: 2px solid hsl(221, 20%, 75%); --iconFillColor: var( --th-slate-dark ); --primaryColor: hsl(211, 100%, 45%); --primaryColorHover: hsl(211, 100%, 35%); --primaryColorActive: hsl(211, 100%, 25%); --primaryButtonBorder: 2px solid hsl(211, 100%, 45%); --primaryButtonBorderHover: 2px solid hsl(211, 100%, 35%); --primaryButtonBorderActive: 2px solid hsl(211, 100%, 25%); --secondaryColor: var(--th-slate); --secondaryColorHover: hsl(221, 20%, 23%); --secondaryColorActive: hsl(221, 20%, 13%); --secondaryButtonBorderColor: 2px solid var(--th-slate); --secondaryButtonBorderColorHover: 2px solid hsl(221, 20%, 23%); --secondaryButtonBorderColorActive: 2px solid hsl(221, 20%, 13%); --disabledColor: hsl(0, 0%, 50%); --disabledBackgroundColor: hsl(0, 0%, 95%); --brandColorGreen: hsl(76, 60%, 52%); --brandColorGreenActive: hsl(76, 62%, 40%); --primaryColorGreen: hsl(79, 100%, 24%); --primaryColorGreenHover: hsl(79, 100%, 14%); --primaryColorGreenActive: hsl(79, 100%, 4%); --buttonBorderGreen: 2px solid hsl(79, 100%, 24%); --buttonBorderGreenHover: 2px solid hsl(79, 100%, 14%); --buttonBorderGreenActive: 2px solid hsl(79, 100%, 4%); --brandColorPink: hsl(344, 98%, 59%); --primaryColorPink: #e12362; --primaryColorPinkHover: hsl(340, 76%, 41%); --primaryColorPinkActive: hsl(340, 76%, 31%); --buttonBorderPink: 2px solid hsl(340, 76%, 51%); --buttonBorderPinkHover: 2px solid hsl(340, 76%, 41%); --buttonBorderPinkActive: 2px solid hsl(340, 76%, 31%); --brandColorTeal: hsl(180, 85%, 34%); --primaryColorTeal: hsl(184, 50%, 35%); --primaryColorTealHover: hsl(184, 50%, 25%); --primaryColorTealActive: hsl(184, 50%, 15%); --buttonBorderTeal: 2px solid hsl(184, 50%, 35%); --buttonBorderTealHover: 2px solid hsl(184, 50%, 25%); --buttonBorderTealActive: 2px solid hsl(184, 50%, 15%); --brandColorPurple: hsl(264, 100%, 68%); --primaryColorPurple: hsl(264, 83%, 62%); --primaryColorPurpleHover: hsl(264, 83%, 52%); --primaryColorPurpleActive: hsl(264, 83%, 42%); --buttonBorderPurple: 2px solid hsl(264, 83%, 62%); --buttonBorderPurpleHover: 2px solid hsl(264, 83%, 52%); --buttonBorderPurpleActive: 2px solid hsl(264, 83%, 42%); --brandColorOrange: hsl(33, 94%, 48%); --primaryColorOrange: hsl(15, 79%, 45%); --primaryColorOrangeHover: hsl(15, 80%, 35%); --primaryColorOrangeActive: hsl(15, 80%, 25%); --buttonBorderOrange: 2px solid hsl(15, 79%, 45%); --buttonBorderOrangeHover: 2px solid hsl(15, 80%, 35%); --buttonBorderOrangeActive: 2px solid hsl(15, 80%, 25%); --brandColorBlue: hsl(197, 100%, 50%); --brandColorBlueActive: hsl(197, 100%, 39%); --brandColorBlueWCAG: hsl(197, 100%, 42%); --primaryColorBlue: hsl(201, 100%, 37%); --primaryColorBlueHover: hsl(201, 100%, 27%); --primaryColorBlueActive: hsl(201, 100%, 17%); --buttonBorderBlue: 2px solid hsl(201, 100%, 37%); --buttonBorderBlueHover: 2px solid hsl(201, 100%, 27%); --buttonBorderBlueActive: 2px solid hsl(201, 100%, 17%); --BrandcolorYellow: hsl(41, 90%, 61%); --primaryColorReachDeck: hsl(209, 100%, 39%); --primaryColorReachDeckHover: hsl(209, 100%, 29%); --primaryColorReachDeckActive: hsl(209, 100%, 19%); --buttonBorderReachDeck: 2px solid hsl(209, 100%, 39%); --buttonBorderReachDeckHover: 2px solid hsl(209, 100%, 29%); --buttonBorderReachDeckActive: 2px solid hsl(209, 100%, 19%); --reachDeckEditorColor: hsl(112, 100%, 26%); --launchpadButtonLight: hsl(210, 10%, 96%); --launchpadButtonLightHover: hsl(220, 8%, 92%); --launchpadButtonLightActive: hsl(0, 0%, 90%); --ContrastPinkOrbitNoteHover: hsl(343, 81%, 48%); --ContrastPinkOrbitNoteActive: hsl(345, 96%, 42%); --ContrastButtonBorderPink: hsl(345, 96%, 42%); --primaryColorClaroNavy: hsl(207, 74%, 27%); --primaryColorClaroNavyHover: hsl(206, 83%, 21%); --primaryColorClaroNavyActive: hsl(206, 89%, 17%); --buttonBorderClaro: 2px solid hsl(207, 74%, 27%); --buttonBorderClaroHover: 2px solid hsl(206, 83%, 21%); --buttonBorderClaroActive: 2px solid hsl(206, 89%, 17%); --primaryColorClaroBlue: hsl(201, 100%, 37%); --primaryColorClaroBlueHover: hsl(201, 100%, 31%); --primaryColorClaroBlueActive: hsl(201, 100%, 27%); --claroDark: hsl(218, 54%, 20%); --claroGrey: hsl(217, 31%, 68%); --claroBlue: hsl(191, 88%, 40%); --claroBlueAlt: hsl(188, 78%, 50%); --claroGreen: hsl(75, 63%, 51%); --altColor: var(--claroGreen); --altColorHover: hsl(75, 70%, 40%); --altColorActive: hsl(75, 77%, 33%); --altButtonBorderColor: 2px solid var(--claroGreen); --altButtonBorderColorHover: 2px solid hsl(75, 70%, 40%); --altButtonBorderColorActive: 2px solid hsl(75, 77%, 33%); --brandColorLingdys: hsl(0, 82%, 49%); --primaryColorLingdys: hsl(217, 34%, 38%); --primaryColorLingdysHover: hsl(217, 37%, 24%); --primaryColorLingdysActive: hsl(217, 39%, 18%); --buttonBorderLingdys: 2px solid hsl(217, 34%, 38%); --buttonBorderLingdysHover: 2px solid hsl(217, 37%, 24%); --buttonBorderLingdysActive: 2px solid hsl(217, 39%, 18%); --brandColorAppWriter: #F70790; --primaryColorAppWriter: #D8087F; --primaryColorAppWriterHover: #B40669; --primaryColorAppWriterActive: #9F055C; --buttonBorderAppwriter: 2px solid #D8087F; --buttonBorderAppwriterHover: 2px solid #B40669; --buttonBorderAppWriterActive: 2px solid #9F055C; --iconToggleFillOrbitNote: hsl(196, 99%, 50%); --textColor: var( --th-slate-dark ); --textColorLight: var( --th-white ); --border: 1px solid var( --th-grey ); --borderDark: 1px solid var( --th-grey-dark ); --infoColor: hsl(194, 77%, 24%); --successColor: hsla(134, 71%, 43%, 0.584); --errorColor: hsl(0, 71%, 51%); --warningColor: hsl(45, 97%, 51%); --infoBackgroundColor: hsl(180, 100%, 99%); --successBackgroundColor: hsl(78, 100%, 98%); --errorBackgroundColor: hsl(0, 100%, 98%); --warningBackgroundColor: hsl(35, 100%, 98%); --notificationDarkModeBackground: hsl(218, 22%, 37%); --infoBorderColor: hsl(191, 44%, 82%); --successBorderColor: hsl(100, 28%, 69%); --errorBorderColor: hsl(0, 37%, 73%); --warningBorderColor: hsl(41, 30%, 71%); --notificationDarkModeBorder: hsl(217, 19%, 41%); --infoTitleColor: hsl(194, 77%, 24%); --successTitleColor: hsl(121, 48%, 23%); --errorTitleColor: hsl(1, 47%, 40%); --warningTitleColor: hsl(37, 92%, 25%); --infoWarningColor: hsl(194, 77%, 24%); --successWarningColor: hsla(121, 48%, 23%, 0.8); --errorWarningColor: hsla(1, 47%, 40%, 0.8); --warningWarningColor: hsla(37, 92%, 25%, 0.8); --buttonBorderRadius: 30px; --buttonRoundness: 30px; --buttonNoBackgroundTextColor: var( --th-slate-dark); --buttonNoBackgroundIconColor: var( --th-slate-dark); --buttonNoBackgroundColor: transparent; --buttonNoBackgroundColorHover: var(--icon-button-background-hover-color); --buttonNoBackgroundColorActive: var(--icon-button-background-active-color); --buttonNoBackgroundBorder: 2px solid transparent; --buttonNoBackgroundBorderHover: 2px solid transparent; --buttonNoBackgroundBorderActive: 2px solid transparent; --activeDotColor: inherit; --themeColorDefault: var(--defaultColor); --themeColorGroundworks: var(--primaryColor); --themeColorReadWrite: var(--primaryColorPurple); --themeColorEquatio: var(--primaryColorBlue); --themeColorBrowsealoud: var(--primaryColorOrange); --themeColorWriq: var(--primaryColorTeal); --themeColorFluencyTutor: var(--primaryColorGreen); --themeColorSnapVerter: var(--primaryColorGreen); --themeColorSpeechStream: var(--primaryColorPink); --themeColorTexthelp: var(--primaryColorTeal); --themeColorReachDeck: var(--primaryColorReachDeck); --themeColorPdfReader: var(--primaryColorBlue); --uniloginBackgroundColor: #F7F7F7; --uniloginWindowBackgroundColor: var(--primaryColorBlue); --line-height-base: 1.5; --zindex-modal: 1050; --modal-dialog-margin: 2em; --modal-content-border-radius: 1px; --modal-inner-padding: 1.5em; --modal-title-padding: 1.5em; --modal-title-line-height: var(--line-height-base); --modal-content-bg: #fff; --modal-content-border-color: rgba(0, 0, 0, .2); --modal-content-fallback-border-color: #999; --modal-backdrop-bg: #000; --modal-backdrop-opacity: .5; --modal-header-border-color: #e5e5e5; --modal-footer-border-color: var(--modal-header-border-color); --modal-header-background-color: #f5f5f5; --select-border: 1px solid #DADADA; --select-background: hsl(0, 0%, 100%); --select-background-color: #efefef; --select-background-color-hover: hsl(0, 0%, 97%); --input-border: 1px solid #DADADA; --input-background-color: #ffffff; --settings-title-color: var(--primaryColor); --settings-item-background-color: var(--th-white); --settings-item-background-hover-color: var(--th-grey-medium); --settings-item-background-active-color: var(--th-grey); --list-group-background-color: transparent; --list-group-item-background-color: var(--th-white); --list-group-item-background-hover-color: var(--th-grey-light); --list-group-item-background-active-color: var(--th-grey); --list-group-item-icon-color: var(--th-slate-dark); --ListGroupSearchItemColor: var(--th-white); --ListGroupSearchItemColorHover: #f9fafb; --ListGroupSearchItemTextColor: var(--th-slate); --ListGroupSearchItemBorderColor: hsla(0, 0%, 0%, 0.15); --ListGroupSearchItemAsideColor: hsl(0, 0%, 95%); --ListGroupSearchItemAsideTextColor: #000; --toolbar-button-disabled: hsl(0, 0%, 96.1%); --toolbar-button-background: hsl(0, 0%, 96.1%); --toolbar-button-hover-background: hsl(0, 0%, 80%); --toolbar-button-color: hsl(0, 0%, 0%); --toolbar-button-hover-active-background: hsl(0, 0%, 70.2%); --toolbar-button-default-size: 43px; --toolbar-button-focus-color: hsl(213, 71.3%, 60.4%); --toolbar-button-svg-color: hsl(0, 0%, 29%); --toolbar-button-toggle-color: hsl(264, 100%, 68%); --panel-inner-padding: .7em; --icon-button-background-default-color: hsla(0, 0%, 0%, 0.077); --icon-button-background-hover-color: hsla(0, 0%, 0%, 0.125); --icon-button-background-active-color: hsla(0, 0%, 0%, 0.187); --icon-button-background-default-color-dark: rgba(255, 255, 255, 0.077); --icon-button-background-hover-color-dark: rgba(255, 255, 255, 0.146); --icon-button-background-active-color-dark: rgba(255, 255, 255, 0.221); --icon-button-border-color: solid 2px transparent; --menuIconFillColor: var(--th-slate); --cardIconFillColor: var(--th-slate); --default-menu-notify-background-colour: hsl(264, 100%, 68%); --toolbarButtonBackgroundColor: var( --defaultColor); --toolbarButtonBackgroundHoverColor: var( --icon-button-background-hover-color); --toolbarButtonBackgroundActiveColor: var( --icon-button-background-active-color); --toolbarIconHoverFill: var( --th-slate); --toolbarIconToggleFill: var( --primaryColor); --dashboardContentBackgroundColor: #fff; --dashboardHeaderBackgroundColor: #fff; --dashboardSidebarBorderTopColor: var( --lightGrey); --dashboardTextColor: var(--th-slate); --dashboardTitleTextColor: var(--fontColorDark); --dashboardSubTitleTextColor: var(--th-slate-light); --dashboardCardBackgroundColor: var(--white); --dashboardCardBackgroundHoverColor: var(--th-grey-light); --dashboardCardBackgroundActiveColor: var(--lightGrey); --dashboardCardHighlightColor: var(--primaryColor); --dashboardCardBorderColor: var(--lightGrey); --dashboardCardFooterLinkColor: var(--primaryColor); --dashboardCardAuditorColor: hsl(208, 100%, 43%); --dashboardCardAuditorLabelColor: hsl(208, 100%, 43%); --dashboardCardEditorLabelColor: var(--reachDeckEditorColor); --dashboardCardToolbarColor: var(--primaryColorOrange); --dashboardCardToolbarLabelColor: var(--primaryColorOrange); --dashboardPaneBackgroundColor: #fcfcfc; --dashboardPaneBorderColor: rgba(92, 106, 138, 0.4); --dashboardPaneDashedBorderColor: var(--dashboardDashedBorderLight); --dashboardDashedBorderLight: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%235C6A8ACC' stroke-width='2' stroke-dasharray='4%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"); --dashboardDashedBorderDark: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23323E52FF' stroke-width='2' stroke-dasharray='4%2c 8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e"); --icon-opacity: 1; --accordionBackgroundColor: #fff; --accordionTextColor: #484848; --accordionTextBottomColor: #484848; --accordionIconColor: var(--toolbarWhite); --accordionBackgroundColorHover: #f9fafb; --tableBackgroundColor: none; --tableBackgroundHeaderColor: #F9FAFB; --tableBackgroundAltColor: #f7f7f7; --tableBackgroundHoverColor: hsl(210, 20%, 98%); --tableBorderColor: #E2E2E3; --tableTextColor: #484848; --buttonLinkTextColor: var( --primaryColor) !important; --buttonLinkIconColor: var( --primaryColor) !important; }
+
+
+.th-wq, .th-th{ --toolbarBackgroundColor: var(--defaultColor); --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorWriq); --themeColorSecondary: var(--secondaryColor); --dashboardTopColor: var(--brandColorTeal); --dashboardTitleColor: var(--themeColorWriq); --iconFillColor: var(--white); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorTeal); --primaryButtonBackgroundHoverColor: var(--primaryColorTealHover); --primaryButtonBackgroundActiveColor: var(--primaryColorTealActive); --primaryButtonBorderActive: var(--buttonBorderTealActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderTeal); --primaryButtonBorderHover: var(--buttonBorderTealHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); }
+
+
+.th-rw, .th-wa{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorReadWrite); --themeColorSecondary: var(--secondaryColor); --toolbarBackgroundColor: var(--defaultColor); --toolbarIconFill: var(--th-slate); --toolbarIconHoverFill: var(--th-slate); --toolbarIconActiveFill: var(--th-slate); --toolbarIconToggledHoverFill: var(--primaryColorPurple); --toolbarIconToggleFill: var(--primaryColorPurple); --toolbarIconToggleHoverFill: var(--primaryColorPurple); --dashboardTopColor: var(--brandColorPurple); --dashboardTitleColor: var(--themeColorReadWrite); --iconFillColor: var(--th-slate-dark); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderActive: var(--buttonBorderColorActive); --buttonBorderRadius: var(--buttonRoundness); --buttonIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorPurple); --primaryButtonBackgroundHoverColor: var(--primaryColorPurpleHover); --primaryButtonBackgroundActiveColor: var(--primaryColorPurpleActive); --primaryButtonBorderActive: var(--buttonBorderPurpleActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderPurple); --primaryButtonBorderHover: var(--buttonBorderPurpleHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); --menuNotifyBackgroundColour: var(--brandColorPurple); --uniloginBackgroundColor: #FAF7FF; --uniloginWindowBackgroundColor: var(--primaryColorPurple); }
+
+
+.th-pr{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorPdfReader); --themeColorSecondary: var(--secondaryColor); --primaryButtonBackgroundColor: var(--primaryColorBlue); --primaryButtonBackgroundHoverColor: var(--primaryColorBlueHover); --primaryButtonBackgroundActiveColor: var(--primaryColorBlueActive); --primaryButtonBorderActive: var(--buttonBorderBlueActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderBlue); --primaryButtonBorderHover: var(--buttonBorderBlueHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --toolbarBackgroundColor: var(--th-grey); --toolbarButtonBackgroundColor: var(--th-grey); --toolbarButtonBackgroundHoverColor: var(--ContrastPinkOrbitNoteHover); --toolbarButtonBackgroundActiveColor: var(--ContrastPinkOrbitNoteActive); --toolbarButtonBorderActive: var(--ContrastButtonBorderPink); --toolbarIconFill: var(--th-slate); --toolbarIconHoverFill: var(--white); --toolbarIconActiveFill: var(--white); --toolbarIconToggleFill: var(--ContrastPinkOrbitNoteActive); --toolbarIconToggleHoverFill: var(--white); --toolbarIconToggledHoverFill: var(--white); --iconButtonBackgroundDefaultColor: var(--icon-button-background-default-color); --iconButtonBackgroundHoverColor: var(--icon-button-background-hover-color); --iconButtonBackgroundActiveColor: var(--icon-button-background-active-color); --iconButtonBorderColor: 2px solid transparent; --iconFillColor: var(--th-slate); --panelBackgroundColor: var(--th-grey-light); --panelBackgroundColorLight: var(--white); --panelBackgroundColorDark: var(--th-grey); --fontColor: var(--th-slate-dark); --borderColor: 1px solid var(--th-grey-dark); --settingsTitleColor: var(--themeColorPrimary); --menuNotifyBackgroundColour: var(--brandColorPink); --dashboardTopColor: var(--primaryColorBlue); --dashboardTitleColor: var(--themeColorEquatio); --cardIconFillColor: var(--primaryColorBlue); }
+
+
+.th-eq{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorEquatio); --themeColorSecondary: var(--secondaryColor); --dashboardTopColor: var(--brandColorBlue); --dashboardTitleColor: var(--themeColorEquatio); --iconFillColor: var(--th-slate-dark); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorBlue); --primaryButtonBackgroundHoverColor: var(--primaryColorBlueHover); --primaryButtonBackgroundActiveColor: var(--primaryColorBlueActive); --primaryButtonBorderActive: var(--buttonBorderBlueActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderBlue); --primaryButtonBorderHover: var(--buttonBorderBlueHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); --uniloginBackgroundColor: #F2F9FF; --uniloginWindowBackgroundColor: var(--brandColorBlueWCAG); }
+
+
+.th-ba{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorBrowsealoud); --themeColorSecondary: var(--secondaryColor); --toolbarBackgroundColor: var(--th-grey); --toolbarIconButtonFillColor: var(--th-slate); --toolbarButtonBackgroundColor: var(--th-grey); --toolbarButtonBackgroundHoverColor: var(--primaryColorOrangeHover); --toolbarButtonBackgroundActiveColor: var(--primaryColorOrangeActive); --toolbarButtonBorderActive: var(--buttonBorderOrange); --toolbarIconFill: var(--th-slate); --toolbarIconHoverFill: var(--th-slate); --toolbarIconActiveFill: var(--primaryColorBlue); --toolbarIconToggleFill: var(--primaryColorBlue); --toolbarIconToggleHoverFill: var(--white); --dashboardTopColor: var(--brandColorOrange); --dashboardTitleColor: var(--themeColorBrowsealoud); --iconFillColor: var(--white); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorOrange); --primaryButtonBackgroundHoverColor: var(--primaryColorOrangeHover); --primaryButtonBackgroundActiveColor: var(--primaryColorOrangeActive); --primaryButtonBorderActive: var(--buttonBorderOrangeActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderOrange); --primaryButtonBorderHover: var(--buttonBorderOrangeHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); --menuNotifyBackgroundColour: var(--white); }
+
+
+.th-ba .gw-menu-notification--inline{ --menuNotifyBackgroundColour: var(--themeColorBrowsealoud); }
+
+
+.th-at{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorReachDeck); --themeColorSecondary: var(--secondaryColor); --toolbarBackgroundColor: var(--defaultColor); --toolbarIconFill: var(--th-slate); --toolbarIconHoverFill: var(--th-slate); --toolbarIconActiveFill: var(--th-slate); --toolbarIconToggledHoverFill: var(--primaryColorBlue); --toolbarIconToggleFill: var(--primaryColorBlue); --toolbarIconToggleHoverFill: var(--primaryColorBlue); --dashboardTitleColor: var(--th-slate-dark); --iconFillColor: var(--th-slate-dark); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorReachDeck); --primaryButtonBackgroundHoverColor: var(--primaryColorReachDeckHover); --primaryButtonBackgroundActiveColor: var(--primaryColorReachDeckActive); --primaryButtonBorderActive: var(--buttonBorderReachDeckActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderReachDeck); --primaryButtonBorderHover: var(--buttonBorderReachDeckHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --dashboardTopColor: #E12362; --dashboardContentBackgroundColor: #F2F5F9; --tableBackgroundHeaderColor: #DFE1E5; --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); }
+
+
+.th-rd{ font-size: 10px; --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorReachDeck); --themeColorSecondary: var(--secondaryColor); --toolbarBackgroundColor: var(--defaultColor); --toolbarIconFill: var(--th-slate); --toolbarIconHoverFill: var(--th-slate); --toolbarIconActiveFill: var(--th-slate); --toolbarIconToggledHoverFill: var(--primaryColorBlue); --toolbarIconToggleFill: var(--primaryColorBlue); --toolbarIconToggleHoverFill: var(--primaryColorBlue); --dashboardTopColor: var(--th-grey); --dashboardTitleColor: var(--th-slate-dark); --iconFillColor: var(--th-slate-dark); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorReachDeck); --primaryButtonBackgroundHoverColor: var(--primaryColorReachDeckHover); --primaryButtonBackgroundActiveColor: var(--primaryColorReachDeckActive); --primaryButtonBorderActive: var(--buttonBorderReachDeckActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderReachDeck); --primaryButtonBorderHover: var(--buttonBorderReachDeckHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); }
+
+
+.th-ss{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorSpeechStream); --themeColorSecondary: var(--secondaryColor); --dashboardTopColor: var(--brandColorPink); --dashboardTitleColor: var(--themeColorSpeechStream); --iconFillColor: var(--th-slate-dark); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--themeColorSpeechStream); --primaryButtonBackgroundHoverColor: var(--primaryColorPinkHover); --primaryButtonBackgroundActiveColor: var(--primaryColorPinkActive); --primaryButtonBorderActive: var(--buttonBorderPinkActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderPink); --primaryButtonBorderHover: var(--buttonBorderPinkHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); }
+
+
+.th-st{ --uniloginBackgroundColor: #F2F9FF; --uniloginWindowBackgroundColor: #2A3953; }
+
+
+.th-sv, .th-ft{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--themeColorFluencyTutor); --themeColorSecondary: var(--secondaryColor); --dashboardTopColor: var(--brandColorGreen); --dashboardTitleColor: var(--themeColorFluencyTutor); --iconFillColor: var(--th-slate-dark); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--themeColorFluencyTutor); --primaryButtonBackgroundHoverColor: var(--primaryColorGreenHover); --primaryButtonBackgroundActiveColor: var(--primaryColorGreenActive); --primaryButtonBorderActive: var(--buttonBorderGreenActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderGreen); --primaryButtonBorderHover: var(--buttonBorderGreenHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --secondaryButtonBackgroundColor: var(--secondaryColor); --secondaryButtonBackgroundHoverColor: var(--secondaryColorHover); --secondaryButtonBackgroundActiveColor: var(--secondaryColorActive); --secondaryButtonTextColor: var(--fontColorWhite); --secondaryButtonTextHoverColor: var(--fontColorWhite); --secondaryButtonTextActiveColor: var(--fontColorWhite); --secondaryButtonTextVisitedColor: var(--fontColorWhite); --secondaryButtonBorder: var(--secondaryButtonBorder); --secondaryButtonBorderHover: var(--secondaryButtonBorderColorHover); --secondaryButtonBorderRadius: var(--buttonRoundness); --secondaryButtonIconFillColor: var(--white); --table-hover-item: var(--list-item-light-hover); --settingsTitleColor: var(--themeColorPrimary); }
+
+
+.th-cr{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--primaryColorClaroNavy); --themeColorSecondary: var(--secondaryColor); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorClaroNavy); --primaryButtonBackgroundHoverColor: var(--primaryColorClaroNavyHover); --primaryButtonBackgroundActiveColor: var(--primaryColorClaroNavyActive); --primaryButtonBorderActive: var(--buttonBorderClaroActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderClaro); --primaryButtonBorderHover: var(--buttonBorderClaroHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --altButtonBackgroundColor: var(--altColor); --altButtonBackgroundHoverColor: var(--altColorHover); --altButtonBackgroundActiveColor: var(--altColorActive); --altButtonTextColor: var(--fontColorWhite); --altButtonTextHoverColor: var(--fontColorWhite); --altButtonTextActiveColor: var(--fontColorWhite); --altButtonTextVisitedColor: var(--fontColorWhite); --altButtonBorder: var(--altButtonBorder); --altButtonBorderHover: var(--altButtonBorderColorHover); --altButtonBorderRadius: var(--buttonRoundness); --altButtonIconFillColor: var(--white); --uniloginBackgroundColor: #F2F9FF; --uniloginWindowBackgroundColor: var(--themeColorPrimary); }
+
+
+.th-wh{ background: rgb(246, 246, 246); --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--primaryColorClaroNavy); --themeColorSecondary: var(--secondaryColor); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorClaroBlue); --primaryButtonBackgroundHoverColor: var(--primaryColorClaroBlueHover); --primaryButtonBackgroundActiveColor: var(--primaryColorClaroBlueActive); --primaryButtonBorderActive: var(--buttonBorderClaroActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--primaryColorClaroBlue); --primaryButtonBorderHover: var(--primaryColorClaroBlueHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --altButtonBackgroundColor: var(--altColor); --altButtonBackgroundHoverColor: var(--altColorHover); --altButtonBackgroundActiveColor: var(--altColorActive); --altButtonTextColor: var(--fontColorWhite); --altButtonTextHoverColor: var(--fontColorWhite); --altButtonTextActiveColor: var(--fontColorWhite); --altButtonTextVisitedColor: var(--fontColorWhite); --altButtonBorder: var(--altButtonBorder); --altButtonBorderHover: var(--altButtonBorderColorHover); --altButtonBorderRadius: var(--buttonRoundness); --altButtonIconFillColor: var(--white); --uniloginBackgroundColor: #F2F9FF; --uniloginWindowBackgroundColor: var(--primaryColorClaroNavy); }
+
+
+.th-lds{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--primaryColorLingdys); --themeColorSecondary: var(--secondaryColor); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorLingdys); --primaryButtonBackgroundHoverColor: var(--primaryColorLingdysHover); --primaryButtonBackgroundActiveColor: var(--primaryColorLingdysActive); --primaryButtonBorderActive: var(--buttonBorderLingdysActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderLingdys); --primaryButtonBorderHover: var(--buttonBorderLingdysHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --altButtonBackgroundColor: var(--altColor); --altButtonBackgroundHoverColor: var(--altColorHover); --altButtonBackgroundActiveColor: var(--altColorActive); --altButtonTextColor: var(--fontColorWhite); --altButtonTextHoverColor: var(--fontColorWhite); --altButtonTextActiveColor: var(--fontColorWhite); --altButtonTextVisitedColor: var(--fontColorWhite); --altButtonBorder: var(--altButtonBorder); --altButtonBorderHover: var(--altButtonBorderColorHover); --altButtonBorderRadius: var(--buttonRoundness); --altButtonIconFillColor: var(--white); --uniloginBackgroundColor: #F2F9FF; --uniloginWindowBackgroundColor: var(--themeColorPrimary); }
+
+
+.th-aw{ --themeColorDefault: var(--defaultColor); --themeColorPrimary: var(--primaryColorClaroNavy); --themeColorSecondary: var(--secondaryColor); --buttonBackgroundColor: var(--defaultColor); --buttonBackgroundHoverColor: var(--defaultColorHover); --buttonBackgroundActiveColor: var(--defaultColorActive); --buttonTextColor: var(--fontColorDark); --buttonTextHoverColor: var(--fontColorDark); --buttonTextActiveColor: var(--fontColorDark); --buttonTextVisitedColor: var(--fontColorDark); --buttonBorder: var(--buttonBorder); --buttonBorderHover: var(--buttonBorderColorHover); --buttonBorderRadius: var(--buttonRoundness); --buttonBorderIconFillColor: var(--black); --primaryButtonBackgroundColor: var(--primaryColorAppWriter); --primaryButtonBackgroundHoverColor: var(--primaryColorAppWriterHover); --primaryButtonBackgroundActiveColor: var(--primaryColorAppWriterActive); --primaryButtonBorderActive: var(--buttonBorderAppWriterActive); --primaryButtonTextColor: var(--fontColorWhite); --primaryButtonTextHoverColor: var(--fontColorWhite); --primaryButtonTextActiveColor: var(--fontColorWhite); --primaryButtonTextVisitedColor: var(--fontColorWhite); --primaryButtonBorder: var(--buttonBorderAppWriter); --primaryButtonBorderHover: var(--buttonBorderAppWriterHover); --primaryButtonBorderRadius: var(--buttonRoundness); --primaryButtonIconFillColor: var(--white); --altButtonBackgroundColor: var(--altColor); --altButtonBackgroundHoverColor: var(--altColorHover); --altButtonBackgroundActiveColor: var(--altColorActive); --altButtonTextColor: var(--fontColorWhite); --altButtonTextHoverColor: var(--fontColorWhite); --altButtonTextActiveColor: var(--fontColorWhite); --altButtonTextVisitedColor: var(--fontColorWhite); --altButtonBorder: var(--altButtonBorder); --altButtonBorderHover: var(--altButtonBorderColorHover); --altButtonBorderRadius: var(--buttonRoundness); --altButtonIconFillColor: var(--white); --uniloginBackgroundColor: #F7F7F7; --uniloginWindowBackgroundColor: var(--primaryColorAppWriter); }
+
+
+th-rw4gc.dark-mode{ --toolbarBackgroundColor: var(--th-slate-dark); --toolbarButtonBackgroundColor: var(--th-slate-dark); --toolbarButtonBackgroundHoverColor: var(--icon-button-background-hover-color-dark); --toolbarButtonBackgroundActiveColor: var(--icon-button-background-active-color-dark); --toolbarButtonBorderActive: var(--buttonBorderPink); --toolbarIconFill: var(--white); --toolbarIconHoverFill: var(--white); --toolbarIconActiveFill: var(--white); --dashboardHeaderBackgroundColor: var(--th-slate-dark); --dashboardSidebarBorderTopColor: var(--th-slate); --dashboardSidebarBackgroundColor: var(--th-slate-dark); --dashboardContentBackgroundColor: var(--th-slate); --dashboardCardBackgroundColor: var(--th-slate-dark); --dashboardCardBackgroundHoverColor: var(--th-slate-dark-hover600); --dashboardCardBackgroundActiveColor: var(--th-slate-dark-active600); --dashboardCardHighlightColor: var(--brandColorBlue); --dashboardTextColor: var(--th-white); --dashboardTitleTextColor: var(--th-white); --dashboardSubTitleTextColor: var(--th-white); --menuIconFillColor: var(--white); --iconButtonBackgroundDefaultColor: var(--icon-button-background-default-color-dark); --iconButtonBackgroundHoverColor: var(--icon-button-background-hover-color-dark); --iconButtonBackgroundActiveColor: var(--icon-button-background-active-color-dark); --iconButtonBorderColor: 2px solid transparent; --iconFillColor: var(--white); --buttonLinkTextColor: var(--white); --buttonLinkIconColor: var(--white); --buttonNoBackgroundTextColor: var(--white); --buttonNoBackgroundIconColor: var(--white); --buttonNoBackgroundColor: transparent; --buttonNoBackgroundColorHover: var(--icon-button-background-hover-color-dark); --buttonNoBackgroundColorActive: var(--icon-button-background-active-color-dark); --buttonNoBackgroundBorder: 2px solid transparent; --buttonNoBackgroundBorderHover: 2px solid transparent; --buttonNoBackgroundBorderActive: 2px solid transparent; --panelBackgroundColor: var(--th-slate); --panelBackgroundColorLight: var(--th-slate-light); --panelBackgroundColorDark: var(--th-slate-dark); --fontColor: var(--textColorLight); --borderColor: 1px solid var(--th-slate-light); --infoBackgroundColor: var(--notificationDarkModeBackground); --successBackgroundColor: var(--notificationDarkModeBackground); --errorBackgroundColor: var(--notificationDarkModeBackground); --warningBackgroundColor: var(--notificationDarkModeBackground); --infoBorderColor: var(--notificationDarkModeBorder); --successBorderColor: var(--notificationDarkModeBorder); --errorBorderColor: var(--notificationDarkModeBorder); --warningBorderColor: var(--notificationDarkModeBorder); --infoWarningColor: #fff; --successWarningColor: #fff; --errorWarningColor: #fff; --warningWarningColor: #fff; --infoTitleColor: #fff; --successTitleColor: #fff; --errorTitleColor: #fff; --warningTitleColor: #fff; --accordionBackgroundColor: var(--th-slate-dark); --accordionTextColor: #fff; --accordionTextBottomColor: #f5f5f5; --accordionIconColor: var(--toolbarWhite); --accordionBackgroundColorHover: var(--th-slate-dark-hover600); --tableBackgroundColor: var(--th-slate); --tableBackgroundHeaderColor: var(--th-slate-alt); --tableBackgroundAltColor: var(--th-slate-alt); --tableBackgroundHoverColor: var(--th-slate-hover); --tableBorderColor: var(--th-slate-dark); --tableTextColor: #fff; --ListGroupSearchItemColor: var(--th-slate-dark); --ListGroupSearchItemColorHover: var(--th-slate-dark-hover800); --ListGroupSearchItemTextColor: var(--th-white); --ListGroupSearchItemBorderColor: rgba(0, 0, 0, 0.225); --ListGroupSearchItemAsideColor: var(--th-slate-dark); --ListGroupSearchItemAsideTextColor: #fff; }
+
+
+.dark-mode.th-rw{ --toolbarIconActiveFill: var(--white); --toolbarIconToggledHoverFill: var(--brandColorPurple); --toolbarIconToggleFill: var(--brandColorPurple); --toolbarIconToggleHoverFill: var(--brandColorPurple); }
+
+
+.dark-mode.th-pr{ --toolbarButtonBackgroundHoverColor: var(--primaryColorBlue); --toolbarButtonBackgroundActiveColor: var(--primaryColorBlueHover); --toolbarButtonBorderActive: var(--buttonBorderBlueActive); --toolbarIconToggleFill: var(--iconToggleFillOrbitNote); --textColor: var(--textColorLight); --cardIconFillColor: var(--brandColorBlue); --primaryButtonBackgroundColor: var(--primaryColor); --primaryButtonBackgroundHoverColor: var(--primaryColorHover); --primaryButtonBackgroundActiveColor: var(--primaryColorActive); --primaryButtonBorderActive: var(--primaryButtonBorderActive); --primaryButtonBorder: var(--primaryButtonBorder); --primaryButtonBorderHover: var(--primaryButtonBorderHover); --dashboardTopColor: var(--primaryColorBlue); --dashboardTitleColor: var(--themeColorEquatio); --dashboardPaneBackgroundColor: var(--th-slate-dark); --dashboardPaneBorderColor: var(--th-slate-dark); --dashboardPaneDashedBorderColor: var(--dashboardDashedBorderDark); --listGroupItemBackgroundColor: var(--th-slate-dark); --listGroupItemBackgroundColorHover: var(--th-slate-dark-hover800); --listGroupItemBackgroundColorActive: var(--th-slate-dark-active800); --listGroupTileBackgroundColorActive: var(--th-slate-dark-active800); --list-item-hover: var(--listGroupItemBackgroundColorHover); }
+
+
+.dark-mode.th-rd{ --toolbarIconToggledHoverFill: var(--brandColorBlue); --toolbarIconToggleFill: var(--brandColorBlue); --toolbarIconToggleHoverFill: var(--brandColorBlue); --dashboardTopColor: var(--th-slate); --dashboardCardAuditorColor: var(--primaryColorBlue); --dashboardCardAuditorLabelColor: var(--th-grey); --dashboardCardEditorColor: var(--reachDeckEditorColor); --dashboardCardEditorLabelColor: var(--th-grey); --dashboardCardToolbarColor: var(--primaryColorOrange); --dashboardCardToolbarLabelColor: var(--th-grey); --dashboardCardBorderColor: var(--th-slate-light); --dashboardCardFooterLinkColor: hsl(197, 100%, 50%); --icon-opacity: .9; --cardIconFillColor: var(--th-white); --listGroupItemBackgroundColor: var(--th-slate-dark); --listGroupItemBackgroundColorHover: var(--th-slate-dark-hover800); --listGroupItemBackgroundColorActive: var(--th-slate-dark-active800); --listGroupTileBackgroundColorActive: var(--th-slate-dark-active800); --list-item-hover: var(--listGroupItemBackgroundColorHover); }
+
+
+th-rw4gc.dark-mode{ --inputBorder: 1px solid var(--th-slate); --inputTextColor: var( --th-white); --inputBackgroundColor: var(--th-cool-grey-800); --modalHeaderBackgroundColor: var(--th-cool-grey-800); --modalContentBackgroundColor: var(--th-cool-grey-700); --modalContentBorderColorHeader: var(--th-cool-grey-700); --modalContentBorderColorFooter: var(--th-cool-grey-700); --modalTextColor: var(--th-white); --settingsDialogBackgroundColor: var(--th-cool-grey-700); --settingsDialogMenuBackgroundColor: var(--th-cool-grey-800); --settingsDialogItemSelectedBackgroundColor: var(--th-slate-dark); --settingsDialogItemBackgroundColorHover: var(--th-cool-grey-700); --settingsDialogItemBackgroundColorActive: var(--th-cool-grey-600); --settingsTitleColor: #fff; --selectBorder: 1px solid var( --slate-light); --selectBackgroundColor: var( --th-slate); --selectBackgroundColorHover: rgba(255, 255, 255, 0.146); --selectBackgroundColorActive: rgba(255, 255, 255, 0.221); }
+
+
+.dark-mode .gw-select{ background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='22px' width='22px' viewBox='0 0 18 18'>%3Cpath d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z' fill='%23fff'/%3E%3Cpath d='M0-.75h24v24H0z' fill='none'/%3E</svg>") right 0.9em top 40% / 1.3em no-repeat, 0px 0px / 100% repeat transparent; border: 1px solid rgb(255, 255, 255); color: rgb(255, 255, 255); }
+
+
+.dark-mode .gw-select > option{ background: rgb(67, 78, 101); }
+
+
+th-rw4gc.dark-mode{ --listGroupBackgroundColor: transparent; --listGroupItemTextColor: var(--th-white); --listGroupItemBackgroundColor: var(--th-cool-grey-800); --listGroupItemActionsBackgroundColor: var(--th-cool-grey-850); --listGroupItemBackgroundColorHover: var(--th-cool-grey-700); --listGroupItemBackgroundColorActive: var(--th-cool-grey-600); --listGroupItemIconColor: var(--th-white); --listGroupItemArrowColor: var(--th-cool-grey-800); }
+
+
+@media (prefers-color-scheme: dark){
+  :root .day.dark-scheme { background: rgb(51, 51, 51); color: white; }
+  :root .night.dark-scheme { background: black; color: rgb(221, 221, 221); }
+}
+
+
+@media (prefers-color-scheme: light){
+  :root .day.light-scheme { background: white; color: rgb(85, 85, 85); }
+  :root .night.light-scheme { background: rgb(238, 238, 238); color: black; }
+}
+
+/* ---- our overrides ---------------------------------------------------------
+   The reference shrinks the info card to the description's fit-content width
+   (a flex item with auto margins), and hides the "you may also like" row at
+   desktop widths. We want a full-width info card and the row under the player
+   at every width. */
+.GamePageDesktop_gameInfoContainer__SwKQu { width: 100%; }
+.GamePageDesktop_gameInfoContainer__SwKQu .GameInfo_gameInfo__2UItk,
+.GamePageDesktop_gameInfoContainer__SwKQu .GameInfo_leftColumn__vMTeN { width: 100%; }
+@media (min-width: 1082px) {
+  .GamePageDesktop_underGameContainerGrid__cdhNC { display: flex; }
+}
+
+/* This sheet loads after cg.css, so its header-icon rule would re-show the
+   admin button that cg.css keeps hidden until Ctrl+Alt+A. Keep ours winning. */
+.cg-admin-link { display: none !important; }
+html.cg-admin-on .cg-admin-link { display: inline-flex !important; }
+
+/* The reference's generic .Button_czyButton__y8IRs padding (8px 16px) squeezes
+   the 24px navbar icons down to 8px inside their 40px button. Restore the
+   header-icon metrics that theme.css defines. */
+.Button_czyButton--headerIcon__aK8wL { padding: 0; }
+.Button_czyButton--headerIcon__aK8wL [role="img"] { width: 24px; height: 24px; margin-right: 0; }

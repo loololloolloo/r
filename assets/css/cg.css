@@ -283,9 +283,168 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 /* ---------- About ---------- */
 
-.cg-about { max-width: 720px; }
-.cg-about h1 { margin: 0 0 12px; font-size: 28px; font-weight: 900; }
-.cg-about p { margin: 0 0 16px; color: var(--cg-dim); line-height: 1.6; }
+.cg-about-page {
+  max-width: 960px;
+  padding-bottom: 48px;
+}
+
+/* Hero band */
+.cg-about-hero {
+  padding: 40px 36px;
+  border: 1px solid var(--cg-line);
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+}
+
+.cg-about-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cg-dim);
+}
+
+.cg-about-title {
+  margin: 0 0 14px;
+  font-size: 42px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.cg-about-lead {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--cg-dim);
+}
+
+.cg-about-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.cg-about-cta .cg-btn--lg { height: 46px; padding: 0 22px; font-size: 15px; }
+
+.cg-about-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.cg-about-stat {
+  padding: 18px;
+  border: 1px solid var(--cg-line);
+  border-radius: 12px;
+  background-color: var(--cg-card);
+}
+
+.cg-about-stat-num { font-size: 26px; font-weight: 900; line-height: 1.1; }
+.cg-about-stat-label { margin-top: 4px; font-size: 12px; color: var(--cg-dim); }
+
+/* Sections */
+.cg-about-section { margin-top: 44px; }
+.cg-about-h2 { margin: 0 0 6px; font-size: 24px; font-weight: 900; }
+.cg-about-sub { margin: 0 0 18px; color: var(--cg-dim); line-height: 1.6; }
+
+.cg-about-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.cg-chip {
+  padding: 9px 15px;
+  border: 1px solid var(--cg-line);
+  border-radius: 999px;
+  background-color: var(--cg-card);
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.cg-chip:hover { background-color: var(--cg-card-hover); transform: translateY(-1px); }
+
+.cg-about-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.cg-about-step {
+  padding: 22px;
+  border: 1px solid var(--cg-line);
+  border-radius: 14px;
+  background-color: var(--cg-card);
+}
+
+.cg-about-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.cg-about-step h3 { margin: 0 0 6px; font-size: 16px; font-weight: 800; }
+.cg-about-step p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--cg-dim); }
+
+/* FAQ */
+.cg-about-faq { display: grid; gap: 10px; }
+
+.cg-about-faq details {
+  border: 1px solid var(--cg-line);
+  border-radius: 12px;
+  background-color: var(--cg-card);
+  overflow: hidden;
+}
+
+.cg-about-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cg-about-faq summary::-webkit-details-marker { display: none; }
+
+.cg-about-faq summary::after {
+  content: "+";
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--cg-dim);
+  transition: transform 0.2s ease;
+}
+
+.cg-about-faq details[open] summary::after { transform: rotate(45deg); }
+
+.cg-faq-body { padding: 0 18px 18px; color: var(--cg-dim); line-height: 1.65; }
+
+/* Closing call to action */
+.cg-about-band {
+  margin-top: 44px;
+  padding: 36px;
+  border: 1px solid var(--cg-line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+  text-align: center;
+}
+
+.cg-about-band h2 { margin: 0 0 8px; font-size: 24px; font-weight: 900; }
+.cg-about-band p { margin: 0 auto 22px; max-width: 52ch; color: var(--cg-dim); line-height: 1.6; }
 
 /* ---------- Favorites (header popup) ---------- */
 
@@ -359,6 +518,12 @@ ul { list-style: none; margin: 0; padding: 0; }
   .cg-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 
   .cg-info-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+  .cg-about-hero { padding: 30px 22px; }
+  .cg-about-title { font-size: 32px; }
+  .cg-about-lead { font-size: 15px; }
+  .cg-about-section, .cg-about-band { margin-top: 34px; }
+  .cg-about-band { padding: 28px 22px; }
 }
 
 /* ---------- Admin (Ctrl+Alt+A) ---------- */
@@ -539,18 +704,18 @@ html.cg-admin-on .cg-admin-link { display: inline-flex; }
   margin-top: 8px;
 }
 
-/* "Top games today": a repeating tile — one big card, then a column of two
-   small cards, per group. Overrides the archive's fixed slide width. */
+/* "Top games today": a highlighted strip that alternates one large card with a
+   2x2 block of four regular cards (1,4,1,4...). The track becomes the grid. */
 .cg-hero-track {
   --carousel-slide-width: auto;
   white-space: normal;
 }
 .cg-hero-grid {
-  --cg-hero-small-w: clamp(150px, 15vw, 210px);
+  --cg-hero-card-w: clamp(150px, 15vw, 210px);
   display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(2, calc((var(--cg-hero-small-w) * 2 + 10px) * 9 / 32));
-  grid-auto-columns: var(--cg-hero-small-w);
+  grid-auto-flow: column dense;
+  grid-template-rows: repeat(2, calc(var(--cg-hero-card-w) * 9 / 16));
+  grid-auto-columns: var(--cg-hero-card-w);
   gap: 10px;
   padding: 0 calc(var(--base-unit, 8px) * 1);
   overflow-x: auto;
@@ -569,3 +734,56 @@ html.cg-admin-on .cg-admin-link { display: inline-flex; }
   display: flex; flex-wrap: wrap; gap: 10px;
 }
 .cg-featured-grid > li { aspect-ratio: 16 / 9; flex: 1 1 210px; }
+
+/* Hover title on game thumbs (home carousels, catalogue, favourites and the
+   play-page sidebars). The card keeps the image only until it is hovered, then
+   the game name fades in over a bottom gradient — the sportsgamesaz behaviour. */
+.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs .gameThumbTitleContainer,
+.GameThumb_gameThumbLinkDesktop__wcir5 .gameThumbTitleContainer {
+  color: #fff;
+  position: absolute;
+  bottom: 5px;
+  margin-bottom: calc(var(--base-unit, 8px) * 1);
+  margin-left: calc(var(--base-unit, 8px) * 1);
+  z-index: 4;
+  font-size: var(--font-size-body-small, 11.2px);
+  font-weight: 700;
+  width: calc(100% - var(--base-unit, 8px) * 2);
+  height: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs:hover .gameThumbTitleContainer,
+.GameThumb_gameThumbLinkDesktop__wcir5:hover .gameThumbTitleContainer { height: auto; }
+.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs .GameThumb_gradientVignette__Q04oZ,
+.GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gradientVignette__Q04oZ {
+  background: linear-gradient(0deg, rgba(0, 0, 0, .88) 0, rgba(0, 0, 0, 0) 50%);
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: calc(var(--base-unit, 8px) * 1);
+  border-bottom-right-radius: calc(var(--base-unit, 8px) * 1);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+.GameThumbDesktop_gameThumbLinkDesktop__LS_Bs:hover .GameThumb_gradientVignette__Q04oZ,
+.GameThumb_gameThumbLinkDesktop__wcir5:hover .GameThumb_gradientVignette__Q04oZ {
+  opacity: 1;
+  visibility: visible;
+}
+@media (max-width: 768px) {
+  .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs .gameThumbTitleContainer,
+  .GameThumb_gameThumbLinkDesktop__wcir5 .gameThumbTitleContainer { height: auto; }
+  .GameThumbDesktop_gameThumbLinkDesktop__LS_Bs .GameThumb_gradientVignette__Q04oZ,
+  .GameThumb_gameThumbLinkDesktop__wcir5 .GameThumb_gradientVignette__Q04oZ {
+    opacity: 1;
+    visibility: visible;
+  }
+}

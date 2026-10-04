@@ -20,6 +20,7 @@ import hashlib
 import html
 import json
 import os
+import collections
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FILE = os.path.join(ROOT, "data", "games.json")
@@ -39,7 +40,7 @@ def asset_version(games_js):
     """sha1 of everything the pages link, so any change busts the cache."""
     h = hashlib.sha1()
     h.update(games_js.encode("utf-8"))
-    for rel in ("assets/css/cg.css", "assets/css/cg-play.css", "assets/js/cg-site.js", "assets/cg2026/theme.css"):
+    for rel in ("assets/css/cg.css", "assets/css/cg-play.css", "assets/css/sga-play.css", "assets/js/cg-site.js", "assets/cg2026/theme.css"):
         try:
             with open(os.path.join(ROOT, rel), "rb") as fh:
                 h.update(fh.read())
@@ -463,78 +464,141 @@ def build_home(games):
 
 
 def build_play(games):
-    # 1:1 with sportsgamesaz.io/2v2io: the game fills an aspect-ratio box, then a
-    # "You may also like" grid sits directly under it, with the info column (crumb,
-    # title, tags, description) and a "Play next" sidebar below. Their like /
-    # dislike / favourite / share / report / comment GUI is intentionally dropped
-    # (we have no backend for it); the iframe fills the whole player area instead.
-    params_js = ""
+    # 1:1 with sportsgamesaz.io/2v2io: the page body is the archived reference
+    # DOM (tools/play_body.py) with the game-specific slots tokenised. Our
+    # catalogue fills the sidebar; the player iframe and the footer action bar
+    # are the reference's own markup and the reference stylesheet drives them.
+    from play_body import PLAY_BODY
 
-
-    main = """      <div class="GamePageDesktop_main__fSalE">
-        <div class="GamePageDesktop_mainContainer__QMRhB" id="gamePageMainContainer">
-          <div class="GamePageDesktop_gfContainer__ywzsh">
-            <div class="GamePageDesktop_gfAspectRatioContainer__f_hUp">
-              <div class="css-uwwqev">
-                <div class="GameContainer" style="position:relative;width:100%;height:100%">
-                  <div class="cg-loader" id="cgLoader" role="status" aria-label="Loading">
-                    <div class="Spinner_spinner__LzRWH Spinner_size40__BUkhC Spinner_colorWhite__9a9nd"></div>
-                  </div>
-                  <iframe id="cgFrame" class="d-block iframe-default" title="Game"
-                          allowfullscreen allow="autoplay; fullscreen; gamepad; clipboard-write"></iframe>
-                </div>
-              </div>
-              <div class="css-1h1938b"></div>
-            </div>
-          </div>
-          <div class="GamePageDesktop_underGameContainerGrid__cdhNC">
-            <div class="GamePageDesktop_underGameContainerGamesWrapper__Rahgf">
-              <div class="css-ujjn8y" style="justify-content:center" id="cgMoreGrid"></div>
-            </div>
-          </div>
-          <div class="GamePageDesktop_gameInfoContainer__SwKQu">
-            <div class="GameInfo_gameInfo__2UItk GameInfo_isDesktop__KqJ3d">
-              <div class="GameInfo_leftColumn__vMTeN">
-                <div class="GameInfo_roundedCornersContainer__D5D_p" style="margin-top:12px">
-                  <div class="Breadcrumbs_breadcrumbs__L3mrb">
-                    <div><a href="./">Home</a><div class="Breadcrumbs_separator__yCVN1">&raquo;</div></div>
-                    <div><a href="./?category=Casual" id="cgCrumbCat">Casual</a><div class="Breadcrumbs_separator__yCVN1">&raquo;</div></div>
-                    <div><span style="font-size:14px" id="cgCrumbGame">Game</span></div>
-                  </div>
-                  <div class="GameInfo_containerWithPadding__z9aMp"><h1 id="cgStageTitle">Game</h1></div>
-                  <div>
-                    <div class="GameSummary_gameTableRow__9i4Mt">
-                      <div class="GameSummary_gameTableRowHeader__qmvU_">Rating:</div>
-                      <div class="GameSummary_gameTableRowContent__RW5fE" id="cgMetaRating"></div>
-                    </div>
-                  </div>
-                  <div class="GameTags_gameTagChipContainer__F5xPO" id="cgMetaCats"></div>
-                </div>
-                <div class="GameInfo_roundedCornersContainer__D5D_p">
-                  <div class="GameInfo_styledHtmlDiv__Zg2EY" id="cgMetaDesc"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="GamePageDesktop_rightSidebar__QgTMJ">
-          <div class="GamePageDesktop_rightGridContainer__qJUvH">
-            <div class="GamePageDesktop_playNextTitle__mvetU">Play next</div>
-            <div class="css-ujjn8y" id="cgSideList"></div>
-          </div>
-        </div>
-      </div>"""
-    head_extra = ('  <link href="assets/css/cg-play.css?v={VERSION}" rel="stylesheet">\n')
+    head_extra = (f'  <link href="assets/css/sga-play.css?v={VERSION}" rel="stylesheet">\n')
     return page("Play - Games", "Play a free browser game.",
-                main, params_js, "Home", "cg-main-play", head_extra=head_extra)
+                "      " + PLAY_BODY.strip(), "", "Home", "cg-main-play",
+                head_extra=head_extra)
 def build_about(games):
-    main = f"""      <div class="cg-about">
-        <h1>About</h1>
-        <p>Games is a free browser games portal with {len(games)} games you can
-        play instantly, no download required.</p>
-        <p><a class="cg-btn" href="./">Browse all games</a></p>
+    total = len(games)
+    cats = collections.Counter(c for g in games for c in g.get("categories", []))
+    top_cats = [c for c, _ in cats.most_common(14)]
+    sources = len({g.get("source") for g in games if g.get("source")})
+
+    cat_chips = "\n".join(
+        f'          <a class="cg-chip" href="./?category={esc(c).replace(" ", "%20")}">{esc(c)}</a>'
+        for c in top_cats)
+
+    faqs = [
+        ("Is it really free to play?",
+         "Yes. Every game on Games runs in your browser at no cost, with no "
+         "account and no download. The catalogue is funded by the game "
+         "providers themselves, so nothing is hidden behind a paywall."),
+        ("Do I need to install anything?",
+         "No installs, no plugins, no launchers. Games are built with HTML5 and "
+         "WebGL, so if your browser is up to date you can start playing in one "
+         "click."),
+        ("Can I play on my phone or tablet?",
+         "Most titles are touch-friendly and scale to any screen. A few are "
+         "designed for keyboard and mouse, so for those a desktop is the best "
+         "experience."),
+        ("How do I save a game for later?",
+         "Tap the heart on any game card. Your picks are stored in this browser "
+         "and appear under Favorites in the header, and the games you play most "
+         "recently show up in Continue playing on the home page."),
+        ("Are new games added?",
+         "Constantly. New and updated titles flow in from the providers we "
+         "partner with, and the New and Trending rows on the home page surface "
+         "the freshest additions first."),
+        ("Who makes the games?",
+         "The games are created by independent studios and publishers around the "
+         "world. Games brings them together in one fast, clean place to play. "
+         "The Source line on each game page credits where it came from."),
+    ]
+    faq_html = "\n".join(
+        f"""          <details>
+            <summary>{esc(q)}</summary>
+            <div class="cg-faq-body">{esc(a)}</div>
+          </details>"""
+        for q, a in faqs)
+
+    main = f"""      <div class="cg-about-page">
+        <section class="cg-about-hero">
+          <p class="cg-about-eyebrow">About Games</p>
+          <h1 class="cg-about-title">Play first.<br>Sign up never.</h1>
+          <p class="cg-about-lead">Games is a free browser arcade with
+          {total:,} games you can start in a single click. No downloads, no
+          installs, no accounts - just pick a title and play.</p>
+          <div class="cg-about-cta">
+            <a class="cg-btn cg-btn--lg" href="./">Browse all games</a>
+            <a class="cg-btn cg-btn--lg" href="./?random=1">Surprise me</a>
+          </div>
+          <div class="cg-about-stats">
+            <div class="cg-about-stat">
+              <div class="cg-about-stat-num">{total:,}</div>
+              <div class="cg-about-stat-label">games to play</div>
+            </div>
+            <div class="cg-about-stat">
+              <div class="cg-about-stat-num">{len(cats)}</div>
+              <div class="cg-about-stat-label">categories</div>
+            </div>
+            <div class="cg-about-stat">
+              <div class="cg-about-stat-num">{sources}+</div>
+              <div class="cg-about-stat-label">providers</div>
+            </div>
+            <div class="cg-about-stat">
+              <div class="cg-about-stat-num">0</div>
+              <div class="cg-about-stat-label">downloads needed</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cg-about-section">
+          <h2 class="cg-about-h2">Find your next favourite</h2>
+          <p class="cg-about-sub">From quick puzzle breaks to long multiplayer
+          sessions, there is a corner of the catalogue for every mood.</p>
+          <div class="cg-about-chips">
+{cat_chips}
+          </div>
+        </section>
+
+        <section class="cg-about-section">
+          <h2 class="cg-about-h2">How it works</h2>
+          <p class="cg-about-sub">Three steps, no friction.</p>
+          <div class="cg-about-steps">
+            <div class="cg-about-step">
+              <div class="cg-about-step-num">1</div>
+              <h3>Pick a game</h3>
+              <p>Browse the rows, search by name or category, or hit Surprise me
+              for a random pick.</p>
+            </div>
+            <div class="cg-about-step">
+              <div class="cg-about-step-num">2</div>
+              <h3>Play instantly</h3>
+              <p>The game loads right in the page - nothing to download and
+              nothing to set up.</p>
+            </div>
+            <div class="cg-about-step">
+              <div class="cg-about-step-num">3</div>
+              <h3>Keep the good ones</h3>
+              <p>Heart a game to save it, and jump back in from Continue playing
+              whenever you return.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="cg-about-section">
+          <h2 class="cg-about-h2">Questions, answered</h2>
+          <p class="cg-about-sub">The things people ask most.</p>
+          <div class="cg-about-faq">
+{faq_html}
+          </div>
+        </section>
+
+        <section class="cg-about-band">
+          <h2>Ready to play?</h2>
+          <p>{total:,} games are waiting, and the first one is one click away.</p>
+          <a class="cg-btn cg-btn--lg" href="./">Start playing</a>
+        </section>
       </div>"""
-    return page("About - Games", "About Games.", main, "", "Home")
+    return page("About - Games",
+                "About Games, a free browser games portal with thousands of "
+                "instant-play titles.", main, "", "Home")
 
 
 def main():

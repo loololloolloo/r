@@ -70,8 +70,9 @@
 
   /* Card markup, kept in one place so the catalogue, the play sidebar and the
      favourites page all render the same thing. Matches the archived CrazyGames
-     2026 thumb: an image-only link whose title lives in the aria-label.
-     `withBadge` adds the 2026 new/hot corner labels (home carousels only). */
+     2026 thumb: an image-only link whose title is revealed on hover, exactly
+     like the sportsgamesaz thumb. `withBadge` adds the 2026 new/hot corner
+     labels (home carousels only). */
   function cardHTML(g, i, withBadge, liCls) {
     var t = esc(g.title);
     var badge = "";
@@ -83,20 +84,23 @@
       '<div class="GameThumbDesktop_gameThumbMedia__L7si1">' +
       '<img class="GameThumbShared_gameThumbImage__7EHHi ' +
       'GameThumbShared_gameThumbImagePositioned__LJJut" loading="lazy" width="273" ' +
-      'alt="' + t + '" src="' + esc(g.thumb) + '"></div></a></li>';
+      'alt="' + t + '" src="' + esc(g.thumb) + '"></div>' +
+      '<div class="GameThumb_gameThumbTitleContainer__J1K4D gameThumbTitleContainer">' +
+      t + '</div>' +
+      '<div class="GameThumb_gradientVignette__Q04oZ"></div></a></li>';
   }
 
   function homeCardHTML(g, i) { return cardHTML(g, i, true); }
 
-  /* "Top games today": a repeating tile of one big card followed by a column of
-     two small cards. The track becomes the grid; big cells span both rows. */
+  /* "Top games today": alternate one big card with a 2x2 block of four regular
+     cards (1,4,1,4...). The track becomes the grid; big cells span both rows. */
   function fillHero(track, list) {
     if (!track) return;
     track.classList.add("cg-hero-grid");
     var html = "", i = 0, n = 0;
     while (i < list.length) {
       html += cardHTML(list[i++], n++, true, "cg-hero-big");
-      for (var k = 0; k < 2 && i < list.length; k++) {
+      for (var k = 0; k < 4 && i < list.length; k++) {
         html += cardHTML(list[i++], n++, true, "cg-hero-small");
       }
     }
@@ -471,16 +475,98 @@
 
   /* ------------------------------------------------------------------ play -- */
 
-  function initPlay() {
-    var frame = document.getElementById("cgFrame");
-    if (!frame) return;
+  var LIKE_KEY = "cg-likes";
+  var VOTE_KEY = "cg-votes";
 
-    var loader = document.getElementById("cgLoader");
-    if (loader) {
-      frame.addEventListener("load", function () { loader.hidden = true; });
-      // A frame that never loads (or is blocked) must not spin forever.
-      setTimeout(function () { loader.hidden = true; }, 12000);
+  function readMap(key) {
+    try {
+      var raw = JSON.parse(localStorage.getItem(key));
+      return raw && typeof raw === "object" ? raw : {};
+    } catch (e) { return {}; }
+  }
+
+  function writeMap(key, map) {
+    try { localStorage.setItem(key, JSON.stringify(map)); } catch (e) {}
+  }
+
+  function toggleFullscreen(frame, btn) {
+    // Fullscreen the game box only, so the footer bar under the player (with
+    // this button) is not carried into fullscreen.
+    var box = frame.closest(".GameContainer") || frame;
+    if (document.fullscreenElement) { document.exitFullscreen(); return; }
+    if (box.requestFullscreen) box.requestFullscreen();
+    else if (frame.requestFullscreen) frame.requestFullscreen();
+    if (btn) btn.classList.add("active");
+    document.addEventListener("fullscreenchange", function () {
+      if (btn) btn.classList.toggle("active", !!document.fullscreenElement);
+    });
+  }
+
+  /* The footer bar's buttons. Only the pieces a static site can support without
+     a backend do real work (favourites, like/dislike, share, fullscreen, report
+     opens the bug mailto); feedback is a no-op. */
+  function wireStageButtons(game) {
+    var frame = document.getElementById("game-iframe");
+    var favBtn = document.getElementById("addFavoritesGame");
+    if (favBtn) {
+      var favs = favSlugs();
+      favBtn.classList.toggle("active", favs.indexOf(game.slug) >= 0);
+      favBtn.addEventListener("click", function () {
+        var list = favSlugs();
+        var at = list.indexOf(game.slug);
+        if (at >= 0) list.splice(at, 1); else list.push(game.slug);
+        saveFavs(list);
+        favBtn.classList.toggle("active", at < 0);
+        paintFavs();
+      });
     }
+
+    ["likeGame", "dislikeGame"].forEach(function (id) {
+      var btn = document.getElementById(id);
+      if (!btn) return;
+      var votes = readMap(VOTE_KEY);
+      btn.classList.toggle("active", votes[game.slug] === id);
+      btn.addEventListener("click", function () {
+        var map = readMap(VOTE_KEY);
+        var was = map[game.slug] === id;
+        if (was) { delete map[game.slug]; }
+        else { map[game.slug] = id; }
+        writeMap(VOTE_KEY, map);
+        var likes = readMap(LIKE_KEY);
+        var count = Number(game.votes || 0) + (map[game.slug] === "likeGame" ? 1 : 0);
+        var counter = document.getElementById("cgLikeCount");
+        if (counter) counter.textContent = count;
+        var like = document.getElementById("likeGame");
+        var dislike = document.getElementById("dislikeGame");
+        if (like) like.classList.toggle("active", map[game.slug] === "likeGame");
+        if (dislike) dislike.classList.toggle("active", map[game.slug] === "dislikeGame");
+        likes[game.slug] = map[game.slug];
+        writeMap(LIKE_KEY, likes);
+      });
+    });
+
+    var share = document.getElementById("shareGame");
+    if (share) share.addEventListener("click", function () {
+      var url = location.href;
+      if (navigator.share) navigator.share({ title: game.title, url: url });
+      else if (navigator.clipboard) navigator.clipboard.writeText(url);
+    });
+
+    var expand = document.getElementById("expand");
+    if (expand && frame) expand.addEventListener("click", function () {
+      toggleFullscreen(frame, expand);
+    });
+
+    var report = document.getElementById("reportGame");
+    if (report) report.addEventListener("click", function () {
+      location.href = "mailto:?subject=" + encodeURIComponent("Bug report: " + game.title) +
+        "&body=" + encodeURIComponent("Describe the problem with " + game.title + " here.");
+    });
+  }
+
+  function initPlay() {
+    var frame = document.getElementById("game-iframe");
+    if (!frame) return;
 
     // Game pages live at the site root (/<slug>); ?g=<slug> still works for
     // any links already in the wild.
@@ -496,24 +582,25 @@
     document.title = game.title + " - Games";
     markPlayed(game.slug);
 
-    if (frame.getAttribute("src") !== game.embed) frame.src = game.embed;
+    frame.setAttribute("src", game.embed);
 
-    var h1 = document.getElementById("cgStageTitle");
-    if (h1) h1.textContent = game.title;
-    var crumbGame = document.getElementById("cgCrumbGame");
-    if (crumbGame) crumbGame.textContent = game.title;
+    // The reference page carries the same slots the server filled for the
+    // default game; re-fill them for the slug actually requested.
+    text(".css-inwm4l", game.title);
+    text("h1", game.title);
+    text(".Breadcrumbs_breadcrumbs__L3mrb div:last-child span", game.title);
 
-    // Rating: the catalogue's 0-10 value with its vote count, else a plain note.
-    var meta = document.getElementById("cgMetaRating");
+    var meta = document.querySelector(".GameSummary_gameTableRowContent__RW5fE");
     if (meta) {
       meta.innerHTML = game.rating
-        ? "<b>" + Number(game.rating).toFixed(1) + '</b><span class="cg-votes">(' +
-          (game.votes || 0) + " votes)</span>"
-        : "Not rated yet";
+        ? '<div style="font-weight:900">' + Number(game.rating).toFixed(1) +
+          '</div><div style="font-weight:400;font-size:12px;margin-left:4px">(' +
+          (game.votes || 0) + " votes)</div>"
+        : '<div style="font-weight:900">-</div>';
     }
 
     var cats = game.categories || [];
-    var tags = document.getElementById("cgMetaCats");
+    var tags = document.querySelector(".GameTags_gameTagChipContainer__F5xPO");
     if (tags) {
       tags.innerHTML = cats.map(function (c) {
         return '<a href="./?category=' + encodeURIComponent(c) + '">' +
@@ -521,14 +608,8 @@
           "</p><span>&rsaquo;</span></div></a>";
       }).join("");
     }
-    var crumbCat = document.getElementById("cgCrumbCat");
-    if (crumbCat) {
-      var primary = cats[0] || "Casual";
-      crumbCat.textContent = primary;
-      crumbCat.href = "./?category=" + encodeURIComponent(primary);
-    }
 
-    var desc = document.getElementById("cgMetaDesc");
+    var desc = document.querySelector(".GameInfo_styledHtmlDiv__Zg2EY");
     if (desc) {
       var body = game.desc && game.desc.length > 40
         ? esc(game.desc)
@@ -538,7 +619,7 @@
         body + "</p>";
     }
 
-    // Related first (shared category), then the rest, so both grids show
+    // Related first (shared category), then the rest, so the sidebar shows
     // genre-mates instead of the catalogue's first alphabetical entries.
     var others = games.filter(function (g) { return g.slug !== game.slug; });
     var sameCat = others.filter(function (g) {
@@ -547,15 +628,41 @@
     var related = sameCat.concat(others.filter(function (g) {
       return sameCat.indexOf(g) < 0;
     }));
-
-    var more = document.getElementById("cgMoreGrid");
-    if (more) more.innerHTML = related.slice(0, 15).map(playCard).join("");
     var side = document.getElementById("cgSideList");
-    if (side) side.innerHTML = related.slice(0, 20).map(playCard).join("");
+    if (side) side.innerHTML = related.slice(0, 28).map(playCard).join("");
+    var more = document.getElementById("cgMoreGrid");
+    if (more) more.innerHTML = related.slice(0, 12).map(playCard).join("");
+
+    wireStageButtons(game);
+    initBackToTop(frame);
   }
 
-  /* Play-page thumb: the sportsgamesaz/2026 anchor shape (title overlay, vignette,
-     image), not the home carousel's <li> card. */
+  function text(sel, value) {
+    var el = document.querySelector(sel);
+    if (el) el.textContent = value;
+  }
+
+  /* The reference "Back to game" button floats over the page once the player
+     has scrolled past it and returns you to the player. */
+  function initBackToTop(frame) {
+    var box = document.querySelector(".BackToTop_buttonContainer__GQast");
+    if (!box) return;
+    var player = document.querySelector(
+      ".GamePageDesktop_gfAspectRatioContainer__f_hUp") || frame;
+    var btn = box.querySelector("button");
+    function onScroll() {
+      var past = player.getBoundingClientRect().bottom < 0;
+      box.classList.toggle("BackToTop_hide__qS9u6", !past);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    if (btn) btn.addEventListener("click", function () {
+      player.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  /* Play-page thumb: the sportsgamesaz anchor shape (title overlay, vignette,
+     image). */
   function playCard(g) {
     var t = esc(g.title);
     return '<a class="GameThumb_gameThumbLinkDesktop__wcir5 ' +

@@ -1045,6 +1045,15 @@ def source_sportsgamesaz():
         embed = html.unescape(inner.group(1))
         if "gamedistribution.com" in urllib.parse.urlsplit(embed).netloc:
             continue
+        # The wrapper page's <title> is "Play <game> Game Online !" - the real
+        # display name, which beats title-casing the slug.
+        title = ""
+        tm = re.search(r"<title>([^<]+)</title>", page)
+        if tm:
+            title = re.sub(r"^\s*Play\s+|\s+Game Online\s*!?\s*$", "",
+                           html.unescape(tm.group(1))).strip()
+        if not title:
+            title = re.sub(r"[-_]+", " ", slug).strip().title()
         thumb = ""
         for ext in (".png", ".webp"):
             url = f"https://sportsgamesaz.io/data/image/game/{slug}{ext}"
@@ -1053,17 +1062,24 @@ def source_sportsgamesaz():
                 break
         out.append({
             "slug": slug,
-            "title": re.sub(r"[-_]+", " ", slug).strip().title(),
+            "title": title,
             "embed": embed,
             "thumbSource": thumb,
             "categories": ["Sports"],
             "rating": None,
+            # Attributed to the aggregator the catalogue came from, not the
+            # provider host, so the play page's Source row reads "SportsGamesAZ".
+            "source": "SportsGamesAZ",
         })
     return out
 
 
 SOURCES = [
-    ("crazygames", source_crazygames),
+    # SportsGamesAZ first: its entries are the most curated (real titles, direct
+    # provider embeds) and they must win de-duplication over the bulk feeds so
+    # games like soccer-bros load their provider directly instead of a
+    # CrazyGames frame.
+    ("sportsgamesaz.io", source_sportsgamesaz),
     ("retrobowl26.com", source_retrobowl26),
     ("iogames.space", source_iogames_space),
     ("iogames.fun", source_iogames_fun),
@@ -1073,7 +1089,6 @@ SOURCES = [
     ("gamepix", source_gamepix),
     ("playgama", source_playgama),
     ("retrogames.cc", source_retrogames),
-    ("sportsgamesaz.io", source_sportsgamesaz),
 ]
 
 # Hand-picked games that are not part of any catalogue above. They are added
@@ -1088,6 +1103,16 @@ SPECIAL_GAMES = [
                         "/256/256/Image/Webp/noFilter"),
         "categories": [],
         "rating": None,
+    },
+    {
+        "slug": "sonic-robo-blast-2",
+        "title": "Sonic Robo Blast 2",
+        "embed": "https://vinmannie.github.io/srb2web/",
+        "thumbSource": ("https://srb2wp-data.nyc3.cdn.digitaloceanspaces.com"
+                        "/wp-content/uploads/srb2-title.png"),
+        "categories": ["Action", "Adventure"],
+        "rating": None,
+        "source": "SRB2 Web",
     },
 ]
 
@@ -1216,6 +1241,11 @@ def main():
     print("upgrading http embeds to https where possible")
     playable = []
     for game in games:
+        # CrazyGames frames are region-blocked for this site's audience, so no
+        # game may embed one even if a feed still lists it.
+        if "crazygames.com" in urllib.parse.urlsplit(game["embed"]).netloc:
+            print(f"  - dropping {game['slug']} (crazygames embed)", file=sys.stderr)
+            continue
         game["embed"] = https_embed(game["embed"])
         if game["embed"].startswith("http://"):
             # An http embed would be blocked as mixed content on our https site.
@@ -1240,7 +1270,9 @@ def main():
     # "Source:" row. Derived from the final embed host, so it stays correct
     # however the sources are reordered.
     for game in games:
-        game["source"] = source_label(game.get("embed") or "")
+        # A source may name itself (the aggregator it came from); otherwise
+        # derive it from the final embed host.
+        game["source"] = game.get("source") or source_label(game.get("embed") or "")
 
     ensure_team(games)
 

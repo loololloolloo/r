@@ -372,12 +372,131 @@
     width: 100%;
     gap: 6px;
     margin: 0px; }
-  .css-1h1938b { /* display: flex;
-    flex-direction: column;
+  /* Footer action bar under the player, lifted from the sportsgamesaz build:
+     game name on the left, voting / favourite / feedback / share / report /
+     fullscreen buttons on the right. */
+  .css-1h1938b { display: block;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    flex-shrink: 0 }
+  .css-1xe247z { display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    box-sizing: content-box;
+    background: rgb(33, 34, 51);
+    z-index: 1;
+    width: 100%;
+    height: 45px }
+  .css-lhmnzp { box-sizing: border-box;
+    margin: 0px;
+    flex-direction: row;
+    padding-left: 16px;
+    min-width: 0 }
+  .css-glv0sd { font-size: 24px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    overflow: hidden }
+  .css-inwm4l { font-size: 1rem;
+    font-weight: 900;
+    margin-left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis }
+  .css-u9enjd { box-sizing: border-box;
+    margin: 0px;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 8px }
+  .css-1h1owej { box-sizing: border-box;
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    margin: 0px;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px }
+  .css-16hlm1x { box-sizing: border-box;
+    margin: 0px;
+    flex-direction: row;
+    cursor: pointer;
+    font-weight: bold;
+    height: 32px;
+    position: relative }
+  .footerButton { position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    font-family: Nunito, Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.75;
+    text-transform: uppercase;
+    display: inline-flex;
+    min-width: 40px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-100);
+    outline: 0px;
+    margin: 0px;
+    text-decoration: none;
+    border: 0;
+    background: #0000;
+    transition: background-color 250ms cubic-bezier(.4, 0, .2, 1);
+    padding: 6px 12px;
+    border-radius: 50px }
+  .footerButton:hover { background: rgb(63, 65, 92) }
+  .footerButton svg { width: 20px;
+    height: 20px;
+    fill: #fff;
+    display: inline-block;
+    flex-shrink: 0 }
+  .footerButton .svg-active { display: none }
+  .footerButton.active { background: rgb(33, 34, 51);
+    border: 1px solid rgb(55, 57, 82) }
+  .footerButton.active .svg-active { display: flex }
+  .footerButton.active .svg-unactive { display: none }
+  .footerButton .ratingLabel { font-size: 12px;
+    font-weight: 700;
+    margin-left: 4px;
+    line-height: 1 }
+  .footerButton::after { content: attr(data-content);
     position: absolute;
-    bottom: 0px;
-    z-index: 2;
-    width: 100%; */ }
+    bottom: 100%;
+    background-color: rgba(97, 97, 97, .92);
+    border-radius: 4px;
+    color: #fff;
+    font-family: Nunito, Arial, "Helvetica Neue", Helvetica, sans-serif;
+    padding: 4px 8px;
+    font-size: .785714rem;
+    max-width: 300px;
+    margin: 2px 2px 14px;
+    overflow-wrap: break-word;
+    font-weight: 500;
+    transform-origin: center bottom;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms cubic-bezier(.4, 0, .2, 1), transform 133ms cubic-bezier(.4, 0, .2, 1);
+    text-transform: none;
+    white-space: nowrap }
+  .footerButton:hover::after { opacity: 1;
+    visibility: visible }
+  @media(max-width:819px) {
+    .css-1xe247z { height: auto;
+        gap: 8px;
+        padding: 8px;
+        min-height: 45px;
+        box-sizing: border-box }
+    .css-1xe247z, .css-1h1owej { flex-wrap: wrap;
+        justify-content: center }
+    .css-inwm4l { display: none } }
   .css-uwwqev { width: 100%;
     height: 100%; }
   .GamePageDesktop_gfAspectRatioContainer__f_hUp { position: relative; }
