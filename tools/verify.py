@@ -230,6 +230,20 @@ RECENT_VIEW = r"""(()=>{
    stored:localStorage.getItem('cg-recent')};})()"""
 
 
+# A star rating set in the admin panel (Ctrl+Alt+A) must override the catalogue
+# rating on the play page. Retro Bowl 26 has no catalogue rating, so before the
+# fix its Rating row stayed "-" no matter what was rated.
+RATING_SEED = ("localStorage.setItem('cg-admin-ratings',"
+               "JSON.stringify({'retro-bowl-26':4})); 'seeded'")
+RATING_VIEW = r"""(()=>{
+ const m=document.querySelector('.GameSummary_gameTableRowContent__RW5fE');
+ const before=m?m.textContent.trim():null;
+ // Simulate setting a rating in the admin panel: same store, same event.
+ localStorage.setItem('cg-admin-ratings',JSON.stringify({'retro-bowl-26':5}));
+ document.dispatchEvent(new CustomEvent('cg:ratingchange'));
+ return {before:before, after:m?m.textContent.trim():null};})()"""
+
+
 def main():
     home = cdp.run(BASE + "/", MEAS, port=9350, wait=7)
     play = cdp.run(BASE + "/" + PLAY_SLUG, MEAS, port=9351, wait=7)
@@ -249,6 +263,12 @@ def main():
         (BASE + "/retro-bowl", None),
         (BASE + "/?recent=1", RECENT_VIEW),
     ], port=9365, wait=8)
+    # Seed a manual rating, open the game, then change the rating while the page
+    # is open: the Rating row must reflect both.
+    manual = cdp.run_seq([
+        (BASE + "/", RATING_SEED),
+        (BASE + "/retro-bowl-26", RATING_VIEW),
+    ], port=9366, wait=7)
     failed = cdp.failed_requests(BASE + "/", port=9357, wait=7)
     total_cards = home["cards"]
 
@@ -383,6 +403,13 @@ def main():
           fav.get("cardBox") is not None and fav["cardBox"][0] > 100
           and abs(fav["cardBox"][0] / fav["cardBox"][1] - 16 / 9) < 0.1,
           json.dumps(fav.get("cardBox")))
+
+    # A manual star rating overrides the catalogue rating on the play page, both
+    # on load and live when it is changed while the page is open.
+    check("manual rating overrides catalogue",
+          manual.get("before") == "4(your rating)"
+          and manual.get("after") == "5(your rating)",
+          json.dumps(manual))
 
     # 2026 CrazyGames palette, not the stock Bootstrap dark theme.
     check("2026 crazygames palette",

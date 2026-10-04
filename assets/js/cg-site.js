@@ -525,6 +525,15 @@
     try { localStorage.setItem(key, JSON.stringify(map)); } catch (e) {}
   }
 
+  /* Star ratings set from the admin panel (Ctrl+Alt+A) live in their own store;
+     they override the catalogue rating on the play page. */
+  var MANUAL_RATING_KEY = "cg-admin-ratings";
+
+  function manualRating(slug) {
+    var v = Number(readMap(MANUAL_RATING_KEY)[slug]);
+    return v > 0 ? v : 0;
+  }
+
   function toggleFullscreen(frame, btn) {
     // Fullscreen the game box only, so the footer bar under the player (with
     // this button) is not carried into fullscreen.
@@ -628,11 +637,30 @@
 
     var meta = document.querySelector(".GameSummary_gameTableRowContent__RW5fE");
     if (meta) {
-      meta.innerHTML = game.rating
-        ? '<div style="font-weight:900">' + Number(game.rating).toFixed(1) +
-          '</div><div style="font-weight:400;font-size:12px;margin-left:4px">(' +
-          (game.votes || 0) + " votes)</div>"
-        : '<div style="font-weight:900">-</div>';
+      // A manual rating replaces the catalogue one outright and reads as
+      // "(your rating)"; otherwise show the catalogue rating and vote count.
+      var manual = manualRating(game.slug);
+      meta.innerHTML = manual
+        ? '<div style="font-weight:900">' + manual +
+          '</div><div style="font-weight:400;font-size:12px;margin-left:4px">(your rating)</div>'
+        : game.rating
+          ? '<div style="font-weight:900">' + Number(game.rating).toFixed(1) +
+            '</div><div style="font-weight:400;font-size:12px;margin-left:4px">(' +
+            (game.votes || 0) + " votes)</div>"
+          : '<div style="font-weight:900">-</div>';
+
+      // Setting a rating in the admin panel repaints this without a reload.
+      document.addEventListener("cg:ratingchange", function () {
+        var now = manualRating(game.slug);
+        meta.innerHTML = now
+          ? '<div style="font-weight:900">' + now +
+            '</div><div style="font-weight:400;font-size:12px;margin-left:4px">(your rating)</div>'
+          : game.rating
+            ? '<div style="font-weight:900">' + Number(game.rating).toFixed(1) +
+              '</div><div style="font-weight:400;font-size:12px;margin-left:4px">(' +
+              (game.votes || 0) + " votes)</div>"
+            : '<div style="font-weight:900">-</div>';
+      });
     }
 
     var cats = game.categories || [];

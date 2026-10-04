@@ -327,7 +327,11 @@ theme layer sits on top:
     a title match), so the entry is not just the 17 games the feeds tag `Team`.
   - Admin panel: **Ctrl+Alt+A** toggles a modal on any page (standalone `./admin` page
     linked from the header once opened). It searches the catalogue and stores 1–5 star
-    ratings in `localStorage`, which override the play page's `Rating:` row.
+    ratings in `localStorage` under `cg-admin-ratings`, which override the play page's
+    `Rating:` row. `cg-admin.js` writes the store; `cg-site.js` reads it in `initPlay`
+    and repaints on the `cg:ratingchange` event. A manual rating shows as `N (your
+    rating)` in place of the catalogue `x.x (N votes)`. Many games (e.g. `retro-bowl-26`)
+    have no catalogue rating at all, so without this override the row just reads `-`.
   - Theme is the archived 2026 CrazyGames stylesheet (`assets/cg2026/theme.css`), loaded
     before our `assets/css/cg.css` layer. The palette lives in the archive bundle
     (`#0c0d14` body, `#1a1b28` header, `#6842ff` accent) plus our `:root` overrides.
