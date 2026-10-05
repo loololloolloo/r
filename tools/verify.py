@@ -20,6 +20,11 @@ BASE = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:12000"
 PLAY_SLUG = "1-archery-master"
 PLAY_TITLE = "1 Archery Master"
 
+# A gameslol.net game: self-hosted HTML5 build with its own rating/votes,
+# genre tag and description. Verifies the gameslol merge stays playable and
+# enriched like every other source.
+GAMESLOL_SLUG = "a-grim-chase-1420"
+
 # Archive reference values (getComputedStyle on the archived 2026 page at 1430px).
 ARCHIVE = {
     "header": {"x": 0, "y": 0, "w": 1430, "h": 60},
@@ -252,6 +257,7 @@ def main():
     sbox = cdp.run(BASE + "/", SEARCHBOX, port=9354, wait=7)
     sport = cdp.run(BASE + "/?category=Sports", CATEGORY, port=9356, wait=7)
     load = cdp.run(BASE + "/" + PLAY_SLUG, LOADER, port=9355, wait=8)
+    gameslol = cdp.run(BASE + "/" + GAMESLOL_SLUG, LOADER, port=9367, wait=8)
     fav = cdp.run(BASE + "/", FAVORITES, port=9358, wait=7)
     theme = cdp.run(BASE + "/", THEME, port=9360, wait=7)
     admin = cdp.run(BASE + "/", ADMIN, port=9361, wait=7)
@@ -339,6 +345,20 @@ def main():
           (play["desc"] or "")[:60])
     check("play has favorites button", play["playFavBtn"] is True,
           str(play["playFavBtn"]))
+
+    # gameslol games load their own self-hosted player and carry the rating,
+    # tag and description scraped from the source page.
+    check("gameslol game loads its own player",
+          gameslol["frame"] and gameslol["src"]
+          and "gameslol.net" in gameslol["src"],
+          (gameslol["src"] or "")[:60])
+    check("gameslol game shows rating + votes",
+          gameslol["meta"] and "(" in gameslol["meta"]
+          and "0 votes)" not in gameslol["meta"],
+          str(gameslol["meta"]))
+    check("gameslol game shows real description",
+          gameslol["desc"] and len(gameslol["desc"]) > 80,
+          (gameslol["desc"] or "")[:60])
 
     # FPS games are few and grow as sources are added, so assert it narrows
     # rather than pinning a count that every catalogue change invalidates.

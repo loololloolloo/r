@@ -126,8 +126,10 @@ theme layer sits on top:
   localStorage-only version is worse than nothing because it looks global but is not.
 
 ## Games data
-- `data/games.json` is the catalogue: `{slug, title, thumb, embed, categories, rating}`.
-  Currently **69,997 games** (well past the 10k+ target), capped by `MAX_GAMES`
+- `data/games.json` is the catalogue:
+  `{slug, title, thumb, embed, categories, rating, source, thumbSource}` plus optional
+  `desc`, `tags`, `votes` (the play-page enrichment). Currently **80,008 games** (well
+  past the 10k+ target), capped by `MAX_GAMES`
   (120000). Regenerate with `python3 tools/fetch-games.py`. It merges several public
   catalogues, in priority order, and de-duplicates across them (by slug, normalised
   title, and embed host+path) so the same game listed twice appears once. The cap
@@ -167,6 +169,23 @@ theme layer sits on top:
   9. **Playgama** — four sitemaps listed from `/sitemap.xml`, each entry carrying the
      slug, an `<image:loc>` cover and the title in the og path. The portal allows framing
      (`frame-ancestors *`) and `/game/<slug>` renders the game directly. ~8.9k games.
+ 10. **gameslol.net** (`en.gameslol.net`) — `sitemap.xml` lists `/<slug>-<id>.html` game
+     pages. The player is an `<iframe id="embed">` injected by inline JS with escaped
+     quotes, so `_gameslol_page()` unescapes `\"`/`\/` before reading the src. Most builds
+     are self-hosted under `/data/` (HTML5/Flash/emulator) and frame fine; the breadcrumb
+     JSON-LD names the genre page, which `GAMESLOL_GENRES` maps to our rail names. The
+     page's 10-point rating is halved to the catalogue's 5-point scale, and its
+     `meta description` + rating count become `desc` + `votes`. Skipped: GameDistribution
+     (renders blank here) and playhop.com (X-Frame-Options: SAMEORIGIN), plus a small
+     `GAMESLOL_SKIP_HOSTS` blocklist of login endpoints and dead/403/404 players.
+- **`fetch-games.py --only <source>` merges one source into the committed catalogue**
+  instead of re-fetching every feed. A full run takes ~30 min and re-derives every
+  record; `--only` loads `data/games.json` as the starting point, appends just that
+  source's entries, and re-dedupes. Adding games this way left 0 existing records
+  changed and 0 removed. `merge_into_existing()` also guards a full run: it carries
+  `desc`/`tags`/`votes` over from the committed file for any game that still exists,
+  because the committed builder does not read those fields from the feeds and a plain
+  rebuild would silently wipe them (they are ~51k/44k/7k records).
 - **Thumbnails are hotlinked, not mirrored** (`HOTLINK_THUMBS`). A 70k-game catalogue
   cannot be downloaded icon-by-icon in a reasonable time or committed to the repo
   (~36MB for 1k games, so ~2GB at 70k). The source CDNs serve their icons with

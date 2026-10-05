@@ -101,6 +101,57 @@ RETROBOWL26_SKIP = {
     "term-of-use", "copyright-infringement-notice-procedure",
 }
 
+# gameslol.net: game pages are /<slug>-<id>.html; the player iframe is injected
+# by script with escaped quotes, so the raw markup has to be unescaped first.
+# Its breadcrumb JSON-LD names the genre page, which maps to our rail names.
+GAMESLOL_NON_GAME = re.compile(r"/(page-\d+|contact|privacy|tags)\.(html|php)$")
+GAMESLOL_GENRES = {
+    "1-action-games.html": "Action",
+    "2-adventure-games.html": "Adventure",
+    "3-kids-games.html": "Casual",
+    "4-girl-games.html": "Casual",
+    "5-bike-games.html": "Racing",
+    "6-puzzle-games.html": "Puzzle",
+    "7-sports-games.html": "Sports",
+    "8-car-games.html": "Racing",
+    "arcade-games.php": "Arcade",
+    "board-games.php": "Board",
+    "bubble-games.php": "Puzzle",
+    "card-games.php": "Card",
+    "cooking-games.php": "Cooking",
+    "dress-up-games.php": "Casual",
+    "fantasy-games.php": "Fantasy",
+    "fighting-games.php": "Fighting",
+    "hidden-objects-games.php": "Puzzle",
+    "idle-games.php": "Clicker",
+    "mahjong-games.php": "Board",
+    "match-3-games.php": "Puzzle",
+    "music-games.php": "Music",
+    "parking-games.php": "Racing",
+    "platform-games.php": "Platform",
+    "quiz-games.php": "Quiz",
+    "retro-games.php": "Retro",
+    "rpg-games.php": "RPG",
+    "shooting-games.php": "Shooter",
+    "simulation-games.php": "Simulation",
+    "strategy-games.php": "Strategy",
+}
+
+# gameslol entries whose player is not actually a playable, frameable game.
+# Each was checked by hand: a login endpoint, hosts that answer 403/404/dead,
+# and two that send X-Frame-Options: SAMEORIGIN. Hosts are stored without a
+# leading "www." because the page parser strips it before matching.
+GAMESLOL_SKIP_HOSTS = {
+    "auth-live.gop3.nl",           # Governor of Poker 3: auth endpoint
+    "bonk.io",                     # X-Frame-Options: SAMEORIGIN
+    "cdn.gameplayer.io",           # dead host
+    "emea.iframed.cn.dmti.cloud",  # dead host
+    "freefalltournament.com",      # redirects to a non-game page
+    "gameflare.com",               # 403 + X-Frame-Options: SAMEORIGIN
+    "hidden4fun.com",              # unreachable
+    "warmerise.com",               # 404
+}
+
 
 def fetch(url, timeout=30):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
@@ -422,6 +473,7 @@ SOURCE_NAMES = [
     ("retrobowl26.com", "Retro Bowl"),
     ("retrobowlfree.io", "Retro Bowl"),
     ("retrogames.cc", "RetroGames"),
+    ("gameslol.net", "GamesLOL"),
 ]
 
 
@@ -1074,12 +1126,119 @@ def source_sportsgamesaz():
     return out
 
 
+def source_gameslol():
+    """gameslol.net: ~1,800 game pages, each a self-hosted HTML5/Flash/emulator build.
+
+    The sitemap lists /<slug>-<id>.html for every game (plus page-N.html
+    listings and the legal/tag pages, which are filtered out). The player is an
+    iframe injected by inline script with escaped quotes, so the markup is
+    unescaped before the src is read. Gameslol self-hosts most builds under
+    /data/, which frames fine; the genre page named by the breadcrumb JSON-LD
+    becomes the category.
+
+    Two families are skipped: GameDistribution frames (the site has no GD
+    integration and they render blank) and playhop.com (X-Frame-Options
+    SAMEORIGIN plus a frame-ancestors policy).
+    """
+    xml = fetch_text("https://en.gameslol.net/sitemap.xml", timeout=30)
+    urls = []
+    for loc in re.findall(r"<loc>([^<]+)</loc>", xml):
+        if not loc.endswith(".html") or GAMESLOL_NON_GAME.search(loc):
+            continue
+        urls.append(loc)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        pages = list(pool.map(_gameslol_page, urls))
+    return [game for game in pages if game]
+
+
+def _gameslol_page(url):
+    try:
+        page = fetch_text(url, timeout=25)
+    except (urllib.error.URLError, OSError, ValueError) as exc:
+        print(f"  ! gameslol {url.rsplit('/', 1)[-1]}: {exc}", file=sys.stderr)
+        return None
+    # The iframe is written into innerHTML by inline JS, so its quotes and
+    # slashes arrive escaped ("<iframe id=\"embed\" src=\"data\/...\">").
+    markup = page.replace('\\"', '"').replace('\\/', '/')
+    inner = re.search(r'id="embed"\s+src="([^"]+)"', markup)
+    if not inner:
+        inner = re.search(r'<iframe[^>]*\ssrc="([^"]+)"', markup)
+    if not inner:
+        return None  # a page without a player is not a game
+    src = html.unescape(inner.group(1))
+    host = urllib.parse.urlsplit(src).netloc
+    if "gamedistribution.com" in host or "playhop.com" in host:
+        return None
+    if host.startswith("www."):
+        host = host[4:]
+    if host in GAMESLOL_SKIP_HOSTS:
+        return None
+    # Relative srcs point at gameslol's own /data/ builds; the page is served
+    # over https, so an absolute src keeps the embed on the same host.
+    embed = src if src.startswith("http") else "https://en.gameslol.net/" + src.lstrip("/")
+
+    title = ""
+    match = re.search(r"<title>([^<]+)</title>", page)
+    if match:
+        title = re.sub(r"\s*-\s*Play Online.*$", "",
+                       html.unescape(match.group(1))).strip()
+    slug = re.sub(r"\.html$", "", url.rstrip("/").rsplit("/", 1)[-1])
+
+    genre = re.search(r'"@id":"([^"]+games\.(?:html|php))"', page)
+    categories = []
+    if genre and genre.group(1) in GAMESLOL_GENRES:
+        categories = [GAMESLOL_GENRES[genre.group(1)]]
+
+    thumb = ""
+    om = re.search(r'property="og:image"\s+content="([^"]+)"', page)
+    if not om:
+        om = re.search(r'content="([^"]+)"\s+property="og:image"', page)
+    if om:
+        thumb = html.unescape(om.group(1))
+
+    # The page publishes a 10-point rating (8/10, 35 ratings) and a short
+    # description. The catalogue is on a 5-point scale, so the rating is halved.
+    rating = None
+    votes = None
+    rm = re.search(r'"ratingValue":\s*([\d.]+)', page)
+    if rm:
+        try:
+            rating = round(float(rm.group(1)) / 2, 1)
+        except ValueError:
+            rating = None
+    vm = re.search(r'"ratingCount":\s*(\d+)', page)
+    if vm:
+        votes = int(vm.group(1))
+
+    desc = ""
+    dm = re.search(r'<meta name="description" content="([^"]*)"', page)
+    if dm:
+        desc = html.unescape(dm.group(1)).strip()
+
+    game = {
+        "slug": slug,
+        "title": title or re.sub(r"[-_]+", " ", slug).strip().title(),
+        "embed": embed,
+        "thumbSource": thumb,
+        "categories": categories,
+        "rating": rating,
+    }
+    if votes:
+        game["votes"] = votes
+    if desc:
+        game["desc"] = desc
+    return game
+
+
 SOURCES = [
     # SportsGamesAZ first: its entries are the most curated (real titles, direct
     # provider embeds) and they must win de-duplication over the bulk feeds so
     # games like soccer-bros load their provider directly instead of a
-    # CrazyGames frame.
+    # CrazyGames frame. gameslol comes next: its self-hosted builds are also
+    # better than a bulk feed's generic frame.
     ("sportsgamesaz.io", source_sportsgamesaz),
+    ("gameslol.net", source_gameslol),
     ("retrobowl26.com", source_retrobowl26),
     ("iogames.space", source_iogames_space),
     ("iogames.fun", source_iogames_fun),
@@ -1197,13 +1356,58 @@ def dedupe(raw_games):
     return kept
 
 
+def merge_into_existing(games, path):
+    """Fold the freshly built catalogue back over the committed one.
+
+    The feeds carry more than fetch-games.py records: descriptions, keyword tags
+    and vote counts are read straight from the source feeds, and the play page
+    depends on them. Rebuilding would otherwise drop those fields, so for a game
+    that is already in the catalogue the new record wins but any enrichment it
+    lacks is carried over. Games are keyed by slug *and* by embed identity, so a
+    game that changed slug between runs is matched by its player URL instead of
+    being duplicated.
+    """
+    try:
+        with open(path, encoding="utf-8") as fh:
+            old = json.load(fh)
+    except (OSError, ValueError):
+        return games
+    by_slug = {g["slug"]: g for g in old}
+    by_embed = {embed_key(g["embed"]): g for g in old if g.get("embed")}
+    carried = 0
+    for game in games:
+        prev = by_slug.get(game["slug"]) or by_embed.get(embed_key(game["embed"]))
+        if not prev:
+            continue
+        for field in ("desc", "tags", "votes"):
+            if not game.get(field) and prev.get(field):
+                game[field] = prev[field]
+                carried += 1
+    print(f"carried {carried} enrichment fields from the existing catalogue")
+    return games
+
+
 def main():
     if not HOTLINK_THUMBS:
         os.makedirs(IMG_DIR, exist_ok=True)
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
 
-    raw = [dict(game) for game in SPECIAL_GAMES]
+    # `--only <source>` merges a single source into the committed catalogue
+    # instead of rebuilding every feed. A full run re-fetches all ~130k entries
+    # and can take half an hour, which is overkill for adding one catalogue; the
+    # other sources are left exactly as they are.
+    only = None
+    if "--only" in sys.argv:
+        only = sys.argv[sys.argv.index("--only") + 1]
+        with open(DATA_FILE, encoding="utf-8") as fh:
+            raw = json.load(fh)
+        print(f"merging into {len(raw)} existing games")
+    else:
+        raw = [dict(game) for game in SPECIAL_GAMES]
+
     for name, fn in SOURCES:
+        if only and name != only:
+            continue
         print(f"source: {name}")
         try:
             found = fn()
@@ -1233,6 +1437,10 @@ def main():
     # re-skin of the same embed, so de-duplication will not collapse them.
     games = dedupe(raw)
     print(f"{len(games)} games after de-duplication")
+
+    # Keep the description/tags/votes the committed catalogue already has; the
+    # committed builder does not read those from the feeds.
+    games = merge_into_existing(games, DATA_FILE)
 
     if len(games) > MAX_GAMES:
         print(f"capping at {MAX_GAMES} (dropping {len(games) - MAX_GAMES} from the tail)")
