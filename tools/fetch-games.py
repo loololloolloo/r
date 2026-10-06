@@ -1231,6 +1231,47 @@ def _gameslol_page(url):
     return game
 
 
+def source_ucwgp():
+    """Ultimate Catalog of Web Game Ports: hand-curated browser ports.
+
+    Carter54git/Ultimate-Catalog-Of-Web-Game-Ports is a README-only list of
+    ports (WASM/Unity/Godot/Flash) with demo and repository links. It publishes
+    no machine-readable feed and most ports are not on any portal we already
+    index, so the resolved list is committed as `data/ucwgp-source.json`
+    (`{name, slug, embed, thumb, repo, kind}`) and read here.
+
+    The `embed` is the port's own play page (gn-math.dev for the games that
+    portal carries, otherwise the porter's host). `thumb` is a local
+    `assets/img/games/<slug>.jpg` produced by tools/fetch-ucwgp-thumbs.py, so
+    these entries carry real cover art instead of a hotlinked CDN icon.
+    """
+    path = os.path.join(ROOT, "data", "ucwgp-source.json")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            entries = json.load(fh)
+    except (OSError, ValueError) as exc:
+        print(f"  ! ucwgp source: {exc}", file=sys.stderr)
+        return []
+
+    games = []
+    for entry in entries:
+        name = (entry.get("name") or "").strip()
+        embed = (entry.get("embed") or "").strip()
+        thumb = (entry.get("thumb") or "").strip()
+        if not name or not embed or not thumb:
+            continue
+        games.append({
+            "slug": entry.get("slug") or slugify(name),
+            "title": name,
+            "embed": embed,
+            "thumbSource": thumb,
+            "categories": [],
+            "rating": None,
+            "source": "Ultimate Catalog of Web Game Ports",
+        })
+    return games
+
+
 SOURCES = [
     # SportsGamesAZ first: its entries are the most curated (real titles, direct
     # provider embeds) and they must win de-duplication over the bulk feeds so
@@ -1239,6 +1280,9 @@ SOURCES = [
     # better than a bulk feed's generic frame.
     ("sportsgamesaz.io", source_sportsgamesaz),
     ("gameslol.net", source_gameslol),
+    # Curated hand-built ports; listed early so their real titles/embeds win
+    # de-duplication over the bulk feeds' generic frames.
+    ("ucwgp", source_ucwgp),
     ("retrobowl26.com", source_retrobowl26),
     ("iogames.space", source_iogames_space),
     ("iogames.fun", source_iogames_fun),
